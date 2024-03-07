@@ -1,7 +1,10 @@
 import Image from "next/image";
+import Landing from "./pages/Landing";
 
 export default function Home() {
   return (
-    <div className = "text-rose-500 text-2xl">Papa azul</div>
+    <div>
+      <Landing />
+    </div>
   );
 }
