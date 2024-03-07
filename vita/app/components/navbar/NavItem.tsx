@@ -7,7 +7,7 @@ interface NavItemProps {
 }
 
 const NavItem: React.FC<NavItemProps> = ({ color, title }) => {
-  const className = `${color} text-lg font-bold`;
+  const className = `${color} text-lg font-bold font-nats`;
   return (
     <div className={className}>
       {title}

@@ -7,6 +7,7 @@ const font = Nunito({
   subsets: ['latin'], 
 });
 
+
 export const metadata: Metadata = {
   title: "Vita",
   description: "Salud",
@@ -19,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-        <body className={font.className}>{children}</body>
+        <body >{children}</body>
     </html>
   );
 }

@@ -10,7 +10,6 @@ const Navbar = ({
         <div
           className="
             py-4 
-        
           "
         >
         <Container>
