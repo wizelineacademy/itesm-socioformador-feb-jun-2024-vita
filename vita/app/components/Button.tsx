@@ -12,7 +12,7 @@ interface ButtonProps {
 
 
 /**
- * Este es el boton customizado para diferentes tipos todavia no hago la version mediana pero
+ * @description Este es el boton customizado para diferentes tipos todavia no hago la version mediana pero
  * se puede cambiar
  * @author Bernardo de la Sierra
  * @version 1.0.0 
