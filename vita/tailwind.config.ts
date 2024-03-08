@@ -12,6 +12,8 @@ module.exports = {
       }),
       colors: {
         'custom-red': '#FF8484', 
+        'custom-green': '#86FFA8', 
+        
       },
     
     },

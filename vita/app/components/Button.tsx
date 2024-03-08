@@ -63,7 +63,7 @@ const Button: React.FC<ButtonProps> = ({
             size={24}
             className="
               absolute
-              left-4
+              lg:left-4
               top-3
             "
           />
