@@ -1,6 +1,7 @@
 "use client"
 import React from 'react';
 import Image from 'next/image';
+import About from './Landing_About'
 
 import PinkStrokeButton from '../app/Src/Components/LandingPageButton';
 
@@ -10,7 +11,8 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <div style={{ backgroundImage: "url('Bg.png')", backgroundSize: 'cover', minHeight: '100vh' }}>
+    <div id='Pages'>
+       <div style={{ backgroundImage: "url('Bg.png')", backgroundSize: 'cover', minHeight: '100vh' }}>
       <div>Nav Bar</div>
       <div id='Flex-Container' className=" flex flex-row flex-wrap justify-center gap-16">
         <div id='Left-Container' className='mt-16'>
@@ -28,9 +30,17 @@ const HomePage: React.FC = () => {
           <Image src={"/Heart.png"} alt='Heart with beats' width={800} height={100}></Image>
         </div>
       </div>
-
-      
+      </div>
+      <div>
+        <About>
+          
+        </About>
+      </div>
     </div>
+   
+  
+
+    
   );
 };
 
