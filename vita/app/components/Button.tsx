@@ -10,7 +10,6 @@ interface ButtonProps {
   borderColor?: string;
 }
 
-
 /**
  * @description Este es el boton customizado para diferentes tipos todavia no hago la version mediana pero
  * se puede cambiar
@@ -21,8 +20,8 @@ interface ButtonProps {
  * @param {boolean} [outline] - Indica si el botón tendrá un estilo de borde. Por defecto es `false`.
  * @param {boolean} [small] - Indica si el botón tendrá un tamaño pequeño. Por defecto es `false`.
  * @param {IconType} [icon] - Un icono opcional que se mostrará junto al texto del botón.
- * @param {string} borderColor - El color del borde del botón.(Se pone border-nombredelcolor)
- * @param {Event} onClick Sirve para enviar el evento
+ * @param {string} [borderColor] - El color del borde del botón.(Se pone border-nombredelcolor)
+ * @param {Event} [onClick] -  Sirve para enviar el evento
  * @returns {JSX.Element} Retorna un elemento JSX que representa el botón.
  */
 const Button: React.FC<ButtonProps> = ({ 
@@ -32,12 +31,13 @@ const Button: React.FC<ButtonProps> = ({
     outline,
     small,
     icon: Icon,
-    borderColor
+    borderColor,
+  
   }) => {
     return ( 
       <button
         disabled={disabled}
-        // onClick={onClick} // Manejar el evento aquí
+        onClick={onClick} // Manejar el evento aquí
         className={`
           relative
           disabled:opacity-70
@@ -49,10 +49,9 @@ const Button: React.FC<ButtonProps> = ({
           font-bold
           py-3
           ${outline ? borderColor : ''}
-       
-          ${small ? 'text-2xl' : 'text-3xl'}
-          ${small ? 'w-60' : 'w-70'} // Cambiarlo mas adelante no se el tamano del boton mediano
-          ${small ? 'border-[3px]' : 'border-[4px]'} // Cambiarlo mas adelante no se el tamano del borde
+          ${small ? 'text-2xl' : 'text-md'}
+          ${small ? 'w-60' : 'w-60'} // Cambiarlo mas adelante no se el tamano del boton mediano
+          ${small ? 'border-[3px]' : 'border-[3px]'} // Cambiarlo mas adelante no se el tamano del borde
         `}
         style={{ 
           background: 'none',
@@ -63,7 +62,7 @@ const Button: React.FC<ButtonProps> = ({
             size={24}
             className="
               absolute
-              left-4
+              left-2
               top-3
             "
           />

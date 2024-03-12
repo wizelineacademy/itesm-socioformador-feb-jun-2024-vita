@@ -25,17 +25,15 @@ const Navbar = ({
             "
           >
             <div className="flex items-center gap-8">
-                <NavItem color="text-white" title="Inicio" />
+              <NavItem color="text-white" title="Inicio" />
               <NavItem color="text-white" title="Acerca De" />
               <NavItem color="text-white" title="¿Qué hacemos?" />
               <NavItem color="text-white" title="Únete a Vita" />
             </div>
             <div className="flex items-center gap-8">
-                <NavItem color="text-white" title="Registrarse" href="/signup"/>
+              <NavItem color="text-white" title="Registrarse" href="/signup"/>
               <NavItem color="text-custom-red" title="Iniciar Sesión"   />
-              <Link href="/signup">
-      Ir a Perfil
-      </Link>
+              
             </div>
               
           </div>
