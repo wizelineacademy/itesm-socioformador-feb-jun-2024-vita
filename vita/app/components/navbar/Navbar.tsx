@@ -32,7 +32,7 @@ const Navbar = ({
             </div>
             <div className="flex items-center gap-8">
               <NavItem color="text-white" title="Registrarse" href="/signup"/>
-              <NavItem color="text-custom-red" title="Iniciar Sesión"   />
+              <NavItem color="text-custom-red" title="Iniciar Sesión" href="/login"  />
               
             </div>
               

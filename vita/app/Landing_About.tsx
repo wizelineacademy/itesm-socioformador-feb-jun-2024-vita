@@ -2,7 +2,6 @@
 import React from 'react';
 import Image from 'next/image';
 
-import PinkStrokeButton from '../app/Src/Components/LandingPageButton';
 
 const HomePage: React.FC = () => {
   const handleClick = () => {
