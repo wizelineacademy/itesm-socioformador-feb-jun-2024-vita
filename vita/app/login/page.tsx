@@ -23,7 +23,7 @@ import Link from "next/link";
  * @version 1.0.1 
  * @returns {JSX.Element} Retorna un elemento JSX que representa el botón.
  */
-const SignUp = () => {
+const Login = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -35,9 +35,7 @@ const SignUp = () => {
     },
   } = useForm<FieldValues>({
     defaultValues: {
-      name: '',
       email: '',
-      cellphone: '',
       password: ''
     },
   });
@@ -50,10 +48,6 @@ const SignUp = () => {
 
         <div id="Section-Information" className="lg:w-3/8  flex flex-col lg:items-start
          md:items-start sm:items-center md:px-10 lg:px-20 items-center">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white pt-2 
-          lg:w-[300px] md:w-[300px] sm:w-[300px] w-[300px]">
-            ¡No lo dudes más y haz tu cuenta ahora mismo!
-          </h2>
           <span> 
             <Information />
           </span>
@@ -61,8 +55,10 @@ const SignUp = () => {
 
         <div id="SignUp-Section" className=" flex flex-col items-center md:px-10
         mt-4 lg:mt-0  ">
-          
-          <div className="md:lg:flex flex-row  ">
+           <h2 className="text-4xl font-bold text-white pt-2 w-[400px] mb-16">
+          ¡Bienvenid@ de nuevo!
+            </h2>
+       
             <div className="md:lg:mr-4 pb-4">
                 <Input
                     id="email"
@@ -85,47 +81,8 @@ const SignUp = () => {
                     required
                 />
             </div>
-        </div>
-
-        <div className="sm:md:lg:flex flex-row  ">
+       
             <div className="md:lg:mr-4 pb-4">
-                <Input
-                  id="password"
-                  label="Contraseña"
-                  type="password"
-                  disabled={isLoading}
-                  register={register}
-                  errors={errors}
-                  required
-                />
-            </div>
-
-            <div className="pb-4">
-                <Input
-                  id="password"
-                  label="Confirmar contraseña"
-                  type="password"
-                  disabled={isLoading}
-                  register={register}
-                  errors={errors}
-                  required
-                />
-            </div>
-        </div>
-        <div> 
-        <Input
-                  id="cellphone"
-                  label="Teléfono"
-                  disabled={isLoading}
-                  register={register}
-                  errors={errors}
-                  required
-                />
-         </div>
-        
-          
-         <div className="md:lg:flex flex-row  ">
-            <div className="md:lg:mr-4 pb-4 pt-4">
 
            <Button 
               outline 
@@ -135,7 +92,7 @@ const SignUp = () => {
           
             />
             </div>
-            <div className="lg:pt-4"> 
+            <div className="pb-4"> 
             <Button 
               outline 
               label="Continue with Meta"
@@ -144,8 +101,7 @@ const SignUp = () => {
           
             />
             </div>
-           </div>
-      
+        
           <Button
             borderColor="border-custom-green"
             label="Regístrate"
@@ -156,13 +112,11 @@ const SignUp = () => {
           />
           
           <h3 className="text-white text-sm lg:text-lg font-bold leading-normal pt-2">
-            ¿Ya tienes una cuenta?
+            ¿No tienes una cuenta?
             <span className="cursor-pointer hover:underline"> 
-            <span className="cursor-pointer hover:underline"> 
-                <Link href="/login" >
-                      Iniciar Sesión
+                <Link href="/signup" >
+                    Regístrate 
                 </Link>
-            </span>
             </span>
           </h3>
 
@@ -172,4 +126,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Login;

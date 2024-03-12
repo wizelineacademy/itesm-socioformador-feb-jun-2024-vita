@@ -7,7 +7,7 @@ const Landing = () => {
     <div className="h-screen bg-gradient-custom flex flex-col">
         <Navbar />
         <div className="flex-1 flex justify-center items-center ">
-            <div className="w-3/8 flex-shrink-0 flex flex-col items-start px-20 "> {/* Cambiale a tu codigo si es necesario  */}
+            <div className="w-3/8 flex-shrink-0 flex flex-col items-start px-20 "> 
                 <Information />
                 <div className="pt-4">
                     <Button 
