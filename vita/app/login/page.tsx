@@ -104,7 +104,7 @@ const Login = () => {
         
           <Button
             borderColor="border-custom-green"
-            label="Regístrate"
+            label="Iniciar sesión"
             outline
             small
             onClick={() => {}}
