@@ -145,16 +145,17 @@ const SignUp = () => {
             />
             </div>
            </div>
-      
-          <Button
-            borderColor="border-custom-green"
-            label="Regístrate"
-            outline
-            small
-            onClick={() => {}}
-            
-          />
-          
+           {/* Enlace temporal a healt data */}
+           <Link href="/healthdata" >
+            <Button
+              borderColor="border-custom-green"
+              label="Regístrate"
+              outline
+              small
+              onClick={() => {}}
+              
+            />
+          </Link>
           <h3 className="text-white text-sm lg:text-lg font-bold leading-normal pt-2">
             ¿Ya tienes una cuenta?
             <span className="cursor-pointer hover:underline"> 
