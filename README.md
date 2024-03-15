@@ -40,9 +40,9 @@ Ser una referencia en el acompañamiento integral para el bienestar de las perso
 ## Funciones principales
 
 Las funciones de la aplicación son las siguientes:
-1. ** Recordatorios:**  Se pueden añadir recordatorios médicos enfocados al consumo de medicamentos.
+1. **Recordatorios:**  Se pueden añadir recordatorios médicos enfocados al consumo de medicamentos.
 2. **Recomendaciones de salud:** La aplicación dará recomendaciones generales sobre el cuidado personal.
-3. **Recomendaciones de ejercicio: ** La aplicación dará recomendaciones del tipo de ejercicio que puedes hacer de acuerdo al clima y área del cuerpo que se está trabajando. Además, dará recomendaciones conforme al tipo de ejercicio que estás haciendo.
+3. **Recomendaciones de ejercicio:** La aplicación dará recomendaciones del tipo de ejercicio que puedes hacer de acuerdo al clima y área del cuerpo que se está trabajando. Además, dará recomendaciones conforme al tipo de ejercicio que estás haciendo.
 4. **Recomendación de recetas:**  La aplicación le dará recetas al usuario conforme al tipo de ingredientes que desee consumir y la cantidad de calorías.
 5. **Recomendación de sueño:** La aplicación brindará consejos para tener un mejor sueño de acuerdo con los patrones de sueño del usuario.
 6. **Gráficas de sueño, calorías y ejercicio**: Se le mostrará al usuario una serie de gráficas para conocer su estado de salud.
