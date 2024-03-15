@@ -13,7 +13,7 @@ import {
   SubmitHandler,
   useForm
 } from "react-hook-form";
-import Input from "../components/Input";
+import Input from "../components/Inputs/Input";
 import Link from "next/link";
 
 
@@ -61,8 +61,20 @@ const SignUp = () => {
 
         <div id="SignUp-Section" className=" flex flex-col items-center md:px-10
         mt-4 lg:mt-0  ">
-          
+          <div className="pb-4">
+           <Input
+           id="name"
+           label="Nombre"
+           disabled={isLoading}
+           register={register}
+           errors={errors}
+           required
+                  
+                  big
+                />
+          </div>
           <div className="md:lg:flex flex-row  ">
+            
             <div className="md:lg:mr-4 pb-4">
                 <Input
                     id="email"
@@ -77,8 +89,8 @@ const SignUp = () => {
 
             <div className="pb-4">
                 <Input
-                    id="name"
-                    label="Nombre"
+                    id="cellphone"
+                    label="Teléfono"
                     disabled={isLoading}
                     register={register}
                     errors={errors}
@@ -113,57 +125,51 @@ const SignUp = () => {
             </div>
         </div>
         <div> 
-        <Input
-                  id="cellphone"
-                  label="Teléfono"
-                  disabled={isLoading}
-                  register={register}
-                  errors={errors}
-                  required
-                />
+        
          </div>
         
           
          <div className="md:lg:flex flex-row  ">
-            <div className="md:lg:mr-4 pb-4 pt-4">
+            <div className="md:lg:mr-4 pb-4 pt-8">
 
            <Button 
               outline 
-              label="Continue with Google"
+              label="Continuar con Google"
               icon={FcGoogle}
               onClick={() => {}}
           
             />
             </div>
-            <div className="lg:pt-4"> 
+            <div className="lg:pt-8 pb-8"> 
             <Button 
               outline 
-              label="Continue with Meta"
+              label="Continuar con Facebook"
               icon={FaFacebook}
               onClick={() => {}}
           
             />
             </div>
            </div>
-      
-          <Button
-            borderColor="border-custom-green"
-            label="Regístrate"
-            outline
-            small
-            onClick={() => {}}
-            
-          />
-          
-          <h3 className="text-white text-sm lg:text-lg font-bold leading-normal pt-2">
+           {/* Enlace temporal a healt data */}
+           <Link href="/healthdata" >
+            <Button
+              borderColor="border-custom-green"
+              label="Regístrate"
+              outline
+              big
+              onClick={() => {}}
+              
+            />
+          </Link>
+          <h3 className="text-white text-sm lg:text-lg font-bold leading-normal pt-4 ">
             ¿Ya tienes una cuenta?
-            <span className="cursor-pointer hover:underline"> 
-            <span className="cursor-pointer hover:underline"> 
+          
+            <span className="cursor-pointer hover:underline pl-4"> 
                 <Link href="/login" >
                       Iniciar Sesión
                 </Link>
             </span>
-            </span>
+         
           </h3>
 
         </div>
