@@ -13,9 +13,9 @@ import {
   SubmitHandler,
   useForm
 } from "react-hook-form";
-import Input from "../components/Input";
+import Input from "../components/Inputs/Input";
 import Link from "next/link";
-import Select from "../components/Select";
+import Select from "../components/Inputs/Select";
 
 
 
@@ -25,7 +25,7 @@ import Select from "../components/Select";
  * @version 1.0.1 
  * @returns {JSX.Element} Retorna un elemento JSX que representa el botón.
  */
-const SignUp = () => {
+const HealthData = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -61,7 +61,7 @@ const SignUp = () => {
             <div className="md:lg:mr-8 pb-8">
                 <Input
                     id="weight"
-                    label="Peso"
+                    label="Peso(kg)* "
                     disabled={isLoading}
                     register={register}
                     errors={errors}
@@ -72,7 +72,7 @@ const SignUp = () => {
             <div className="pb-8">
                 <Input
                     id="height"
-                    label="Altura"
+                    label="Altura(m)*"
                     disabled={isLoading}
                     register={register}
                     errors={errors}
@@ -85,7 +85,7 @@ const SignUp = () => {
             <div className="md:lg:mr-8 pb-8">
             <Select
               id="gender"
-              label="Sexo"
+              label="Sexo*"
               options={[
            
                 { value: "male", label: "Masculino" },
@@ -99,7 +99,7 @@ const SignUp = () => {
             <div className="pb-8">
                 <Input
                   id="date"
-                  label="Fecha de nacimiento"
+                  label="Fecha de nacimiento*"
                   type="date"
                   disabled={isLoading}
                   register={register}
@@ -112,35 +112,38 @@ const SignUp = () => {
             <div className="md:lg:mr-8 pb-8">
                 <Input
                     id="Corporal"
-                    label="Grasa corporal (Opcional)"
+                    label="Grasa corporal(%)"
                     disabled={isLoading}
                     register={register}
                     errors={errors}
-                    required
                 />
             </div>
 
             <div className="pb-8">
                 <Input
                     id="muscular"
-                    label="Masa muscular"
+                    label="Masa muscular(kg)"
                     disabled={isLoading}
                     register={register}
                     errors={errors}
-                    required
                 />
             </div>
         </div>
+        
+        <h3 className="text-custom-red text-xs lg:text-lg font-bold leading-normal pt-2 pb-4">
+            * campo requerido
+        </h3>
 
           <Button
             borderColor="border-custom-red"
             label="Continuar"
             outline
-            small
+            big
             onClick={() => {}}
             
           />
           
+
          
 
         </div>
@@ -149,4 +152,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default HealthData;

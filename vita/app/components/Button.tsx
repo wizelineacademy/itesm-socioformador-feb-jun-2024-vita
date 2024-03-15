@@ -5,7 +5,7 @@ interface ButtonProps {
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void; // Cambiado para cuando haya evento
   disabled?: boolean;
   outline?: boolean;
-  small?: boolean;
+  big?: boolean;
   icon?: IconType;
   borderColor?: string;
 }
@@ -18,7 +18,7 @@ interface ButtonProps {
  * @param {string} label - Texto que le desea poner al boton 
  * @param {boolean} [disabled] - Indica si el botón está desactivado o no. Por defecto es `false`.
  * @param {boolean} [outline] - Indica si el botón tendrá un estilo de borde. Por defecto es `false`.
- * @param {boolean} [small] - Indica si el botón tendrá un tamaño pequeño. Por defecto es `false`.
+ * @param {boolean} [big] - Indica si el botón tendrá un tamaño pequeño. Por defecto es `false`.
  * @param {IconType} [icon] - Un icono opcional que se mostrará junto al texto del botón.
  * @param {string} [borderColor] - El color del borde del botón.(Se pone border-nombredelcolor)
  * @param {Event} [onClick] -  Sirve para enviar el evento
@@ -29,7 +29,7 @@ const Button: React.FC<ButtonProps> = ({
     onClick, 
     disabled, 
     outline,
-    small,
+    big,
     icon: Icon,
     borderColor,
   
@@ -49,9 +49,9 @@ const Button: React.FC<ButtonProps> = ({
           font-bold
           py-3
           ${outline ? borderColor : ''}
-          ${small ? 'text-2xl' : 'text-md'}
-          ${small ? 'w-60' : 'w-60'} // Cambiarlo mas adelante no se el tamano del boton mediano
-          ${small ? 'border-[3px]' : 'border-[3px]'} // Cambiarlo mas adelante no se el tamano del borde
+          ${big ? 'text-xl' : 'text-sm'}
+          ${big ? 'w-60' : 'w-60'} // Cambiarlo mas adelante no se el tamano del boton mediano
+          ${big ? 'border-[3px]' : 'border-[3px]'} // Cambiarlo mas adelante no se el tamano del borde
         `}
         style={{ 
           background: 'none',

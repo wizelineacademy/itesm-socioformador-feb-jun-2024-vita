@@ -15,7 +15,8 @@ import {
     options: SelectOption[];
     disabled?: boolean;
     register: UseFormRegister<FieldValues>,
-    errors: FieldErrors
+    errors: FieldErrors,
+    big?: boolean;
   }
   
   const Select: React.FC<SelectProps> = ({
@@ -25,6 +26,7 @@ import {
     disabled, 
     register,
     errors,
+    big,
   }) => {
     return (
       <div className="w-full relative">
@@ -34,9 +36,9 @@ import {
           {...register(id)}
           className={`
             peer
-            w-60
+            ${big ? 'lg:w-[500px] w-60' : 'w-60'}
             px-4
-            pt-5
+            pt-6
             pb-2
             font-light 
             bg-custom-blue
@@ -46,6 +48,7 @@ import {
             disabled:cursor-not-allowed
             rounded-full
             text-white 
+            
             ${errors[id] ? 'focus:border-rose-500' : ''}
           `}
         >
@@ -57,7 +60,7 @@ import {
         <label 
           className={`
             absolute 
-            text-sm
+            text-xs
             duration-150 
             transform 
             -translate-y-3 
@@ -70,7 +73,14 @@ import {
             ${errors[id] ? 'text-rose-500' : 'text-white'}
           `}
         >
-          {label}
+          {label.includes('*') ? (
+        <>
+            {label.replace('*', '')} {/* Esto muestra el texto del label sin el asterisco (*) */}
+            <span className="text-custom-red">*</span> {/* Esto muestra solo el asterisco (*) con el color personalizado definido por la clase `text-custom-red` */}
+          </>
+        ) : (
+          label // Si no hay asterisco, muestra el texto del label normalmente
+        )} {/* Esto muestra solo el asterisco (*) con el color personalizado */}
         </label>
       </div>
     );

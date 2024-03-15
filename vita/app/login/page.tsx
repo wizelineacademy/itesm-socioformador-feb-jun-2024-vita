@@ -13,7 +13,7 @@ import {
   SubmitHandler,
   useForm
 } from "react-hook-form";
-import Input from "../components/Input";
+import Input from "../components/Inputs/Input";
 import Link from "next/link";
 
 
@@ -59,7 +59,7 @@ const Login = () => {
           ¡Bienvenid@ de nuevo!
             </h2>
        
-            <div className="md:lg:mr-4 pb-4">
+            <div className="pb-4">
                 <Input
                     id="email"
                     label="Correo"
@@ -71,7 +71,7 @@ const Login = () => {
                 />
             </div>
 
-            <div className="pb-4">
+            <div className="pb-8">
                 <Input
                     id="name"
                     label="Nombre"
@@ -82,20 +82,20 @@ const Login = () => {
                 />
             </div>
        
-            <div className="md:lg:mr-4 pb-4">
+            <div className=" pb-4">
 
            <Button 
               outline 
-              label="Continue with Google"
+              label="Continuar con  Google"
               icon={FcGoogle}
               onClick={() => {}}
           
             />
             </div>
-            <div className="pb-4"> 
+            <div className="pb-8"> 
             <Button 
               outline 
-              label="Continue with Meta"
+              label="Continuar con Facebook"
               icon={FaFacebook}
               onClick={() => {}}
           
@@ -111,9 +111,9 @@ const Login = () => {
             
           />
           
-          <h3 className="text-white text-sm lg:text-lg font-bold leading-normal pt-2">
-            ¿No tienes una cuenta?
-            <span className="cursor-pointer hover:underline"> 
+          <h3 className="text-white text-sm lg:text-lg font-bold leading-normal pt-4">
+            ¿No tienes una cuenta? 
+            <span className="cursor-pointer hover:underline pl-4"> 
                 <Link href="/signup" >
                     Regístrate 
                 </Link>
