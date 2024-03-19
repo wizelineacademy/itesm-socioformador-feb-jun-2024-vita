@@ -111,13 +111,13 @@ const Input: React.FC<InputProps> = ({
         `}
       >
         {label.includes('*') ? (
-    <>
-      {label.replace('*', '')} {/* Esto muestra el texto del label sin el asterisco (*) */}
-      <span className="text-custom-red">*</span> {/* Esto muestra solo el asterisco (*) con el color personalizado definido por la clase `text-custom-red` */}
-    </>
-  ) : (
-    label // Si no hay asterisco, muestra el texto del label normalmente
-  )}
+        <>
+            {label.replace('*', '')} {/* Esto muestra el texto del label sin el asterisco (*) */}
+            <span className="text-custom-red">*</span> {/* Esto muestra solo el asterisco (*) con el color personalizado definido por la clase `text-custom-red` */}
+          </>
+        ) : (
+          label // Si no hay asterisco, muestra el texto del label normalmente
+        )}
       </label>
       {/* Agregar un botón para alternar la visibilidad de la contraseña si hay contenido */}
       {isPasswordInput && passwordValue && (
