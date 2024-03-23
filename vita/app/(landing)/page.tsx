@@ -14,7 +14,7 @@ const Landing = () => {
                         borderColor="border-custom-red"
                         label= "Regístrate" 
                         outline
-                        small 
+                        big
                         onClick={() => {}}
                       
                     />  

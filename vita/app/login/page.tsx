@@ -102,15 +102,16 @@ const Login = () => {
             />
             </div>
         
-          <Button
-            borderColor="border-custom-green"
-            label="Iniciar sesión"
-            outline
-            small
-            onClick={() => {}}
-            
-          />
-          
+          <Link href="/home" >
+            <Button
+              borderColor="border-custom-green"
+              label="Iniciar sesión"
+              outline
+              big
+              onClick={() => {}}
+
+            />
+          </Link>
           <h3 className="text-white text-sm lg:text-lg font-bold leading-normal pt-4">
             ¿No tienes una cuenta? 
             <span className="cursor-pointer hover:underline pl-4"> 

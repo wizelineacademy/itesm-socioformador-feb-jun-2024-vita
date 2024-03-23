@@ -20,6 +20,9 @@ const config = {
         'custom-red': '#FF8484', 
         'custom-blue':'#0B1F2E',
         'custom-green': '#86FFA8',
+        'side-color': '#07202A',
+        'home-color': '#122848',
+        'nutrition-color': '#DA56B575',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
       
