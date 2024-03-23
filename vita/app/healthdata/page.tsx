@@ -133,16 +133,16 @@ const HealthData = () => {
         <h3 className="text-custom-red text-xs lg:text-lg font-bold leading-normal pt-2 pb-4">
             * campo requerido
         </h3>
-
-          <Button
-            borderColor="border-custom-red"
-            label="Continuar"
-            outline
-            big
-            onClick={() => {}}
-            
-          />
-          
+        <Link href="/home" >
+            <Button
+              borderColor="border-custom-red"
+              label="Continuar"
+              outline
+              big
+              onClick={() => {}}
+              
+            />
+        </Link>
 
          
 
