@@ -6,7 +6,7 @@ import React, { useState } from "react";
 
 const Nutrition= () => {
   return (
-    <div >
+    <div className="h-screen bg-nutrition-background flex flex-col">
       Nutrition Papa Azul
     </div>
   );
