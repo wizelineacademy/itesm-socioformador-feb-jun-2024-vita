@@ -25,6 +25,9 @@ const config = {
         'home-color': '#122848',
         'nutrition-color': '#DA56B575',
         'nutrition-background':'#2C0521',
+        'custom-lightpurple': ' #71566c',
+        'custom-purple2': '#7E3168',
+        'custom-purple3': '#741B5B',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
       

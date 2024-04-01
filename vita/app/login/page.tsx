@@ -71,26 +71,27 @@ const Login = () => {
                 />
             </div>
 
-            <div className="pb-8">
+            <div className=" pb-4">
                 <Input
-                    id="name"
-                    label="Nombre"
-                    disabled={isLoading}
-                    register={register}
-                    errors={errors}
-                    required
+                  id="password"
+                  label="Contraseña"
+                  type="password"
+                  disabled={isLoading}
+                  register={register}
+                  errors={errors}
+                  required
                 />
             </div>
-       
+
             <div className=" pb-4">
 
-           <Button 
-              outline 
-              label="Continuar con  Google"
-              icon={FcGoogle}
-              onClick={() => {}}
-          
-            />
+            <Button 
+                outline 
+                label="Continuar con  Google"
+                icon={FcGoogle}
+                onClick={() => {}}
+            
+              />
             </div>
             <div className="pb-8"> 
             <Button 
