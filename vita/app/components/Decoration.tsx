@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
+/**
+ * Props interface for the Decoration component
+ */
 interface DecorationProps {
-  pathname: string;
+  pathname: string; // Pathname of the route
 }
 
+/**
+ * Object containing route information and corresponding images
+ */
 const routes: Record<string, { image: string; image2: string }> = {
   "/home": {
     image: "/DE_Home.svg",
@@ -14,13 +20,22 @@ const routes: Record<string, { image: string; image2: string }> = {
     image: "/DE_Nutrition.svg",
     image2: "/DE_Nutrition2.svg",
   },
-  // Agrega más rutas según sea necesario
+  // Add more routes as needed
 };
 
+/**
+ * Loading component to display while images are loading
+ */
 const Loading = () => (
   <div></div>
 );
 
+/**
+ * Decoration component responsible for displaying images based on route
+ * @param {DecorationProps} pathname - Pathname of the route
+ * @author Bernardo de la Sierra
+ * @version 1.0.1 
+ */
 const Decoration: React.FC<DecorationProps> = ({ pathname }) => {
   const [images, setImages] = useState<{ image: string; image2: string }>({
     image: '',
