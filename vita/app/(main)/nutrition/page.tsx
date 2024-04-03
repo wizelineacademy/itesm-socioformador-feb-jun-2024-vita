@@ -1,151 +1,146 @@
 import React from 'react';
 import Image from 'next/image';
 import { FaUtensils, FaHome, FaPoll } from 'react-icons/fa';
-import { BiFilter, BiChevronRight } from 'react-icons/bi';
+import { BiFilter} from 'react-icons/bi';
 
 const numeros = [
   {
-      number: 1,
-      icon: FaHome  
+    number: 1,
+    imageSrc: "/Grape.svg"
+
   },
   {
       number: 2,
-      icon: FaUtensils
+      imageSrc: "/Carrot.svg"
   },
   {
     number: 3,
-    icon: FaHome  
+    imageSrc: "/Soy.svg" 
   },
   {
-      number: 4,
-      icon: FaUtensils
+    number: 4,
+    imageSrc: "/Meat.svg"
   },
   {
     number: 5,
-    icon: FaHome  
+    imageSrc: "/Milk.svg"  
   },
   {
     number: 6,
-    icon: FaUtensils
+    imageSrc: "/Porridge.svg"
   },
   {
     number: 7,
-    icon: FaHome  
+    imageSrc: "/Sugar.svg"  
   },
   {
     number: 8,
-    icon: FaUtensils
+    imageSrc: "/Avocado.svg"
   },
 ]
 
 const Nutrition = () => {
   
   return (
-    <div className="h-screen overflow-auto bg-nutrition-background flex flex-col relative m-0">
+    <div className="h-screen overflow-auto bg-nutrition-background flex flex-col relative 
+    lg:m-0 md:m-0 lg:md:pl-8 ">
       {/* Solucion temporal para el problema de responsividad */}
       <div className="hidden md:block absolute right-0">
-        <Image src="/DE_Nutrition.svg" alt="Imagen 1" width={200} height={160} />
+        <Image src="/DE_Nutrition.svg" alt="Imagen 1" width={180} height={160} />
       </div>
       <div className="hidden md:block lg:hidden absolute right-0">
-        <Image src="/DE_Nutrition2.svg" alt="Imagen 2" width={160} height={120} />
+        <Image src="/DE_Nutrition2.svg" alt="Imagen 2" width={140} height={120} />
       </div>
 
       <div className="hidden lg:block absolute right-0 ">
-        <Image src="/DE_Nutrition.svg" alt="Imagen 1" width={480} height={320} />
+        <Image src="/DE_Nutrition.svg" alt="Imagen 1" width={400} height={320} />
       </div>
       <div className="hidden lg:block absolute right-0">
-        <Image src="/DE_Nutrition2.svg" alt="Imagen 2" width={440} height={280} />
+        <Image src="/DE_Nutrition2.svg" alt="Imagen 2" width={360} height={280} />
       </div>
       
 
-      <div className="flex items-center text-white px-5 py-4 text-5xl font-bold">
+      <div className="flex  text-white px-5 py-4 text-5xl font-bold 
+        lg:justify-start md:justify-start justify-center">
         <h1 className="mr-2">Nutrición</h1>
-        <FaUtensils />
+        <Image src="/Food.svg" alt="Imagen 2" width={45} height={45} />
       </div>
 
-      <h2 className="flex items-center text-white px-5 py-4 text-3xl ">
+      <h2 className="flex items-center text-white px-5 py-4 text-3xl 
+        lg:justify-start md:justify-start justify-center">
         Mis porciones de hoy
       </h2>
-
-      <div className="flex flex-wrap bg-custom-lightpurple justify-center 
-      px-5 rounded-3xl lg:w-[560px]  md:w-[340px] w-[360px] ml-4">
-        {numeros.map((numero, index) => (
-          <div key={index} className="flex flex-col items-center lg:mx-4  md:mx-4 mx-2 my-2 py-2">
-            <h3 className="text-white lg:text-3xl md:text-3xl text-2xl ">{numero.number}</h3>
-            {<numero.icon className="text-white  lg:text-3xl md:text-3xl text-2xl mt-2" />}
-          </div>
-        ))}
-      </div>
-
-      <div className="flex pt-4 pl-4 pr-4  ">
-        <div className="w-1/2 ">
-
-          <div className='bg-custom-purple2 rounded-2xl  w-[320px] px-4 py-4'>
-            <h3 className='text-white lg:text-3xl md:text-2xl   w-[320px] '>
-                Buscar Opciones de Comidas Personalizadas
-            </h3>
-            <div className="flex justify-between">
-              
-                <BiFilter className="text-white h-12 w-12 " />
-               
-                <BiChevronRight className="text-white h-12 w-12 " />
+      <div className='lg:justify-start md:justify-start justify-center items-center flex flex-col'>
+        <div className="flex flex-wrap bg-custom-lightpurple 
+        px-5 rounded-3xl lg:w-[500px]  md:w-[360px] w-[330px] ml-4">
+          {numeros.map((numero, index) => (
+            <div key={index} className="flex flex-col items-center lg:mx-4 md:mx-2 mx-6 my-2 py-2">
+              <h3 className="text-white lg:text-3xl md:text-3xl text-2xl">{numero.number}</h3>
+              <Image src={numero.imageSrc} alt={`Imagen ${index}`} width={24} height={24} />
             </div>
-          </div>
-
-          <div className='bg-custom-purple2 rounded-2xl  w-[320px] px-4 py-4 flex justify-between mt-20'>
-            <h3 className='text-white lg:text-3xl md:text-2xl   w-[140px] '>
-                Mi Meta de nutrición
-            </h3>
-            <BiFilter className="text-white h-20 w-20 " />
-          </div>
-
+          ))}
         </div>
-        <div className="w-1/2 ">
-          <div className="flex justify-between px-4 py-4 bg-custom-purple3 rounded-2xl   w-[420px] ">
-            <h3 className='text-white lg:text-3xl md:text-2xl w-[240px] '>
-                Autoevaluación
-            </h3>
-            <div className='flex' >
-                  <FaPoll className="text-white h-12 w-12 " />
-                  <BiChevronRight className="text-white h-12 w-12 " />
-              </div>
-          </div>
 
-          <div className="flex justify-between px-4 py-4 bg-custom-purple2 rounded-2xl  
-          w-[420px]  mt-4">
-            <h3 className='text-white lg:text-3xl md:text-2xl w-[240px] '>
-                Mis porciones
-            </h3>
-            <div className='flex' >
-                  <FaUtensils  className="text-white h-12 w-12 " />
-                  <BiChevronRight className="text-white h-12 w-12 " />
-              </div>
-          </div>
+        <div className="flex lg:flex-row  flex-col pt-4 pl-4 pr-4  ">
+          <div className="lg:w-1/2 lg:mr-10 w-full ">
 
+            <div className='bg-custom-purple2 lg:rounded-2xl md:rounded-2xl rounded-full  
+            lg:w-[320px]  w-[330px] px-4 py-4 flex justify-between'>
+                <h3 className= 'pt-1 pl-2 text-white font-bold lg:text-2xl text-xl   lg:w-[240px] md:w-[240px]'>
+                    Buscar opciones de comidas personalizadas
+                </h3>
+                <Image src="/Filter.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
+            </div>
 
-          <div className="flex justify-between px-4 py-4 bg-custom-purple2 rounded-2xl    w-[420px] mt-4">
-            <h3 className='text-white lg:text-3xl md:text-2xl w-[240px] '>
-                Detección de calorías
-            </h3>
-            <div className='flex' >
-                  <FaUtensils  className="text-white h-12 w-12 " />
-                  <BiChevronRight className="text-white h-12 w-12 " />
-              </div>
-          </div>
+            <div className='bg-custom-purple2 lg:rounded-2xl  
+              md:rounded-2xl rounded-full  lg:w-[320px]  w-[330px]
+              px-4 lg:py-4  md:py-4 py-2 flex justify-between lg:mt-[75px] mt-4'>
+              
+              <h3 className='pt-1 pl-2 text-white font-bold lg:text-2xl text-xl  
+                lg:w-[140px] md:w-[140px] w-[280px] '>
+                  Mi meta de nutrición
+              </h3>
+              <Image src="/Healthy.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
+            </div>
 
-          <div className="flex justify-between px-4 py-4 bg-custom-purple3 rounded-2xl    w-[420px] mt-4">
-            <h3 className='text-white lg:text-3xl md:text-2xl w-[240px] '>
-                Generar un plan nutricional
-            </h3>
-            <div className='flex' >
-                  <FaUtensils  className="text-white h-12 w-12 " />
-                  <BiChevronRight className="text-white h-12 w-12 " />
-              </div>
           </div>
-          
-        
+          <div className="lg:w-1/2 w-full">
+            <div className="flex justify-between px-4 lg:py-2.5  md:py-2.5 py-2 bg-custom-purple3 lg:rounded-2xl  
+              md:rounded-2xl rounded-full w-[330px] mt-4 lg:mt-0">
+              <h3 className='pt-1 pl-2 text-white font-bold lg:text-2xl text-xl w-[240px] '>
+                  Autoevaluación
+              </h3>
+              <Image src="/Pass.svg" alt="Imagen 2" width={45} height={45}  className='pr-2'/>
+            </div>
+
+            <div className="flex justify-between px-4 lg:py-2.5  md:py-2.5 py-2 bg-custom-purple2 lg:rounded-2xl  
+              md:rounded-2xl rounded-full w-[330px] mt-4">
+              <h3 className='pt-1 pl-2 text-white font-bold lg:text-2xl text-xl w-[240px] '>
+                  Mis porciones
+              </h3>
+              <Image src="/Food.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
+            </div>
+
+            <div className="flex justify-between px-4 lg:py-2.5  md:py-2.5 py-2 bg-custom-purple2 lg:rounded-2xl  
+              md:rounded-2xl rounded-full  w-[330px] mt-4">
+              <h3 className='pt-1 pl-2 text-white font-bold lg:text-2xl text-xl w-[240px] '>
+                  Detección de calorías
+              </h3>
+              <Image src="/Healthy.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
+            </div>
+
+            <div className="flex justify-between px-4 lg:py-2.5  md:py-2.5 py-2 bg-custom-purple3 lg:rounded-2xl  
+              md:rounded-2xl rounded-full w-[330px]  mt-4">
+              <h3 className='pt-1 pl-2 text-white font-bold lg:text-2xl text-xl  w-[240px] '>
+                  Generar un plan nutricional
+              </h3>
+              <Image src="/ToDo.svg" alt="Imagen 2" width={45} height={45} className='pr-2' />
+            </div>
+
+          </div>
         </div>
       </div>
+
     </div>
   );
 };

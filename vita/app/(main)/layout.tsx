@@ -3,9 +3,6 @@ import { Nunito, } from 'next/font/google';
 import SidebarInfo from "../components/(routes)/SidebarInfo";
 import MobileSidebar from "../components/(routes)/MobileSidebar";
 
-
-
-
 const font = Nunito({ 
   subsets: ['latin'], 
 });
