@@ -14,7 +14,7 @@ const MobileSidebar = () => {
         {
             label: 'Home',
             href: '/home',
-            backgroundColor: 'bg-white',
+            backgroundColor: 'bg-home-background',
             buttonColor: 'text-black',
         },
         {
