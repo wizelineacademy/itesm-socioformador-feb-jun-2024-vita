@@ -32,9 +32,7 @@ const Loading = () => (
 
 /**
  * Decoration component responsible for displaying images based on route
- * @param {DecorationProps} pathname - Pathname of the route
- * @author Bernardo de la Sierra
- * @version 1.0.1 
+ * @param {DecorationProps} props - Props for the Decoration component
  */
 const Decoration: React.FC<DecorationProps> = ({ pathname }) => {
   const [images, setImages] = useState<{ image: string; image2: string }>({
@@ -43,15 +41,18 @@ const Decoration: React.FC<DecorationProps> = ({ pathname }) => {
   });
   const [loading, setLoading] = useState(true);
 
+  // Extract the root route from the pathname
+  const rootRoute = pathname.split('/')[1]; 
+
   useEffect(() => {
-    const route = routes[pathname];
+    const route = routes[`/${rootRoute}`];
     if (route) {
       setImages(route);
       setLoading(false); 
     } else {
-      console.error(`No se encontró una imagen para la ruta ${pathname}`);
+      console.error(`No se encontró una imagen para la ruta ${rootRoute}`);
     }
-  }, [pathname]);
+  }, [pathname, rootRoute]);
 
   return (
     <> 
