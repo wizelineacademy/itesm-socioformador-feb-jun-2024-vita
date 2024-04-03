@@ -42,7 +42,7 @@ const SidebarInfo = () => {
                         href={route.href}
                         key={index}
                         className={cn("text-sm group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition", {
-                            [route.color]: pathname === route.href, // Utilizar interpolación para acceder a la propiedad color de la ruta
+                            [route.color]: pathname === route.href, 
                         })}
                     >
                         <div className={cn("flex items-center flex-1 mr-3")}>
@@ -54,6 +54,7 @@ const SidebarInfo = () => {
                         </div>
                     </Link>
                 ))}
+                
             </div>
         </div>
     );

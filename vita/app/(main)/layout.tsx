@@ -3,9 +3,6 @@ import { Nunito, } from 'next/font/google';
 import SidebarInfo from "../components/(routes)/SidebarInfo";
 import MobileSidebar from "../components/(routes)/MobileSidebar";
 
-
-
-
 const font = Nunito({ 
   subsets: ['latin'], 
 });
@@ -24,21 +21,22 @@ export default function RootLayout({
   return (
     <html lang="es">
         <body >
-        <div className="h-full relative">
-        <div className="hidden h-full md:flex md:flex-col
-         md: w-72 md:fixed md:inset-y-0 z-[80] bg-side-color">
-          <div>
-            <SidebarInfo />
+          <div className="relative m-0">
+            <div className="hidden  md:flex md:flex-col
+            md: w-72 md:fixed md:inset-y-0 z-[80] bg-side-color  m-0">
+                <div>
+                  <SidebarInfo />
+                </div>
+              </div>
+              <main className="md:pl-72  m-0" >
+                <div className="md:hidden lg:hidden">
+                  <MobileSidebar />
+                </div>
+                {children}
+              </main>
           </div>
-          </div>
-          <main className="md:pl-72">
-            <MobileSidebar />
-            {children}
-          </main>
-      
-      </div>
           
-          </body>
+        </body>
     </html>
   );
 }
