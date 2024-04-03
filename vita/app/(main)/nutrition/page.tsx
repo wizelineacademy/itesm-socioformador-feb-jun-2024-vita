@@ -42,24 +42,7 @@ const numeros = [
 const Nutrition = () => {
   
   return (
-    <div className="h-screen overflow-auto bg-nutrition-background flex flex-col relative 
-    lg:m-0 md:m-0 lg:md:pl-8 ">
-      {/* Solucion temporal para el problema de responsividad */}
-      <div className="hidden md:block absolute right-0">
-        <Image src="/DE_Nutrition.svg" alt="Imagen 1" width={180} height={160} />
-      </div>
-      <div className="hidden md:block lg:hidden absolute right-0">
-        <Image src="/DE_Nutrition2.svg" alt="Imagen 2" width={140} height={120} />
-      </div>
-
-      <div className="hidden lg:block absolute right-0 ">
-        <Image src="/DE_Nutrition.svg" alt="Imagen 1" width={400} height={320} />
-      </div>
-      <div className="hidden lg:block absolute right-0">
-        <Image src="/DE_Nutrition2.svg" alt="Imagen 2" width={360} height={280} />
-      </div>
-      
-
+    <>
       <div className="flex  text-white px-5 py-4 text-5xl font-bold 
         lg:justify-start md:justify-start justify-center">
         <h1 className="mr-2">Nutrición</h1>
@@ -84,17 +67,18 @@ const Nutrition = () => {
         <div className="flex lg:flex-row  flex-col pt-4 pl-4 pr-4  ">
           <div className="lg:w-1/2 lg:mr-10 w-full ">
 
-            <div className='bg-custom-purple2 lg:rounded-2xl md:rounded-2xl rounded-full  
-            lg:w-[320px]  w-[330px] px-4 py-4 flex justify-between'>
+            <div className='bg-custom-purple3 lg:rounded-2xl md:rounded-2xl rounded-full  
+            lg:w-[320px]  w-[330px] px-4 py-4 flex justify-between transition-colors 
+            duration-300 ease-in-out hover:bg-custom-purple4'>
                 <h3 className= 'pt-1 pl-2 text-white font-bold lg:text-2xl text-xl   lg:w-[240px] md:w-[240px]'>
                     Buscar opciones de comidas personalizadas
                 </h3>
                 <Image src="/Filter.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
             </div>
 
-            <div className='bg-custom-purple2 lg:rounded-2xl  
-              md:rounded-2xl rounded-full  lg:w-[320px]  w-[330px]
-              px-4 lg:py-4  md:py-4 py-2 flex justify-between lg:mt-[75px] mt-4'>
+            <div className='bg-custom-purple3 lg:rounded-2xl  md:rounded-2xl rounded-full  
+            lg:w-[320px]  w-[330px]px-4 lg:py-4  md:py-4 py-2 flex justify-between 
+            lg:mt-[75px] mt-4 transition-colors duration-300 ease-in-out hover:bg-custom-purple4'>
               
               <h3 className='pt-1 pl-2 text-white font-bold lg:text-2xl text-xl  
                 lg:w-[140px] md:w-[140px] w-[280px] '>
@@ -105,32 +89,36 @@ const Nutrition = () => {
 
           </div>
           <div className="lg:w-1/2 w-full">
-            <div className="flex justify-between px-4 lg:py-2.5  md:py-2.5 py-2 bg-custom-purple3 lg:rounded-2xl  
-              md:rounded-2xl rounded-full w-[330px] mt-4 lg:mt-0">
+            <div className="flex justify-between px-4 lg:py-2.5  md:py-2.5 py-2
+             bg-custom-purple3 lg:rounded-2xl  md:rounded-2xl rounded-full w-[330px] mt-4 
+             lg:mt-0 transition-colors duration-300 ease-in-out hover:bg-custom-purple4">
               <h3 className='pt-1 pl-2 text-white font-bold lg:text-2xl text-xl w-[240px] '>
                   Autoevaluación
               </h3>
               <Image src="/Pass.svg" alt="Imagen 2" width={45} height={45}  className='pr-2'/>
             </div>
 
-            <div className="flex justify-between px-4 lg:py-2.5  md:py-2.5 py-2 bg-custom-purple2 lg:rounded-2xl  
-              md:rounded-2xl rounded-full w-[330px] mt-4">
+            <div className="flex justify-between px-4 lg:py-2.5  md:py-2.5 py-2
+             bg-custom-purple3 lg:rounded-2xl md:rounded-2xl rounded-full w-[330px] mt-4
+             transition-colors duration-300 ease-in-out hover:bg-custom-purple4">
               <h3 className='pt-1 pl-2 text-white font-bold lg:text-2xl text-xl w-[240px] '>
                   Mis porciones
               </h3>
               <Image src="/Food.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
             </div>
 
-            <div className="flex justify-between px-4 lg:py-2.5  md:py-2.5 py-2 bg-custom-purple2 lg:rounded-2xl  
-              md:rounded-2xl rounded-full  w-[330px] mt-4">
+            <div className="flex justify-between px-4 lg:py-2.5  md:py-2.5 py-2
+             bg-custom-purple3 lg:rounded-2xl md:rounded-2xl rounded-full  w-[330px] mt-4
+             transition-colors duration-300 ease-in-out hover:bg-custom-purple4">
               <h3 className='pt-1 pl-2 text-white font-bold lg:text-2xl text-xl w-[240px] '>
                   Detección de calorías
               </h3>
               <Image src="/Healthy.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
             </div>
 
-            <div className="flex justify-between px-4 lg:py-2.5  md:py-2.5 py-2 bg-custom-purple3 lg:rounded-2xl  
-              md:rounded-2xl rounded-full w-[330px]  mt-4">
+            <div className="flex justify-between px-4 lg:py-2.5  md:py-2.5 py-2
+             bg-custom-purple3 lg:rounded-2xl md:rounded-2xl rounded-full w-[330px]  mt-4
+             transition-colors duration-300 ease-in-out hover:bg-custom-purple4">
               <h3 className='pt-1 pl-2 text-white font-bold lg:text-2xl text-xl  w-[240px] '>
                   Generar un plan nutricional
               </h3>
@@ -141,7 +129,7 @@ const Nutrition = () => {
         </div>
       </div>
 
-    </div>
+    </>
   );
 };
 
