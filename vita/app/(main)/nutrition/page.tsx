@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { FaUtensils, FaHome, FaPoll } from 'react-icons/fa';
-import { BiFilter} from 'react-icons/bi';
+import Link from 'next/link';
 
 /**
  * @author: Bernardo de la Sierra
@@ -121,25 +120,27 @@ const Nutrition = () => {
             </div>
 
             {/* Custom option 5 */}
-            <div className="flex justify-between px-4 lg:py-2.5  md:py-2.5 py-2
-             bg-custom-purple3 lg:rounded-2xl md:rounded-2xl rounded-full  w-[330px] mt-4
-             transition-colors duration-300 ease-in-out hover:bg-custom-purple4">
-              <h3 className='pt-1 pl-2 text-white font-bold lg:text-2xl text-xl w-[240px] '>
-                  Detección de calorías
-              </h3>
-              <Image src="/Healthy.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
-            </div>
-
+            
+              <div className="flex justify-between px-4 lg:py-2.5  md:py-2.5 py-2
+              bg-custom-purple3 lg:rounded-2xl md:rounded-2xl rounded-full  w-[330px] mt-4
+              transition-colors duration-300 ease-in-out hover:bg-custom-purple4">
+                <h3 className='pt-1 pl-2 text-white font-bold lg:text-2xl text-xl w-[240px] '>
+                    Detección de calorías
+                </h3>
+                <Image src="/Healthy.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
+              </div>
+            
             {/* Custom option 6 */}
-            <div className="flex justify-between px-4 lg:py-2.5  md:py-2.5 py-2
-             bg-custom-purple3 lg:rounded-2xl md:rounded-2xl rounded-full w-[330px]  mt-4
-             transition-colors duration-300 ease-in-out hover:bg-custom-purple4">
-              <h3 className='pt-1 pl-2 text-white font-bold lg:text-2xl text-xl  w-[240px] '>
-                  Generar un plan nutricional
-              </h3>
-              <Image src="/ToDo.svg" alt="Imagen 2" width={45} height={45} className='pr-2' />
-            </div>
-
+            <Link id="Enlace"  href="/nutrition/nutritionalPlan" >
+              <div className="flex justify-between px-4 lg:py-2.5  md:py-2.5 py-2
+              bg-custom-purple3 lg:rounded-2xl md:rounded-2xl rounded-full w-[330px]  mt-4
+              transition-colors duration-300 ease-in-out hover:bg-custom-purple4">
+                <h3 className='pt-1 pl-2 text-white font-bold lg:text-2xl text-xl  w-[240px] '>
+                    Generar un plan nutricional
+                </h3>
+                <Image src="/ToDo.svg" alt="Imagen 2" width={45} height={45} className='pr-2' />
+              </div>
+            </Link>
           </div>
         </div>
       </div>

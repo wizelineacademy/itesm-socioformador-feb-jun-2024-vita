@@ -22,7 +22,7 @@ const routes: { [key: string]: string } = {
  * Root layout component for the application
  * @param {Object} props - Props for RootLayout component
  * @param {React.ReactNode} props.children - Child components to be rendered
-  * @author Bernardo de la Sierra
+ * @author Bernardo de la Sierra
  * @version 1.0.1 
  */
 export default function RootLayout({
@@ -33,21 +33,15 @@ export default function RootLayout({
   // Get the current pathname using the usePathname hook from next/navigation
   const pathname = usePathname();
 
-  // State to hold the background color based on the current pathname
-  const [backgroundColor, setBackgroundColor] = useState(() => {
-    const routeColor = routes[pathname] || 'bg-home-background'; // Default color if route not found
-    return routeColor;
-  });
+  // Extract the root route from the current pathname
+  const rootRoute = pathname.split('/')[1]; // Extract the root route from the pathname
 
-  // Update background color when pathname changes
-  useEffect(() => {
-    const routeColor = routes[pathname] || 'bg-home-background'; // Default color if route not found
-    setBackgroundColor(routeColor);
-  }, [pathname]);
+  // Determine the background color based on the root route
+  const backgroundColor = routes[`/${rootRoute}`] || 'bg-home-background';
 
   return (
     <html lang="es">
-      <body >
+      <body>
         <div className="relative m-0">
           {/* Sidebar */}
           <div id="Sidebar" className="hidden md:flex md:flex-col md:w-72 md:fixed md:inset-y-0 z-[80]
