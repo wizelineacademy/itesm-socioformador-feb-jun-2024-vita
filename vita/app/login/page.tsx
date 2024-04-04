@@ -53,12 +53,12 @@ const Login = () => {
           </span>
         </div>
 
-        <div id="SignUp-Section" className=" flex flex-col items-center md:px-10
+        <div id="SignUp-Section" className=" flex flex-col  items-center md:px-10
         mt-4 lg:mt-0  ">
-           <h2 className="text-4xl font-bold text-white pt-2 w-[400px] mb-16">
-          ¡Bienvenid@ de nuevo!
+           <h2 className="lg:text-4xl md:text-4xl text-3xl font-bold text-white pt-2 lg:w-[400px]
+           md:w-[400px]     mb-16 mx-auto">
+              ¡Bienvenid@ de nuevo!
             </h2>
-       
             <div className="pb-4">
                 <Input
                     id="email"
