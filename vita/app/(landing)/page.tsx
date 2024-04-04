@@ -4,6 +4,7 @@ import Button from "../components/Button";
 import Image from 'next/image'
 import About from '../(landing)/Landing_About'
 import Unete from '../(landing)/unete'
+import Footer from '../(landing)/Footer'
 const Landing = () => {
   return (
     <div className="200vh bg-gradient-custom flex flex-col">
@@ -34,6 +35,7 @@ const Landing = () => {
         </div>  
         <About />
         <Unete />
+        <Footer />
     </div>
   );
 }
