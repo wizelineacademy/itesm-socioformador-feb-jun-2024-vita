@@ -3,7 +3,7 @@
 
 import React, { useState } from "react";
 import Information from "../components/information/Information";
-import Button from "../components/Button";
+import Button from "@/components/Button";
 import axios from  "axios"
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from 'react-icons/fa'; 
