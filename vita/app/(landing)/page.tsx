@@ -5,6 +5,9 @@ import Image from 'next/image'
 import About from '../(landing)/Landing_About'
 import Unete from '../(landing)/unete'
 import Footer from '../(landing)/Footer'
+import CarruseLanding from '../(landing)/carrusel'
+
+
 const Landing = () => {
   return (
     <div className="200vh bg-gradient-custom flex flex-col">
@@ -34,6 +37,7 @@ const Landing = () => {
             </div>
         </div>  
         <About />
+        <CarruseLanding />
         <Unete />
         <Footer />
     </div>

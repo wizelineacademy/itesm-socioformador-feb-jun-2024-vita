@@ -5,31 +5,37 @@ import Button from "../components/Button";
 
 
 
-const HomePage: React.FC = () => {
+const Footer: React.FC = () => {
 
   return (
-    <div className='flex flex-col justify-center align-middle text-white font-notosans h-screen'>
-        <div id='Flex-Container' >
-            <div id='About_Container' className='flex justify-center items-center flex-col gap-12 '>
-                <h1 className="text-8xl font-bold mb-5">Únete a <span className='text-red-300 text-9xl font-bold'>VITA</span> </h1>
-                <Image src={"/Line.png"} alt='Line divider' width={300} height={10}></Image>
-
-                <h2 className='text-5xl  mb-5 text-center w-5/12 leading-loose font-light	'> Y disfruta de todos los  <span className='text-red-300 text-7xl font-bold'> beneficios</span> </h2>
-                <Button 
-                        borderColor="border-custom-red"
-                        label= "Regístrate" 
-                        outline
-                        big
-                        onClick={() => {}}
-                      
-                    />  
+    <div className='bg-black bg-opacity-40 h-60 flex justify-around items-center'>
+          <div className='flex flex-col gap-3'>
+            <h1 className='text-red-300 text-5xl font-bold'>VITA</h1>
+            <h2 className='text-white text-3xl font-bold'>Contáctanos</h2>
+            <div className='flex gap-10'>
+              <Image
+                src="/instalogo.svg"
+                width={40}
+                height={40}
+                alt="Picture of the author"
+              />
+              <Image
+                src="/metalogo.svg"
+                width={40}
+                height={40}
+                alt="Picture of the author"
+              />
             </div>
-        </div>
-        
-
-      
+          </div>
+          <div className='flex flex-col text-white gap-3 font-bold'>
+            <p>@Bdelas777</p>
+            <p>@JulioEmmmanuel </p>
+            <p>@KrakenDominguezz </p>
+            <p>@SofiRegiM</p>
+            <p>@edan11v </p>
+          </div>
     </div>
   );
 };
 
-export default HomePage;
+export default Footer;
