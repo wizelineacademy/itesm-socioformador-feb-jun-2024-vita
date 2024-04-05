@@ -36,7 +36,6 @@ const SignUp = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-    console.log("Submitting data:", data); 
     
     axios.post('/api/register', data)
       .then(() => {
@@ -62,7 +61,11 @@ const SignUp = () => {
             <Information />
           </span>
         </div>
-        <div id="SignUp-Section" className="flex flex-col items-center md:px-10 mt-4 lg:mt-0  ">
+        
+        <form 
+          id="SignUp-Section" 
+          className="flex flex-col items-center md:px-10 mt-4 lg:mt-0"
+          onSubmit={handleSubmit(onSubmit)}>
           <div className="pb-4">
             <Input
               id="name"
@@ -74,6 +77,11 @@ const SignUp = () => {
               big
             />
           </div>
+
+          {errors.name && typeof errors.name.message === 'string' && (
+              <span className="text-red-500">{errors.name.message}</span>
+          )}
+
           <div className=" pb-4">
             <Input
               id="email"
@@ -87,10 +95,12 @@ const SignUp = () => {
             />
             
           </div>
+          
           {errors.email && typeof errors.email.message === 'string' && (
-            
               <span className="text-red-500">{errors.email.message}</span>
-            )}
+          )}
+
+
           <div className="sm:md:lg:flex flex-row  ">
             <div className="md:lg:mr-4 pb-4">
               <Input
@@ -103,6 +113,9 @@ const SignUp = () => {
                 required
               />
             </div>
+
+            
+
             <div className="pb-4">
               <Input
                 id="confirmPassword"
@@ -114,7 +127,17 @@ const SignUp = () => {
                 required
               />
             </div>
+
           </div>
+
+          {errors.password && typeof errors.password.message === 'string' && (
+              <span className="text-red-500">{errors.password.message}</span>
+          )}
+
+          {errors.confirmPassword && typeof errors.confirmPassword.message === 'string' && (
+            <span className="text-red-500">{errors.confirmPassword.message}</span>
+          )}
+
           <div className="md:lg:flex flex-row  ">
             <div className="md:lg:mr-4 pb-4 pt-8">
               <Button 
@@ -135,11 +158,11 @@ const SignUp = () => {
           </div>
          
           <Button
+            type="submit"
             borderColor="border-custom-green"
             label="Regístrate"
             outline
             big
-            onClick={handleSubmit(onSubmit)}
           />
       
           <h3 className="text-white text-sm lg:text-lg font-bold leading-normal pt-4 ">
@@ -150,7 +173,7 @@ const SignUp = () => {
               </Link>
             </span>
           </h3>
-        </div>
+        </form>
       </div>
     </div>
   );

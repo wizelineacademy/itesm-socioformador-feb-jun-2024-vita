@@ -6,6 +6,7 @@ import { IconType } from "react-icons";
 
 interface ButtonProps {
   label: string;
+  type?: "button" | "submit" | "reset" | undefined;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void; 
   onSubmit?:  () => void;
   disabled?: boolean;
@@ -30,7 +31,8 @@ interface ButtonProps {
  * @returns {JSX.Element} Retorna un elemento JSX que representa el botón.
  */
 const Button: React.FC<ButtonProps> = ({ 
-    label, 
+    label,
+    type, 
     onClick, 
     onSubmit,
     disabled, 
@@ -51,6 +53,7 @@ const Button: React.FC<ButtonProps> = ({
     return ( 
       <button
         disabled={disabled}
+        type={type ? type : "button"}
         onClick={handleSubmit} // Manejar el evento aquí
         className={`
           relative
