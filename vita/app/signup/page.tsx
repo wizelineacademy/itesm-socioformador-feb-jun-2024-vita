@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import Information from "../components/information/Information";
 import Button from "../components/Button";
 import axios from  "axios"
@@ -16,7 +16,8 @@ import {
 } from "react-hook-form";
 import Input from "../components/Inputs/Input";
 import Link from "next/link";
-
+import useLogin from "@/app/hooks/useLogin";
+import useRegister from "@/app/hooks/useRegister";
 
 /**
  * @description Pantalla de registro 
@@ -27,6 +28,8 @@ import Link from "next/link";
 const SignUp = () => {
 
   const [isLoading, setIsLoading] = useState(false);
+  const registerModal = useRegister();
+  const loginModal = useLogin();
 
   const { 
     register, 
@@ -38,10 +41,31 @@ const SignUp = () => {
     defaultValues: {
       name: '',
       email: '',
-      cellphone: '',
       password: ''
     },
   });
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    setIsLoading(true);
+
+    axios.post('/api/register', data)
+    .then(() => {
+      // toast.success('Registered!');
+      registerModal.onClose();
+      loginModal.onOpen();
+    })
+    // .catch((error) => {
+      // toast.error(error);
+    // })
+    .finally(() => {
+      setIsLoading(false);
+    })
+  }
+
+  const onToggle = useCallback(() => {
+    registerModal.onClose();
+    loginModal.onOpen();
+  }, [registerModal, loginModal])
 
   return (
     <div id="Background" className="min-h-screen bg-gradient-custom flex flex-col">
@@ -64,41 +88,28 @@ const SignUp = () => {
         mt-4 lg:mt-0  ">
           <div className="pb-4">
            <Input
-           id="name"
-           label="Nombre"
-           disabled={isLoading}
-           register={register}
-           errors={errors}
-           required
-                  
-                  big
+            id="name"
+            label="Nombre"
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
+            big
                 />
           </div>
-          <div className="md:lg:flex flex-row  ">
-            
-            <div className="md:lg:mr-4 pb-4">
-                <Input
-                    id="email"
-                    label="Correo"
-                    type="email"
-                    disabled={isLoading}
-                    register={register}
-                    errors={errors}
-                    required
-                />
-            </div>
-
-            <div className="pb-4">
-                <Input
-                    id="cellphone"
-                    label="Teléfono"
-                    disabled={isLoading}
-                    register={register}
-                    errors={errors}
-                    required
-                />
-            </div>
-        </div>
+          
+          <div className=" pb-4">
+              <Input
+                  id="email"
+                  label="Correo"
+                  type="email"
+                  disabled={isLoading}
+                  register={register}
+                  errors={errors}
+                  big
+                  required
+              />
+          </div>
 
         <div className="sm:md:lg:flex flex-row  ">
             <div className="md:lg:mr-4 pb-4">
@@ -158,7 +169,8 @@ const SignUp = () => {
               label="Regístrate"
               outline
               big
-              onClick={() => {}}
+           
+              onSubmit={handleSubmit(onSubmit)}
               
             />
           </Link>
