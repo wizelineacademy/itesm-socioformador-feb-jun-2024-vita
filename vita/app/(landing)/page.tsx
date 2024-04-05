@@ -1,6 +1,8 @@
+"use client";
+
 import Navbar from "../components/navbar/Navbar";
 import Information from '../components/information/Information';
-import Button from "../components/Button";
+import Button from "../../components/Button";
 
 const Landing = () => {
   return (
