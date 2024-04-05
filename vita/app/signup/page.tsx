@@ -79,7 +79,7 @@ const SignUp = () => {
           </div>
 
           {errors.name && typeof errors.name.message === 'string' && (
-              <span className="text-red-500">{errors.name.message}</span>
+              <span className="text-red-500 mb-2">{errors.name.message}</span>
           )}
 
           <div className=" pb-4">
@@ -97,7 +97,7 @@ const SignUp = () => {
           </div>
           
           {errors.email && typeof errors.email.message === 'string' && (
-              <span className="text-red-500">{errors.email.message}</span>
+              <span className="text-red-500 mb-2">{errors.email.message}</span>
           )}
 
 
@@ -131,7 +131,7 @@ const SignUp = () => {
           </div>
 
           {errors.password && typeof errors.password.message === 'string' && (
-              <span className="text-red-500">{errors.password.message}</span>
+              <span className="text-red-500 mb-2">{errors.password.message}</span>
           )}
 
           {errors.confirmPassword && typeof errors.confirmPassword.message === 'string' && (
