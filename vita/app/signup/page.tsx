@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import { RegisterSchema } from "@/app/validations/RegisterSchema";
 import Information from "@/app/components/information/Information";
 import Input from "@/app/components/Inputs/Input";
+import { signIn } from "next-auth/react";
 
 
 const SignUp = () => {
@@ -144,7 +145,7 @@ const SignUp = () => {
                 outline 
                 label="Continuar con Google"
                 icon={FcGoogle}
-                onClick={() => {}}
+                onClick={() => signIn('google')}
               />
             </div>
             <div className="lg:pt-8 pb-8"> 
@@ -152,7 +153,7 @@ const SignUp = () => {
                 outline 
                 label="Continuar con Facebook"
                 icon={FaFacebook}
-                onClick={() => {}}
+                onClick={() => signIn('facebook')}
               />
             </div>
           </div>
