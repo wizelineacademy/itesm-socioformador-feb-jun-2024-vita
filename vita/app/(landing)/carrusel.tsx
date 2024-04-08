@@ -14,21 +14,21 @@ import {
 
 
 const carouselItem1= {
-      header: 'Item 1',
-      description: 'Description for item 1. This is an adaptable description.',
+      header: 'Inteligencia Artificial Integrada',
+      description: 'Utilizando VITA recibiras planes y ayuda personalizada gracias a la Inteligencia Artificial',
       imageUrl: '/AiImage.svg',
       rectangleColor: '#FF5733',
 }
 const carouselItem2= {
-  header: 'Item 1',
-  description: 'Description for item 1. This is an adaptable description.',
-  imageUrl: '/AiImage.svg',
+  header: 'Nutrición de Calidad',
+  description: 'En Vita podrás observar tu progreso de metas de nutrición y generar un plan personalizado generado con IA',
+  imageUrl: '/Nutri.svg',
   rectangleColor: '#FF5733',
 }
 const carouselItem3= {
-  header: 'Item 1',
-  description: 'Description for item 1. This is an adaptable description.',
-  imageUrl: '/AiImage.svg',
+  header: 'Mejora tu sueño',
+  description: 'Con VITA puedes tener recomendaciones personalizadas de sueño, al igual que establecer metas de sueño para que logres conseguir tu sueño ideal',
+  imageUrl: '/Sleeps.svg',
   rectangleColor: '#FF5733',
 }
 
