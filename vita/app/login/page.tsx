@@ -1,7 +1,7 @@
 
 'use client';
 import { signIn } from 'next-auth/react';
-import React, { useState } from "react";
+import React, { useCallback,useState } from "react";
 import Information from "../components/information/Information";
 import Button from "@/components/Button";
 import axios from  "axios"
@@ -26,6 +26,7 @@ import Link from "next/link";
 const Login = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const swal = require('sweetalert2')
 
   const { 
     register, 
@@ -46,18 +47,25 @@ const Login = () => {
 
     signIn('credentials', { 
       ...data, 
-      redirect: false,
+ 
     })
-    .then(() => {
-      console.log("Registration successful!"); 
-      router.push('/home');
-    })
-    .catch((error) => {
-      console.error("Registration error:", error); 
-    })
-    .finally(() => {
+    .then((callback) => {
       setIsLoading(false);
-    });
+      if (callback?.ok) {
+        swal.fire({
+          title: 'Success!',
+          text: 'Your operation was successful.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+        router.push('/home');
+      }
+      if (callback?.error) {
+        //toast.error(callback.error);
+      }
+    })
+    
+   
 
   }
 
@@ -113,6 +121,7 @@ const Login = () => {
                 onClick={() => signIn('google')}
             
               />
+
             </div>
             <div className="pb-8"> 
             <Button 
@@ -124,7 +133,7 @@ const Login = () => {
             />
             </div>
         
-          <Link href="/home" >
+       
             <Button
               borderColor="border-custom-green"
               label="Iniciar sesión"
@@ -133,7 +142,7 @@ const Login = () => {
               onClick={() => {}}
 
             />
-          </Link>
+         
           <h3 className="text-white text-sm lg:text-lg font-bold leading-normal pt-4">
             ¿No tienes una cuenta? 
             <span className="cursor-pointer hover:underline pl-4"> 
