@@ -69,7 +69,7 @@ const Input: React.FC<InputProps> = ({
         id={id}
         disabled={disabled}
         {...register(id, { required })}
-        placeholder=""
+        placeholder=" "
         type={inputType}
         value={passwordValue}
         onChange={handleInputChange}
@@ -92,6 +92,7 @@ const Input: React.FC<InputProps> = ({
         `}
       />
       <label
+        
         className={`
           absolute 
           text-md
@@ -126,7 +127,8 @@ const Input: React.FC<InputProps> = ({
           className="absolute top-5 right-4 text-white"
           onClick={togglePasswordVisibility}
         >
-          {showPassword ? <FaEye /> : <FaEyeSlash />}
+          {showPassword ? <FaEye size={24} /> : <FaEyeSlash size={24} />}
+
         </button>
       )}
       {/* Estilo para cambiar el color del icono del calendario en un input de tipo date */}

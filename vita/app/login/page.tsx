@@ -91,12 +91,13 @@ const Login = () => {
             <div className="pb-4">
                 <Input
                     id="email"
-                    label="Correo"
+                    label="Correo electrónico"
                     type="email"
                     disabled={isLoading}
                     register={register}
                     errors={errors}
                     required
+                    
                 />
             </div>
 
