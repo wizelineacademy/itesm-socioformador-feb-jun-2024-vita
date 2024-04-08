@@ -1,11 +1,14 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { FaAppleAlt, FaCarrot, FaLeaf, FaDrumstickBite, FaGlassWhiskey, FaSeedling, FaIceCream, FaBacon } from 'react-icons/fa';
 import Image from 'next/image';
 
-//pantalla hecha por Sofia Regina Martinez Cantú
+interface Numero {
+    number: number;
+    label: string;
+}
 
-const numeros = [
+const numeros: Numero[] = [
     { number: 0, label: 'Frutas' },
     { number: 0, label: 'Verduras' },
     { number: 0, label: 'Leguminosas' },
@@ -16,14 +19,17 @@ const numeros = [
     { number: 0, label: 'Grasas' },
 ];
 
-const ColumnsWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-    <div className="flex flex-row justify-start space-x-40 ml-6 mt-8">
+interface ColumnsWrapperProps {
+    children: React.ReactNode;
+}
+
+const ColumnsWrapper: FC<ColumnsWrapperProps> = ({ children }) => (
+    <div className="flex flex-wrap justify-start md:space-x-2 p-4" style={{ marginTop: '1rem' }}>
         {children}
     </div>
 );
 
 interface ColumnProps {
-    title: string;
     labels: string[];
     icons: JSX.Element[];
     values: number[];
@@ -31,16 +37,15 @@ interface ColumnProps {
     validationMessages: string[];
 }
 
-const Column: React.FC<ColumnProps> = ({ title, labels, icons, values, onValueChange, validationMessages }) => (
-    <div>
-        <h2 className="text-white text-xl font-bold mb-1">{title}</h2>
+const Column: FC<ColumnProps> = ({ labels, icons, values, onValueChange, validationMessages }) => (
+    <div className="flex-1 mx-2"> 
         <div className="flex flex-col">
             {labels.map((label, index) => (
                 <div key={index} className="mb-6 relative">
                     {validationMessages[index] && (
                         <div className="text-red-500 text-sm mb-1 font-bold">{validationMessages[index]}</div>
                     )}
-                    <label className="block text-white text-lg font-bold mb-1 ml-3">{label}</label>
+                    <label className="block text-white text-lg font-bold mb-1">{label}</label>
                     <div className="flex items-center">
                         <input
                             type="number"
@@ -59,11 +64,11 @@ const Column: React.FC<ColumnProps> = ({ title, labels, icons, values, onValueCh
     </div>
 );
 
-const Nutrition: React.FC = () => {
-    const [values, setValues] = useState(numeros.map(c => c.number));
-    const [validationMessages, setValidationMessages] = useState(Array(numeros.length).fill(''));
-    const [statusMessage, setStatusMessage] = useState('');
-    const [statusColor, setStatusColor] = useState('');
+const Nutrition: FC = () => {
+    const [values, setValues] = useState<number[]>(numeros.map(c => c.number));
+    const [validationMessages, setValidationMessages] = useState<string[]>(Array(numeros.length).fill(''));
+    const [statusMessage, setStatusMessage] = useState<string>('');
+    const [statusColor, setStatusColor] = useState<string>('');
 
     const updateValue = (index: number, value: number) => {
         const newValues = [...values];
@@ -71,7 +76,7 @@ const Nutrition: React.FC = () => {
         setValues(newValues);
 
         const newMessages = [...validationMessages];
-        newMessages[index] = (value >= 0 && value <= 10) ? '' : '¡Sólo se aceptan valores entre 0-10!';
+        newMessages[index] = value >= 0 && value <= 10 ? '' : '¡Sólo se aceptan valores entre 0-10!';
         setValidationMessages(newMessages);
     };
 
@@ -86,13 +91,13 @@ const Nutrition: React.FC = () => {
         }
     };
 
-    const iconsFirstColumn = [
+    const iconsFirstColumn: JSX.Element[] = [
         <FaAppleAlt className="text-white text-5xl" />,
         <FaCarrot className="text-white text-5xl" />,
         <FaLeaf className="text-white text-5xl" />,
         <FaDrumstickBite className="text-white text-5xl" />,
     ];
-    const iconsSecondColumn = [
+    const iconsSecondColumn: JSX.Element[] = [
         <FaGlassWhiskey className="text-white text-5xl" />,
         <FaSeedling className="text-white text-5xl" />,
         <FaIceCream className="text-white text-5xl" />,
@@ -102,26 +107,26 @@ const Nutrition: React.FC = () => {
     return (
         <div className="h-screen overflow-auto bg-[#2C0521]">
             <div className="pt-4 pr-4">
-                <div className="flex items-center">
-                    <div>
-                        <h2 className="text-white text-5xl font-bold">Mis</h2>
-                        <h2 className="text-white text-5xl font-bold">Porciones</h2>
-                    </div>
-                    <div className="ml-80 mr-4 mt-9">
-                        <Image src="/Food.svg" alt="Imagen 2" width={45} height={45} />
+                <div className="flex items-center justify-between">
+                    <div className="flex flex-col">
+                        <div className="flex items-center">
+                            <h2 className="text-white text-5xl font-bold">Mis</h2>
+                        </div>
+                        <div className="flex items-center">
+                            <h2 className="text-white text-5xl font-bold">Porciones</h2>
+                            <Image src="/Food.svg" alt="Imagen 2" width={45} height={45} style={{ marginLeft: '20rem' }} />
+                        </div>
                     </div>
                 </div>
                 <ColumnsWrapper>
                     <Column
-                        title=""
                         labels={['Frutas', 'Verduras', 'Leguminosas', 'Carnes']}
                         icons={iconsFirstColumn}
                         values={values.slice(0, 4)}
-                        onValueChange={(index, value) => updateValue(index, value)}
+                        onValueChange={updateValue}
                         validationMessages={validationMessages.slice(0, 4)}
                     />
                     <Column
-                        title=""
                         labels={['Leche', 'Cereales', 'Azúcares', 'Grasas']}
                         icons={iconsSecondColumn}
                         values={values.slice(4)}
@@ -129,8 +134,8 @@ const Nutrition: React.FC = () => {
                         validationMessages={validationMessages.slice(4)}
                     />
                 </ColumnsWrapper>
-                <div className="flex justify-end items-center mt-6 mr-40">
-                    <span className={`font-bold text-lg pr-4 ${statusColor}`}>{statusMessage}</span>
+                <div className="flex justify-end items-center mt-6 mr-4 md:mr-40">
+                    <span className={`font-bold text-lg ${statusColor}`} style={{ marginLeft: '-1.5rem', marginRight: '1rem' }}>{statusMessage}</span>
                     <button
                         className="bg-[#F84AC7] hover:bg-[#E033A6] text-white font-bold py-4 px-20 rounded-full"
                         onClick={handleEdit}
