@@ -1,21 +1,12 @@
 'use client'
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Button from "@/components/Button";
-import Link from "next/link";
 import { useState } from "react";
 import axios from "axios";
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebook } from 'react-icons/fa'; 
 import swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
-import { RegisterSchema } from "@/app/validations/RegisterSchema";
-import Information from "@/app/components/information/Information";
-import Input from "@/app/components/Inputs/Input";
-import { signIn } from "next-auth/react";
 import { cn } from "@/lib/utils";
-import { Search } from "lucide-react";
 import ListItem from "@/app/components/list/ListItem";
+import MainButton from "@/app/components/buttons/MainButton";
 
 
 const RecipesIngredients = () => {
@@ -104,7 +95,7 @@ const RecipesIngredients = () => {
                 onClick={() => {
                     setSelectedList(0);
                 }}
-                className={cn("px-7 py-3 rounded-3xl text-white font-semibold hover:bg-decoration-nutrition-colordark", {
+                className={cn("px-7 py-3 z-10 rounded-3xl text-white font-semibold hover:bg-decoration-nutrition-colordark", {
                     "bg-decoration-nutrition-colordark": selectedList === 0,
                     "bg-decoration-nutrition-colorlight": selectedList !== 0
                 })}            
@@ -115,7 +106,7 @@ const RecipesIngredients = () => {
                 onClick={() => {
                     setSelectedList(1);
                 }}
-                className={cn("px-7 py-3 rounded-3xl text-white font-semibold hover:bg-decoration-nutrition-colordark", {
+                className={cn("px-7 py-3  z-10 rounded-3xl text-white font-semibold hover:bg-decoration-nutrition-colordark", {
                     "bg-decoration-nutrition-colordark": selectedList === 1,
                     "bg-decoration-nutrition-colorlight": selectedList !== 1
                 })} 
@@ -153,9 +144,7 @@ const RecipesIngredients = () => {
             }
         </ul>
 
-        <button className="mt-8 w-4/5 px-5 py-3 rounded-2xl mx-auto flex justify-center text-white font-semibold bg-button-blue">
-            Continuar
-        </button>
+        <MainButton text={"Continuar"}/>
     </div>
   );
 };
