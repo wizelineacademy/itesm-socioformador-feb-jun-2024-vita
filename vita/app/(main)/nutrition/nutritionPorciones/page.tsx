@@ -56,7 +56,7 @@ const Column: FC<ColumnProps> = ({ labels, icons, values, onValueChange, validat
                             min="0"
                             max="10"
                         />
-                        {icons[index] && <div className="ml-6 mt-[-0.5rem]">{icons[index]}</div>}
+                        {icons[index] && <div className="ml-5 mt-[-0.5rem]">{icons[index]}</div>}
                     </div>
                 </div>
             ))}
@@ -110,10 +110,10 @@ const Nutrition: FC = () => {
                 <div className="flex items-center justify-between">
                     <div className="flex flex-col">
                         <div className="flex items-center">
-                            <h2 className="text-white text-5xl font-bold">Mis</h2>
+                            <h2 className="text-white text-5xl font-bold pl-4 ">Mis</h2>
                         </div>
                         <div className="flex items-center">
-                            <h2 className="text-white text-5xl font-bold">Porciones</h2>
+                            <h2 className="text-white text-5xl font-bold pl-4 ">Porciones</h2>
                             <Image src="/Food.svg" alt="Imagen 2" width={45} height={45} style={{ marginLeft: '20rem' }} />
                         </div>
                     </div>
