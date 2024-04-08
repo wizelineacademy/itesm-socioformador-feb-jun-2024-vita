@@ -49,21 +49,21 @@ const Login = () => {
       ...data, 
  
     })
-    .then((callback) => {
-      setIsLoading(false);
-      if (callback?.ok) {
-        swal.fire({
-          title: 'Success!',
-          text: 'Your operation was successful.',
-          icon: 'success',
-          confirmButtonText: 'OK'
-        });
-        router.push('/home');
-      }
-      if (callback?.error) {
-        //toast.error(callback.error);
-      }
-    })
+    // .then((callback) => {
+    //   setIsLoading(false);
+    //   if (callback?.ok) {
+    //     swal.fire({
+    //       title: 'Success!',
+    //       text: 'Your operation was successful.',
+    //       icon: 'success',
+    //       confirmButtonText: 'OK'
+    //     });
+    //     router.push('/home');
+    //   }
+    //   if (callback?.error) {
+    //     //toast.error(callback.error);
+    //   }
+    // })
     
    
 
@@ -134,7 +134,7 @@ const Login = () => {
             />
             </div>
         
-       
+          <Link href="/home"> 
             <Button
               borderColor="border-custom-green"
               label="Iniciar sesión"
@@ -143,7 +143,8 @@ const Login = () => {
               onClick={() => {}}
 
             />
-         
+         </Link>
+         </form>
           <h3 className="text-white text-sm lg:text-lg font-bold leading-normal pt-4">
             ¿No tienes una cuenta? 
             <span className="cursor-pointer hover:underline pl-4"> 
@@ -153,7 +154,7 @@ const Login = () => {
             </span>
           </h3>
 
-        </form>
+       
       </div>
     </div>
   );
