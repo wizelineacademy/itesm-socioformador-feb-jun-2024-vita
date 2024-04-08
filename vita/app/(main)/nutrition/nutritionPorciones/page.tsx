@@ -49,14 +49,14 @@ const Column: FC<ColumnProps> = ({ labels, icons, values, onValueChange, validat
                     <div className="flex items-center">
                         <input
                             type="number"
-                            className="bg-[#6D5366] text-white border-none rounded-full pl-6 pr-4 py-5"
+                            className="bg-[#6D5366] text-white border-none rounded-full pl-6 pr-4 py-3"
                             style={{ width: '300px' }}
                             value={values[index]}
                             onChange={(e) => onValueChange(index, Number(e.target.value))}
                             min="0"
                             max="10"
                         />
-                        {icons[index] && <div className="ml-5 mt-[-0.5rem]">{icons[index]}</div>}
+                        {icons[index] && <div className="ml-5 mt-[-1rem]">{icons[index]}</div>}
                     </div>
                 </div>
             ))}
@@ -135,7 +135,7 @@ const Nutrition: FC = () => {
                         validationMessages={validationMessages.slice(4)}
                     />
                 </ColumnsWrapper>
-                <div className="flex justify-end items-center mt-5 mr-4 md:mr-40">
+                <div className="flex justify-end items-center mt-2 mr-4 md:mr-40">
                     <span className={`font-bold text-lg ${statusColor}`} style={{ marginLeft: '-1.5rem', marginRight: '0.8rem' }}>{statusMessage}</span>
                     <button
                         className="bg-[#F84AC7] hover:bg-[#E033A6] text-white font-bold py-4 px-20 rounded-full"
