@@ -13,16 +13,16 @@ export const RegisterSchema = z.object({
     message: "Por favor ingresa un correo electrónico válido",
   }),
   password: z.string()
-    .min(6, { message: "La contraseña debe tener al menos 6 caracteres" })
-.regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&+-*])[A-Za-z\d@$!%*?&+-*/]{6,}$/, {
-      message: "La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un número y un carácter especial"
-    }),
+  .min(6, { message: "La contraseña debe tener al menos 6 caracteres" })
+  .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&+*/])[A-Za-z\d@$!%*?&+*/]{6,}$/, {
+      message: "La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un número y uno de los siguientes caracteres especiales: @ $ ! % * ? & + - * /"
+  }),
 
   confirmPassword: z.string()
-    .min(6, { message: "La contraseña debe tener al menos 6 caracteres" })
-    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/, {
-      message: "La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un número y un carácter especial"
-    }),
+  .min(6, { message: "La contraseña debe tener al menos 6 caracteres" })
+  .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&+*/])[A-Za-z\d@$!%*?&+*/]{6,}$/, {
+      message: "La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un número y uno de los siguientes caracteres especiales: @ $ ! % * ? & + - * /"
+  })
 }).refine(data => data.password === data.confirmPassword, {
   message: "Las contraseñas deben coincidir",
   path: ["confirmPassword"]
