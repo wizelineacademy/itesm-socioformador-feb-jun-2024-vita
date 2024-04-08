@@ -20,7 +20,7 @@ const AdaptableCarousel: React.FC<AdaptableCarouselProps> = ({ item }) => {
       <h1 className='text-4xl font-sans font-bold mt-5 ml-5'>
         {item.header}
       </h1>
-      <div className='flex align-middle justify-center text-center gap-10 mx-8'>
+      <div className='flex align-middle justify-center text-center gap-10 mx-8 text-2xl'>
         <p className='w-2/4'>{item.description} </p>
         <Image
       src={item.imageUrl}

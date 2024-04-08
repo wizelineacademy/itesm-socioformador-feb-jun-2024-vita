@@ -17,10 +17,10 @@ const Navbar = ({
           <div className="flex flex-row items-center my-1.5 lg:justify-between  md:gap-3 flex-wrap"
           >
             <div className="flex items-center gap-8 font-notosans invisible lg:visible">
-              <NavItem color="text-white" title="Inicio" />
-              <NavItem color="text-white" title="Acerca De" />
-              <NavItem color="text-white" title="¿Qué hacemos?" />
-              <NavItem color="text-white" title="Únete a Vita" />
+              <NavItem color="text-white" title="Inicio" href="#Home_Page"/>
+              <NavItem color="text-white" title="Acerca De" href="#About_Page" />
+              <NavItem color="text-white" title="¿Qué hacemos?" href="#Carrusel_Page" />s
+              <NavItem color="text-white" title="Únete a Vita" href="#Unete_Page" />
             </div>
             <div className="flex items-center gap-8 font-notosans">
               <NavItem color="text-white" title="Registrarse" href="/signup"/>

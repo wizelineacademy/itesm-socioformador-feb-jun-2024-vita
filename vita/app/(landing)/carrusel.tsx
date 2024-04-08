@@ -23,7 +23,7 @@ const carouselItem2= {
   header: 'Nutrición de Calidad',
   description: 'En Vita podrás observar tu progreso de metas de nutrición y generar un plan personalizado generado con IA',
   imageUrl: '/Nutri.svg',
-  rectangleColor: '#FF5733',
+  rectangleColor: '#779787',
 }
 const carouselItem3= {
   header: 'Mejora tu sueño',
@@ -36,6 +36,7 @@ const CarruseLanding: React.FC = () => {
 
   return (
    // 50% on small screens and 33% on larger screens.
+   
   <Carousel>
     <CarouselContent className=' my-10'>
       <CarouselItem className="md:basis-1/2 lg:basis-1/3 "><AdaptableCarousel item={carouselItem1}/></CarouselItem>
