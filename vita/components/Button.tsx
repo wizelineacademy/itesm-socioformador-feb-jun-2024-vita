@@ -1,14 +1,12 @@
 
 "use client";
 
-import { useCallback } from "react";
 import { IconType } from "react-icons";
 
 interface ButtonProps {
   label: string;
   type?: "button" | "submit" | "reset" | undefined;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void; 
-  onSubmit?:  () => void;
   disabled?: boolean;
   outline?: boolean;
   big?: boolean;
@@ -34,7 +32,7 @@ const Button: React.FC<ButtonProps> = ({
     label,
     type, 
     onClick, 
-    onSubmit,
+  
     disabled, 
     outline,
     big,
@@ -42,19 +40,13 @@ const Button: React.FC<ButtonProps> = ({
     borderColor,
   
   }) => {
-    const handleSubmit = useCallback(() => {
-      if (disabled || !onSubmit) {
-        return;
-      }
-    
-      onSubmit();
-    }, [onSubmit, disabled]);
+   
     
     return ( 
       <button
         disabled={disabled}
         type={type ? type : "button"}
-        onClick={handleSubmit} // Manejar el evento aquí
+        onClick={onClick}
         className={`
           relative
           disabled:opacity-70

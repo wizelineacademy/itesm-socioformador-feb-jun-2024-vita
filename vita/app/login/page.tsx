@@ -1,13 +1,13 @@
 
 'use client';
-
-import React, { useState } from "react";
+import { signIn } from 'next-auth/react';
+import React, { useCallback,useState } from "react";
 import Information from "../components/information/Information";
 import Button from "@/components/Button";
 import axios from  "axios"
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from 'react-icons/fa'; 
-
+import { useRouter } from "next/navigation";
 import { 
   FieldValues, 
   SubmitHandler,
@@ -24,8 +24,9 @@ import Link from "next/link";
  * @returns {JSX.Element} Retorna un elemento JSX que representa el botón.
  */
 const Login = () => {
-
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const swal = require('sweetalert2')
 
   const { 
     register, 
@@ -40,6 +41,34 @@ const Login = () => {
     },
   });
 
+  const onSubmit: SubmitHandler<FieldValues> = 
+  (data) => {
+    setIsLoading(true);
+
+    signIn('credentials', { 
+      ...data, 
+ 
+    })
+    // .then((callback) => {
+    //   setIsLoading(false);
+    //   if (callback?.ok) {
+    //     swal.fire({
+    //       title: 'Success!',
+    //       text: 'Your operation was successful.',
+    //       icon: 'success',
+    //       confirmButtonText: 'OK'
+    //     });
+    //     router.push('/home');
+    //   }
+    //   if (callback?.error) {
+    //     //toast.error(callback.error);
+    //   }
+    // })
+    
+   
+
+  }
+
   return (
     <div id="Background" className="min-h-screen bg-gradient-custom flex flex-col">
 
@@ -53,8 +82,8 @@ const Login = () => {
           </span>
         </div>
 
-        <div id="SignUp-Section" className=" flex flex-col  items-center md:px-10
-        mt-4 lg:mt-0  ">
+        <form id="SignUp-Section" className=" flex flex-col  items-center md:px-10
+        mt-4 lg:mt-0  " onSubmit={handleSubmit(onSubmit)} >
            <h2 className="lg:text-4xl md:text-4xl text-3xl font-bold text-white pt-2 lg:w-[400px]
            md:w-[400px]     mb-16 mx-auto">
               ¡Bienvenid@ de nuevo!
@@ -62,12 +91,13 @@ const Login = () => {
             <div className="pb-4">
                 <Input
                     id="email"
-                    label="Correo"
+                    label="Correo electrónico"
                     type="email"
                     disabled={isLoading}
                     register={register}
                     errors={errors}
                     required
+                    
                 />
             </div>
 
@@ -89,21 +119,22 @@ const Login = () => {
                 outline 
                 label="Continuar con  Google"
                 icon={FcGoogle}
-                onClick={() => {}}
+                onClick={() => signIn('google')}
             
               />
+
             </div>
             <div className="pb-8"> 
             <Button 
               outline 
               label="Continuar con Facebook"
               icon={FaFacebook}
-              onClick={() => {}}
+              onClick={() => signIn('facebook')}
           
             />
             </div>
         
-          <Link href="/home" >
+          <Link href="/home"> 
             <Button
               borderColor="border-custom-green"
               label="Iniciar sesión"
@@ -112,7 +143,8 @@ const Login = () => {
               onClick={() => {}}
 
             />
-          </Link>
+         </Link>
+         </form>
           <h3 className="text-white text-sm lg:text-lg font-bold leading-normal pt-4">
             ¿No tienes una cuenta? 
             <span className="cursor-pointer hover:underline pl-4"> 
@@ -122,7 +154,7 @@ const Login = () => {
             </span>
           </h3>
 
-        </div>
+       
       </div>
     </div>
   );
