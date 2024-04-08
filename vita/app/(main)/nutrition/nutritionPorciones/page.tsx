@@ -114,7 +114,8 @@ const Nutrition: FC = () => {
                         </div>
                         <div className="flex items-center">
                             <h2 className="text-white text-5xl font-bold pl-4 ">Porciones</h2>
-                            <Image src="/Food.svg" alt="Imagen 2" width={45} height={45} style={{ marginLeft: '20rem' }} />
+                            <Image src="/Food.svg" alt="Imagen 2" width={45} height={45} 
+                            style={{ marginLeft: '2rem' }} />
                         </div>
                     </div>
                 </div>
@@ -134,8 +135,8 @@ const Nutrition: FC = () => {
                         validationMessages={validationMessages.slice(4)}
                     />
                 </ColumnsWrapper>
-                <div className="flex justify-end items-center mt-6 mr-4 md:mr-40">
-                    <span className={`font-bold text-lg ${statusColor}`} style={{ marginLeft: '-1.5rem', marginRight: '1rem' }}>{statusMessage}</span>
+                <div className="flex justify-end items-center mt-5 mr-4 md:mr-40">
+                    <span className={`font-bold text-lg ${statusColor}`} style={{ marginLeft: '-1.5rem', marginRight: '0.8rem' }}>{statusMessage}</span>
                     <button
                         className="bg-[#F84AC7] hover:bg-[#E033A6] text-white font-bold py-4 px-20 rounded-full"
                         onClick={handleEdit}
