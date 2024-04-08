@@ -16,20 +16,20 @@ interface AdaptableCarouselProps {
 
 const AdaptableCarousel: React.FC<AdaptableCarouselProps> = ({ item }) => {
   return (
-    <div className=' flex flex-col align-middle justify-center gap-20 bg-white rounded-lg'>
-      <h1 className='text-4xl font-sans font-bold mt-5 ml-5'>
+    <div className=' my-10 flex flex-col align-middle justify-between gap-20 bg-white rounded-lg h-96 '>
+      <h1 className='text-4xl font-sans font-bold mt-5 ml-5 self-center w-96'>
         {item.header}
       </h1>
-      <div className='flex align-middle justify-center text-center gap-10 mx-8 text-2xl'>
-        <p className='w-2/4'>{item.description} </p>
+      <div className='flex align-middle justify-center text-center gap-10 mx-8'>
+        <p className='w-1/4 text-xl'>{item.description} </p>
         <Image
       src={item.imageUrl}
-      width={500}
-      height={500}
+      width={60}
+      height={60}
       alt="Picture of the author"
     />
       </div>
-      <div className='bg-teal-400 w-full h-8'>
+      <div className='w-full h-8 bg-rose-400'>
       </div>
     </div>
   );
