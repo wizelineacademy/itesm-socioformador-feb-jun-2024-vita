@@ -33,6 +33,7 @@ const config = {
         'home-title':'#154154',
         "button-blue": "#347BCE",
         "mid-blue": "#2064B3",
+        'dark-background-purple': "#3A0A2D",
         'decoration-nutrition-colordark':'#861B68',
         'decoration-nutrition-colorlight':'#F84AC7',
         'decoration-home-colordark':'#9BD6E3',

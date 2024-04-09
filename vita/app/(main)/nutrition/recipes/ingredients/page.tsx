@@ -61,61 +61,37 @@ const RecipesIngredients = () => {
     }
   }
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    
-    axios.post('/api/register', data)
-      .then(() => {
-        swal.fire({
-        title: 'Se ha registrado',
-        text: 'El registro ha sido exitoso.',
-        icon: 'success',
-        confirmButtonText: 'OK'
-        });
-        router.push('/healthdata');
-      })
-      .catch((error) => {
-        swal.fire({
-          title: 'Error',
-          text: 'Ha ocurrido un error durante el registro.',
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
-        
-      })
-      .finally(() => {
-      });
-  };
 
   return (
     <div className="ml-5 mr-5">
-        <h2 className={"mt-2 text-4xl text-white font-semibold"}>Recetas</h2>
-        <h3 className={"mt-5 text-xl text-white"}>Selecciona los ingredientes que deseas incluir o excluir de las recetas</h3>
-        <div className="mt-5 flex justify-around">
-            <div 
+        <h2 className={"mt-2 text-4xl text-white font-semibold md:mt-10"}>Recetas</h2>
+            <h3 className={"mt-5 text-xl text-white md:w-4/5 lg:w-3/5"}>Selecciona la cantidad de calorías que deseas consumir y los porcentajes por grupo</h3>
+        <div className="mt-10 flex justify-around lg:justify-start">
+            <button
                 onClick={() => {
                     setSelectedList(0);
                 }}
-                className={cn("px-7 py-3 z-10 rounded-3xl text-white font-semibold hover:bg-decoration-nutrition-colordark", {
+                className={cn("px-7 w-2/5 py-3 z-10 max-w-72 rounded-3xl text-white text-center font-semibold hover:bg-decoration-nutrition-colordark", {
                     "bg-decoration-nutrition-colordark": selectedList === 0,
                     "bg-decoration-nutrition-colorlight": selectedList !== 0
                 })}            
             >
                 Incluir
-            </div>
-            <div 
+            </button>
+            <button 
                 onClick={() => {
                     setSelectedList(1);
                 }}
-                className={cn("px-7 py-3  z-10 rounded-3xl text-white font-semibold hover:bg-decoration-nutrition-colordark", {
+                className={cn("px-7 py-3 w-2/5 z-10 max-w-72 rounded-3xl text-white text-center font-semibold hover:bg-decoration-nutrition-colordark lg:ml-10", {
                     "bg-decoration-nutrition-colordark": selectedList === 1,
                     "bg-decoration-nutrition-colorlight": selectedList !== 1
                 })} 
             >
                 Excluir
-            </div>
+            </button>
         </div>
     
-        <div className="w-2/3 mt-6 px-5 py-3 mx-auto rounded-3xl flex bg-custom-extralightpurple">
+        <div className="w-4/5 max-w-[650px] mt-10 px-5 py-3 mx-auto rounded-3xl flex bg-custom-extralightpurple lg:ml-0">
             <input 
                 id="listIngredients"
                 placeholder="Ingrediente"
@@ -132,11 +108,11 @@ const RecipesIngredients = () => {
             </datalist>
             <button
                 onClick={selectedList === 0 ? addIngredient : excludeIngredient} 
-                className="w-1/5 mr-5 text-white font-semibold">
+                className="w-1/5 mr-5 z-10 text-white font-semibold hover:text-gray-300">
                     Agregar
             </button>
         </div>
-        <ul className="mt-6">
+        <ul className="mt-10 mb-10 mx-auto rounded-2xl pb-10 pt-7 flex flex-wrap content-start bg-dark-background-purple md:w-full lg:w-4/5 lg:max-w-[750px] lg:ml-0">
             {selectedList === 0 ? selectedIngredients.map(ingredient => (
                 <ListItem key={ingredient} text={ingredient}/>)) 
                 : excludedIngredients.map(ingredient => (
@@ -144,7 +120,9 @@ const RecipesIngredients = () => {
             }
         </ul>
 
-        <MainButton onClick={() => {}} text={"Continuar"}/>
+        <div className="xl:w-[800px] flex">
+            <MainButton onClick={() => {}} text={"Continuar"}/>
+        </div>
     </div>
   );
 };
