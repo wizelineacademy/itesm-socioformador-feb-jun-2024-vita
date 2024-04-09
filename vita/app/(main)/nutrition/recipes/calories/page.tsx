@@ -1,8 +1,11 @@
 'use client'
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import MainButton from '@/app/components/buttons/MainButton';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import swal from 'sweetalert2';
+import Swal from 'sweetalert2';
+import axios from 'axios';
+import RecipesContext from '@/context/ingredients';
 
 
 const RecipesCalories = () => {
@@ -12,16 +15,88 @@ const RecipesCalories = () => {
     const [carbohydrates, setCarbohydrates] = useState<number>(0);
     const [lipids, setLipids] = useState<number>(0);
 
+    const {state, setState} = useContext(RecipesContext);
 
     const router = useRouter();
 
-    const navigateToIngredients = () => {
-        router.push("/nutrition/recipes/ingredients")
-    }
+    const generatePrompt = () => {
+        if(!calories || !proteins || !carbohydrates || !lipids){
+            swal.fire({
+                title: 'Error',
+                text: 'Debes completar todos los campos',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            return "";
+        }
 
-    const navigateToCalories = () => {
-        router.push("/nutrition/recipes/calories")
-    }
+        if(proteins + carbohydrates + lipids != 100){
+            swal.fire({
+                title: 'Error',
+                text: 'Los porcentajes deben sumar 100%',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            return "";
+        }
+    
+        let prompt = `Busco consumir ${calories} kcal, dividido en ${proteins}% de proteínas, ${carbohydrates}% de carbohidratos y ${lipids}% de lipidos.`
+    
+        const message = {
+            role: "user",
+            content: prompt
+        }
+    
+        return message;
+      }
+    
+      const generateRecipes = async() => {
+        try {
+    
+            const message = generatePrompt();
+
+            if(message === ""){
+                return;
+            }
+    
+            swal.fire({
+                title: 'Cargando',
+                text: 'Generando las recetas...',
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                }
+            }); 
+    
+            const response = await axios.post("/api/recipes/calories", {
+                message
+            })
+    
+            let data = response.data.content;
+            data = data.replaceAll("`", "");
+            data = data.replace("json", "");
+    
+            const recipes = JSON.parse(data);
+    
+            setState({
+                ...state,
+                recipes
+            })
+    
+            router.push("/nutrition/recipes/list")
+            swal.close()
+            
+        } catch(error: any){
+            swal.close()
+            swal.fire({
+                title: 'Error',
+                text: 'Ocurrió un error al generar las recetas. Inténtalo de nuevo',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            }); 
+        }
+    };
 
     const data = [
         { 
@@ -29,28 +104,32 @@ const RecipesCalories = () => {
             value: calories,
             changeFunction: setCalories,
             placeholder: "Cantidad",
-            label: "kcal"
+            label: "kcal",
+            max: 10000
         },
         { 
             name: "Porcentaje de proteínas",
             value: proteins,
             changeFunction: setProteins,
             placeholder: "Porcentaje",
-            label: "%"
+            label: "%",
+            max: 100
         },
         { 
             name: "Porcentaje de carbohidratos",
             value: carbohydrates,
             changeFunction: setCarbohydrates,
             placeholder: "Porcentaje",
-            label: "%"
+            label: "%",
+            max: 100
         },
         { 
             name: "Porcentaje de lípidos",
             value: lipids,
             changeFunction: setLipids,
             placeholder: "Porcentaje",
-            label: "%"
+            label: "%",
+            max: 100
         }
         
     ]
@@ -67,6 +146,8 @@ const RecipesCalories = () => {
                             <div className="flex items-center">
                                 <input
                                     type="number"
+                                    min={0}
+                                    max={el.max}
                                     value={el.value} 
                                     onChange={(e) => {
                                         el.changeFunction(parseInt(e.target.value))
@@ -79,7 +160,7 @@ const RecipesCalories = () => {
                 }
 
 
-                <MainButton onClick={() => {}} text={"Continuar"}/>
+                <MainButton onClick={generateRecipes} text={"Continuar"}/>
 
             </div>
         </div>
