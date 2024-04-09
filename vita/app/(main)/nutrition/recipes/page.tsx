@@ -18,7 +18,7 @@ const RecipeSelection = () => {
     return (
         <div className="ml-5 mr-5">
             <h2 className={"mt-2 text-4xl text-white font-semibold md:mt-10"}>Recetas</h2>
-            <h3 className={"mt-5 text-xl text-white md:w-4/5 lg:w-3/5"}>Selecciona la cantidad de calorías que deseas consumir y los porcentajes por grupo</h3>
+            <h3 className={"mt-5 text-xl text-white md:w-4/5 lg:w-3/5"}>Selecciona si deseas generar recetas en base a ingredientes o a la cantidad de calorías.</h3>
             <div className="mt-5 mb-10 flex flex-col justify-around md:flex-row">
                 <div 
                     onClick={navigateToIngredients}
