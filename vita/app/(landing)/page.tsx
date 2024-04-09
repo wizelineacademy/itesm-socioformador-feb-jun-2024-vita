@@ -10,12 +10,12 @@ import Home from '../(landing)/Home'
 
 const Landing = () => {
   return (
-    <div className=" bg-gradient-custom flex flex-col gap-3.5">
+    <div className=" bg-gradient-custom flex flex-col gap-2.5">
         <Navbar />
         <div id="Spacer" className='w-screen h-24'>
 
         </div>
-        <div id="Home_Page">
+        <div id="Home_Page" className="mb-12">
           <Home />
         </div>
         <div id="About_Page">
