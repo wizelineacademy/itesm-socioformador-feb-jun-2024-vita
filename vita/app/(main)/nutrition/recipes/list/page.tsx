@@ -30,7 +30,7 @@ const RecipesList = () => {
 
     useEffect(() => {
         setRecipes(state.recipes)
-    })
+    }, [])
 
     return (
         <div className="ml-5 mr-5">

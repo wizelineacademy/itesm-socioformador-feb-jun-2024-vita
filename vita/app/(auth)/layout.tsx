@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 
-import "./globals.css";
+import "../globals.css";
 import { Nunito, } from 'next/font/google';
+import { SessionProvider } from "next-auth/react";
+
 
 const font = Nunito({ 
   subsets: ['latin'], 
@@ -25,7 +27,6 @@ export default function RootLayout({
         <body >
           {children}
         </body>
-        
     </html>
     
   );
