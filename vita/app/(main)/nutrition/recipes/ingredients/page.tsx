@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 import ListItem from "@/app/components/list/ListItem";
 import MainButton from "@/app/components/buttons/MainButton";
 
-
 const RecipesIngredients = () => {
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>(["carne", "papa"]); 
   const [excludedIngredients, setExcludedIngredients] = useState<string[]>(["carne", "papa"]); 
@@ -65,7 +64,7 @@ const RecipesIngredients = () => {
   return (
     <div className="ml-5 mr-5">
         <h2 className={"mt-2 text-4xl text-white font-semibold md:mt-10"}>Recetas</h2>
-            <h3 className={"mt-5 text-xl text-white md:w-4/5 lg:w-3/5"}>Selecciona la cantidad de calorías que deseas consumir y los porcentajes por grupo</h3>
+        <h3 className={"mt-5 text-xl text-white md:w-4/5 lg:w-3/5"}>Selecciona la cantidad de calorías que deseas consumir y los porcentajes por grupo</h3>
         <div className="mt-10 flex justify-around lg:justify-start">
             <button
                 onClick={() => {
