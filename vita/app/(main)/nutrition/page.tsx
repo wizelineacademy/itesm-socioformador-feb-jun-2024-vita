@@ -100,6 +100,7 @@ const Nutrition = () => {
           </div>
           <div className="lg:w-1/2 w-full">
             {/* Custom option 3 */}
+            <Link href="/nutrition/autoevaluacion">
             <div className="flex justify-between px-4 lg:py-2.5  md:py-2.5 py-2
              bg-custom-purple3 lg:rounded-2xl  md:rounded-2xl rounded-full w-[330px] mt-4 
              lg:mt-0 transition-colors duration-300 ease-in-out hover:bg-custom-purple4">
@@ -108,6 +109,7 @@ const Nutrition = () => {
               </h3>
               <Image src="/Pass.svg" alt="Imagen 2" width={45} height={45}  className='pr-2'/>
             </div>
+            </Link>
 
             {/* Custom option 4 */}
             <Link href="/nutrition/nutritionPorciones">
