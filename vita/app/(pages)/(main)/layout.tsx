@@ -2,12 +2,13 @@
 
 import {Inter} from "next/font/google";
 
-import SidebarInfo from "../components/(routes)/SidebarInfo";
-import MobileSidebar from "../components/(routes)/MobileSidebar";
-import Decoration from "../components/Decoration";
+import SidebarInfo from "../../components/(routes)/SidebarInfo";
+import MobileSidebar from "../../components/(routes)/MobileSidebar";
+import Decoration from "../../components/Decoration";
 import { usePathname } from "next/navigation"; 
 import { useEffect, useState } from 'react';
 import { RecipesContextProvider } from "@/context/ingredients";
+import NextAuthProvider from "@/context/authprovider";
 
 // Define font settings
 
@@ -64,9 +65,11 @@ export default function RootLayout({
               {/* Decoration component */}
               <Decoration pathname={pathname}/>
               {/* Render children components */}
-              <RecipesContextProvider> {/*Context for recipes**/}
-                {children}
-              </RecipesContextProvider>
+              <NextAuthProvider>
+                <RecipesContextProvider> {/*Context for recipes**/}
+                  {children}
+                </RecipesContextProvider>
+              </NextAuthProvider>
             </div>  
           </main>  
         </div>

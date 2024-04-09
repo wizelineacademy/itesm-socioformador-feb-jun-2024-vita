@@ -1,20 +1,20 @@
+
 import type { Metadata } from "next";
 
 import "../globals.css";
-import { Nunito, } from 'next/font/google';
+import { Inter } from "next/font/google";
 import { SessionProvider } from "next-auth/react";
+import NextAuthProvider from "@/context/authprovider";
 
-
-const font = Nunito({ 
-  subsets: ['latin'], 
-});
-
+const interFont = Inter({
+  display: "swap",
+  subsets: ["latin"]
+})
 
 export const metadata: Metadata = {
   title: "Vita",
   description: "Salud",
 };
-
 
 export default function RootLayout({
   children,
@@ -24,9 +24,11 @@ export default function RootLayout({
   return (
  
     <html lang="es">
-        <body >
+      <NextAuthProvider>
+        <body className={interFont.className}>
           {children}
         </body>
+      </NextAuthProvider>   
     </html>
     
   );
