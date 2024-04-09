@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 import ListItem from "@/app/components/list/ListItem";
 import MainButton from "@/app/components/buttons/MainButton";
 
-
 const RecipesIngredients = () => {
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>(["carne", "papa"]); 
   const [excludedIngredients, setExcludedIngredients] = useState<string[]>(["carne", "papa"]); 
