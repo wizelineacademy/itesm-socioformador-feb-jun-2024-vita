@@ -115,36 +115,47 @@ const RecipesIngredients = () => {
     }
   }
 
+  const generatePrompt = () => {
+    if(!selectedIngredients && !excludedIngredients){
+        swal.fire({
+            title: 'Error',
+            text: 'Debes seleccionar al menos un ingrediente para agregar o excluir de las recetas',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+        return "";
+    }
+
+    let prompt = "Incluye los siguientes ingredientes en las recetas: "
+    if(selectedIngredients){
+        prompt += selectedIngredients.join(", ")
+    }
+    if(excludedIngredients){
+        prompt += ". Excluye las recetas que contengan los siguentes ingredientes: "
+        prompt += excludedIngredients.join(", ")
+    }
+    prompt += ". Genera al menos 5 recetas."
+
+    const message = {
+        role: "user",
+        content: prompt
+    }
+
+    return message;
+  }
+
   const generateRecipes = async() => {
     try {
 
-        if(!selectedIngredients && !excludedIngredients){
-            swal.fire({
-                title: 'Error',
-                text: 'Debes seleccionar al menos un ingrediente para agregar o excluir de las recetas',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-        }
+        const message = generatePrompt();
 
-        let prompt = "Incluye los siguientes ingredientes en las recetas: "
-        if(selectedIngredients){
-            prompt += selectedIngredients.join(", ")
-        }
-        if(excludedIngredients){
-            prompt += ". Excluye las recetas que contengan los siguentes ingredientes: "
-            prompt += excludedIngredients.join(", ")
-        }
-        prompt += ". Genera al menos 5 recetas."
-
-        const message = {
-            role: "user",
-            content: prompt
+        if(message === ""){
+            return;
         }
 
         swal.fire({
             title: 'Cargando',
-            text: 'Generando la receta...',
+            text: 'Generando las recetas...',
             allowEscapeKey: false,
             allowOutsideClick: false,
             didOpen: () => {
@@ -161,8 +172,6 @@ const RecipesIngredients = () => {
         data = data.replace("json", "");
 
         const recipes = JSON.parse(data);
-
-        console.log(recipes)
 
         setState({
             ...state,

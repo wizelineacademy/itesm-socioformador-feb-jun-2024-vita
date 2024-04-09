@@ -27,7 +27,7 @@ export async function POST(request: Request) {
     const { message } = body;
 
     if(!message){
-        return new NextResponse("ingredients are required", {status: 400})
+        return new NextResponse("message is required", {status: 400})
     }
 
     if(!process.env.OPEN_API_KEY){
