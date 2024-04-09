@@ -98,6 +98,8 @@ const RecipesCalories = () => {
             data = data.replace("json", "");
     
             const recipes = JSON.parse(data);
+
+            console.log(recipes)
     
             setState({
                 ...state,
