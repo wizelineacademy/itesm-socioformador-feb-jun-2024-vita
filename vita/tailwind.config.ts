@@ -30,6 +30,7 @@ const config = {
         'custom-lightpurple': ' #71566c',
         'custom-purple3': '#741B5B',
         'custom-purple4': '#9F3C7F',
+        'custom-purple5': "#511D42",
         'home-title':'#154154',
         "button-blue": "#347BCE",
         "mid-blue": "#2064B3",
