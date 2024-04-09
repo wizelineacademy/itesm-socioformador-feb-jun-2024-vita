@@ -2,12 +2,15 @@
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import MainButton from '@/app/components/buttons/MainButton';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import ListItem from '@/app/components/list/ListItem';
 import ListItemLink from '@/app/components/list/ListItemLink';
+import RecipesContext from '@/context/ingredients';
 
 
 const RecipesList = () => {
+
+    const {state, setState} = useContext(RecipesContext);
   
     const [recipes, setRecipes] = useState<Recipe[]>([
         {
@@ -28,8 +31,16 @@ const RecipesList = () => {
 
     const router = useRouter();
 
-    const navigateToRecipe = () => {
-        router.push("/nutrition/recipes/list/detail")
+    const navigateToRecipe = (selected: string) => {
+
+        const recipe = recipes.find(recipe => recipe.name === selected)
+        
+        setState({
+            ...state,
+            selectedRecipe: recipe
+        })
+
+        router.push(`/nutrition/recipes/list/detail`)
     }
 
     return (
@@ -38,7 +49,13 @@ const RecipesList = () => {
             <div className="mt-5 flex flex-wrap md:mx-auto md:items-center w-full lg:w-2/3 lg:my-10">
                 { 
                     recipes.map(recipe => (
-                        <ListItemLink key={recipe.name} text={recipe.name}/>
+                        <ListItemLink 
+                            onClick={(e) => {
+                                navigateToRecipe(recipe.name)
+                            }}
+                            key={recipe.name} 
+                            text={recipe.name}
+                        />
                     ))
                 }
 
