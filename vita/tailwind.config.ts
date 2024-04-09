@@ -39,10 +39,10 @@ const config = {
         'decoration-nutrition-colorlight':'#F84AC7',
         'decoration-home-colordark':'#9BD6E3',
         'decoration-home-colorlight':'#154154',
+        'chat-color':'#925FD4 ',
+        'chat-background':'#16052C',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
-      
-      
       },
     },
   },

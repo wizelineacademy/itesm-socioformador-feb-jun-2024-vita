@@ -20,6 +20,7 @@ const interFont = Inter({
 const routes: { [key: string]: string } = {
   "/home": "bg-home-background",
   "/nutrition": "bg-nutrition-background",
+  "/chat": "bg-chat-background",
 };
 
 /**
