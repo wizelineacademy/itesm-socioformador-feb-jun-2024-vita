@@ -120,7 +120,7 @@ const RecipesIngredients = () => {
             }
         </ul>
 
-        <div className="xl:w-[800px] flex">
+        <div className="2xl:w-[1050px] flex">
             <MainButton onClick={() => {}} text={"Continuar"}/>
         </div>
     </div>
