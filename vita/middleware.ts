@@ -1,6 +1,9 @@
-export { default } from "next-auth/middleware";
+export { default } from "next-auth/middleware"
 
-export const config = {
-  // specify the route you want to protect
-  matcher: ["/home", "/nutrition"],
-};
+//Agregar rutas que deben ser protegidas
+export const config = { 
+    matcher: [
+        "/home",
+        "/nutrition/:path*"
+    ] 
+}
