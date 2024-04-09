@@ -39,9 +39,9 @@ const CarruseLanding: React.FC = () => {
    
   <Carousel className='w-auto' >
     <CarouselContent ml-4>
-      <CarouselItem ><AdaptableCarousel item={carouselItem1}/></CarouselItem>
-      <CarouselItem><AdaptableCarousel item={carouselItem2} /></CarouselItem>
-      <CarouselItem><AdaptableCarousel item={carouselItem3} /></CarouselItem>
+      <CarouselItem className='"md:basis-1/2 lg:basis-1/3"'><AdaptableCarousel item={carouselItem1}/></CarouselItem>
+      <CarouselItem className='"md:basis-1/2 lg:basis-1/3"'><AdaptableCarousel item={carouselItem2} /></CarouselItem>
+      <CarouselItem className='"md:basis-1/2 lg:basis-1/3"'><AdaptableCarousel item={carouselItem3} /></CarouselItem>
     </CarouselContent>
   </Carousel>
 

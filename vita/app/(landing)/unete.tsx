@@ -2,6 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Button from "../components/Button";
+import Link from 'next/link';
 
 
 
@@ -17,14 +18,17 @@ const HomePage: React.FC = () => {
                 <Image src={"/Line.png"} alt='Line divider' width={300} height={10}></Image>
 
                 <h2 className=' sm:text-4xl md:text-4xl mb-5 text-center w-5/12 leading-loose font-light	'> Y disfruta de todos los  <span className='text-red-300 text-5xl font-bold mb-5 sm:text-6xl md:text-6xl lg:7xl sm:mt-3.5 md:mt-1.5'> beneficios</span> </h2>
-                <Button 
-                        borderColor="border-custom-red"
-                        label= "Regístrate" 
-                        outline
-                        big
-                        onClick={() => {}}
-                      
-                    />  
+                <Link href='/signup'>
+                  <Button 
+                          borderColor="border-custom-red"
+                          label= "Regístrate" 
+                          outline
+                          big
+                          onClick={() => {}}
+                        
+                      />  
+                </Link>
+               
             </div>
         
 
