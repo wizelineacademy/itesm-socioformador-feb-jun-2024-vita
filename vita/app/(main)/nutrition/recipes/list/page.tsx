@@ -36,7 +36,7 @@ const RecipesList = () => {
         <div className="ml-5 mr-5">
             <h2 className={"mt-2 text-4xl text-white font-semibold md:mt-10"}>Recetas</h2>
             <div className="mt-5 flex flex-wrap md:mx-auto md:items-center w-full lg:w-2/3 lg:my-10">
-                { 
+                { recipes &&
                     recipes.map(recipe => (
                         <ListItemLink 
                             onClick={(e) => {

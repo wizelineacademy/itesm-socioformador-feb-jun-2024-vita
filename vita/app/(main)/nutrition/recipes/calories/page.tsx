@@ -30,6 +30,26 @@ const RecipesCalories = () => {
             return "";
         }
 
+        if(calories <= 0 || calories > 5000){
+            swal.fire({
+                title: 'Error',
+                text: 'La cantidad de calorías debe ser mayor a 0 y menor o igual a 5000',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            return "";
+        }
+
+        if(proteins <= 0 || proteins > 100 || carbohydrates <= 0 || carbohydrates > 100 || lipids <= 0 || lipids > 100){
+            swal.fire({
+                title: 'Error',
+                text: 'Los porcentajes deben encontrarse en el formato correcto',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            return "";
+        }
+
         if(proteins + carbohydrates + lipids != 100){
             swal.fire({
                 title: 'Error',
@@ -78,6 +98,8 @@ const RecipesCalories = () => {
             data = data.replace("json", "");
     
             const recipes = JSON.parse(data);
+
+            console.log(recipes)
     
             setState({
                 ...state,
@@ -105,7 +127,7 @@ const RecipesCalories = () => {
             changeFunction: setCalories,
             placeholder: "Cantidad",
             label: "kcal",
-            max: 10000
+            max: 5000
         },
         { 
             name: "Porcentaje de proteínas",
