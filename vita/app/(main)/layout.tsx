@@ -1,6 +1,7 @@
 'use client';
 
-import { Nunito } from 'next/font/google';
+import {Inter} from "next/font/google";
+
 import SidebarInfo from "../components/(routes)/SidebarInfo";
 import MobileSidebar from "../components/(routes)/MobileSidebar";
 import Decoration from "../components/Decoration";
@@ -8,9 +9,11 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from 'react';
 
 // Define font settings
-const font = Nunito({ 
-  subsets: ['latin'], 
-});
+
+const interFont = Inter({
+    display: "swap",
+    subsets: ["latin"]
+})
 
 // Define routes and their corresponding background colors
 const routes: { [key: string]: string } = {
@@ -41,7 +44,7 @@ export default function RootLayout({
 
   return (
     <html lang="es">
-      <body>
+      <body className={interFont.className}>
         <div className="relative m-0">
           {/* Sidebar */}
           <div id="Sidebar" className="hidden md:flex md:flex-col md:w-72 md:fixed md:inset-y-0 z-[80]

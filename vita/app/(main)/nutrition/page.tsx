@@ -76,14 +76,16 @@ const Nutrition = () => {
           <div className="lg:w-1/2 lg:mr-10 w-full ">
 
             {/* Custom option 1 */}
-            <div className='bg-custom-purple3 lg:rounded-2xl md:rounded-2xl rounded-full  
-            lg:w-[320px]  w-[330px] px-4 py-4 flex justify-between transition-colors 
-            duration-300 ease-in-out hover:bg-custom-purple4'>
-                <h3 className= 'pt-1 pl-2 text-white font-bold lg:text-2xl text-xl   lg:w-[240px] md:w-[240px]'>
-                    Buscar opciones de comidas personalizadas
-                </h3>
-                <Image src="/Filter.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
-            </div>
+            <Link href="/nutrition/recipes" >
+              <div className='bg-custom-purple3 lg:rounded-2xl md:rounded-2xl rounded-full  
+              lg:w-[320px]  w-[330px] px-4 py-4 flex justify-between transition-colors 
+              duration-300 ease-in-out hover:bg-custom-purple4'>
+                  <h3 className= 'pt-1 pl-2 text-white font-bold lg:text-2xl text-xl   lg:w-[240px] md:w-[240px]'>
+                      Buscar opciones de comidas personalizadas
+                  </h3>
+                  <Image src="/Filter.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
+              </div>
+            </Link>
 
             {/* Custom option 2 */}
             <div className='bg-custom-purple3 lg:rounded-2xl  md:rounded-2xl rounded-full  
