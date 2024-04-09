@@ -32,6 +32,7 @@ const config = {
         'custom-purple4': '#9F3C7F',
         'home-title':'#154154',
         "button-blue": "#347BCE",
+        "mid-blue": "#2064B3",
         'decoration-nutrition-colordark':'#861B68',
         'decoration-nutrition-colorlight':'#F84AC7',
         'decoration-home-colordark':'#9BD6E3',

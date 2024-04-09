@@ -144,7 +144,7 @@ const RecipesIngredients = () => {
             }
         </ul>
 
-        <MainButton text={"Continuar"}/>
+        <MainButton onClick={() => {}} text={"Continuar"}/>
     </div>
   );
 };
