@@ -1,15 +1,13 @@
 'use client'
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import MainButton from '@/app/components/buttons/MainButton';
-import { useState } from 'react';
-import ListItem from '@/app/components/list/ListItem';
-import ListItemLink from '@/app/components/list/ListItemLink';
+import { useContext, useEffect, useState } from 'react';
 import { Clock } from 'lucide-react';
+import RecipesContext from '@/context/ingredients';
 
 
 const RecipesDetail = () => {
   
+    const {state, setState} = useContext(RecipesContext);
+
     const [recipe, setRecipe] = useState<Recipe>(
         {
             "name": "Estofado de filete de res y vegetales",
@@ -17,13 +15,16 @@ const RecipesDetail = () => {
             "ingredients": ["Filete de res", "Papa", "Arroz", "Zanahoria", "Cebolla", "Caldo de carne", "Especias al gusto"],
             "steps": ["Corta el filete de res en trozos pequeños y sazona al gusto con tus especias preferidas.", "En una olla grande, sofríe la cebolla hasta que esté transparente.", "Agrega los trozos de filete de res y cocina hasta que estén dorados por fuera.", "Incorpora las papas, zanahorias y arroz.", "Vierte el caldo de carne suficiente para cubrir los ingredientes y deja hervir.", "Reduce el fuego y cocina a fuego lento hasta que las verduras estén tiernas y el arroz esté cocido.", "Sirve caliente y disfruta de este reconfortante estofado."],
             "time": "1 hora"
-        });
+        }
+    );
 
-    const router = useRouter();
+    useEffect(() => {
 
-    const navigateToRecipe = () => {
-        router.push("/nutrition/recipes/list/detail")
-    }
+        if(state.selectedRecipe){
+            setRecipe(state.selectedRecipe);
+        }
+
+    })
 
     return (
         <div className="ml-5 mr-5">

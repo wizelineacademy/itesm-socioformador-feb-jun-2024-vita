@@ -7,6 +7,7 @@ import MobileSidebar from "../components/(routes)/MobileSidebar";
 import Decoration from "../components/Decoration";
 import { usePathname } from "next/navigation"; 
 import { useEffect, useState } from 'react';
+import { RecipesContextProvider } from "@/context/ingredients";
 
 // Define font settings
 
@@ -63,7 +64,9 @@ export default function RootLayout({
               {/* Decoration component */}
               <Decoration pathname={pathname}/>
               {/* Render children components */}
-              {children}
+              <RecipesContextProvider> {/*Context for recipes**/}
+                {children}
+              </RecipesContextProvider>
             </div>  
           </main>  
         </div>
