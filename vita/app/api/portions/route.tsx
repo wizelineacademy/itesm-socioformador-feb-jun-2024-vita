@@ -33,8 +33,6 @@ export async function POST(request: Request) {
     const body = await request.json();
     const session = await getServerSession(authOptions);
 
-    console.log(session)
-
     if(!session){
         return NextResponse.json("Unauthorized", {status: 401});
     }

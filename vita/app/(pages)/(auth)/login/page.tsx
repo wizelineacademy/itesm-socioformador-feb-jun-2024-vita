@@ -166,7 +166,6 @@ const Login = () => {
               big
             />
 
-         </form>
           <h3 className="text-white text-sm lg:text-lg font-bold leading-normal pt-4">
             ¿No tienes una cuenta? 
             <span className="cursor-pointer hover:underline pl-4"> 
@@ -176,7 +175,8 @@ const Login = () => {
             </span>
           </h3>
 
-       
+          </form>
+
       </div>
     </div>
   );

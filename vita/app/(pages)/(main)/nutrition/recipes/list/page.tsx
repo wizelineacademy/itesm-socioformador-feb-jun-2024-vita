@@ -29,8 +29,9 @@ const RecipesList = () => {
     }
 
     useEffect(() => {
+        console.log(state.recipes)
         setRecipes(state.recipes)
-    }, [])
+    }, [state.recipes])
 
     return (
         <div className="ml-5 mr-5">
