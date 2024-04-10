@@ -34,6 +34,8 @@ const config = {
         'home-title':'#154154',
         "button-blue": "#347BCE",
         "mid-blue": "#2064B3",
+        "mid-red": "#C13131",
+        "light-red": "#DE4C4C",
         'dark-background-purple': "#3A0A2D",
         'decoration-nutrition-colordark':'#861B68',
         'decoration-nutrition-colorlight':'#F84AC7',
