@@ -37,11 +37,11 @@ const CarruseLanding: React.FC = () => {
   return (
    // 50% on small screens and 33% on larger screens.
   
-  <Carousel className='sm:w-96 w-80'  >
-    <CarouselContent ml-4>
-      <CarouselItem className='"md:basis-1/2 lg:basis-1/3"'><AdaptableCarousel item={carouselItem1}/></CarouselItem>
-      <CarouselItem className='"md:basis-1/2 lg:basis-1/3"'><AdaptableCarousel item={carouselItem2} /></CarouselItem>
-      <CarouselItem className='"md:basis-1/2 lg:basis-1/3"'><AdaptableCarousel item={carouselItem3} /></CarouselItem>
+  <Carousel >
+    <CarouselContent className='w-80 sm:w-auto'>
+      <CarouselItem className='md:basis-1/2 lg:basis-1/3'><AdaptableCarousel item={carouselItem1}/></CarouselItem>
+      <CarouselItem className='md:basis-1/2 lg:basis-1/3'><AdaptableCarousel item={carouselItem2} /></CarouselItem>
+      <CarouselItem className='md:basis-1/2 lg:basis-1/3'><AdaptableCarousel item={carouselItem3} /></CarouselItem>
     </CarouselContent>
   </Carousel>
 

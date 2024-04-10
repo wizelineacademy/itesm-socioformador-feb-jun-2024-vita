@@ -2,6 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Button from "../components/Button";
+import Link from 'next/link';
 
 
 
@@ -27,12 +28,12 @@ const Footer: React.FC = () => {
               />
             </div>
           </div>
-          <div className='flex flex-col text-white gap-3 font-bold text-sm sm:text-sm'>
-            <p>@Bdelas777</p>
-            <p>@JulioEmmmanuel </p>
-            <p>@KrakenDominguezz </p>
-            <p>@SofiRegiM</p>
-            <p>@edan11v </p>
+          <div className='flex flex-col text-white gap-3 font-bold text-sm sm:text-sm my-36'>
+            <Link href="https://github.com/Bdelas777"><p >@Bdelas777</p></Link>
+            <Link href="https://github.com/JulioEmmmanuel"><p>@JulioEmmmanuel </p> </Link>
+            <Link href="https://github.com/SofiRegiM"><p>@SofiRegiM</p></Link>
+            <Link href="https://github.com/KrakenDominguezz"><p>@KrakenDominguezz</p></Link>
+            <Link href="https://github.com/edan11v"><p>@edan11v </p></Link>
           </div>
     </div>
   );
