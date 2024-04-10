@@ -11,10 +11,13 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { ChatCompletionMessage } from "openai/resources/index.mjs";
+import axios from 'axios';
+import { cn } from "@/lib/utils";
 
 const Chat= () => {
   const router = useRouter();
   const [messages, setMessages] = useState<ChatCompletionMessage[]>([]);
+  
   const form = useForm<z.infer<typeof formSchema>>  ({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -23,15 +26,29 @@ const Chat= () => {
   })
 
   const isLoading = form.formState.isSubmitting;
-  const onSubmit = async(values: z.infer< typeof formSchema>) => {
-    try{
+  const onSubmit = async(values: z.infer<typeof formSchema>) => {
+    try {
+        const userMessage = {
+            role: "user",
+            content: values.prompt
+        }
 
+        const newMessages = [...messages, userMessage];
+        console.log(newMessages)
+        const response = await axios.post("/api/conversation", {
+            messages: newMessages
+        })
+
+        setMessages((current) => [...current, userMessage, response.data]);
+        form.reset();
     } catch(error: any){
-        console.log(error)
+        //TODO: Open pro modal
+        console.log(error);
     } finally {
-      router.refresh()
+        router.refresh();
     }
-  }
+};
+
   return (
     <>
   
@@ -52,15 +69,17 @@ const Chat= () => {
                     render = {({field})=> (
                       <FormItem className='col-span-12 lg:col-span-9'>
                         <FormControl className='m-0 p-0'>
-                          <Input className='border-0 outline-none focus-visible:ring-0
-                          focus-visible:ring-transparent' disabled={isLoading}
-                          placeholder='¿Qué es paracetamol?'
-                          {...field}></Input>
+                        <Input
+                          className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
+                          disabled={isLoading}
+                          placeholder="How do I calculate the radius of a circle?"
+                          {...field}
+                        />
                         </FormControl>
                       </FormItem>
                     )} 
                   /> 
-                  <Button className='col-span-12 lg:col-span-2 bg-zinc-800 text-white w-full'
+                  <Button className='col-span-12 lg:col-span-2 bg-zinc-800 text-white w-full z-10'
                   disabled={isLoading}>
                     Preguntar
                   </Button>
@@ -68,7 +87,32 @@ const Chat= () => {
             </Form>
           </div>
           <div className='space-y-4 mt-4 px-5 text-white'>
-            Contenido
+             <div className="flex flex-col-reverse gap-y-4">
+
+                        {isLoading && (
+                            <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
+                                
+                            </div>
+                        )}
+
+                        {messages.length === 0 && !isLoading && (
+                            <div>
+                               
+                            </div>
+                        )}
+
+                        {messages.map(message => (
+                            <div 
+                                key={message.content}
+                                
+                            >
+                                <p className="text-sm text-white" >
+                                    {message.content}
+                                </p>
+                            </div>
+                        ))}
+
+                    </div>
           </div>
       </div>
     </>
@@ -76,3 +120,4 @@ const Chat= () => {
 };
 
 export default Chat;
+
