@@ -203,7 +203,7 @@ const SignUp = () => {
             big
           />
       
-          <h3 className="text-white text-sm lg:text-lg font-bold leading-normal pt-4 ">
+        <h3 className="text-white text-sm lg:text-lg font-bold leading-normal pt-4 ">
             ¿Ya tienes una cuenta?
             <span className="cursor-pointer hover:underline pl-4"> 
               <Link href="/login" >
