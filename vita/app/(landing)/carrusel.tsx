@@ -14,7 +14,7 @@ import {
 
 
 const carouselItem1= {
-      header: 'Inteligencia Artificial Integrada',
+      header: 'Inteligencia Artificial',
       description: 'Utilizando VITA recibiras planes y ayuda personalizada gracias a la Inteligencia Artificial.',
       imageUrl: '/AiImage.svg',
       rectangleColor: '#FF5733',
@@ -36,8 +36,8 @@ const CarruseLanding: React.FC = () => {
 
   return (
    // 50% on small screens and 33% on larger screens.
-   
-  <Carousel className='w-auto' >
+  
+  <Carousel className='sm:w-96 w-80'  >
     <CarouselContent ml-4>
       <CarouselItem className='"md:basis-1/2 lg:basis-1/3"'><AdaptableCarousel item={carouselItem1}/></CarouselItem>
       <CarouselItem className='"md:basis-1/2 lg:basis-1/3"'><AdaptableCarousel item={carouselItem2} /></CarouselItem>
