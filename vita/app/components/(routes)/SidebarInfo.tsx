@@ -1,7 +1,7 @@
 'use client';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { FaUtensils, FaHome } from 'react-icons/fa';
+import { FaUtensils, FaHome,FaComments  } from 'react-icons/fa';
 import { usePathname } from "next/navigation";
 
 
@@ -17,6 +17,12 @@ const routes = [
         icon: FaUtensils,
         href: "/nutrition",
         color: "bg-nutrition-color"
+    },
+    {
+        label: "Chat",
+        icon: FaComments ,
+        href: "/chat",
+        color: "bg-chat-color"
     },
     
 ]
