@@ -184,9 +184,17 @@ const Nutrition: FC = () => {
                         validationMessages={validationMessages.slice(4)}
                     />
                 </ColumnsWrapper>
-                <div className="w-full flex justify-end items-center mt-2 mb-5">
+                <div className="w-full flex flex-col items-center space-y-3 sm:items-start md:flex-row md:items-center md:space-y-0 md:space-x-3 md:mr-7 lg:justify-end lg:items-center mt-2 mb-5">
+                    {edit &&
+                        <button
+                        className="w-4/5 bg-mid-red hover:bg-light-red text-white font-bold py-3 rounded-full sm:w-3/5 lg:max-w-72"
+                        onClick={() => {setEdit(false)}}
+                        >
+                        Cancelar
+                        </button>
+                    }
                     <button
-                        className="w-4/5 bg-[#F84AC7] hover:bg-[#E033A6] text-white font-bold py-3 mx-auto sm:ml-1 rounded-full sm:w-3/5 lg:mr-5 lg:mt-5 max-w-72"
+                        className="w-4/5 bg-decoration-nutrition-colorlight hover:bg-decoration-nutrition-colordark text-white font-bold py-3 rounded-full sm:w-3/5 lg:max-w-72"
                         onClick={handleEdit}
                     >
                         {edit ? "Guardar cambios" : "Editar"}
