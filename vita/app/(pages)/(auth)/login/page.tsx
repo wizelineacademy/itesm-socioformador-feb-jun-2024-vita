@@ -14,6 +14,8 @@ import {
 } from "react-hook-form";
 import Input from '@/app/components/Inputs/Input';
 import Link from "next/link";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { LoginSchema } from '@/app/validations/LoginSchema';
 
 /**
  * @description Pantalla de registro 
@@ -33,6 +35,7 @@ const Login = () => {
       errors,
     },
   } = useForm<FieldValues>({
+    resolver: zodResolver(LoginSchema),
     defaultValues: {
       email: '',
       password: ''
@@ -58,7 +61,8 @@ const Login = () => {
       }
 
       if (!response?.ok) {
-        throw new Error("Network response was not ok");
+        const error = JSON.parse(response?.error ?? "{errors: \"Ocurrió un error durante el inicio de sesión\"}")
+        throw new Error(error.errors);
       }
       // Process response here
       console.log("Login Successful", response);
@@ -71,7 +75,7 @@ const Login = () => {
     } catch (error: any) {
       swal.fire({
         title: 'Error',
-        text: 'Ocurrió un error durante el inicio de sesión',
+        text: error,
         icon: 'error',
         confirmButtonText: 'OK'
       });
@@ -106,9 +110,12 @@ const Login = () => {
                     register={register}
                     errors={errors}
                     required
-                    
                 />
             </div>
+
+            {errors.email && typeof errors.email.message === 'string' && (
+              <span className="text-red-500 mb-5">{errors.email.message}</span>
+            )}
 
             <div className=" pb-4">
                 <Input
@@ -121,6 +128,10 @@ const Login = () => {
                   required
                 />
             </div>
+
+            {errors.password && typeof errors.password.message === 'string' && (
+              <span className="text-red-500 mb-5">{errors.password.message}</span>
+            )}
 
             <div className=" pb-4">
 

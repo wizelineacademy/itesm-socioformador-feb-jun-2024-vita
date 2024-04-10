@@ -11,7 +11,15 @@ export async function POST(request: Request) {
 
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    console.log("ready")
+    const existingUser = await prisma.user.findUnique({
+      where: {
+          email
+      }
+    })
+
+    if(existingUser){
+      return NextResponse.json("Error. Invalid email", {status: 401});
+    }
 
     const user = await prisma.user.create({
       data: {
@@ -21,10 +29,9 @@ export async function POST(request: Request) {
       }
     })
 
-    console.log("User created:", user); 
     return NextResponse.json(user, {status: 200});
   } catch (error) {
     console.log(error)
-    return NextResponse.json("Error processng registration", {status: 400})
+    return NextResponse.json("Error processing registration", {status: 400})
   }
 }
