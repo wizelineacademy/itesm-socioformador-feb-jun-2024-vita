@@ -23,7 +23,7 @@ const Landing = () => {
         </div>
         <div id="Carrusel_Page" className=" flex flex-col justify-center items-center">
           <h1 className="text-5xl font-bold mb-5 sm:text-6xl md:text-6xl lg:7xl sm:mt-3.5 md:mt-1.5 text-white text-center">¿Qué Hacemos?</h1>
-          <Image src={"/Line.png"} alt='Line divider' width={300} height={10}></Image>
+          <div className="h-0.5 w-80 bg-rose-300"></div>
           <CarruseLanding />
         </div>
         <div id="Unete_Page">
