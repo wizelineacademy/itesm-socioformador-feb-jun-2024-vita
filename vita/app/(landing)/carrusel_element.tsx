@@ -17,11 +17,11 @@ interface AdaptableCarouselProps {
 const AdaptableCarousel: React.FC<AdaptableCarouselProps> = ({ item }) => {
   return (
     <div className=' my-10 flex flex-col align-middle justify-between gap-10 bg-white rounded-lg h- 5/6 '>
-      <h1 className='text-md sm:text-4xl font-sans font-bold mt-5 ml-5 self-center'>
+      <h1 className='text-2xl sm:text-4xl font-sans font-bold mt-5 ml-5 self-center'>
         {item.header}
       </h1>
       <div className='flex items-center justify-center text-center gap-20 mx-8 h-72 '>
-        <p className='w-2/4 text-md sm:text-xl'>{item.description} </p>
+        <p className='w-2/4 text-x sm:text-xl'>{item.description} </p>
         <Image
       src={item.imageUrl}
       width={70}
