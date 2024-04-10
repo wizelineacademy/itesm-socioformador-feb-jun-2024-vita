@@ -1,8 +1,9 @@
 'use client'
-import React, { useState, FC } from 'react';
+import React, { useState, FC, useEffect } from 'react';
 import { FaAppleAlt, FaCarrot, FaLeaf, FaDrumstickBite, FaGlassWhiskey, FaSeedling, FaIceCream, FaBacon } from 'react-icons/fa';
 import Image from 'next/image';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 interface Numero {
     number: string;
@@ -83,7 +84,7 @@ const Nutrition: FC = () => {
         setValidationMessages(newMessages);
     };
 
-    const handleEdit = () => {
+    const handleEdit = async () => {
 
         if(!edit){
             setEdit(true)
@@ -97,18 +98,73 @@ const Nutrition: FC = () => {
                     confirmButtonText: 'OK'
                 });
             } else {
-                Swal.fire({
-                    title: 'Éxito',
-                    text: 'Se han guardado las porciones con éxito',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                });
-                setEdit(false);
+                await postPortions();
             }
         }
 
         
     };
+
+    const postPortions =  async () => {
+
+        try {
+            const response = await axios.post("/api/portions", {
+                fruits: values[0],
+                vegetables: values[1], 
+                milk: values[2], 
+                legumes: values[3], 
+                cereals: values[4], 
+                meat: values[5],
+                sugar: values[6], 
+                fat: values[7]
+            });
+
+            console.log(response);
+
+            Swal.fire({
+                title: 'Éxito',
+                text: 'Se han guardado las porciones con éxito',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+
+            setEdit(false);
+        } catch(error){
+            Swal.fire({
+                title: 'Error',
+                text: "Ocurrió un error al guardar las porciones",
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        } 
+        
+    }
+
+    const labels = ["fruits", "vegetables", "milk", "legumes", "cereals", "meat", "sugar", "fat"]
+
+    useEffect(() => {
+      const getPortions = async () => {
+        try {
+            const response = await axios.get("/api/portions");
+            const data = response.data;
+            const newValues = [...values];
+            for(let i = 0; i < labels.length; i++){
+                newValues[i] = data[labels[i]];
+            }
+            setValues(newValues);
+            console.log(newValues);
+        } catch(error){
+            Swal.fire({
+                title: 'Error',
+                text: "Ocurrió un error al recuperar las porciones",
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+      } 
+      
+      getPortions();
+    }, [])
 
     const iconsFirstColumn: JSX.Element[] = [
         <FaAppleAlt className="text-white text-5xl" />,
@@ -164,7 +220,6 @@ const Nutrition: FC = () => {
                 </>
                 
                 }
-
 
                 <ColumnsWrapper>
                     <Column
