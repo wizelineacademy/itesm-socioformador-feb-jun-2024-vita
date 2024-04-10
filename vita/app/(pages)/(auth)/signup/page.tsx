@@ -1,9 +1,11 @@
 'use client'
+import { getServerSession } from "next-auth";
+import {redirect} from "next/navigation"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "@/components/Button";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from 'react-icons/fa'; 
@@ -15,10 +17,28 @@ import Input from "@/app/components/Inputs/Input";
 import { signIn } from "next-auth/react";
 
 
+
 const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const swal = require('sweetalert2')
+
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const session = await getServerSession();
+        if(session){
+          redirect("/home")
+        }
+      } catch(error){
+        console.error("Error fetching session", error);
+      }
+    }
+
+    checkSession();
+  }, [])
+
+  
 
   const { 
     register, 
@@ -39,7 +59,7 @@ const SignUp = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
     
-    axios.post('/api/register', data)
+    axios.post('/api/auth/register', data)
       .then(() => {
         swal.fire({
         title: 'Se ha registrado',
@@ -157,7 +177,9 @@ const SignUp = () => {
                 outline 
                 label="Continuar con Google"
                 icon={FcGoogle}
-                onClick={() => signIn('google')}
+                onClick={() => signIn('google', {
+                  callbackUrl: "/home"
+                })}
               />
             </div>
             <div className="lg:pt-8 pb-8"> 
@@ -165,7 +187,9 @@ const SignUp = () => {
                 outline 
                 label="Continuar con Facebook"
                 icon={FaFacebook}
-                onClick={() => signIn('facebook')}
+                onClick={() => signIn('facebook', {
+                  callbackUrl: "/home"
+                })}
               />
             </div>
           </div>

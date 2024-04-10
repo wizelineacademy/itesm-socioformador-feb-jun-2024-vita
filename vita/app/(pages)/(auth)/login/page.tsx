@@ -1,21 +1,19 @@
 
 'use client';
-import { signIn } from 'next-auth/react';
-import React, { useCallback,useState } from "react";
-import Information from "../components/information/Information";
+import { signIn, useSession } from 'next-auth/react';
+import React, { useCallback,useEffect,useState } from "react";
+import Information from '@/app/components/information/Information';
 import Button from "@/components/Button";
-import axios from  "axios"
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from 'react-icons/fa'; 
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { 
   FieldValues, 
   SubmitHandler,
   useForm
 } from "react-hook-form";
-import Input from "../components/Inputs/Input";
+import Input from '@/app/components/Inputs/Input';
 import Link from "next/link";
-
 
 /**
  * @description Pantalla de registro 
@@ -42,31 +40,42 @@ const Login = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = 
-  (data) => {
-    setIsLoading(true);
+  async (data) => {
 
-    signIn('credentials', { 
-      ...data, 
- 
-    })
-    // .then((callback) => {
-    //   setIsLoading(false);
-    //   if (callback?.ok) {
-    //     swal.fire({
-    //       title: 'Success!',
-    //       text: 'Your operation was successful.',
-    //       icon: 'success',
-    //       confirmButtonText: 'OK'
-    //     });
-    //     router.push('/home');
-    //   }
-    //   if (callback?.error) {
-    //     //toast.error(callback.error);
-    //   }
-    // })
-    
-   
+    const {email, password} = data;
 
+    try {
+
+      const response = await signIn("credentials", {
+        email,
+        password,
+        redirect: false
+      });
+
+      if(!response?.error){
+        router.push("/home");
+        router.refresh();
+      }
+
+      if (!response?.ok) {
+        throw new Error("Network response was not ok");
+      }
+      // Process response here
+      console.log("Login Successful", response);
+      swal.fire({
+        title: 'Se ha iniciado sesión',
+        text: 'Se realizó el inicio de sesión con éxito',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
+    } catch (error: any) {
+      swal.fire({
+        title: 'Error',
+        text: 'Ocurrió un error durante el inicio de sesión',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    }
   }
 
   return (
@@ -119,7 +128,9 @@ const Login = () => {
                 outline 
                 label="Continuar con  Google"
                 icon={FcGoogle}
-                onClick={() => signIn('google')}
+                onClick={() => signIn('google', {
+                  callbackUrl: "/home"
+                })}
             
               />
 
@@ -129,21 +140,21 @@ const Login = () => {
               outline 
               label="Continuar con Facebook"
               icon={FaFacebook}
-              onClick={() => signIn('facebook')}
+              onClick={() => signIn('facebook', {
+                callbackUrl: "/home"
+              })}
           
             />
             </div>
         
-          <Link href="/home"> 
             <Button
+              type="submit"
               borderColor="border-custom-green"
               label="Iniciar sesión"
               outline
               big
-              onClick={() => {}}
-
             />
-         </Link>
+
          </form>
           <h3 className="text-white text-sm lg:text-lg font-bold leading-normal pt-4">
             ¿No tienes una cuenta? 
