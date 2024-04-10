@@ -40,6 +40,10 @@ export const authOptions: NextAuthOptions = {
                     return null;
                 }
 
+                if(!user.password){
+                    return null;
+                }
+
                 const passwordCorrect = await bcrypt.compare(credentials?.password || "", user?.password || "")
 
                 if(passwordCorrect){
@@ -54,6 +58,38 @@ export const authOptions: NextAuthOptions = {
             }
         }),
     ],
+    callbacks: {
+        async signIn({account, profile}){ //register users if they do not exist in the database
+            if(account?.provider === "google" || account?.provider === "facebook"){
+
+                try {
+                    const user = await prisma.user.findUnique({
+                        where: {
+                            email: profile?.email
+                        }
+                    })
+
+                    if(!user){
+                        const user = await prisma.user.create({
+                            data: {
+                                email: profile?.email!,
+                                name: profile?.name ?? ""
+                            }
+                        })
+                        console.log(user)
+                    }
+                }catch(error){
+                    console.log(error)
+                }
+            }
+
+            return true
+        },
+
+        async session({session, user, token}){
+            return session
+        }
+    }
   }
   const handler = NextAuth(authOptions)
   export { handler as GET, handler as POST };
