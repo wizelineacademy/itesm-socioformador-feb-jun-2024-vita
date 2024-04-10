@@ -10,7 +10,7 @@ const Home: React.FC = () => {
 
   return (
     <div id="Container" className="flex justify-center items-center flex-wrap md:flex-nowrap">
-            <div id="Left Information" className="flex flex-col items-start px-20"> 
+            <div id="Left Information" className="flex flex-col items-start"> 
                 <Information />
                 <div className="pt-4">
                     <Link href='/signup'>

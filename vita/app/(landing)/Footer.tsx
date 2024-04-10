@@ -8,7 +8,7 @@ import Button from "../components/Button";
 const Footer: React.FC = () => {
 
   return (
-    <div className='bg-black bg-opacity-40 h-60 flex justify-around items-center flex-wrap'>
+    <div className='bg-black bg-opacity-40 h-1/5 flex justify-around items-center flex-wrap'>
           <div className='flex flex-col gap-3'>
             <h1 className='text-red-300 text-5xl font-bold'>VITA</h1>
             <h2 className='text-white text-3xl font-bold'>Contáctanos</h2>
@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
               />
             </div>
           </div>
-          <div className='flex flex-col text-white gap-3 font-bold'>
+          <div className='flex flex-col text-white gap-3 font-bold text-sm sm:text-sm'>
             <p>@Bdelas777</p>
             <p>@JulioEmmmanuel </p>
             <p>@KrakenDominguezz </p>
