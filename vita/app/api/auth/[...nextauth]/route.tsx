@@ -37,11 +37,11 @@ export const authOptions: NextAuthOptions = {
                 })
 
                 if(!user){
-                    return null;
+                    throw new Error( JSON.stringify({ errors: "El correo no se encuentra registrado", status: false }))
                 }
 
                 if(!user.password){
-                    return null;
+                    throw new Error( JSON.stringify({ errors: "Este correo se encuentra registrado con Google o Facebook", status: false }))
                 }
 
                 const passwordCorrect = await bcrypt.compare(credentials?.password || "", user?.password || "")
@@ -54,7 +54,7 @@ export const authOptions: NextAuthOptions = {
                     }
                 }
 
-                return null;
+                throw new Error( JSON.stringify({ errors: "El correo y contraseña son incorrectos", status: false }));
             }
         }),
     ],

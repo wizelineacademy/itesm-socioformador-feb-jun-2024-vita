@@ -38,8 +38,6 @@ const SignUp = () => {
     checkSession();
   }, [])
 
-  
-
   const { 
     register, 
     handleSubmit,
@@ -70,9 +68,12 @@ const SignUp = () => {
         router.push('/healthdata');
       })
       .catch((error) => {
+
+        let errorMessage = error.response.status === 401 ? "El correo ya se encuentra registrado." : "Ha ocurrido un error durante el registro."
+
         swal.fire({
           title: 'Error',
-          text: 'Ha ocurrido un error durante el registro.',
+          text: errorMessage,
           icon: 'error',
           confirmButtonText: 'OK'
         });
