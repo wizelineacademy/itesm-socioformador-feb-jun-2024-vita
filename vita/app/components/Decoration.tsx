@@ -20,6 +20,10 @@ const routes: Record<string, { image: string; image2: string }> = {
     image: "/DE_Nutrition.svg",
     image2: "/DE_Nutrition2.svg",
   },
+  "/chat": {
+    image: "/DE_CHAT.svg",
+    image2: "/DE_CHAT2.svg",
+  },
   // Add more routes as needed
 };
 
