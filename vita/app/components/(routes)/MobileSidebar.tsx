@@ -24,7 +24,7 @@ const MobileSidebar = () => {
         {
             label: 'Chat',
             href: '/chat',
-            backgroundColor: 'bg-chat-color',
+            backgroundColor: 'bg-chat-background',
             buttonColor: 'text-white',
         },
     ];
