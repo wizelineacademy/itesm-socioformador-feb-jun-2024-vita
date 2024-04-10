@@ -7,11 +7,14 @@ import {  useForm } from 'react-hook-form';
 import { formSchema } from './constants';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {Form, FormControl, FormField, FormItem } from '@/components/ui/form';
-
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
+import { ChatCompletionMessage } from "openai/resources/index.mjs";
 
 const Chat= () => {
+  const router = useRouter();
+  const [messages, setMessages] = useState<ChatCompletionMessage[]>([]);
   const form = useForm<z.infer<typeof formSchema>>  ({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -21,7 +24,13 @@ const Chat= () => {
 
   const isLoading = form.formState.isSubmitting;
   const onSubmit = async(values: z.infer< typeof formSchema>) => {
+    try{
 
+    } catch(error: any){
+        console.log(error)
+    } finally {
+      router.refresh()
+    }
   }
   return (
     <>
