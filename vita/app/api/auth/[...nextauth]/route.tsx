@@ -87,9 +87,25 @@ export const authOptions: NextAuthOptions = {
         },
 
         async session({session, user, token}){
-            return session
-        }
+
+            if (session?.user) {
+                const dbUser = await prisma.user.findUnique({
+                    where: {
+                        email: session.user?.email
+                    }
+                })
+                session.user.id = dbUser?.id_user;
+              }
+              return session;
+        },
+
+        // async jwt({user, token}){
+        //     if(user){
+        //         token.uid =  user.id;
+        //     }
+        //     return token;
+        // }
     }
-  }
-  const handler = NextAuth(authOptions)
-  export { handler as GET, handler as POST };
+}
+const handler = NextAuth(authOptions)
+export { handler as GET, handler as POST };
