@@ -1,0 +1,30 @@
+version: "3.8"
+services:
+  db:
+    image: postgres
+    container_name: postgres
+    restart: always
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: vita
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: vita
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: vita@mail.com
+      PGADMIN_DEFAULT_PASSWORD: 123
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
+volumes:
+  postgres_data:
+  pgadmin-data:
