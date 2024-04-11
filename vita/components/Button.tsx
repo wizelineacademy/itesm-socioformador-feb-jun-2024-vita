@@ -56,6 +56,7 @@ const Button: React.FC<ButtonProps> = ({
           text-white 
           rounded-full
           font-bold
+          font-notosans
           py-3
           ${outline ? borderColor : ''}
           ${big ? 'text-xl' : 'text-sm'}
