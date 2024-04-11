@@ -72,6 +72,7 @@ const Login = () => {
         icon: 'success',
         confirmButtonText: 'OK'
       });
+      router.push("/home");
     } catch (error: any) {
       swal.fire({
         title: 'Error',
