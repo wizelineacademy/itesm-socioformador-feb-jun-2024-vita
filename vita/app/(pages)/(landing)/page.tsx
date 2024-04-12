@@ -2,12 +2,12 @@
 
 import Button from "@/components/Button";
 import Image from 'next/image'
-import About from '../(landing)/Landing_About'
-import Unete from '../(landing)/unete'
-import Footer from '../(landing)/Footer'
-import CarruseLanding from '../(landing)/carrusel'
-import Home from '../(landing)/Home'
-import Navbar from "@/app/components/navbar/Navbar";
+import About from '../../../components/Landing_About'
+import Unete from '../../../components/unete'
+import Footer from '../../../components/Footer'
+import CarruseLanding from '../../../components/carusel/carrusel'
+import Home from '../../../components/Home'
+import Navbar from "@/components/navbar/Navbar";
 
 
 const Landing = () => {

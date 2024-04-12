@@ -12,8 +12,8 @@ import { FaFacebook } from 'react-icons/fa';
 import swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 import { RegisterSchema } from "@/app/validations/RegisterSchema";
-import Information from "@/app/components/information/Information";
-import Input from "@/app/components/Inputs/Input";
+import Information from "@/components/information/Information";
+import Input from "@/components/Inputs/Input";
 import { signIn } from "next-auth/react";
 
 

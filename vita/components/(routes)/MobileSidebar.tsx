@@ -1,5 +1,5 @@
 import React from 'react';
-import { SheetContent, SheetTrigger, Sheet } from '@/app/components/sheet';
+import { SheetContent, SheetTrigger, Sheet } from '@/components/sheet';
 import { ButtonNav } from '../ButtonNav';
 import { Menu } from 'lucide-react';
 import SidebarInfo from './SidebarInfo';

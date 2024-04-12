@@ -14,7 +14,7 @@ import { ChatCompletionMessage } from "openai/resources/index.mjs";
 import axios from 'axios';
 import { cn } from "@/lib/utils";
 import { useEffect } from "react"; // Importa useEffect
-import { Form, FormControl, FormField, FormItem } from '@/app/components/form';
+import { Form, FormControl, FormField, FormItem } from '@/components/form';
 
 const Chat = () => {
   const router = useRouter();

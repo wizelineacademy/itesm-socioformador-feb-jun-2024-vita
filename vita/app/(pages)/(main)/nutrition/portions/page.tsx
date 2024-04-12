@@ -79,7 +79,6 @@ const Nutrition: FC = () => {
         setValues(newValues);
 
         const newMessages = [...validationMessages];
-        console.log(value)
         newMessages[index] =  value !== "" && Number(value) >= 0 && Number(value) <= 10 ? '' : 'Sólo se aceptan valores entre 0 y 10';
         setValidationMessages(newMessages);
     };
@@ -119,8 +118,6 @@ const Nutrition: FC = () => {
                 fat: values[7]
             });
 
-            console.log(response);
-
             Swal.fire({
                 title: 'Éxito',
                 text: 'Se han guardado las porciones con éxito',
@@ -147,13 +144,18 @@ const Nutrition: FC = () => {
         try {
             const response = await axios.get("/api/portions");
             const data = response.data;
+
+            if(!data){ //return if portions have not been entered yet
+                return;
+            }
+
             const newValues = [...values];
             for(let i = 0; i < labels.length; i++){
                 newValues[i] = data[labels[i]];
             }
             setValues(newValues);
-            console.log(newValues);
         } catch(error){
+            console.log(error)
             Swal.fire({
                 title: 'Error',
                 text: "Ocurrió un error al recuperar las porciones",

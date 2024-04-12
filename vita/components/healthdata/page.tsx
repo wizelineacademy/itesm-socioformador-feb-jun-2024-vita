@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState } from "react";
-import Information from "../../../components/information/Information";
+import Information from "../information/Information";
 import Button from "@/components/Button";
 import axios from  "axios"
 import { FcGoogle } from "react-icons/fc";
@@ -13,9 +13,9 @@ import {
   SubmitHandler,
   useForm
 } from "react-hook-form";
-import Input from "../../../components/Inputs/Input";
+import Input from "../Inputs/Input";
 import Link from "next/link";
-import Select from "../../../components/Inputs/Select";
+import Select from "../Inputs/Select";
 
 
 
