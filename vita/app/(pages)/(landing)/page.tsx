@@ -1,7 +1,4 @@
-
-
-import Button from "@/components/Button";
-import Image from 'next/image'
+"use client"
 import About from '../(landing)/Landing_About'
 import Unete from '../(landing)/unete'
 import Footer from '../(landing)/Footer'
@@ -14,7 +11,7 @@ const Landing = () => {
   return (
     <div className=" bg-gradient-custom flex flex-col gap-2.5">
         <Navbar />
-        <div id="Spacer" className='w-screen h-20'>
+        <div id="Spacer" className=' h-20'>
 
         </div>
         <div id="Home_Page" className="mb-12">
