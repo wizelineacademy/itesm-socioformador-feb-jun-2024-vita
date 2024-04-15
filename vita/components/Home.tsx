@@ -33,9 +33,8 @@ const Home: React.FC = () => {
                     width={500}
                     height={500}
                     alt="Picture of the author"
-                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 50vw, 33vw"
-                    
-                />
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                 />
             </div>
         </div>  
   );

@@ -58,6 +58,10 @@ const Button: React.FC<ButtonProps> = ({
           font-bold
           font-notosans
           py-3
+          sm:text-sm
+          sm:w-60
+          w-40
+          text-md
           ${outline ? borderColor : ''}
           ${big ? 'text-xl' : 'text-sm'}
           ${big ? 'w-60' : 'w-60'} // Cambiarlo mas adelante no se el tamano del boton mediano

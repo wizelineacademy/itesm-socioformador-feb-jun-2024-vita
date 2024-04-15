@@ -1,7 +1,13 @@
 "use client"
 import React from 'react';
 import AdaptableCarousel from "./carrusel_element"
+<<<<<<<< HEAD:vita/components/carrusel.tsx
+import { Carousel, CarouselContent, CarouselItem } from '@/app/components/carousel';
+========
 import { Carousel, CarouselContent, CarouselItem } from '@/components/carusel/carousel';
+>>>>>>>> main:vita/components/carusel/carrusel.tsx
+
+
 
 const carouselItem1= {
       header: 'Inteligencia Artificial',

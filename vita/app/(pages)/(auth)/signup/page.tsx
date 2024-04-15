@@ -113,7 +113,7 @@ const SignUp = () => {
           </div>
 
           {errors.name && typeof errors.name.message === 'string' && (
-              <span className="text-red-500 mb-2">{errors.name.message}</span>
+              <span className="text-custom-red mb-2">{errors.name.message}</span>
           )}
 
           <div className=" pb-4">
@@ -131,7 +131,7 @@ const SignUp = () => {
           </div>
           
           {errors.email && typeof errors.email.message === 'string' && (
-              <span className="text-red-500 mb-2">{errors.email.message}</span>
+              <span className="text-custom-red mb-2">{errors.email.message}</span>
           )}
 
 
@@ -165,11 +165,11 @@ const SignUp = () => {
           </div>
 
           {errors.password && typeof errors.password.message === 'string' && (
-              <span className="text-red-500 mb-2">{errors.password.message}</span>
+              <span className="text-custom-red mb-2">{errors.password.message}</span>
           )}
 
           {errors.confirmPassword && typeof errors.confirmPassword.message === 'string' && (
-            <span className="text-red-500">{errors.confirmPassword.message}</span>
+            <span className="text-custom-red">{errors.confirmPassword.message}</span>
           )}
 
           <div className="md:lg:flex flex-row  ">
@@ -179,7 +179,7 @@ const SignUp = () => {
                 label="Continuar con Google"
                 icon={FcGoogle}
                 onClick={() => signIn('google', {
-                  callbackUrl: "/home"
+                  callbackUrl: "/healthdata"
                 })}
               />
             </div>
@@ -189,7 +189,7 @@ const SignUp = () => {
                 label="Continuar con Facebook"
                 icon={FaFacebook}
                 onClick={() => signIn('facebook', {
-                  callbackUrl: "/home"
+                  callbackUrl: "/healthdata"
                 })}
               />
             </div>

@@ -6,7 +6,7 @@ import Information from '@/components/information/Information';
 import Button from "@/components/Button";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from 'react-icons/fa'; 
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { 
   FieldValues, 
   SubmitHandler,
@@ -113,7 +113,7 @@ const Login = () => {
             </div>
 
             {errors.email && typeof errors.email.message === 'string' && (
-              <span className="text-red-500 mb-5">{errors.email.message}</span>
+              <span className="text-custom-red mb-5">{errors.email.message}</span>
             )}
 
             <div className=" pb-4">
@@ -129,7 +129,7 @@ const Login = () => {
             </div>
 
             {errors.password && typeof errors.password.message === 'string' && (
-              <span className="text-red-500 mb-5">{errors.password.message}</span>
+              <span className="text-custom-red mb-5">{errors.password.message}</span>
             )}
 
             <div className=" pb-4">

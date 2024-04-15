@@ -17,7 +17,7 @@ const Landing = () => {
         <div id="Spacer" className=' h-20'>
 
         </div>
-        <div id="Home_Page" className="mb-12">
+        <div id="Home_Page" className="sm:mb-12">
           <Home />
         </div>
         <div id="About_Page">

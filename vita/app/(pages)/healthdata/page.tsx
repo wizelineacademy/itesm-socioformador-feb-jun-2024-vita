@@ -1,6 +1,5 @@
 
 'use client';
-
 import Swal from 'sweetalert2';
 import React, { useState } from "react";
 import Button from "@/components/Button";
@@ -10,12 +9,12 @@ import {
   SubmitHandler,
   useForm
 } from "react-hook-form";
-import Select from "../../components/Inputs/Select";
-import Input from "../../components/Inputs/Input";
+import Select from '@/components/Inputs/Select';
+import Input from '@/components/Inputs/Input';
 import { useRouter } from "next/navigation";
 import { HealthSchema } from '@/app/validations/HealthSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Link from "next/link";
+
 
 /**
  * @description Pantalla de registro 
@@ -38,7 +37,7 @@ const HealthData = () => {
       weight: '',
       height: '',
       body_fat: '',
-      corporal: '',
+      muscular_mass: '',
       birth_date: '',
     },
   });
@@ -70,6 +69,7 @@ const HealthData = () => {
       setIsLoading(false); 
     }
   };
+
 
   return (
     <div id="Background" className="min-h-screen bg-gradient-custom flex flex-col">
@@ -155,8 +155,8 @@ const HealthData = () => {
 
             <div className="pb-8">
                 <Input
-                    id="corporal"
-                    label="Masa corporal(kg)"
+                    id="muscular_mass"
+                    label="Masa muscular(kg)"
                     disabled={isLoading}
                     register={register}
                     errors={errors}

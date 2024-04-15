@@ -12,6 +12,8 @@ interface AdaptableCarouselProps {
   item: CarouselItem;
 }
 
+
+
 const AdaptableCarousel: React.FC<AdaptableCarouselProps> = ({ item }) => {
   return (
     <div className=' my-10 flex flex-col align-middle justify-between gap-10 bg-white rounded-lg h- 5/6 '>
