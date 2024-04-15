@@ -1,9 +1,9 @@
 "use client"
-import About from '../(landing)/Landing_About'
-import Unete from '../(landing)/unete'
-import Footer from '../(landing)/Footer'
-import CarruseLanding from '../(landing)/carrusel'
-import Home from '../(landing)/Home'
+import About from '../../components/Landing_About'
+import Unete from '../../components/unete'
+import Footer from '../../components/Footer'
+import CarruseLanding from '../../components/carrusel'
+import Home from '../../components/Home'
 import Navbar from "@/app/components/navbar/Navbar";
 
 
@@ -14,7 +14,7 @@ const Landing = () => {
         <div id="Spacer" className=' h-20'>
 
         </div>
-        <div id="Home_Page" className="mb-12">
+        <div id="Home_Page" className="sm:mb-12">
           <Home />
         </div>
         <div id="About_Page">

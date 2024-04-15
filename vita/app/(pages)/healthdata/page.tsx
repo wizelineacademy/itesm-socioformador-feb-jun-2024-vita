@@ -1,23 +1,19 @@
 
 'use client';
-
+import Swal from 'sweetalert2';
 import React, { useState } from "react";
-import Information from "../../../components/information/Information";
 import Button from "@/components/Button";
 import axios from  "axios"
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebook } from 'react-icons/fa'; 
-
 import { 
   FieldValues, 
   SubmitHandler,
   useForm
 } from "react-hook-form";
-import Input from "../../../components/Inputs/Input";
-import Link from "next/link";
-import Select from "../../../components/Inputs/Select";
-
-
+import Select from "../../components/Inputs/Select";
+import Input from "../../components/Inputs/Input";
+import { useRouter } from "next/navigation";
+import { HealthSchema } from '@/app/validations/HealthSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 /**
  * @description Pantalla de registro 
@@ -26,23 +22,53 @@ import Select from "../../../components/Inputs/Select";
  * @returns {JSX.Element} Retorna un elemento JSX que representa el botón.
  */
 const HealthData = () => {
-
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const { 
     register, 
     handleSubmit,
-    formState: {
-      errors,
-    },
+    formState: { errors },
   } = useForm<FieldValues>({
+    resolver: zodResolver(HealthSchema),
     defaultValues: {
-      name: '',
-      email: '',
-      cellphone: '',
-      password: ''
+      sex: '',
+      weight: '',
+      height: '',
+      body_fat: '',
+      corporal: '',
+      birth_date: '',
     },
   });
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    console.log(data)
+  
+    setIsLoading(true); 
+    try {
+      const response = await axios.post("/api/healthdata", data);
+      console.log(response);
+      Swal.fire({
+          title: 'Éxito',
+          text: 'Se han guardado los datos con éxito',
+          icon: 'success',
+          confirmButtonText: 'OK'
+      });
+      router.push("/home");
+      router.refresh();
+    } catch(error){
+      console.error(error);
+      Swal.fire({
+          title: 'Error',
+          text: "Ocurrió un error al guardar los datos",
+          icon: 'error',
+          confirmButtonText: 'OK'
+      });
+    } finally {
+      setIsLoading(false); 
+    }
+  };
+
 
   return (
     <div id="Background" className="min-h-screen bg-gradient-custom flex flex-col">
@@ -53,10 +79,10 @@ const HealthData = () => {
         <div id="Health-Section" className=" flex flex-col items-center md:px-10
         mt-4 lg:mt-0  ">
            <h2 className="text-4xl font-bold text-white pt-2 md:lg:w-[500px] w-[300px] mb-16">
-          Ingresa tus datos de salud
+              Ingresa tus datos de salud
             </h2>
 
-          
+            <form onSubmit={handleSubmit(onSubmit)}>
           <div className="md:lg:flex flex-row  ">
             <div className="md:lg:mr-8 pb-8">
                 <Input
@@ -81,15 +107,22 @@ const HealthData = () => {
             </div>
         </div>
 
+        {errors.weight && typeof errors.weight.message === 'string' && (
+              <span className="text-custom-red mb-5 block">{errors.weight.message}</span>
+        )}
+         {errors.height && typeof errors.height.message === 'string' && (
+              <span className="text-custom-red mb-5 block">{errors.height.message}</span>
+        )}
+
         <div className="sm:md:lg:flex flex-row  ">
             <div className="md:lg:mr-8 pb-8">
             <Select
-              id="gender"
+              id="sex"
               label="Sexo*"
               options={[
            
-                { value: "male", label: "Masculino" },
-                { value: "female", label: "Femenino" },
+                { value: "M", label: "Masculino" },
+                { value: "F", label: "Femenino" },
               ]}
               register={register}
               errors={errors}
@@ -98,7 +131,7 @@ const HealthData = () => {
 
             <div className="pb-8">
                 <Input
-                  id="date"
+                  id="birth_date"
                   label="Fecha de nacimiento*"
                   type="date"
                   disabled={isLoading}
@@ -111,7 +144,7 @@ const HealthData = () => {
         <div className="md:lg:flex flex-row  ">
             <div className="md:lg:mr-8 pb-8">
                 <Input
-                    id="Corporal"
+                    id="body_fat"
                     label="Grasa corporal(%)"
                     disabled={isLoading}
                     register={register}
@@ -121,29 +154,38 @@ const HealthData = () => {
 
             <div className="pb-8">
                 <Input
-                    id="muscular"
-                    label="Masa muscular(kg)"
+                    id="corporal"
+                    label="Masa corporal(kg)"
                     disabled={isLoading}
                     register={register}
                     errors={errors}
                 />
             </div>
         </div>
-        
-        <h3 className="text-custom-red text-xs lg:text-lg font-bold leading-normal pt-2 pb-4">
-            * campo requerido
-        </h3>
-        <Link href="/home" >
-            <Button
-              borderColor="border-custom-red"
-              label="Continuar"
-              outline
-              big
-              onClick={() => {}}
-              
-            />
-        </Link>
 
+        {errors.body_fat && typeof errors.body_fat.message === 'string' && (
+              <span className="text-custom-red mb-5 block">{errors.body_fat.message}</span>
+        )}
+
+         {errors.corporal && typeof errors.corporal.message === 'string' && (
+              <span className="text-custom-red mb-5 block">{errors.corporal.message}</span>
+        )}
+        
+          <div className='items-center justify-center m-auto flex flex-col'>
+              <h3 className=" text-custom-red text-xs lg:text-lg font-bold leading-normal pt-2 pb-4">
+                * campo requerido
+              </h3>
+            
+              <Button
+                borderColor="border-custom-red"
+                label="Continuar"
+                outline
+                big
+                onClick={() => {}}
+                type="submit"
+              />
+            </div>
+        </form>
          
 
         </div>

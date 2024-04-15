@@ -1,6 +1,6 @@
 "use client"
 import React from 'react';
-import AdaptableCarousel from "../(landing)/carrusel_element"
+import AdaptableCarousel from "./carrusel_element"
 import { Carousel, CarouselContent, CarouselItem } from '@/app/components/carousel';
 
 

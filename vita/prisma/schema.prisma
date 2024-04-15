@@ -20,6 +20,7 @@ model User {
   password String? @db.VarChar(64) 
   phone_number String? @db.VarChar(50) @unique  
   portions PortionsNutrition?
+  userdetail UserDetail?
 }
 
 model PortionsNutrition {
@@ -34,4 +35,16 @@ model PortionsNutrition {
   meat Int
   sugar Int
   fat Int
+}
+
+model UserDetail {
+  id_user_detail Int @id @unique @default(autoincrement())
+  id_user Int @unique 
+  user User @relation(fields: [id_user], references: [id_user])
+  sex String @db.VarChar(1)
+  weight Float 
+  height Float 
+  body_fat Float 
+  corporal Float
+  birth_date DateTime
 }
