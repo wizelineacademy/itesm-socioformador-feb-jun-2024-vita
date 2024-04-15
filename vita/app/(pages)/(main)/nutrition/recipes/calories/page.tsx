@@ -1,6 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation';
-import MainButton from '@/app/components/buttons/MainButton';
+import MainButton from '@/components/buttons/MainButton';
 import { useContext, useState } from 'react';
 import swal from 'sweetalert2';
 import Swal from 'sweetalert2';

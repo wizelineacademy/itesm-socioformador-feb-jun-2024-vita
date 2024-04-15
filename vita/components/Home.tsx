@@ -3,7 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 
 import Link from 'next/link';
-import Information from '@/app/components/information/Information';
+import Information from '@/components/information/Information';
 import Button from '@/components/Button';
 
 
