@@ -1,10 +1,10 @@
 'use client'
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import MainButton from '@/app/components/buttons/MainButton';
+import MainButton from '@/components/buttons/MainButton';
 import { useContext, useEffect, useState } from 'react';
-import ListItem from '@/app/components/list/ListItem';
-import ListItemLink from '@/app/components/list/ListItemLink';
+import ListItem from '@/components/list/ListItem';
+import ListItemLink from '@/components/list/ListItemLink';
 import RecipesContext from '@/context/ingredients';
 
 
@@ -29,7 +29,6 @@ const RecipesList = () => {
     }
 
     useEffect(() => {
-        console.log(state.recipes)
         setRecipes(state.recipes)
     }, [state.recipes])
 

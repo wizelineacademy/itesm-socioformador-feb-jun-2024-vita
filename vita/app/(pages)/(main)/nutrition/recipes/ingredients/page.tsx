@@ -5,8 +5,8 @@ import axios from "axios";
 import swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 import { cn } from "@/lib/utils";
-import ListItem from "@/app/components/list/ListItem";
-import MainButton from "@/app/components/buttons/MainButton";
+import ListItem from "@/components/list/ListItem";
+import MainButton from "@/components/buttons/MainButton";
 import RecipesContext from "@/context/ingredients";
 import Swal from "sweetalert2";
 

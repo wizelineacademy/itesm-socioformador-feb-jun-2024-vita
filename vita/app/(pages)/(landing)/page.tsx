@@ -1,10 +1,13 @@
-"use client"
-import About from '../../components/Landing_About'
-import Unete from '../../components/unete'
-import Footer from '../../components/Footer'
-import CarruseLanding from '../../components/carrusel'
-import Home from '../../components/Home'
-import Navbar from "@/app/components/navbar/Navbar";
+
+
+import Button from "@/components/Button";
+import Image from 'next/image'
+import About from '../../../components/Landing_About'
+import Unete from '../../../components/unete'
+import Footer from '../../../components/Footer'
+import CarruseLanding from '../../../components/carusel/carrusel'
+import Home from '../../../components/Home'
+import Navbar from "@/components/navbar/Navbar";
 
 
 const Landing = () => {
