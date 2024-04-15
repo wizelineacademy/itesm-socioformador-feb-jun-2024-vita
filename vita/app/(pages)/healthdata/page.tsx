@@ -2,10 +2,6 @@
 'use client';
 import Swal from 'sweetalert2';
 import React, { useState } from "react";
-<<<<<<<< HEAD:vita/app/(pages)/healthdata/page.tsx
-========
-import Information from "../information/Information";
->>>>>>>> main:vita/components/healthdata/page.tsx
 import Button from "@/components/Button";
 import axios from  "axios"
 import { 
@@ -13,19 +9,12 @@ import {
   SubmitHandler,
   useForm
 } from "react-hook-form";
-<<<<<<<< HEAD:vita/app/(pages)/healthdata/page.tsx
-import Select from "../../components/Inputs/Select";
-import Input from "../../components/Inputs/Input";
+import Select from '@/components/Inputs/Select';
+import Input from '@/components/Inputs/Input';
 import { useRouter } from "next/navigation";
 import { HealthSchema } from '@/app/validations/HealthSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-========
-import Input from "../Inputs/Input";
-import Link from "next/link";
-import Select from "../Inputs/Select";
 
-
->>>>>>>> main:vita/components/healthdata/page.tsx
 
 /**
  * @description Pantalla de registro 
@@ -48,7 +37,7 @@ const HealthData = () => {
       weight: '',
       height: '',
       body_fat: '',
-      corporal: '',
+      muscular_mass: '',
       birth_date: '',
     },
   });
@@ -166,8 +155,8 @@ const HealthData = () => {
 
             <div className="pb-8">
                 <Input
-                    id="corporal"
-                    label="Masa corporal(kg)"
+                    id="muscular_mass"
+                    label="Masa muscular(kg)"
                     disabled={isLoading}
                     register={register}
                     errors={errors}

@@ -45,6 +45,6 @@ model UserDetail {
   weight Float 
   height Float 
   body_fat Float 
-  corporal Float
+  muscular_mass Float
   birth_date DateTime
 }

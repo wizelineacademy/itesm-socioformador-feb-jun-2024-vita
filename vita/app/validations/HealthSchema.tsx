@@ -12,7 +12,7 @@ export const HealthSchema = z.object({
     body_fat: z.string().regex(/^\d+(\.\d{1,2})?$/, {
       message: "Ingresa un valor válido para el porcentaje de grasa corporal (formato: xx.xx)"
     }).nullable(),
-    corporal: z.string().regex(/^\d+(\.\d{1,2})?$/, {
+    muscular_mass: z.string().regex(/^\d+(\.\d{1,2})?$/, {
       message: "Ingresa un valor válido para la masa corporal (formato: xx.xx)"
     }).nullable(),
   });

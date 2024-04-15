@@ -32,12 +32,13 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const session = await getServerSession(authOptions);
+    console.log(session)
 
     if(!session){
         return NextResponse.json("Unauthorized", {status: 401});
     }
 
-    const { sex, weight,  height, body_fat, corporal, birth_date } = body;
+    const { sex, weight,  height, body_fat, muscular_mass, birth_date } = body;
      
     const userDetail = await prisma.userDetail.upsert({
         where: {
@@ -48,7 +49,7 @@ export async function POST(request: Request) {
             weight: Number(weight),
             height: Number(height),
             body_fat: Number(body_fat),
-            corporal: Number(corporal),
+            muscular_mass: Number(muscular_mass),
             birth_date: new Date(birth_date) 
         },
         create: {
@@ -57,7 +58,7 @@ export async function POST(request: Request) {
             weight: Number(weight),
             height: Number(height),
             body_fat: Number(body_fat),
-            corporal: Number(corporal),
+            muscular_mass: Number(muscular_mass),
             birth_date: new Date(birth_date) 
         }
     }) 
