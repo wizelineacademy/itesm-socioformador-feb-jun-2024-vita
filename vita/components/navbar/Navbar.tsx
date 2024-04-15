@@ -14,14 +14,14 @@ const Navbar = ({
           "
         >
         <Container>
-          <div className="  flex items-center my-1.5 md:justify-between justify-center  md:gap-3 ">
-            <div className=" items-center  gap-8 font-notosans hidden  justify-center md:flex sm:flex ">
+          <div className="  flex items-center  md:justify-between justify-center   ">
+            <div className="   gap-8 font-notosans hidden  md:flex sm:flex ">
               <NavItem color="text-white" title="Inicio" href="#Home_Page"/>
               <NavItem color="text-white" title="Acerca De" href="#About_Page" />
               <NavItem color="text-white" title="¿Qué hacemos?" href="#Carrusel_Page" />
               <NavItem color="text-white" title="Únete a Vita" href="#Unete_Page" />
             </div>
-            <div className="flex items-center  gap-8 font-notosans">
+            <div className="flex  gap-8 font-notosans">
               <NavItem color="text-white" title="Registrarse" href="/signup"/>
               <NavItem color="text-custom-red" title="Iniciar Sesión" href="/login"  />
               
