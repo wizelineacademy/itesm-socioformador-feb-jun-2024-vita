@@ -155,7 +155,6 @@ const Nutrition: FC = () => {
             }
             setValues(newValues);
         } catch(error){
-            console.log(error)
             Swal.fire({
                 title: 'Error',
                 text: "Ocurrió un error al recuperar las porciones",

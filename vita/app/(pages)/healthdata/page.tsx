@@ -1,7 +1,7 @@
 
 'use client';
 import Swal from 'sweetalert2';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@/components/Button";
 import axios from  "axios"
 import { 
@@ -42,13 +42,33 @@ const HealthData = () => {
     },
   });
 
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await axios.get("/api/healthdata");
+        const data = response.data;
+
+        if(!data){ 
+          return;
+        } else {
+          router.replace("/home")
+        }
+
+      } catch(error){
+        console.log(error)
+      }
+    }
+
+    getData();
+  }, [])
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data)
   
     setIsLoading(true); 
+
     try {
       const response = await axios.post("/api/healthdata", data);
-      console.log(response);
+
       Swal.fire({
           title: 'Éxito',
           text: 'Se han guardado los datos con éxito',

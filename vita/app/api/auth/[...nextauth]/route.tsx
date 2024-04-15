@@ -76,8 +76,8 @@ export const authOptions: NextAuthOptions = {
                                 name: profile?.name ?? ""
                             }
                         })
-                        console.log(user)
                     }
+                    
                 }catch(error){
                     console.log(error)
                 }
