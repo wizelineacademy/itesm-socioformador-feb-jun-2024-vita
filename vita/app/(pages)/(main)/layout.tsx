@@ -61,7 +61,7 @@ export default function RootLayout({
             <div className="md:hidden lg:hidden">
               <MobileSidebar />
             </div>
-            <div id="PrincipalPage" className={`h-screen overflow-auto flex flex-col relative lg:m-0 
+            <div id="PrincipalPage" className={`min-h-screen flex flex-col relative lg:m-0 
                 md:m-0 lg:pl-8 md:pl-8 ${backgroundColor}`}>
               {/* Decoration component */}
               <Decoration pathname={pathname}/>
