@@ -38,7 +38,7 @@ const MobileSidebar = () => {
     };
 
     return (
-        <div className={`flex items-center p-4 ${currentRoute.backgroundColor}`}>
+        <div className={`flex  p-4 ${currentRoute.backgroundColor}`}>
             <Sheet>
                 <SheetTrigger>
                     <ButtonNav variant="ghost" size="icon" className={`md:hidden ${currentRoute.buttonColor}`}>
