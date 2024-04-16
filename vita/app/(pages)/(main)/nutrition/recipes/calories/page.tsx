@@ -11,9 +11,9 @@ import RecipesContext from '@/context/ingredients';
 const RecipesCalories = () => {
   
     const [calories, setCalories] = useState<number>(0);
-    const [proteins, setProteins] = useState<number>(0);
-    const [carbohydrates, setCarbohydrates] = useState<number>(0);
-    const [lipids, setLipids] = useState<number>(0);
+    const [proteins, setProteins] = useState<number>(50);
+    const [carbohydrates, setCarbohydrates] = useState<number>(20);
+    const [lipids, setLipids] = useState<number>(30);
 
     const {state, setState} = useContext(RecipesContext);
 
