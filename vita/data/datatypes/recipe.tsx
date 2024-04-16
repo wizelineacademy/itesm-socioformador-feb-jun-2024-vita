@@ -3,6 +3,7 @@ type Recipe = {
     description: string,
     ingredients: string[], 
     steps: string[],
-    time: string
+    time: string,
+    mealtime: string | undefined
 }
 

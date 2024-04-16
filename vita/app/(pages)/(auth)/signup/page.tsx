@@ -65,6 +65,14 @@ const SignUp = () => {
         icon: 'success',
         confirmButtonText: 'OK'
         });
+
+        signIn("credentials", {
+          email: data.email,
+          password: data.password,
+          redirect: false
+        });
+      })
+      .then(res => {
         router.push('/healthdata');
       })
       .catch((error) => {

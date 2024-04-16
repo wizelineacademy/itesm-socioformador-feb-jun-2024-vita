@@ -89,7 +89,7 @@ const Nutrition: FC = () => {
         setValues(newValues);
 
         const newMessages = [...validationMessages];
-        newMessages[index] =  value !== "" && Number(value) >= 0 && Number(value) <= 10 ? '' : 'Sólo se aceptan valores entre 0 y 10';
+        newMessages[index] =  value !== "" && Number(value) >= 0 && Number(value) <= 20 ? '' : 'Sólo se aceptan valores entre 0 y 20';
         setValidationMessages(newMessages);
     };
 
@@ -98,11 +98,11 @@ const Nutrition: FC = () => {
         if(!edit){
             setEdit(true)
         } else {
-            const invalid = values.some(value => value ==="" || Number(value) < 0 || Number(value) > 10);
+            const invalid = values.some(value => value ==="" || Number(value) < 0 || Number(value) > 20);
             if (invalid) {
                 Swal.fire({
                     title: 'Error',
-                    text: "Los valores de las porciones deben encontrarse entre 0 y 10",
+                    text: "Los valores de las porciones deben encontrarse entre 0 y 20",
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });

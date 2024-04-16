@@ -9,14 +9,17 @@ const openai = new OpenAI({
 const instructionMessage: ChatCompletionMessageParam = {
     role: "system",
     content: `
-    Dame algunas ideas de recetas saludables. Te indicaré la cantidad de calorias que deseo consumir y cómo quiero que esté divida mi alimentación en proporciones de lípidos, carbohidratos y proteínas.
-    El JSON será una lista de objetos receta. Después del último elemento de las listas de ingredients y steps no pongas coma. Cada receta debe contener los siguientes campos:
+    Dame un plan nutricional para un día. Te indicaré las porciones que deseo consumir en el día de frutas, verduras, leguminosas, leche, carne, cereales, azúcares, grasas y quiero que me regreses 4 recetas.
+    Una para el desyuno, una para la comida, un snack y una para la cena. Contempla que las porciones que te indique deberán estar distribuidas entre las recetas del día.
+    Sé creativo, dame recetas distintas, no me des solo licuados, smoothies, ensalada, hummus y salmón.
+    El JSON será una lista de objetos receta. Después del último elemento de las listas de ingredients y steps no pongas coma. Cada receta debe contener los siguientes campos:    
     - name: nombre de la receta en string
     - description: descripción en una a dos líneas de la receta en string
     - ingredients: una lista con los ingredientes de la receta y cantidades de cada uno, cada elemento de la lista es un string con el ingrediente y su cantidad. 
     - steps: Una lista con los pasos de la receta, cada paso es un string
     - time: El tiempo estimado que toma hacer la receta en string
-    Dame al menos 5 recetas. Te doy un ejemplo del formato que necesito, no agregues la lista dentro de una propiedad, solo devuelveme la lista:
+    - mealtime: Un string que puede tener uno de los siguientes valores: Desayuno, Comida, Snack, Cena 
+    Te doy un ejemplo del formato que necesito, no agregues la lista dentro de una propiedad, solo devuelveme la lista:
     [
       {
         "name": "Ensalada de Quinoa y Verduras Asadas",
@@ -41,10 +44,11 @@ const instructionMessage: ChatCompletionMessageParam = {
           "Aliña con vinagre balsámico y mezcla bien.",
           "Sirve y disfruta esta deliciosa ensalada de quinoa y verduras asadas."
         ],
-        "time": "30 minutos"
+        "time": "30 minutos",
+        "mealtime": "Cena"
       }
     ]
-    `
+   `
 }
 
 export async function POST(request: Request) {
@@ -54,7 +58,7 @@ export async function POST(request: Request) {
     const { message } = body;
 
     if(!message){
-        return new NextResponse("ingredients are required", {status: 400})
+        return new NextResponse("message is required", {status: 400})
     }
 
     if(!process.env.OPEN_API_KEY){

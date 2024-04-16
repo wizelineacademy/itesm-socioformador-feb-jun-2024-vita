@@ -138,7 +138,7 @@ const Nutrition = () => {
               </div>
             
             {/* Custom option 6 */}
-            <Link id="Enlace"  href="/nutrition/nutritionalPlan" >
+            <Link id="Enlace"  href="/nutrition/nutritional_plan" >
               <div className="flex justify-between px-4 lg:py-2.5  md:py-2.5 py-2
               bg-custom-purple3 lg:rounded-2xl md:rounded-2xl rounded-full lg:w-[340px] sm:w-[330px]  w-[240px] mt-7
               transition-colors duration-300 ease-in-out hover:bg-custom-purple4">
