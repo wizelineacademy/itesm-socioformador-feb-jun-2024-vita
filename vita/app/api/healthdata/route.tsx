@@ -37,7 +37,7 @@ export async function POST(request: Request) {
     }
 
     const { sex, weight,  height, body_fat, muscular_mass, birth_date } = body;
-     
+     console.log(body);
     const userDetail = await prisma.userDetail.upsert({
         where: {
           id_user: session.user?.id
@@ -60,10 +60,12 @@ export async function POST(request: Request) {
             birth_date: new Date(birth_date) 
         }
     }) 
-
+    
     return NextResponse.json(userDetail, {status: 200});
   } catch (error) {
     console.log(error)
     return NextResponse.json("Error posting userDetail", {status: 400})
   }
 }
+
+
