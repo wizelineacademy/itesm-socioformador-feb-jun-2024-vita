@@ -103,7 +103,7 @@ const HealthData = () => {
               Ingresa tus datos de salud
             </h2>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
           <div className="md:lg:flex flex-row  ">
             <div className="md:lg:mr-8 pb-8">
                 <Input

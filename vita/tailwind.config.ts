@@ -47,7 +47,8 @@ const config = {
         'ask-color':'#3868AF',
         'answer-color':'#741B5B',
         'question-color':'#133848',
-
+        'input-home': 'rgba(105, 201, 255, 0.19)',
+        'button-home': '#3868AF',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
       },
