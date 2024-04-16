@@ -3,10 +3,12 @@ import { ReactNode, createContext, useState } from "react";
 
 interface RecipesContextType {
     state: {
+        planRecipes: Recipe[];
         recipes: Recipe[];
         selectedRecipe: Recipe | undefined
     };
     setState: React.Dispatch<React.SetStateAction<{
+        planRecipes: Recipe[]
         recipes: Recipe[];
         selectedRecipe: Recipe | undefined
     }>>;
@@ -14,6 +16,7 @@ interface RecipesContextType {
 
 const DEFAULT_VALUE: RecipesContextType = {
     state: {
+        planRecipes: [],
         recipes: [],
         selectedRecipe: undefined
     },
