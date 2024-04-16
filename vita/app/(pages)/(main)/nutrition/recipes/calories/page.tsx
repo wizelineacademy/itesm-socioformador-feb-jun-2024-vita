@@ -10,7 +10,7 @@ import RecipesContext from '@/context/ingredients';
 
 const RecipesCalories = () => {
   
-    const [calories, setCalories] = useState<number>(0);
+    const [calories, setCalories] = useState<number>(1500);
     const [proteins, setProteins] = useState<number>(50);
     const [carbohydrates, setCarbohydrates] = useState<number>(20);
     const [lipids, setLipids] = useState<number>(30);
@@ -68,9 +68,9 @@ const RecipesCalories = () => {
         }
     
         return message;
-      }
+    }
     
-      const generateRecipes = async() => {
+    const generateRecipes = async() => {
         try {
     
             const message = generatePrompt();
@@ -98,8 +98,6 @@ const RecipesCalories = () => {
             data = data.replace("json", "");
     
             const recipes = JSON.parse(data);
-
-            console.log(recipes)
     
             setState({
                 ...state,

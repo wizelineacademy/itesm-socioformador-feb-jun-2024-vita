@@ -1,9 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import MainButton from '@/components/buttons/MainButton';
 import { useContext, useEffect, useState } from 'react';
-import ListItem from '@/components/list/ListItem';
 import ListItemLink from '@/components/list/ListItemLink';
 import RecipesContext from '@/context/ingredients';
 
