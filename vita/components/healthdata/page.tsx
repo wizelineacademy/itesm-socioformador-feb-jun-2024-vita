@@ -3,7 +3,7 @@
 
 import Swal from 'sweetalert2';
 import React, { useState } from "react";
-import Button from "@/components/Button";
+import Button from "@/components/buttons/Button";
 import axios from  "axios"
 import { 
   FieldValues, 

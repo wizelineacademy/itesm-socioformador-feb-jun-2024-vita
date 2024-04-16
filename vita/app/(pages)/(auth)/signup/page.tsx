@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import {redirect} from "next/navigation"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Button from "@/components/Button";
+import Button from "@/components/buttons/Button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import axios from "axios";

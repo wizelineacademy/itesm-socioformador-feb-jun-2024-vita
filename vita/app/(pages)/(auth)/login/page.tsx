@@ -3,7 +3,7 @@
 import { signIn, useSession } from 'next-auth/react';
 import React, { useCallback,useEffect,useState } from "react";
 import Information from '@/components/information/Information';
-import Button from "@/components/Button";
+import Button from "@/components/buttons/Button";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from 'react-icons/fa'; 
 import { useRouter } from "next/navigation";

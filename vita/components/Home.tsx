@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 import Link from 'next/link';
 import Information from '@/components/information/Information';
-import Button from '@/components/Button';
+import Button from '@/components/buttons/Button';
 
 
 const Home: React.FC = () => {

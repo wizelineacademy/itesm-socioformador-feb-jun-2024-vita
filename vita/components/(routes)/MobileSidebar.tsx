@@ -1,6 +1,6 @@
 import React from 'react';
 import { SheetContent, SheetTrigger, Sheet } from '@/components/sheet';
-import { ButtonNav } from '../ButtonNav';
+import { ButtonNav } from '../buttons/ButtonNav';
 import { Menu } from 'lucide-react';
 import SidebarInfo from './SidebarInfo';
 import { usePathname } from 'next/navigation';
