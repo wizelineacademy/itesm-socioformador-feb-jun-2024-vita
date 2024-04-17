@@ -52,7 +52,7 @@ const Nutrition = () => {
       <div className="flex text-white sm:px-5 sm:py-4  text-5xl sm:text-6xl font-bold 
         lg:justify-start md:justify-start sm:justify-center justify-start ">
         <h1 className=" pl-2 sm:pl-0 mr-2">Nutrición</h1>
-        <Image src="/Food.svg" alt="Imagen 2" width={45} height={45} />
+        <Image src="/Food.svg" alt="Food" width={45} height={45} />
       </div>
 
       {/* Subtitle */}
