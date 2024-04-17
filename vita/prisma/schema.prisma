@@ -17,8 +17,34 @@ model User {
   id_user Int @id @unique @default(autoincrement())
   name String @db.VarChar(100)
   email String @db.VarChar(50) @unique
+  password String? @db.VarChar(64) 
+  phone_number String? @db.VarChar(50) @unique  
+  portions PortionsNutrition?
+  userdetail UserDetail?
+}
 
-  password String @db.VarChar(64) 
-  phone_number String? @db.VarChar(50) @unique
+model PortionsNutrition {
+  id_nutriton_portion Int @id @unique @default(autoincrement())
+  id_user Int @unique 
+  user User @relation(fields: [id_user], references: [id_user])
+  fruits Int
+  vegetables Int
+  milk Int
+  legumes Int
+  cereals Int
+  meat Int
+  sugar Int
+  fat Int
+}
 
+model UserDetail {
+  id_user_detail Int @id @unique @default(autoincrement())
+  id_user Int @unique 
+  user User @relation(fields: [id_user], references: [id_user])
+  sex String @db.VarChar(1)
+  weight Float 
+  height Float 
+  body_fat Float 
+  muscular_mass Float
+  birth_date DateTime
 }
