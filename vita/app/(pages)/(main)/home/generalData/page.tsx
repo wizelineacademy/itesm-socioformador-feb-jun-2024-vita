@@ -55,15 +55,42 @@ const GeneralData = () => {
     const [userData, setUserData] = useState<HealthData | null>(null);
     const [editMode, setEditMode] = useState(false);
     const [editedData, setEditedData] = useState<EditHealthData | null>(null);
+    const [minBirthDate, setMinBirthDate] = useState(""); // Fecha mínima permitida
 
-    // Dentro de handleInputChange
-const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // Obtener la fecha actual
+    const currentDate = new Date();
+    // Calcular la fecha mínima permitida (15 años atrás desde la fecha actual)
+    const minDate = new Date(currentDate.getFullYear() - 15, currentDate.getMonth(), currentDate.getDate());
+    const minDateStr = minDate.toISOString().split('T')[0];
+
+    useEffect(() => {
+        // Guardar la fecha mínima permitida en el estado
+        setMinBirthDate(minDateStr);
+        getData();
+    }, []);
+
+// Función para manejar el cambio en los inputs
+const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
     if (editedData) {
+        // Validar si se está editando la fecha de nacimiento
         if (name === 'birth_date') {
-            const formattedDate = new Date(value).toISOString().split('T')[0];       
+            const selectedDate = new Date(value);
+            // Validar si la fecha seleccionada es menor a 15 años antes de la fecha actual
+            if (selectedDate > minDate) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'La fecha de nacimiento no puede ser menor a 15 años antes de la fecha actual',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return; // Salir de la función si la fecha no es válida
+            }
+            // Si la fecha es válida, actualizar los datos editados
+            const formattedDate = selectedDate.toISOString().split('T')[0];
             setEditedData({ ...editedData, [name]: formattedDate });
         } else {
+            // Para otros campos que no sean fecha de nacimiento
             setEditedData({ ...editedData, [name]: value });
         }
     }
@@ -88,13 +115,7 @@ const getData = async () => {
     }
 }; 
 
-    // Realiza la petición de datos al servidor cuando el componente se monta
-    useEffect(() => {
-        
-
-        getData();
-    }, []);
-
+   
     // Función para guardar los cambios editados
     const handleSaveChanges = async () => {
         try {
@@ -147,6 +168,8 @@ const getData = async () => {
                                     value={editedData?.weight || ""}
                                     onChange={handleInputChange}
                                     className="text-2xl py-2 px-6 rounded-full bg-input-home w-60"
+                                    min={2}
+                                    max={80}
                                 />
                                 <p className="font-bold ml-4">kg</p>
                                 </span>
@@ -170,6 +193,7 @@ const getData = async () => {
                                 value={editedData?.sex || ""}
                                 onChange={handleInputChange}
                                 className="text-2xl py-2 px-6 rounded-full bg-input-home w-60"
+                               
                             >
                                 <option value="M">Masculino</option>
                                 <option value="F">Femenino</option>
@@ -196,6 +220,8 @@ const getData = async () => {
                                     value={editedData?.body_fat || ""}
                                     onChange={handleInputChange}
                                     className="text-2xl py-2 px-6 rounded-full bg-input-home w-60"
+                                    min={0}
+                                    max={60}
                                 />
                             ) : (
                                 <span className="flex flex-row">
@@ -223,6 +249,8 @@ const getData = async () => {
                                     value={editedData?.height || ""}
                                     onChange={handleInputChange}
                                     className="text-2xl py-2 px-6 rounded-full bg-input-home w-60"
+                                    min={0.5}
+                                    max={2.80}
                                 />
                                 <p className="font-bold ml-4">m</p>
                                 </span>
@@ -275,6 +303,8 @@ const getData = async () => {
                                     value={editedData?.muscular_mass|| ""}
                                     onChange={handleInputChange}
                                     className="text-2xl py-2 px-6 rounded-full bg-input-home w-60"
+                                    min={0}
+                                    max={80}
                                 />
                                 
                                 </span>
