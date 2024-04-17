@@ -5,7 +5,8 @@ import SearchBarButton from '@/components/searchbar/SearchbarButton';
 import ExercisesContext from '@/context/exercises';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { IconType } from 'react-icons';
 
 import { FaCheck, FaDumbbell, FaRunning } from 'react-icons/fa';
 import { FaHeartPulse } from 'react-icons/fa6';
@@ -33,28 +34,28 @@ const AreaRoutine = () => {
         "Cuello"
     ]
 
-    const icons = [
-        FaRunning,
-        FaDumbbell,
-        FaHeartPulse,
-        MdOutlineSportsGymnastics,
-        FaRunning,
-        FaDumbbell,
-        FaHeartPulse,
-        MdOutlineSportsGymnastics,
-        FaRunning,
-        FaDumbbell,
-        FaHeartPulse,
-        MdOutlineSportsGymnastics,
-        FaRunning,
-        FaDumbbell,
-    ]
+    const availableIcons = [FaRunning, FaDumbbell, FaHeartPulse, MdOutlineSportsGymnastics]
 
     const {state, setState} = useContext(ExercisesContext);
     const [selections, setSelections] = useState<boolean[]>([]);
     const [list, setList] = useState<string[]>(areas);
+    const [icons, setIcons] = useState<IconType[]>([]);
   
     const router = useRouter();
+
+
+    useEffect(() => {
+        const ics: IconType[] = []
+
+        let i = 0;
+        while(ics.length < areas.length){
+            ics.push(availableIcons[i]);
+            i++;
+            i %= 4;
+        }
+
+        setIcons(ics);
+    }, [])
 
     const generatePrompt = () => {
 
@@ -64,6 +65,16 @@ const AreaRoutine = () => {
             Swal.fire({
                 title: 'Error',
                 text: 'Debes seleccionar al menos un área a entrenar',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            }); 
+            return "";
+        }
+
+        if(selected.length > 5){
+            Swal.fire({
+                title: 'Error',
+                text: 'Puedes seleccionar un máximo de 5 áreas a entrenar',
                 icon: 'error',
                 confirmButtonText: 'OK'
             }); 
@@ -128,7 +139,7 @@ const AreaRoutine = () => {
             Swal.close()
             Swal.fire({
                 title: 'Error',
-                text: 'Ocurrió un error al generar las recetas. Inténtalo de nuevo',
+                text: 'Ocurrió un error al generar la rutina. Inténtalo de nuevo',
                 icon: 'error',
                 confirmButtonText: 'OK'
             }); 
@@ -141,13 +152,14 @@ const AreaRoutine = () => {
             <h3 className={"mt-5 text-xl text-white md:w-4/5 lg:w-3/5"}>Escoge el área del cuerpo a entrenar</h3>
 
             <SearchBarButton
+                placeholder='Hombros'
                 list={areas}
                 setList={setList}
                 action={generateExercises}
             />
 
             <SelectableCardWrapper>
-                {list.map((area, index) => (
+                {icons.length === areas.length && list.map((area, index) => (
                     <SelectableCard
                         key={area}
                         text={area}

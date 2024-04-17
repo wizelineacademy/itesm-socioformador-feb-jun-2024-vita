@@ -2,12 +2,14 @@ import React, { ReactNode, SetStateAction } from 'react';
 import { FaSearch } from 'react-icons/fa';
 
 interface SearchBarButtonProps {
+    placeholder: string,
     list: string[],
     setList: React.Dispatch<SetStateAction<string[]>>,
     action: () => void;
 }
 
 const SearchBarButton: React.FC<SearchBarButtonProps> = ({ 
+    placeholder,
     list,
     setList,
     action
@@ -31,7 +33,7 @@ const SearchBarButton: React.FC<SearchBarButtonProps> = ({
                         filterList(e.target.value)
                     }}
                     type="text"
-                    placeholder="Hombros"
+                    placeholder={placeholder}
                     className='w-4/5 py-3 px-5 text-white bg-input-green rounded-full focus:outline-none lg:py-4'/>
 
                 <FaSearch color='white' className="w-7 h-7 mr-3"/>
