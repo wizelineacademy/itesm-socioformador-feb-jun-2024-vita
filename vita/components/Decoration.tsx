@@ -24,6 +24,10 @@ const routes: Record<string, { image: string; image2: string }> = {
     image: "/DE_CHAT.svg",
     image2: "/DE_CHAT2.svg",
   },
+  "/exercise": {
+    image: "/DE_Exercise.svg",
+    image2: "/DE_Exercise2.svg"
+  }
   // Add more routes as needed
 };
 
