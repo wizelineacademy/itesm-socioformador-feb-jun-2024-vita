@@ -20,11 +20,11 @@ const PlanItemLink: React.FC<PlanItemProps> = ({
         <li 
             onClick={onClick}
             data-value={content}
-            className={`w-5/6 mt-5 px-6 py-6 text-md mx-auto rounded-3xl flex flex-col gap-y-2 items-start justify-between text-center text-white font-medium ${color} hover:cursor-pointer hover:${hoverColor} sm:py-7 sm:flex-row sm:items-center lg:text-lg lg:rounded-full lg:py-6 md:max-w-[1200px]`}
+            className={`w-5/6 mt-5 px-6 py-6 text-md mx-auto rounded-3xl flex flex-col gap-y-2 items-start justify-between text-center text-white font-medium ${color} hover:cursor-pointer hover:${hoverColor} sm:py-7 sm:flex-row sm:items-center lg:text-lg md:rounded-full lg:py-6 md:max-w-[1200px]`}
         >
             <p className='font-semibold text-left'>{content}</p>
             <div className="flex gap-x-5 xl:gap-x-10 items-center">
-                <p className='text-left md:max-w-[150px] h-auto'>{tag}</p>
+                <p className='text-left md:w-[100px] lg:w-[150px] xl:w-[200px] h-auto'>{tag}</p>
                 <ArrowRight className='hidden lg:inline-block lg:w-9 lg:h-9'/>
             </div>
             

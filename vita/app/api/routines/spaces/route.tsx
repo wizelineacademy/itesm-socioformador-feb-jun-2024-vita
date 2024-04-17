@@ -9,8 +9,7 @@ const openai = new OpenAI({
 const instructionMessage: ChatCompletionMessageParam = {
     role: "system",
     content: `
-    Dame una rutina de ejercicios para realizar en un solo entrenamiento. dame al menos uno o dos ejercicios por cada área del cuerpo. 
-    Si son menos de 5 áreas dame al menos 5 ejercicios. Te indicaré las áreas del cuerpo que deseo entrenar.
+    Dame una rutina de ejercicios para realizar en un solo entrenamiento, dame al menos 5 ejercicios. Te indicaré dónde voy a realizar el ejercicio y adapta la rutina a los aparatos e instrumentos o falta de ellos de acuerdo al espacio.
     El JSON será una lista de objetos ejercicio. Después del último elemento de las listas de impact_areas y precautions no pongas coma. Cada ejercicio debe contener los siguientes campos:
     - name: nombre del ejercicio en string
     - description: descripción en una a dos líneas del ejercicio y cómo realizarlo en string
