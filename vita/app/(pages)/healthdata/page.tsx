@@ -113,6 +113,7 @@ const HealthData = () => {
                     register={register}
                     errors={errors}
                     required
+                    
                 />
             </div>
 
@@ -162,6 +163,15 @@ const HealthData = () => {
                 />
             </div>
         </div>
+
+        {errors.sex && typeof errors.sex.message === 'string' && (
+              <span className="text-custom-red mb-5 block">{errors.sex.message}</span>
+        )}
+
+         {errors.birth_date && typeof errors.birth_date.message === 'string' && (
+              <span className="text-custom-red mb-5 block">{errors.birth_date.message}</span>
+        )}
+        
         <div className="md:lg:flex flex-row  ">
             <div className="md:lg:mr-8 pb-8">
                 <Input
@@ -188,8 +198,8 @@ const HealthData = () => {
               <span className="text-custom-red mb-5 block">{errors.body_fat.message}</span>
         )}
 
-         {errors.corporal && typeof errors.corporal.message === 'string' && (
-              <span className="text-custom-red mb-5 block">{errors.corporal.message}</span>
+         {errors.muscular_mass && typeof errors.muscular_mass.message === 'string' && (
+              <span className="text-custom-red mb-5 block">{errors.muscular_mass.message}</span>
         )}
         
           <div className='items-center justify-center m-auto flex flex-col'>
