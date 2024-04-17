@@ -12,7 +12,7 @@ const instructionMessage: ChatCompletionMessageParam = {
     Dame una rutina de ejercicios para realizar en un solo entrenamiento. Te indicaré las áreas del cuerpo que deseo entrenar.
     El JSON será una lista de objetos ejercicio. Después del último elemento de las listas de impact_areas y precautions no pongas coma. Cada ejercicio debe contener los siguientes campos:
     - name: nombre del ejercicio en string
-    - description: descripción en una a dos líneas del ejercicio en string
+    - description: descripción en una a dos líneas del ejercicio y cómo realizarlo en string
     - amount: la cantidad a realizar del ejercicio en string (ej. 20 repeticiones, 10 vueltas, 5 minutos, etc.)
     - intensity: la intensidad del ejercicio en number del 1 al 10
     - impact_areas: una lista con las áreas del cuerpo a entrenar en este ejercicio, cada elemento de la lista es un string. 
@@ -20,21 +20,22 @@ const instructionMessage: ChatCompletionMessageParam = {
     Te doy un ejemplo del formato que necesito, no agregues la lista dentro de una propiedad, solo devuelveme la lista:
     [
         {
-          "name": "Sentadillas",
-          "description": "Fortalece piernas y glúteos.",
-          "amount": "3 series de 15 repeticiones",
-          "intensity": 7,
-          "impact_areas": ["Piernas", "Glúteos"],
-          "precautions": ["Mantener la espalda recta", "No dejar que las rodillas sobrepasen los dedos de los pies"]
+            "name": "Sentadillas",
+            "description": "Flexiona las rodillas y baja el cuerpo como si fueras a sentarte, manteniendo la espalda recta.",
+            "amount": "3 series de 15 repeticiones",
+            "intensity": 7,
+            "impact_areas": ["Piernas", "Glúteos"],
+            "precautions": ["Mantén la espalda recta en todo momento", "No dejes que las rodillas sobrepasen los dedos de los pies"]
         },
         {
-          "name": "Flexiones de brazos",
-          "description": "Trabaja pecho, hombros y tríceps.",
-          "amount": "4 series de 10 repeticiones",
-          "intensity": 8,
-          "impact_areas": ["Pecho", "Hombros", "Tríceps"],
-          "precautions": ["Mantener el cuerpo alineado", "Evitar arquear la espalda"]
-        },
+            "name": "Flexiones de brazos",
+            "description": "Apoya las manos en el suelo a la altura de los hombros y baja el cuerpo flexionando los codos, luego vuelve a la posición inicial extendiendo los brazos.",
+            "amount": "4 series de 12 repeticiones",
+            "intensity": 8,
+            "impact_areas": ["Pecho", "Brazos", "Hombros"],
+            "precautions": ["Mantén el cuerpo alineado desde la cabeza hasta los pies", "Evita arquear la espalda"]
+        }
+    ]
     `
 }
 
