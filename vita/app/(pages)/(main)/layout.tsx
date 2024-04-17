@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from 'react';
 import { RecipesContextProvider } from "@/context/ingredients";
 import NextAuthProvider from "@/context/authprovider";
+import { ExercisesContextProvider } from "@/context/exercises";
 
 // Define font settings
 
@@ -69,7 +70,9 @@ export default function RootLayout({
               {/* Render children components */}
               <NextAuthProvider>
                 <RecipesContextProvider> {/*Context for recipes**/}
-                  {children}
+                  <ExercisesContextProvider> {/*Context for exercise routines**/}
+                    {children}
+                  </ExercisesContextProvider>
                 </RecipesContextProvider>
               </NextAuthProvider>
             </div>  

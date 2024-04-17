@@ -2,10 +2,13 @@
 import SelectableCard from '@/components/cards/SelectableCard';
 import SelectableCardWrapper from '@/components/cards/SelectableCardWrapper';
 import SearchBarButton from '@/components/searchbar/SearchbarButton';
+import ExercisesContext from '@/context/exercises';
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import { FaCheck, FaRunning, FaSearch } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const AreaRoutine = () => {
 
@@ -26,10 +29,90 @@ const AreaRoutine = () => {
         "Cuello"
     ]
 
+    const {state, setState} = useContext(ExercisesContext);
     const [selections, setSelections] = useState<boolean[]>([]);
     const [list, setList] = useState<string[]>(areas);
   
     const router = useRouter();
+
+    const generatePrompt = () => {
+
+        const selected = selections.filter(selection => selection)
+
+        if(selected.length === 0){
+            Swal.fire({
+                title: 'Error',
+                text: 'Debes seleccionar al menos un área a entrenar',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            }); 
+            return "";
+        }
+    
+        let prompt = `Quiero entrenar: `
+        selected.forEach((el, index) => {
+            if(index != selected.length){
+                prompt += `${el}, `
+            } else {
+                prompt += `${el}.`
+            }
+        })
+    
+        const message = {
+            role: "user",
+            content: prompt
+        }
+    
+        return message;
+    }
+    
+    const generateExercises = async() => {
+        try {
+    
+            const message = generatePrompt();
+
+            if(message === ""){
+                return;
+            }
+    
+            Swal.fire({
+                title: 'Cargando',
+                text: 'Generando la rutina...',
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                }
+            }); 
+    
+            const response = await axios.post("/api/routines/areas", {
+                message
+            })
+    
+            let data = response.data.content;
+            data = data.replaceAll("`", "");
+            data = data.replace("json", "");
+    
+            const exercises = JSON.parse(data);
+    
+            setState({
+                ...state,
+                exercises
+            })
+    
+            router.push("/exercise/routines/list")
+            Swal.close()
+            
+        } catch(error: any){
+            Swal.close()
+            Swal.fire({
+                title: 'Error',
+                text: 'Ocurrió un error al generar las recetas. Inténtalo de nuevo',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            }); 
+        }
+    };
 
     return (
         <div className="ml-5 mr-5">
@@ -39,9 +122,7 @@ const AreaRoutine = () => {
             <SearchBarButton
                 list={areas}
                 setList={setList}
-                action={() => {
-                    router.push("")
-                }}
+                action={generateExercises}
             />
 
             <SelectableCardWrapper>
