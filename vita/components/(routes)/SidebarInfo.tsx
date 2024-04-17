@@ -21,8 +21,8 @@ const routes = [
     {
         label: "Exercise",
         icon: FaRunning,
-        href: "/exercise/routines",
-        color: "bg-exercise-color"
+        href: "/exercise",
+        color: "bg-mid-green"
     },
     {
         label: "Chat",

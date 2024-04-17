@@ -32,7 +32,6 @@ const Footer: React.FC = () => {
             <Link href="https://github.com/Bdelas777"><p >@Bdelas777</p></Link>
             <Link href="https://github.com/JulioEmmmanuel"><p>@JulioEmmmanuel </p> </Link>
             <Link href="https://github.com/SofiRegiM"><p>@SofiRegiM</p></Link>
-            <Link href="https://github.com/KrakenDominguezz"><p>@KrakenDominguezz</p></Link>
             <Link href="https://github.com/edan11v"><p>@edan11v </p></Link>
           </div>
     </div>
