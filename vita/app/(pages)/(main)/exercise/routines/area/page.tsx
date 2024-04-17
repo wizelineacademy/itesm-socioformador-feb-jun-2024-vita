@@ -7,7 +7,11 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useContext, useState } from 'react';
 
-import { FaCheck, FaRunning, FaSearch } from 'react-icons/fa';
+import { FaCheck, FaDumbbell, FaRunning } from 'react-icons/fa';
+import { FaHeartPulse } from 'react-icons/fa6';
+import { MdOutlineSportsGymnastics } from "react-icons/md";
+
+
 import Swal from 'sweetalert2';
 
 const AreaRoutine = () => {
@@ -27,6 +31,23 @@ const AreaRoutine = () => {
         "Gemelos",
         "Muslos",
         "Cuello"
+    ]
+
+    const icons = [
+        FaRunning,
+        FaDumbbell,
+        FaHeartPulse,
+        MdOutlineSportsGymnastics,
+        FaRunning,
+        FaDumbbell,
+        FaHeartPulse,
+        MdOutlineSportsGymnastics,
+        FaRunning,
+        FaDumbbell,
+        FaHeartPulse,
+        MdOutlineSportsGymnastics,
+        FaRunning,
+        FaDumbbell,
     ]
 
     const {state, setState} = useContext(ExercisesContext);
@@ -131,7 +152,7 @@ const AreaRoutine = () => {
                         key={area}
                         text={area}
                         selected={selections[index]}
-                        icon={FaRunning}
+                        icon={icons[index]}
                         toggle={() => {
                             const newSelections = [...selections]
                             newSelections[index] = !newSelections[index];
