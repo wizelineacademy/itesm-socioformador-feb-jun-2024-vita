@@ -39,6 +39,7 @@ const config = {
         "light-red": "#DE4C4C",
         "mid-green": "#278E7C",
         "dark-green": "#194A48",
+        "input-green": "#2D3B3D",
         'dark-background-purple': "#3A0A2D",
         'decoration-nutrition-colordark':'#861B68',
         'decoration-nutrition-colorlight':'#F84AC7',
