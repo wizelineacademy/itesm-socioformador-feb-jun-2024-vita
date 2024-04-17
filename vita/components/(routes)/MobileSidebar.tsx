@@ -27,6 +27,12 @@ const MobileSidebar = () => {
             backgroundColor: 'bg-chat-background',
             buttonColor: 'text-white',
         },
+        {
+            label: 'Exercise',
+            href: '/exercise',
+            backgroundColor: 'bg-exercise-background',
+            buttonColor: 'text-white',
+        },
     ];
 
     // Find the current route based on whether the pathname starts with the defined route href

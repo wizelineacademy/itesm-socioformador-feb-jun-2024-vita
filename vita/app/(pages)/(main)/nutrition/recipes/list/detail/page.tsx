@@ -14,7 +14,8 @@ const RecipesDetail = () => {
             "description": "Un estofado reconfortante cargado de vegetales frescos y tiernos trozos de filete de res.",
             "ingredients": ["Filete de res", "Papa", "Arroz", "Zanahoria", "Cebolla", "Caldo de carne", "Especias al gusto"],
             "steps": ["Corta el filete de res en trozos pequeños y sazona al gusto con tus especias preferidas.", "En una olla grande, sofríe la cebolla hasta que esté transparente.", "Agrega los trozos de filete de res y cocina hasta que estén dorados por fuera.", "Incorpora las papas, zanahorias y arroz.", "Vierte el caldo de carne suficiente para cubrir los ingredientes y deja hervir.", "Reduce el fuego y cocina a fuego lento hasta que las verduras estén tiernas y el arroz esté cocido.", "Sirve caliente y disfruta de este reconfortante estofado."],
-            "time": "1 hora"
+            "time": "1 hora",
+            "mealtime": undefined
         }
     );
 
@@ -24,7 +25,7 @@ const RecipesDetail = () => {
             setRecipe(state.selectedRecipe);
         }
 
-    })
+    }, [])
 
     return (
         <div className="ml-5 mr-5">

@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from 'react';
 import { RecipesContextProvider } from "@/context/ingredients";
 import NextAuthProvider from "@/context/authprovider";
+import { ExercisesContextProvider } from "@/context/exercises";
 
 // Define font settings
 
@@ -22,6 +23,7 @@ const routes: { [key: string]: string } = {
   "/home": "bg-home-background",
   "/nutrition": "bg-nutrition-background",
   "/chat": "bg-chat-background",
+  "/exercise": "bg-exercise-background"
 };
 
 /**
@@ -68,7 +70,9 @@ export default function RootLayout({
               {/* Render children components */}
               <NextAuthProvider>
                 <RecipesContextProvider> {/*Context for recipes**/}
-                  {children}
+                  <ExercisesContextProvider> {/*Context for exercise routines**/}
+                    {children}
+                  </ExercisesContextProvider>
                 </RecipesContextProvider>
               </NextAuthProvider>
             </div>  
