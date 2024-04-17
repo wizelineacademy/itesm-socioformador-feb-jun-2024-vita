@@ -40,7 +40,7 @@ const SearchBarButton: React.FC<SearchBarButtonProps> = ({
                 onClick={() => {
                     action()
                 }}
-                className='w-full py-4 px-6 z-10 text-white font-bold bg-button-blue rounded-full lg:w-1/5'>
+                className='w-full py-4 px-6 z-10 text-white font-bold bg-button-blue rounded-full lg:w-1/5 hover:bg-mid-blue'>
                     Continuar
             </button>
         </div>
