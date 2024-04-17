@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faComments, faCircle, faLightbulb } from '@fortawesome/free-solid-svg-icons';
 
@@ -28,6 +28,11 @@ const Home = () => {
     setRandomSuggestion(newRandomSuggestion);
   };
 
+  // useEffect hook to generate a random suggestion when the component mounts
+  useEffect(() => {
+    setRandomSuggestion(generateRandomSuggestion());
+  }, []);
+
   return (
     <div className="flex">
       <div className="flex flex-col py-4 justify-start items-start" style={{ paddingLeft: '0px' }}>
@@ -40,14 +45,10 @@ const Home = () => {
 
         {/* Existing blue containers */}
         <div style={{ backgroundColor: '#2E7390', height: '225px', width: '225px', marginLeft: '10px', marginTop: '35px', borderRadius: '33px' }}>
-          <h2 style={{ color: 'white', fontWeight: 'bold', fontSize: '26px', marginLeft: '23px', marginTop: '20px' }}>Recomendación del Día</h2>
+          <h2 style={{ color: 'white', fontWeight: 'bold', fontSize: '26px', marginLeft: '23px', marginTop: '20px' }}>Recomendación del Día <FontAwesomeIcon icon={faLightbulb} color="#144154" style={{ marginLeft: '65px', marginBottom: '4px' }} /></h2>
           <div style={{ backgroundColor: '#BFEBFF', height: '120px', width: '185px', marginLeft: '20px', marginTop: '17px', borderRadius: '17px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 15px' }}>
-            {/* Display the random suggestion */}
-            <p style={{ color: '#1D154A', fontSize: '16px' }}>{randomSuggestion}</p>
-            {/* Button to generate a new suggestion */}
-            <button onClick={handleGenerateSuggestion} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
-              <FontAwesomeIcon icon={faLightbulb} color='#1D154A' size='lg' />
-            </button>
+            {/* Display the random suggestion with bigger and bolder text */}
+            <p style={{ color: '#1D154A', fontSize: '20px', fontWeight: 'bold' }}>{randomSuggestion}</p>
           </div>
         </div>
 
