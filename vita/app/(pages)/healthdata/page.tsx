@@ -36,9 +36,9 @@ const HealthData = () => {
       sex: '',
       weight: '',
       height: '',
-      body_fat: '',
-      muscular_mass: '',
-      birth_date: '',
+      bodyFat: '',
+      muscularMass: '',
+      birthDate: '',
     },
   });
 
@@ -153,7 +153,7 @@ const HealthData = () => {
 
             <div className="pb-8">
                 <Input
-                  id="birth_date"
+                  id="birthDate"
                   label="Fecha de nacimiento*"
                   type="date"
                   disabled={isLoading}
@@ -168,14 +168,14 @@ const HealthData = () => {
               <span className="text-custom-red mb-5 block">{errors.sex.message}</span>
         )}
 
-         {errors.birth_date && typeof errors.birth_date.message === 'string' && (
-              <span className="text-custom-red mb-5 block">{errors.birth_date.message}</span>
+         {errors.birthDate && typeof errors.birthDate.message === 'string' && (
+              <span className="text-custom-red mb-5 block">{errors.birthDate.message}</span>
         )}
         
         <div className="md:lg:flex flex-row  ">
             <div className="md:lg:mr-8 pb-8">
                 <Input
-                    id="body_fat"
+                    id="bodyFat"
                     label="Grasa corporal(%)"
                     disabled={isLoading}
                     register={register}
@@ -185,7 +185,7 @@ const HealthData = () => {
 
             <div className="pb-8">
                 <Input
-                    id="muscular_mass"
+                    id="muscularMass"
                     label="Masa muscular(kg)"
                     disabled={isLoading}
                     register={register}
@@ -194,12 +194,12 @@ const HealthData = () => {
             </div>
         </div>
 
-        {errors.body_fat && typeof errors.body_fat.message === 'string' && (
-              <span className="text-custom-red mb-5 block">{errors.body_fat.message}</span>
+        {errors.bodyFat && typeof errors.bodyFat.message === 'string' && (
+              <span className="text-custom-red mb-5 block">{errors.bodyFat.message}</span>
         )}
 
-         {errors.muscular_mass && typeof errors.muscular_mass.message === 'string' && (
-              <span className="text-custom-red mb-5 block">{errors.muscular_mass.message}</span>
+         {errors.muscularMass && typeof errors.muscularMass.message === 'string' && (
+              <span className="text-custom-red mb-5 block">{errors.muscularMass.message}</span>
         )}
         
           <div className='items-center justify-center m-auto flex flex-col'>

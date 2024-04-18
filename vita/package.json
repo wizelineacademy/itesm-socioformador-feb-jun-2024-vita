@@ -7,8 +7,9 @@
     "dev": "next dev",
     "sst-dev": "NO_BUN=true sst dev next dev",
     "lint": "next lint",
-    "prisma-generate": "npx prisma generate",
-    "prisma-migrate": "npx prisma migrate dev --name",
+    "drizzle-kit": "drizzle-kit",
+    "drizzle:generate-migration": "drizzle-kit generate:pg",
+    "drizzle:apply-migration": "tsx migrate.ts",
     "start": "next start"
   },
   "dependencies": {
@@ -25,6 +26,8 @@
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.30.8",
     "embla-carousel-react": "^8.0.1",
     "init": "^0.1.2",
     "lucide-react": "^0.356.0",
@@ -32,6 +35,8 @@
     "next-auth": "^4.24.7",
     "next-navigation": "^1.0.6",
     "openai": "^4.33.0",
+    "pg": "^8.11.5",
+    "postgres": "^3.4.4",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.51.2",
@@ -48,13 +53,16 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^20.11.30",
+    "@types/pg": "^8.11.5",
     "@types/react": "^18.2.69",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.18",
+    "drizzle-kit": "^0.20.14",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
+    "tsx": "^4.7.2",
     "typescript": "^5.4.3"
   }
 }

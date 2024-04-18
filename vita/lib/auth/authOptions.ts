@@ -3,6 +3,9 @@ import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
+import { db } from "@/db/drizzle";
+import { user } from "@/db/schema/schema";
+import { eq } from "drizzle-orm";
 
 
 export const authOptions: NextAuthOptions = {
@@ -30,27 +33,28 @@ export const authOptions: NextAuthOptions = {
             },
             authorize: async(credentials, req) => {
 
-                const user = await prisma.user.findUnique({
-                    where: {
-                        email: credentials?.email
-                    }
-                })
+                const existingUser = await db.select()
+                .from(user)
+                .where(eq(user.email, credentials?.email ?? ""))
+                .limit(1)
 
-                if(!user){
+                console.log(existingUser)
+
+                if(existingUser.length === 0){
                     throw new Error( JSON.stringify({ errors: "El correo no se encuentra registrado", status: false }))
                 }
 
-                if(!user.password){
+                if(!existingUser[0].password){
                     throw new Error( JSON.stringify({ errors: "Este correo se encuentra registrado con Google o Facebook", status: false }))
                 }
 
-                const passwordCorrect = await bcrypt.compare(credentials?.password || "", user?.password || "")
+                const passwordCorrect = await bcrypt.compare(credentials?.password || "", existingUser[0].password || "")
 
                 if(passwordCorrect){
                     return {
-                        id: user.id_user.toString(),
-                        email: user.email,
-                        name: user.name
+                        id: existingUser[0].idUser.toString(),
+                        email: existingUser[0].email,
+                        name: existingUser[0].name
                     }
                 }
 
@@ -63,19 +67,17 @@ export const authOptions: NextAuthOptions = {
             if(account?.provider === "google" || account?.provider === "facebook"){
 
                 try {
-                    const user = await prisma.user.findUnique({
-                        where: {
-                            email: profile?.email
-                        }
-                    })
 
-                    if(!user){
-                        const user = await prisma.user.create({
-                            data: {
-                                email: profile?.email!,
-                                name: profile?.name ?? ""
-                            }
-                        })
+                    const existingUser = await db.select()
+                    .from(user)
+                    .where(eq(user.email, profile?.email ?? ""))
+                    .limit(1) 
+
+                    if(existingUser.length === 0){
+                        const res = await db.insert(user).values({
+                            email: profile?.email!,
+                            name: profile?.name ?? ""
+                        }) 
                     }
                     
                 }catch(error){
@@ -86,15 +88,19 @@ export const authOptions: NextAuthOptions = {
             return true
         },
 
-        async session({session, user, token}){
+        async session({session, token}){
 
             if (session?.user) {
-                const dbUser = await prisma.user.findUnique({
-                    where: {
-                        email: session.user?.email
-                    }
-                })
-                session.user.id = dbUser?.id_user;
+    
+                const dbUser = await db.select()
+                    .from(user)
+                    .where(eq(user.email, session.user?.email ?? ""))
+                    .limit(1) 
+
+                if(dbUser.length > 0){
+                    session.user.id = dbUser[0].idUser;
+                }
+
               }
               return session;
         },

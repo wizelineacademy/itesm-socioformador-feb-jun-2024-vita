@@ -25,7 +25,7 @@ export const HealthSchema = z.object({
     .min(1, {
       message: "Debes ingresar el sexo"
     }),
-  birth_date: z
+  birthDate: z
     .string()
     .min(1, {
       message: "Debes ingresar la fecha de nacimiento"
@@ -45,7 +45,7 @@ export const HealthSchema = z.object({
     }, {
       message: "Debes tener al menos 15 años para registrarte",
     }),
-  body_fat: z.coerce
+  bodyFat: z.coerce
     .number({
       invalid_type_error: "El valor de la grasa corporal debe ser un número"
     })
@@ -55,7 +55,7 @@ export const HealthSchema = z.object({
     .lte(60, {
       message: "Debes ingresar una grasa corporal menor o igual a 60%"
     }),
-  muscular_mass: z.coerce
+  muscularMass: z.coerce
     .number({
       invalid_type_error: "El valor de la masa muscular debe ser un número"
     })

@@ -5,14 +5,14 @@ import React, { useState, useEffect} from "react";
 import axios from  "axios"
 
 interface HealthData {
-    id_user_detail: number;
-    id_user: number;
+    idUserDetail: number;
+    idUser: number;
     sex: string;
     weight: number;
     height: number;
-    birth_date: string;
-    body_fat: number;
-    muscular_mass: number;
+    birthDate: string;
+    bodyFat: number;
+    muscularMass: number;
 }
 
 
@@ -20,9 +20,9 @@ interface EditHealthData {
     sex: string;
     weight: number;
     height: number; 
-    body_fat: number;
-    muscular_mass: number;
-    birth_date: string;
+    bodyFat: number;
+    muscularMass: number;
+    birthDate: string;
 }
 
 const GeneralData = () => {
@@ -69,51 +69,52 @@ const GeneralData = () => {
         getData();
     }, []);
 
-// Función para manejar el cambio en los inputs
-const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = event.target;
-    if (editedData) {
-        // Validar si se está editando la fecha de nacimiento
-        if (name === 'birth_date') {
-            const selectedDate = new Date(value);
-            // Validar si la fecha seleccionada es menor a 15 años antes de la fecha actual
-            if (selectedDate > minDate) {
-                Swal.fire({
-                    title: 'Error',
-                    text: 'La fecha de nacimiento no puede ser menor a 15 años antes de la fecha actual',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-                return; // Salir de la función si la fecha no es válida
+    // Función para manejar el cambio en los inputs
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = event.target;
+        if (editedData) {
+            // Validar si se está editando la fecha de nacimiento
+            if (name === 'birthDate') {
+                const selectedDate = new Date(value);
+                // Validar si la fecha seleccionada es menor a 15 años antes de la fecha actual
+                if (selectedDate > minDate) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'La fecha de nacimiento no puede ser menor a 15 años antes de la fecha actual',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                    return; // Salir de la función si la fecha no es válida
+                }
+                // Si la fecha es válida, actualizar los datos editados
+                const formattedDate = selectedDate.toISOString().split('T')[0];
+                setEditedData({ ...editedData, [name]: formattedDate });
+            } else {
+                // Para otros campos que no sean fecha de nacimiento
+                setEditedData({ ...editedData, [name]: value });
             }
-            // Si la fecha es válida, actualizar los datos editados
-            const formattedDate = selectedDate.toISOString().split('T')[0];
-            setEditedData({ ...editedData, [name]: formattedDate });
-        } else {
-            // Para otros campos que no sean fecha de nacimiento
-            setEditedData({ ...editedData, [name]: value });
         }
-    }
-};
+    };
 
 
-const getData = async () => {
-    try {
-        const response = await axios.get("/api/healthdata");
-        const fetchedData = response.data;
-        setUserData(fetchedData);
-        setEditedData(fetchedData); 
+    const getData = async () => {
+        try {
+            const response = await axios.get("/api/healthdata");
+            const fetchedData = response.data;
+
+            setUserData(fetchedData);
+            setEditedData(fetchedData); 
+            
         
-    
-    } catch (error) {
-        Swal.fire({
-            title: 'Error',
-            text: "Ocurrió un error al recuperar los datos",
-            icon: 'error',
-            confirmButtonText: 'OK'
-        });
-    }
-}; 
+        } catch (error) {
+            Swal.fire({
+                title: 'Error',
+                text: "Ocurrió un error al recuperar los datos",
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    }; 
 
    
     // Función para guardar los cambios editados
@@ -153,7 +154,10 @@ const getData = async () => {
             <div className="flex px-5 py-4 text-5xl font-bold lg:justify-start md:justify-start justify-start">
                 <h1 className="lg:mr-2 text-home-title"> Datos Generales </h1>
             </div>
-            <form onSubmit={handleSaveChanges }> 
+            <form onSubmit={(e) => {
+                e.preventDefault();
+                handleSaveChanges();
+            }}> 
             <div className="flex flex-col lg:flex-row justify-center lg:space-x-30">
                 <div className="flex flex-col">
 
@@ -219,7 +223,7 @@ const getData = async () => {
                                 <input
                                     type="number"
                                     name="body_fat"
-                                    value={editedData?.body_fat || ""}
+                                    value={editedData?.bodyFat || ""}
                                     onChange={handleInputChange}
                                     className="text-2xl py-2 px-6 rounded-full bg-input-home w-60"
                                     min={1}
@@ -229,7 +233,7 @@ const getData = async () => {
                             ) : (
                                 <span className="flex flex-row">
                                     <div className="text-2xl py-2 px-6 rounded-full bg-input-home w-60">
-                                        {userData && userData.body_fat}
+                                        {userData && userData.bodyFat}
                                     </div>
                                     <p className="font-bold ml-4">%</p>
                                 </span>
@@ -279,7 +283,7 @@ const getData = async () => {
                                 <input
                                     type="date"
                                     name="birth_date"
-                                    value={formatBirthDate2(editedData?.birth_date || "")}
+                                    value={formatBirthDate2(editedData?.birthDate || "")}
                                     onChange={handleInputChange}
                                     className="text-2xl py-2 px-6 rounded-full bg-input-home w-60"
                                     required 
@@ -289,7 +293,7 @@ const getData = async () => {
                             ) : (
                                 <span className="flex flex-row">
                                     <div className="text-2xl py-2 px-6 rounded-full bg-input-home w-60">
-                                        {userData && formatBirthDate(userData.birth_date)}
+                                        {userData && formatBirthDate(userData.birthDate)}
                                     </div>
                                     
                                 </span>
@@ -306,7 +310,7 @@ const getData = async () => {
                                 <input
                                     type="number"
                                     name="muscular_mass"
-                                    value={editedData?.muscular_mass|| ""}
+                                    value={editedData?.muscularMass|| ""}
                                     onChange={handleInputChange}
                                     className="text-2xl py-2 px-6 rounded-full bg-input-home w-60"
                                     min={1}
@@ -318,7 +322,7 @@ const getData = async () => {
                             ) : (
                                 <span className="flex flex-row">
                                     <div className="text-2xl py-2 px-6 rounded-full bg-input-home w-60">
-                                        {userData && userData.muscular_mass}
+                                        {userData && userData.muscularMass}
                                     </div>
                                     
                                 </span>
