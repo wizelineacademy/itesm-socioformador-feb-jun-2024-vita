@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "dev": "next dev",
+    "sst-dev": "NO_BUN=true sst dev next dev",
     "lint": "next lint",
     "prisma-generate": "npx prisma generate",
-    "prisma-migrate": "npx prisma migrate dev --name"
+    "prisma-migrate": "npx prisma migrate dev --name",
+    "start": "next start"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.9",
@@ -36,7 +37,7 @@
     "react-hook-form": "^7.51.2",
     "react-icons": "^5.0.1",
     "react-responsive": "^10.0.0",
-    "sst": "^3.0.13",
+    "sst": "ion",
     "sweetalert2": "^11.10.7",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",

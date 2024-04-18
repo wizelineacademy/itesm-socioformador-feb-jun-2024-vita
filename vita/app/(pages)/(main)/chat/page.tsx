@@ -113,9 +113,10 @@ const Chat = () => {
               <div
                 key={index}
                 className={`max-w-1/2 p-3 rounded-lg ${
-                  message.role === "user"
-                    ? "  bg-ask-color text-white lg:mr-16 self-end "
-                    : " bg-answer-color text-white  lg:mr-16  self-start"
+                  message.role === "assistant"
+                    ? "bg-answer-color text-white  lg:mr-16  self-start"
+                    : "bg-ask-color text-white lg:mr-16 self-end "
+                    
                 }`}
               >
                 <p className="text-sm">{message.content}</p>
