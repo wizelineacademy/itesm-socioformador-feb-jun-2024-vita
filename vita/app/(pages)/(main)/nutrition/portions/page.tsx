@@ -80,7 +80,7 @@ const Nutrition: FC = () => {
     const [options, setOptions] = useState<CaloriesPortion>(calories_portions["M"]["increase"]);
     const [caloriesSelection, setCaloriesSelection] = useState<string>("");
 
-    const labels = ["fruits", "vegetables", "legumes", "meat", "milk", "cereals", "sugar", "fat"]
+    const labels: ("fruits" | "vegetables" | "legumes" | "meat" | "milk" | "cereals" | "sugar" | "fat")[] = ["fruits", "vegetables", "legumes", "meat", "milk", "cereals", "sugar", "fat"]
 
     const updateValue = (index: number, value: string) => {
 
@@ -194,16 +194,16 @@ const Nutrition: FC = () => {
     }, [])
 
     const iconsFirstColumn: JSX.Element[] = [
-        <FaAppleAlt className="text-white text-5xl" />,
-        <FaCarrot className="text-white text-5xl" />,
-        <FaLeaf className="text-white text-5xl" />,
-        <FaDrumstickBite className="text-white text-5xl" />,
+        <FaAppleAlt key="apple" className="text-white text-5xl" />,
+        <FaCarrot key="carrot" className="text-white text-5xl" />,
+        <FaLeaf key="leaf" className="text-white text-5xl" />,
+        <FaDrumstickBite key="drum" className="text-white text-5xl" />,
     ];
     const iconsSecondColumn: JSX.Element[] = [
-        <FaGlassWhiskey className="text-white text-5xl" />,
-        <FaSeedling className="text-white text-5xl" />,
-        <FaIceCream className="text-white text-5xl" />,
-        <FaBacon className="text-white text-5xl" />,
+        <FaGlassWhiskey key="glass" className="text-white text-5xl" />,
+        <FaSeedling key="seedling" className="text-white text-5xl" />,
+        <FaIceCream key="icecream" className="text-white text-5xl" />,
+        <FaBacon key="bacon" className="text-white text-5xl" />,
     ];
 
     return (
@@ -268,9 +268,9 @@ const Nutrition: FC = () => {
                         <button 
                             onClick={(e) => {    
                                 const newValues = [...values];
-                                const portions = options[caloriesSelection];
+                                const portions = options[Number(caloriesSelection)];
                                 for(let i = 0; i < labels.length; i++){
-                                    newValues[i] = portions[labels[i]];
+                                    newValues[i] = portions[labels[i]].toString();
                                 }
                                 setValues(newValues);
                             }}
