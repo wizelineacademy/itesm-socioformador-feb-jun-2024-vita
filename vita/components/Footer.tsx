@@ -15,13 +15,13 @@ const Footer: React.FC = () => {
             <h2 className='text-white text-3xl font-bold'>Contáctanos</h2>
             <div className='flex gap-10'>
               <Image
-                src="/instalogo.svg"
+                src="/icons/instalogo.svg"
                 width={40}
                 height={40}
                 alt="Picture of the author"
               />
               <Image
-                src="/metalogo.svg"
+                src="/icons/metalogo.svg"
                 width={40}
                 height={40}
                 alt="Picture of the author"

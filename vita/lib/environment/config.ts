@@ -27,6 +27,5 @@ const config = process.env.NODE_ENV === "production" ? {
     nextPublicSecret: process.env.NEXT_PUBLIC_SECRET! 
 };
 
-console.log(config)
 
 export default config;

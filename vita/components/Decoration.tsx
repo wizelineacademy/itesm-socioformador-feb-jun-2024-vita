@@ -13,20 +13,20 @@ interface DecorationProps {
  */
 const routes: Record<string, { image: string; image2: string }> = {
   "/home": {
-    image: "/DE_Home.svg",
-    image2: "/DE_Home2.svg",
+    image: "/icons/DE_Home.svg",
+    image2: "/icons/DE_Home2.svg",
   },
   "/nutrition": {
-    image: "/DE_Nutrition.svg",
-    image2: "/DE_Nutrition2.svg",
+    image: "/icons/DE_Nutrition.svg",
+    image2: "/icons/DE_Nutrition2.svg",
   },
   "/chat": {
-    image: "/DE_CHAT.svg",
-    image2: "/DE_CHAT2.svg",
+    image: "/icons/DE_CHAT.svg",
+    image2: "/icons/DE_CHAT2.svg",
   },
   "/exercise": {
-    image: "/DE_Exercise.svg",
-    image2: "/DE_Exercise2.svg"
+    image: "/icons/DE_Exercise.svg",
+    image2: "/icons/DE_Exercise2.svg"
   }
   // Add more routes as needed
 };
