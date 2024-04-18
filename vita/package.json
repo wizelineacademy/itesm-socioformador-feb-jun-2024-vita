@@ -9,10 +9,13 @@
     "lint": "next lint",
     "drizzle-kit": "drizzle-kit",
     "drizzle:generate-migration": "drizzle-kit generate:pg",
-    "drizzle:apply-migration": "tsx migrate.ts",
+    "drizzle:apply-migration": "tsx app/db/migrations/migrate.ts",
     "start": "next start"
   },
   "dependencies": {
+    "@aws-sdk/client-rds-data": "^3.556.0",
+    "@aws-sdk/client-s3": "^3.556.0",
+    "@aws-sdk/s3-request-presigner": "^3.556.0",
     "@clerk/nextjs": "^4.29.9",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.0",

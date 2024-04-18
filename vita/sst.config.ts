@@ -9,6 +9,16 @@ export default $config({
     };
   },
   async run() {
-    new sst.aws.Nextjs("MyWeb");
+
+    const database = new sst.aws.Postgres("MyDatabase", {
+      scaling: {
+        min: "2 ACU",
+        max: "128 ACU"
+      }
+    })
+
+    new sst.aws.Nextjs("MyWeb", {
+      link: [database]
+    });
   },
 });

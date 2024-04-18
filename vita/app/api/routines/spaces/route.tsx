@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import {OpenAI} from "openai";
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
+import config from "@/lib/environment/config";
 
 const openai = new OpenAI({
-    apiKey: process.env.OPEN_API_KEY
+    apiKey: config.openApiKey
 })
 
 const instructionMessage: ChatCompletionMessageParam = {
@@ -49,7 +50,7 @@ export async function POST(request: Request) {
         return new NextResponse("message is required", {status: 400})
     }
 
-    if(!process.env.OPEN_API_KEY){
+    if(!config.openApiKey){
         return new NextResponse("OpenAI API Key not configured", {status: 400})
     }
 

@@ -3,9 +3,11 @@ import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
-import { db } from "@/db/drizzle";
-import { user } from "@/db/schema/schema";
+import { db } from "@/app/db/drizzle";
+import { user } from "@/app/db/schema/schema";
 import { eq } from "drizzle-orm";
+import config from "@/lib/environment/config";
+
 
 
 export const authOptions: NextAuthOptions = {
@@ -16,14 +18,15 @@ export const authOptions: NextAuthOptions = {
     pages: {
         signIn: "/login"
     },
+    secret: config.nextPublicSecret,
     providers: [
         FacebookProvider({
-            clientId: process.env.FACEBOOK_ID!,
-            clientSecret: process.env.FACEBOOK_SECRET!
+            clientId: config.facebookId,
+            clientSecret: config.facebookSecret
         }),
         GoogleProvider({
-            clientId: process.env.GOOGLE_ID!,
-            clientSecret: process.env.GOOGLE_SECRET!
+            clientId: config.googleId,
+            clientSecret: config.googleSecret
         }),
         CredentialsProvider({
             name: "Credentials",
