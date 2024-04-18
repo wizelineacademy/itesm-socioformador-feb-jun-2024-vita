@@ -168,8 +168,10 @@ const getData = async () => {
                                     value={editedData?.weight || ""}
                                     onChange={handleInputChange}
                                     className="text-2xl py-2 px-6 rounded-full bg-input-home w-60"
-                                    min={2}
-                                    max={80}
+                                    min={0.1}
+                                    max={200.00}
+                                    required 
+                                    step="0.01"
                                 />
                                 <p className="font-bold ml-4">kg</p>
                                 </span>
@@ -193,7 +195,7 @@ const getData = async () => {
                                 value={editedData?.sex || ""}
                                 onChange={handleInputChange}
                                 className="text-2xl py-2 px-6 rounded-full bg-input-home w-60"
-                               
+                                required 
                             >
                                 <option value="M">Masculino</option>
                                 <option value="F">Femenino</option>
@@ -220,8 +222,9 @@ const getData = async () => {
                                     value={editedData?.body_fat || ""}
                                     onChange={handleInputChange}
                                     className="text-2xl py-2 px-6 rounded-full bg-input-home w-60"
-                                    min={0}
+                                    min={1}
                                     max={60}
+                                    required 
                                 />
                             ) : (
                                 <span className="flex flex-row">
@@ -251,6 +254,8 @@ const getData = async () => {
                                     className="text-2xl py-2 px-6 rounded-full bg-input-home w-60"
                                     min={0.5}
                                     max={2.80}
+                                    required 
+                                    step="0.01"
                                 />
                                 <p className="font-bold ml-4">m</p>
                                 </span>
@@ -277,6 +282,7 @@ const getData = async () => {
                                     value={formatBirthDate2(editedData?.birth_date || "")}
                                     onChange={handleInputChange}
                                     className="text-2xl py-2 px-6 rounded-full bg-input-home w-60"
+                                    required 
                                 />
                                 
                                 </span>
@@ -303,8 +309,9 @@ const getData = async () => {
                                     value={editedData?.muscular_mass|| ""}
                                     onChange={handleInputChange}
                                     className="text-2xl py-2 px-6 rounded-full bg-input-home w-60"
-                                    min={0}
+                                    min={1}
                                     max={80}
+                                    required 
                                 />
                                 
                                 </span>
