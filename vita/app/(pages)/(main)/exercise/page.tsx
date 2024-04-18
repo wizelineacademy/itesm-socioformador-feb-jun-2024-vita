@@ -68,7 +68,7 @@ const Exercise = () => {
                         <h3 className='pt-1 pl-4 text-white font-bold lg:text-3xl text-2xl w-[240px] '>
                             Autoevaluación
                         </h3>
-                        <Image src="/Pass.svg" alt="Imagen 2" width={60} height={60}  className='pr-2 hidden md:flex'/>
+                        <Image src="/icons/Pass.svg" alt="Imagen 2" width={60} height={60}  className='pr-2 hidden md:flex'/>
                     </div>
                 </div>
                 <div className="flex flex-col ">

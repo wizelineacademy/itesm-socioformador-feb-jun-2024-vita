@@ -216,7 +216,7 @@ const Nutrition: FC = () => {
                         </div>
                         <div className="flex items-center">
                             <h2 className="text-white text-4xl font-bold lg:text-5xl">Porciones</h2>
-                            <Image src="/Food.svg" alt="Imagen 2" width={45} height={45} className='lg:w-24 lg:h-24 lg:pb-3' 
+                            <Image src="/icons/Food.svg" alt="Imagen 2" width={45} height={45} className='lg:w-24 lg:h-24 lg:pb-3' 
                             style={{ marginLeft: '2rem' }} />
                         </div>
                     </div>

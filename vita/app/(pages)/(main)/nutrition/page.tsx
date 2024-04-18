@@ -14,35 +14,35 @@ const Nutrition = () => {
   const numeros = [
     {
       number: 1,
-      imageSrc: "/Grape.svg"
+      imageSrc: "/icons/Grape.svg"
     },
     {
         number: 2,
-        imageSrc: "/Carrot.svg"
+        imageSrc: "/icons/Carrot.svg"
     },
     {
       number: 3,
-      imageSrc: "/Soy.svg" 
+      imageSrc: "/icons/Soy.svg" 
     },
     {
       number: 4,
-      imageSrc: "/Meat.svg"
+      imageSrc: "/icons/Meat.svg"
     },
     {
       number: 5,
-      imageSrc: "/Milk.svg"  
+      imageSrc: "/icons/Milk.svg"  
     },
     {
       number: 6,
-      imageSrc: "/Porridge.svg"
+      imageSrc: "/icons/Porridge.svg"
     },
     {
       number: 7,
-      imageSrc: "/Sugar.svg"  
+      imageSrc: "/icons/Sugar.svg"  
     },
     {
       number: 8,
-      imageSrc: "/Avocado.svg"
+      imageSrc: "/icons/Avocado.svg"
     },
   ];
   
@@ -52,7 +52,7 @@ const Nutrition = () => {
       <div className="flex text-white sm:px-5 sm:py-4  text-5xl sm:text-6xl font-bold 
         lg:justify-start md:justify-start sm:justify-center justify-start ">
         <h1 className=" pl-2 sm:pl-0 mr-2">Nutrición</h1>
-        <Image src="/Food.svg" alt="Food" width={45} height={45} />
+        <Image src="/icons/Food.svg" alt="Food" width={45} height={45} />
       </div>
 
       {/* Subtitle */}
@@ -86,7 +86,7 @@ const Nutrition = () => {
                   <h3 className= 'pt-1 pl-2 text-white font-bold lg:text-3xl text-xl   lg:w-[240px] md:w-[240px]'>
                       Buscar opciones de comidas personalizadas
                   </h3>
-                  <Image src="/Filter.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
+                  <Image src="/icons/Filter.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
               </div>
             </Link>
 
@@ -99,7 +99,7 @@ const Nutrition = () => {
                 lg:w-[140px] md:w-[140px] w-[280px] '>
                   Mi meta de nutrición
               </h3>
-              <Image src="/Healthy.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
+              <Image src="/icons/Healthy.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
             </div>
 
           </div>
@@ -112,7 +112,7 @@ const Nutrition = () => {
               <h3 className='pt-1 pl-2 text-white font-bold lg:text-3xl text-xl w-[240px] '>
                   Autoevaluación
               </h3>
-              <Image src="/Pass.svg" alt="Imagen 2" width={45} height={45}  className='pr-2'/>
+              <Image src="/icons/Pass.svg" alt="Imagen 2" width={45} height={45}  className='pr-2'/>
             </div>
             </Link>
 
@@ -124,7 +124,7 @@ const Nutrition = () => {
               <h3 className="pt-1 pl-2 text-white font-bold lg:text-3xl text-xl w-[240px] ">
                 Mis porciones
               </h3>
-              <Image src="/Food.svg" alt="Imagen 2" width={45} height={45} className="pr-2" />
+              <Image src="/icons/Food.svg" alt="Imagen 2" width={45} height={45} className="pr-2" />
               </div>
           </Link>
 
@@ -136,7 +136,7 @@ const Nutrition = () => {
                 <h3 className='pt-1 pl-2 text-white font-bold lg:text-3xl text-xl w-[240px] '>
                     Detección de calorías
                 </h3>
-                <Image src="/Healthy.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
+                <Image src="/icons/Healthy.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
               </div>
             
             {/* Custom option 6 */}
@@ -147,7 +147,7 @@ const Nutrition = () => {
                 <h3 className='pt-1 pl-2 text-white font-bold lg:text-3xl text-xl  w-[240px] '>
                     Generar un plan nutricional
                 </h3>
-                <Image src="/ToDo.svg" alt="Imagen 2" width={45} height={45} className='pr-2' />
+                <Image src="/icons/ToDo.svg" alt="Imagen 2" width={45} height={45} className='pr-2' />
               </div>
             </Link>
           </div>

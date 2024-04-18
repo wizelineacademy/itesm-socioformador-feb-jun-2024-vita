@@ -6,19 +6,19 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/carusel/ca
 const carouselItem1= {
       header: 'Inteligencia Artificial',
       description: 'Utilizando VITA recibiras planes y ayuda personalizada gracias a la Inteligencia Artificial.',
-      imageUrl: '/AiImage.svg',
+      imageUrl: '/icons/AiImage.svg',
       rectangleColor: '#FF5733',
 }
 const carouselItem2= {
   header: 'Nutrición de Calidad',
   description: 'En Vita podrás observar tu progreso de metas de nutrición y generar un plan personalizado generado con Inteigencia Artificial.',
-  imageUrl: '/Nutri.svg',
+  imageUrl: '/icons/Nutri.svg',
   rectangleColor: '#779787',
 }
 const carouselItem3= {
   header: 'Mejora tu sueño',
   description: 'Con VITA puedes tener recomendaciones personalizadas de sueño, al igual que establecer metas de sueño para que logres conseguir tu sueño ideal.',
-  imageUrl: '/Sleeps.svg',
+  imageUrl: '/icons/Sleeps.svg',
   rectangleColor: '#FF5733',
 }
 
