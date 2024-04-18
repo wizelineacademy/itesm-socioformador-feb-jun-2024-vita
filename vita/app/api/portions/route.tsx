@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
-import bcrypt from "bcrypt";
 
-import prisma from "@/app/libs/prismadb";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/authOptions";
+import { db } from "@/db/drizzle";
+import { portionsNutrition } from "@/db/schema/schema";
+import { eq } from "drizzle-orm";
+
 
 export async function GET(request: Request) {
   try {
@@ -13,19 +15,19 @@ export async function GET(request: Request) {
         return NextResponse.json("Unauthorized", {status: 401});
     }
 
-    const portions = await prisma.portionsNutrition.findUnique({
-        where: {
-            id_user: session.user?.id,
-        }
-    }) 
+    const portions = await db.select()
+      .from(portionsNutrition)
+      .where(eq(portionsNutrition.idUser, session.user?.id)) 
+      .limit(1)
 
-    return NextResponse.json(portions, {status: 200});
+    const res = portions.length > 0 ? portions[0] : null
+
+    return NextResponse.json(res, {status: 200});
   } catch (error) {
     console.log(error)
     return NextResponse.json("Error retrieving portions", {status: 400})
   }
 }
-
 
 
 export async function POST(request: Request) {
@@ -39,34 +41,41 @@ export async function POST(request: Request) {
 
     const { fruits, vegetables, milk, legumes, cereals, meat, sugar, fat } = body;
 
-    const portions = await prisma.portionsNutrition.upsert({
-        where: {
-          id_user: session.user?.id
-        },
-        update: {
-          fruits: Number(fruits),
-          vegetables: Number(vegetables),
-          milk: Number(milk),
-          legumes: Number(legumes),
-          cereals: Number(cereals),
-          meat: Number(meat),
-          sugar: Number(sugar),
-          fat: Number(fat)
-        },
-        create: {
-            id_user: session.user?.id,
-            fruits: Number(fruits),
-            vegetables: Number(vegetables),
-            milk: Number(milk),
-            legumes: Number(legumes),
-            cereals: Number(cereals),
-            meat: Number(meat),
-            sugar: Number(sugar),
-            fat: Number(fat)
-        }
-    }) 
+    const existingPortions = await db.select()
+      .from(portionsNutrition)
+      .where(eq(portionsNutrition.idUser, session.user?.id)) 
+      .limit(1)
 
-    return NextResponse.json(portions, {status: 200});
+    let res;
+
+    if(existingPortions.length > 0){ //update
+      res = await db.update(portionsNutrition)
+      .set({
+        fruits: Number(fruits),
+        vegetables: Number(vegetables),
+        milk: Number(milk),
+        legumes: Number(legumes),
+        cereals: Number(cereals),
+        meat: Number(meat),
+        sugar: Number(sugar),
+        fat: Number(fat)
+      })
+      .where(eq(portionsNutrition.idUser, session.user?.id))
+    } else { //create
+      res = await db.insert(portionsNutrition).values({
+        idUser: session.user?.id,
+        fruits: Number(fruits),
+        vegetables: Number(vegetables),
+        milk: Number(milk),
+        legumes: Number(legumes),
+        cereals: Number(cereals),
+        meat: Number(meat),
+        sugar: Number(sugar),
+        fat: Number(fat)
+      })
+    }
+
+    return NextResponse.json(res, {status: 200});
   } catch (error) {
     console.log(error)
     return NextResponse.json("Error posting portions", {status: 400})
