@@ -1,10 +1,67 @@
 'use client'
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleRight, faComments, faCircle, faLightbulb } from '@fortawesome/free-solid-svg-icons';
-import { FaHeart } from 'react-icons/fa';
+import { faAngleRight, faLightbulb, faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { FaHeart, FaComments, FaCircle } from 'react-icons/fa';
+import Link from 'next/link';
+
 
 const Home = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  const [height, setHeight] = useState('420px'); // Altura inicial
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1024) { // Cambia 1024 por el punto de ruptura deseado
+        setHeight(isOpen ? '80px' : '420px');
+      } else {
+        setHeight('420px');
+      }
+    };
+
+    handleResize();
+
+
+    window.addEventListener('resize', handleResize);
+
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [isOpen]); 
+
+  const toggleContent = () => {
+    setIsOpen(!isOpen);
+  };
+
+
+  
+   const [isOpen2, setIsOpen2] = useState(false); // Por defecto cerrado en pantallas pequeñas
+  const [isLargeScreen, setIsLargeScreen] = useState(false); // Para verificar si es una pantalla grande
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024);
+      if (window.innerWidth < 1024) {
+        setIsOpen2(false); // Cerrar en pantallas pequeñas
+      }
+    };
+
+    // Ejecutar una vez al inicio para establecer el estado inicial
+    handleResize();
+
+    // Agregar el event listener para manejar el cambio de tamaño de la ventana
+    window.addEventListener('resize', handleResize);
+
+    // Limpia el event listener en la limpieza del efecto
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Función para manejar el cambio de estado en pantallas pequeñas
+  const handleToggle2 = () => {
+    setIsOpen2(!isOpen2);
+  };
+
   // Define an array of suggestions
   const suggestions = [
     "¡Come más frutas y verduras!",
@@ -29,6 +86,8 @@ const Home = () => {
     setRandomSuggestion(newRandomSuggestion);
   };
 
+  const tam = window.innerWidth; 
+  
   return (
     <>
       <div className="flex text-white sm:px-5 sm:py-4  text-5xl  font-bold 
@@ -49,7 +108,7 @@ const Home = () => {
         <div id="Izquierda" className="flex flex-col " > 
 
 
-          <div className="bg-color-home2 h-[250px] w-[225px] mx-4 mt-4 pb-4 rounded-3xl">
+          <div className="hidden md:block bg-color-home2 h-[250px] w-[225px] mx-4 mt-4 pb-4 rounded-3xl">
             <h2 className="text-white font-bold text-2xl ml-4 mt-4">Recomendación del Día</h2>
             <div className="bg-color-home3 h-[120px] w-[185px] mx-4 mt-4 rounded-3xl flex items-center justify-between px-5">
               <p className="text-[#1D154A] text-lg">{randomSuggestion}</p>
@@ -62,15 +121,16 @@ const Home = () => {
             </div>
           </div>
 
-          <div id="Preguntame" className="bg-color-home5 h-16 w-56 ml-4 mt-4 rounded-full flex items-center justify-between px-4">
-            <FontAwesomeIcon icon={faComments} size="lg" color='white' className="ml-4 mb-2"  />
+          <div id="Preguntame" className="bg-color-home5 h-16 w-56 ml-4 mt-4 rounded-full flex items-center justify-between px-4 
+          transition-colors duration-300 ease-in-out hover:bg-color-home6">
+            <FaComments size={24}color='white' className="ml-4 mb-2"  />
             <span className="text-white font-bold text-2xl">Pregúntame</span>
           </div>
 
-          <div id="Perfil" className="bg-color-home5 h-16 w-56 ml-4 mt-4 rounded-full flex items-center justify-between px-4">
+          <div id="Perfil" className="bg-color-home5 h-16 w-56 ml-4 mt-4 rounded-full flex items-center justify-between px-4
+          transition-colors duration-300 ease-in-out hover:bg-color-home6">
             <span className="text-white font-bold text-2xl ml-3">Perfil</span>
-            <FontAwesomeIcon icon={faCircle} size="lg" color='white' className="ml-4 mb-2"  />
-            
+            <FaCircle  size={32} color='white' className="ml-4 mb-2"  />
           </div>
 
           
@@ -79,33 +139,37 @@ const Home = () => {
 
 
         <div id="Centro" className="flex flex-col" >
-          <div className="bg-color-home6 h-[420px] w-[190px]  mx-4  rounded-3xl mt-4">
-          <div className="flex flex-col items-center justify-center">
-            <h2 className="text-white font-bold text-2xl ml-4 mt-4 w-[120px] ">Mis datos de salud</h2>
+
+        <div className={`bg-color-home6 w-[190px] mx-4 rounded-3xl mt-4 h-[80px] lg:h-[420px]`} style={{ height }}>
+          <div className="flex flex-col items-center justify-center ">
+            <span className="flex flex-row">
+            <h2 className="text-white font-bold text-2xl ml-4 mt-4 w-[120px]">Mis datos de salud</h2>
+            <div className="lg:hidden mt-4">
+              <button onClick={toggleContent} className="focus:outline-none">
+                <FontAwesomeIcon icon={!isOpen ? faAngleDown : faAngleRight} size="2x" color="white" className="transition-transform duration-300 transform" />
+              </button>
+            </div>
+            </span>
             
-              <div className="bg-white h-[40px] w-[150px] mt-4 rounded-3xl ">
-              </div> 
-              <div className="bg-white h-[40px] w-[150px]  mt-4 rounded-3xl ">
-              </div>
-              <div className="bg-white h-[40px] w-[150px] mt-4 rounded-3xl ">
-              </div>
-              <div className="bg-white h-[40px] w-[150px]  mt-4 rounded-3xl ">
-              </div>
-              <div className="mt-8" > 
-              <FontAwesomeIcon
-                icon={faAngleRight}
-                size="3x"
-                color="white"
-              />
+            <div className={`${!isOpen ? 'block' : 'hidden'}   lg:flex lg:flex-col items-center justify-center lg:mt-4`}>
+              <div className="bg-white p-6 w-[150px] mt-7 rounded-3xl"></div>
+              <div className="bg-white p-6 w-[150px] mt-7 rounded-3xl"></div>
+              <div className="bg-white p-6 w-[150px] mt-7 rounded-3xl"></div>
+              <div className="bg-white p-6 w-[150px] mt-7 rounded-3xl"></div>
+              <div className=" justify-end mt-8" > 
+                
               </div>
             </div>
             
           </div>
         </div>
-          
-        <div id="Derecha" className="flex flex-col mr-6" >
 
-          <div id="Dashboard "className=" flex flex-row bg-color-home7 h-[120px] w-[232px] rounded-3xl justify-between mt-4" >
+        </div>
+          
+        <div id="Derecha" className="flex flex-col lg:mr-6" >
+
+          <div id="Dashboard" className=" flex flex-row bg-color-home7 h-[120px] w-[232px] rounded-3xl justify-between mt-4
+           transition-colors duration-300 ease-in-out hover:bg-color-home3" >
             <h2 className="text-color-home6 font-bold text-2xl pl-4 mt-2 w-[120px] ">
               Mi Dashboard de Salud
             </h2> 
@@ -115,43 +179,66 @@ const Home = () => {
               size="3x" 
               color="#144154"   
              />
-              <FontAwesomeIcon
-                icon={faCircle}
+              <FaCircle
                 color='white'
-                size="2x" 
+                size={32}
               />
             </div>
           </div>
 
-          <div id="Enlaces" className="flex flex-col items-center justify-center bg-color-home7 h-[215px] w-[232px]
-           rounded-3xl mt-4">
-              <h2 className="text-color-home6 font-bold text-2xl pl-4 mt-2 ">
-              Autoevaluación
-              </h2> 
-              <div className=" flex flex-row mt-4 p-1 bg-white  w-[190px] rounded-2xl justify-between">
-                <h2 className="text-color-home6   font-bold text-lg "> 
-                Nutrición
-                </h2>
-                <FontAwesomeIcon icon={faAngleRight} size="lg"  />
-              </div>
-
-              <div className=" flex flex-row mt-4 p-1 bg-white  w-[190px] rounded-2xl justify-between">
-                <h2 className="text-color-home6   font-bold text-lg "> 
-                Ejercicio
-                </h2>
-                <FontAwesomeIcon icon={faAngleRight} size="lg"  />
-              </div>
+          <div className=" flex flex-col items-center justify-center bg-color-home7 rounded-3xl mt-4 pb-2">
+            <div className="flex flex-row items-center">
+              <h2 className="text-color-home6 font-bold text-2xl pl-4 mt-2">Autoevaluación</h2>
+              <span className=" lg:hidden ">
+                <button className=" focus:outline-none ml-2" onClick={handleToggle2}>
+                  <FontAwesomeIcon icon={isOpen2 ? faAngleDown : faAngleRight} size="lg" className="transition-transform duration-300 transform"/>
+                </button>
+              </span>
               
-              <div className=" flex flex-row mt-4 p-1 bg-white  w-[190px] rounded-2xl justify-between">
-                <h2 className="text-color-home6   font-bold text-lg "> 
-                Sueño
-                </h2>
-                <FontAwesomeIcon icon={faAngleRight} size="lg"  />
+            </div>
+            {  tam >= 1024 && (
+              <div>
+                <div className="flex flex-row mt-2 p-1 w-[190px]  bg-white rounded-2xl justify-between
+                transition-colors duration-300 ease-in-out hover:bg-color-home3">
+                  <h2 className="text-color-home6 font-bold text-lg">Nutrición</h2>
+                  <FontAwesomeIcon icon={faAngleRight} size="lg" />
+                </div>
+                <div className="flex flex-row mt-2 p-1 w-[190px]  bg-white rounded-2xl justify-between
+                transition-colors duration-300 ease-in-out hover:bg-color-home3">
+                  <h2 className="text-color-home6 font-bold text-lg">Ejercicio</h2>
+                  <FontAwesomeIcon icon={faAngleRight} size="lg" />
+                </div>
+                <div className="flex flex-row mt-2 p-1  w-[190px]  bg-white rounded-2xl justify-between
+                transition-colors duration-300 ease-in-out hover:bg-color-home3">
+                  <h2 className="text-color-home6 font-bold text-lg">Sueño</h2>
+                  <FontAwesomeIcon icon={faAngleRight} size="lg" />
+                </div>
               </div>
+            )}
+
+            {  isOpen2 && (
+              <div>
+                <div className="flex flex-row mt-2 p-1 w-[190px]  bg-white rounded-2xl justify-between">
+                  <h2 className="text-color-home6 font-bold text-lg">Nutrición</h2>
+                  <FontAwesomeIcon icon={faAngleRight} size="lg" />
+                </div>
+                <div className="flex flex-row mt-4 p-1 w-[190px]  bg-white rounded-2xl justify-between">
+                  <h2 className="text-color-home6 font-bold text-lg">Ejercicio</h2>
+                  <FontAwesomeIcon icon={faAngleRight} size="lg" />
+                </div>
+                <div className="flex flex-row mt-4 p-1  w-[190px]  bg-white rounded-2xl justify-between">
+                  <h2 className="text-color-home6 font-bold text-lg">Sueño</h2>
+                  <FontAwesomeIcon icon={faAngleRight} size="lg" />
+                </div>
+              </div>
+            )}
           </div>
 
-          <div id="Perfil" className="bg-color-home6 h-16 w-56 ml-4 mt-4 rounded-full flex items-center justify-between px-4">
-            <span className="text-white font-bold text-lg ml-3">Vincular con aplicaciones</span>
+          <div id="Perfil" className="bg-color-home6 h-16 w-56 ml-4 mt-4 rounded-full flex items-center justify-between px-4
+           transition-colors duration-300 ease-in-out hover:bg-color-home5">
+            <span className="text-white font-bold text-lg ml-3">
+              Vincular con aplicaciones
+            </span>
             <FontAwesomeIcon icon={faAngleRight} size="2x" color='white' className="ml-4 mb-2"  />
           </div>
 
