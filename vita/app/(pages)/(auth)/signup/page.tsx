@@ -176,10 +176,6 @@ const SignUp = () => {
               <span className="text-custom-red mb-2">{errors.password.message}</span>
           )}
 
-          {errors.confirmPassword && typeof errors.confirmPassword.message === 'string' && (
-            <span className="text-custom-red">{errors.confirmPassword.message}</span>
-          )}
-
           <div className="md:lg:flex flex-row  ">
             <div className="md:lg:mr-4 pb-4 pt-8">
               <Button 

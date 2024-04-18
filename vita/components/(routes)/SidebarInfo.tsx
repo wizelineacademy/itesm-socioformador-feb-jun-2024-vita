@@ -7,19 +7,19 @@ import { usePathname } from "next/navigation";
 
 const routes = [
     {
-        label: "Home",
+        label: "Inicio",
         icon: FaHome,
         href: "/home",
         color: "bg-home-color"
     },
     {
-        label: "Nutrition",
+        label: "Nutrición",
         icon: FaUtensils,
         href: "/nutrition",
         color: "bg-nutrition-color"
     },
     {
-        label: "Exercise",
+        label: "Ejercicio",
         icon: FaRunning,
         href: "/exercise",
         color: "bg-mid-green"
