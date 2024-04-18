@@ -48,7 +48,7 @@ const Exercise = () => {
         <h1 className="mr-2 text-white ">Ejercicios  </h1>
         <FaRunning  size={36}  color="white"/>
       </div>
-      <span className="lg:mt-28"> 
+      <span className="lg:mt-20"> 
         <div className="flex  flex-col lg:flex-row items-center justify-center gap-x-6   ">
                 <div className="flex flex-col ">
                     <Link href="/exercise/routines" >
