@@ -47,7 +47,7 @@ const Nutrition = () => {
   ];
   
   return (
-    <>
+    <div className="mb-4">
       {/* Title */}
       <div className="flex text-white sm:px-5 sm:py-4  text-5xl sm:text-6xl font-bold 
         lg:justify-start md:justify-start sm:justify-center justify-start ">
@@ -154,7 +154,7 @@ const Nutrition = () => {
         </div>
       </div>
 
-    </>
+    </div>
   );
 };
 

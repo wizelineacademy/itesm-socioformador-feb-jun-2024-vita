@@ -89,7 +89,7 @@ const Home = () => {
   const tam = window.innerWidth; 
   
   return (
-    <>
+    <div className="mb-4">
       <div className="flex text-white sm:px-5 sm:py-4  text-5xl  font-bold 
         lg:justify-start md:justify-start sm:justify-center justify-start mt-4">
         <h1 className=" pl-2 sm:pl-0 mr-2 text-home-title w-[800px]">
@@ -107,8 +107,7 @@ const Home = () => {
         
         <div id="Izquierda" className="flex flex-col " > 
 
-
-          <div className="hidden md:block bg-color-home2 h-[250px] w-[225px] mx-4 mt-4 pb-4 rounded-3xl">
+          <div className="hidden md:block bg-color-home2 h-[250px] w-[225px] mb-4 mt-4 pb-4 rounded-3xl">
             <h2 className="text-white font-bold text-2xl ml-4 mt-4">Recomendación del Día</h2>
             <div className="bg-color-home3 h-[120px] w-[185px] mx-4 mt-4 rounded-3xl flex items-center justify-between px-5">
               <p className="text-[#1D154A] text-lg">{randomSuggestion}</p>
@@ -248,7 +247,7 @@ const Home = () => {
       </div>
       
     
-    </>
+    </div>
   );
 };
 
