@@ -57,7 +57,7 @@ const Reminders = () => {
                     <h2 className="text-3xl text-white mt-4 mr-6">Fin</h2>
                     <select
                         name="sex"
-                        className="text-2xl py-2 px-6 rounded-full text-white bg-reminders-input w-60"
+                        className="text-2xl py-2 px-6 rounded-full text-white bg-reminders-input w-60 mt-4"
                         required 
                     >
                                 <option value="I">Indefinido</option>
@@ -65,67 +65,36 @@ const Reminders = () => {
                     </select>
                 </div>
             </div>
+            
             <div className="flex flex-col lg:flex-row justify-between">
-
-                <div className="flex flex-row ">
+                <div className="flex flex-row justify-between lg:gap-20">
                     <div className="flex flex-col mt-4 ">
                         <h2 className="text-2xl text-white mb-4">Número de horas</h2>
-                        <input
-                            type="number"
-                            name="weight"
-                            // value={editedData?.weight || ""}
-                            // onChange={handleInputChange}
-                            placeholder="0"
-                            className="text-2xl py-2 px-6 rounded-full text-white bg-reminders-input w-40"
-                            min={1}
-                            required 
-                        />
+                        <input type="number" name="weight" placeholder="0" className="text-2xl py-2 px-6 rounded-full text-white bg-reminders-input w-40" min="1" required />
                     </div>
-                    <div className="flex flex-col mt-4  lg:w-1/2">
+                    <div className="flex flex-col mt-4">
                         <h2 className="text-2xl text-white mb-4">Número de días</h2>
-                        <input
-                            type="number"
-                            name="weight"
-                            placeholder="0"
-                            // value={editedData?.weight || ""}
-                            // onChange={handleInputChange}
-                            className="text-2xl py-2 px-6 rounded-full text-white bg-reminders-input w-40"
-                            min={1}
-                            required 
-                        />
+                        <input type="number" name="weight" placeholder="0" className="text-2xl py-2 px-6 rounded-full text-white bg-reminders-input w-40" min="1" required />
                     </div>
                 </div>
-
-                <div className="flex flex-row ">
-                    <div className="flex flex-col mt-4 ">
+                <div className="flex flex-row  justify-between lg:gap-20">
+                    <div className="flex flex-col mt-4">
                         <h2 className="text-2xl text-white mb-4">Número de horas</h2>
-                        <input
-                            type="number"
-                            name="weight"
-                            // value={editedData?.weight || ""}
-                            // onChange={handleInputChange}
-                            placeholder="0"
-                            className="text-2xl py-2 px-6 rounded-full text-white bg-reminders-input w-40"
-                            min={1}
-                            required 
-                        />
+                        <input type="number" name="weight" placeholder="0" className="text-2xl py-2 px-6 rounded-full text-white bg-reminders-input w-40" min="1" required />
                     </div>
-                    <div className="flex flex-col mt-4  lg:w-1/2">
+                    <div className="flex flex-col mt-4">
                         <h2 className="text-2xl text-white mb-4">Número de días</h2>
-                        <input
-                            type="number"
-                            name="weight"
-                            placeholder="0"
-                            // value={editedData?.weight || ""}
-                            // onChange={handleInputChange}
-                            className="text-2xl py-2 px-6 rounded-full text-white bg-reminders-input w-40"
-                            min={1}
-                            required 
-                        />
+                        <input type="number" name="weight" placeholder="0" className="text-2xl py-2 px-6 rounded-full text-white bg-reminders-input w-40" min="1" required />
                     </div>
                 </div>
-                
             </div>
+            <div className=" flex lg:justify-end justify-center ">
+                <button className=" lg:justify-end text-white text-2xl 
+                bg-reminders-color mt-4 px-4 py-2 w-[280px] rounded-3xl ">
+                    Crea un recordatorio
+                </button>
+            </div>
+            
 
         </form>
       </div>
