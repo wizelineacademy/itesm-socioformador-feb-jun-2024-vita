@@ -1,4 +1,5 @@
 'use client'
+
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IoIosArrowForward } from 'react-icons/io';
@@ -48,6 +49,7 @@ const Home = () => {
         
         getData();
     }, []);
+
 
   const toggleContent = () => {
     setIsOpen(!isOpen);
@@ -145,6 +147,7 @@ const Home = () => {
               </span>
               
               <div className={`${!isOpen ? 'block' : 'hidden'}   lg:flex lg:flex-col items-center justify-center lg:mt-4`}>
+
                 
                 <div className="bg-white  py-2 px-4 w-[150px] mt-7 rounded-3xl ">
                   <div className="text-home-title flex flex-row justify-between">
@@ -211,6 +214,7 @@ const Home = () => {
 
             <div className={`${!isOpen2 ? 'block' : 'hidden'}   lg:flex lg:flex-col items-center justify-center lg:mt-4`}>
              
+
                 <div className="flex flex-row mt-2 p-1 w-[190px]  bg-white rounded-2xl justify-between
                 transition-colors duration-300 ease-in-out hover:bg-color-home3">
                   <h2 className="text-color-home6 font-bold text-lg pl-2">Nutrición</h2>
@@ -226,6 +230,7 @@ const Home = () => {
                   <h2 className="text-color-home6 font-bold text-lg pl-2 ">Sueño</h2>
                   <FaAngleRight  size={28}    />
                 </div>
+
               
             </div>
           </div>
