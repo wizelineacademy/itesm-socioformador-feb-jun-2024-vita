@@ -43,6 +43,7 @@ const MobileSidebar = () => {
 
     // Find the current route based on whether the pathname starts with the defined route href
     const currentRoute = routes.find((route) => pathname.startsWith(route.href)) || {
+        
         label: '',
         href: '',
         backgroundColor: 'bg-white',
