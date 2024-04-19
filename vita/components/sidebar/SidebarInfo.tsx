@@ -40,7 +40,7 @@ const routes = [
     {
         label: "Cerrar sesión",
         icon: FaDoorOpen ,
-        href: "/login",
+        href: "/",
         color: "bg-mid-red"
     },
 ]
