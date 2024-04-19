@@ -222,7 +222,7 @@ const GeneralData = () => {
                             {editMode ? (
                                 <input
                                     type="number"
-                                    name="body_fat"
+                                    name="bodyFat"
                                     value={editedData?.bodyFat || ""}
                                     onChange={handleInputChange}
                                     className="text-2xl py-2 px-6 rounded-full bg-input-home w-60"
@@ -282,7 +282,7 @@ const GeneralData = () => {
                                 <span className="flex flex-row">
                                 <input
                                     type="date"
-                                    name="birth_date"
+                                    name="birthDate"
                                     value={formatBirthDate2(editedData?.birthDate || "")}
                                     onChange={handleInputChange}
                                     className="text-2xl py-2 px-6 rounded-full bg-input-home w-60"
@@ -309,7 +309,7 @@ const GeneralData = () => {
                                 <span className="flex flex-row">
                                 <input
                                     type="number"
-                                    name="muscular_mass"
+                                    name="mmuscularMass"
                                     value={editedData?.muscularMass|| ""}
                                     onChange={handleInputChange}
                                     className="text-2xl py-2 px-6 rounded-full bg-input-home w-60"

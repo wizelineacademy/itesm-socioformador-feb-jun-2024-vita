@@ -1,15 +1,54 @@
 'use client'
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IoIosArrowForward } from 'react-icons/io';
 import { faAngleRight, faLightbulb, faAngleDown } from '@fortawesome/free-solid-svg-icons';
-import { FaHeart, FaComments, FaCircle, FaAngleRight } from 'react-icons/fa';
+import { FaHeart, FaComments, FaCircle, FaAngleRight,FaSuitcase , FaDumbbell , FaPercent} from 'react-icons/fa';
 import Link from 'next/link';
+import axios from  "axios"
+import Swal from 'sweetalert2';
 
+interface HealthData {
+  idUserDetail: number;
+  idUser: number;
+  sex: string;
+  weight: number;
+  height: number;
+  birthDate: string;
+  bodyFat: number;
+  muscularMass: number;
+}
 
 const Home = () => {
+
   const [isOpen, setIsOpen] = useState(true);
   const [isOpen2, setIsOpen2] = useState(true); 
+  const [userData, setUserData] = useState<HealthData | null>(null);
+
+  const getData = async () => {
+    try {
+        const response = await axios.get("/api/healthdata");
+        const fetchedData = response.data;
+
+        setUserData(fetchedData);
+      
+    
+    } catch (error) {
+        Swal.fire({
+            title: 'Error',
+            text: "Ocurrió un error al recuperar los datos",
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    }
+}; 
+
  
+    useEffect(() => {
+        
+        getData();
+    }, []);
+
   const toggleContent = () => {
     setIsOpen(!isOpen);
   };
@@ -50,7 +89,7 @@ const Home = () => {
         lg:justify-start md:justify-start sm:justify-center justify-start mt-4">
         <h1 className=" pl-2 sm:pl-0 mr-2 text-home-title w-[800px]">
           Bienvenid@ a
-          <span className="text-8xl ml-4 flex flex-row mr-24 justify-start">
+          <span className="text-7xl ml-4 flex flex-row mr-24 justify-start">
             VITA
             <FaHeart size={60}  className="text-home-title justify-end"/>
           </span>
@@ -76,13 +115,13 @@ const Home = () => {
             </div>
           </div>
 
-          <div id="Preguntame" className="bg-color-home5 h-16 w-56 ml-4 mt-4 rounded-full flex items-center justify-between px-4 
+          <div id="Preguntame" className="bg-color-home5 h-16 w-56 mt-4 rounded-full flex items-center justify-between px-4 
           transition-colors duration-300 ease-in-out hover:bg-color-home6">
             <FaComments size={24}color='white' className="ml-4 mb-2"  />
             <span className="text-white font-bold text-2xl">Pregúntame</span>
           </div>
 
-          <div id="Perfil" className="bg-color-home5 h-16 w-56 ml-4 mt-4 rounded-full flex items-center justify-between px-4
+          <div id="Perfil" className="bg-color-home5 h-16 w-56  mt-4 rounded-full flex items-center justify-between px-4
           transition-colors duration-300 ease-in-out hover:bg-color-home6">
             <span className="text-white font-bold text-2xl ml-3">Perfil</span>
             <FaCircle  size={32} color='white' className="ml-4 mb-2"  />
@@ -91,37 +130,60 @@ const Home = () => {
         </div>
 
         <div id="Centro" className="flex flex-col" >
-
-        <div className={`bg-color-home6 w-[190px] mx-4 rounded-3xl mt-4 `} >
-          <div className="flex flex-col items-center justify-center ">
-            <span className="flex flex-row">
-            <h2 className="text-white font-bold text-2xl ml-4 mt-4 w-[120px]">Mis datos de salud</h2>
-            <div className="lg:hidden mt-4">
-              <button onClick={toggleContent} className="focus:outline-none">
-                <FontAwesomeIcon icon={isOpen ? faAngleDown : faAngleRight} size="2x" color="white" className="transition-transform duration-300 transform" />
-              </button>
-            </div>
-            </span>
-            
-            <div className={`${!isOpen ? 'block' : 'hidden'}   lg:flex lg:flex-col items-center justify-center lg:mt-4`}>
-              <div className="bg-white p-6 w-[150px] mt-7 rounded-3xl"></div>
-              <div className="bg-white p-6 w-[150px] mt-7 rounded-3xl"></div>
-              <div className="bg-white p-6 w-[150px] mt-7 rounded-3xl"></div>
-              <div className="bg-white p-6 w-[150px] mt-7 rounded-3xl"></div>
-              <div className=" justify-end mt-8" > 
-                
+        <Link href="/home/generalData"> 
+          <div className={`bg-color-home6 w-[190px] mx-4 rounded-3xl mt-4 
+            transition-colors duration-300 ease-in-out hover:bg-color-home5`} >
+            <div className="flex flex-col items-center justify-center ">
+              <span className="flex flex-row">
+              <h2 className="text-white font-bold text-2xl ml-4 mt-4 w-[120px]">Mis datos de salud</h2>
+              <div className="lg:hidden mt-4">
+                <button onClick={toggleContent} className="focus:outline-none">
+                  <FontAwesomeIcon icon={isOpen ? faAngleDown : faAngleRight} size="2x" color="white" 
+                  className="transition-transform duration-300 transform" />
+                </button>
               </div>
+              </span>
+              
+              <div className={`${!isOpen ? 'block' : 'hidden'}   lg:flex lg:flex-col items-center justify-center lg:mt-4`}>
+                
+                <div className="bg-white  py-2 px-4 w-[150px] mt-7 rounded-3xl ">
+                  <div className="text-home-title flex flex-row justify-between">
+                    <FaSuitcase size={30}  />
+                    <p className="text-2xl ml-2 flex flex-row"> {userData && userData.weight} <span className="pl-2"> kg</span></p>  
+                  </div>
+                </div>
+                <div className="bg-white  py-2 px-4 w-[150px] mt-7 rounded-3xl ">
+                  <div className="text-home-title flex flex-row justify-between">
+                    <IoIosArrowForward size={30}  />
+                    <p className="text-2xl ml-2 flex flex-row"> {userData && userData.height} <span className="pl-2"> m</span></p>  
+                  </div>
+                </div>
+                <div className="bg-white  py-2 px-4 w-[150px] mt-7 rounded-3xl ">
+                  <div className="text-home-title flex flex-row justify-between">
+                    <FaDumbbell size={30}  />
+                    <p className="text-2xl ml-2 flex flex-row"> {userData && userData.muscularMass} <span className="pl-2"> kg</span></p>  
+                  </div>
+                </div>
+                <div className="bg-white  py-2 px-4 w-[150px] mt-7 rounded-3xl ">
+                  <div className="text-home-title flex flex-row justify-between">
+                    <FaPercent size={30}  />
+                    <p className="text-2xl ml-2 flex flex-row"> {userData && userData.bodyFat} <span className="pl-2"> kg</span></p>  
+                  </div>
+                </div>
+                <div className=" justify-end mt-8" > 
+                  
+                </div>
+              </div>
+              
             </div>
-            
           </div>
-        </div>
-
+        </Link>
         </div>
           
         <div id="Derecha" className="flex flex-col lg:mr-6" >
 
           <div id="Dashboard" className=" flex flex-row bg-color-home7 h-[120px] w-[232px] rounded-3xl justify-between mt-4
-           transition-colors duration-300 ease-in-out hover:bg-color-home3" >
+           transition-colors duration-300 ease-in-out hover:bg-color-home2" >
             <h2 className="text-color-home6 font-bold text-2xl pl-4 mt-2 w-[120px] ">
               Mi Dashboard de Salud
             </h2> 
@@ -149,15 +211,18 @@ const Home = () => {
 
             <div className={`${!isOpen2 ? 'block' : 'hidden'}   lg:flex lg:flex-col items-center justify-center lg:mt-4`}>
              
-                <div className="flex flex-row mt-2 p-1 w-[190px]  bg-white rounded-2xl justify-between">
+                <div className="flex flex-row mt-2 p-1 w-[190px]  bg-white rounded-2xl justify-between
+                transition-colors duration-300 ease-in-out hover:bg-color-home3">
                   <h2 className="text-color-home6 font-bold text-lg pl-2">Nutrición</h2>
                   <FaAngleRight  size={28}    />
                 </div>
-                <div className="flex flex-row mt-4 p-1 w-[190px]  bg-white rounded-2xl justify-between">
+                <div className="flex flex-row mt-4 p-1 w-[190px]  bg-white rounded-2xl justify-between
+                transition-colors duration-300 ease-in-out hover:bg-color-home3">
                   <h2 className="text-color-home6 font-bold text-lg pl-2">Ejercicio</h2>
                   <FaAngleRight  size={28}    />
                 </div>
-                <div className="flex flex-row mt-4 p-1  w-[190px]  bg-white rounded-2xl justify-between">
+                <div className="flex flex-row mt-4 p-1  w-[190px]  bg-white rounded-2xl justify-between
+                transition-colors duration-300 ease-in-out hover:bg-color-home3">
                   <h2 className="text-color-home6 font-bold text-lg pl-2 ">Sueño</h2>
                   <FaAngleRight  size={28}    />
                 </div>
