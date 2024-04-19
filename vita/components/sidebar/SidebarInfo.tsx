@@ -1,8 +1,9 @@
 'use client';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { FaUtensils, FaHome,FaComments, FaRunning , FaBell } from 'react-icons/fa';
+import { FaUtensils, FaHome,FaComments, FaRunning , FaBell, FaDoorOpen } from 'react-icons/fa';
 import { usePathname } from "next/navigation";
+import { signOut } from 'next-auth/react';
 
 
 const routes = [
@@ -36,7 +37,12 @@ const routes = [
         href: "/reminders",
         color: "bg-reminders-color"
     },
-    
+    {
+        label: "Cerrar sesión",
+        icon: FaDoorOpen ,
+        href: "/login",
+        color: "bg-mid-red"
+    },
 ]
 
 const SidebarInfo = () => {
@@ -57,10 +63,16 @@ const SidebarInfo = () => {
             <div className="space-y-1">
                 {routes.map((route, index) => (
                     <Link
+                        onClick={() => {
+                            if(route.label === "Cerrar sesión"){
+                                signOut()
+                            }
+                        }}
                         href={route.href}
                         key={index}
                         className={cn("text-sm group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition", {
                             [route.color]: pathname === route.href, 
+                            [`hover:bg-mid-red`]: route.label === "Cerrar sesión"
                         })}
                     >
                     
