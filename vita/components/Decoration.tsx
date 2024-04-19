@@ -27,7 +27,11 @@ const routes: Record<string, { image: string; image2: string }> = {
   "/exercise": {
     image: "/icons/DE_Exercise.svg",
     image2: "/icons/DE_Exercise2.svg"
-  }
+  },
+  "/reminders": {
+    image: "/icons/DE_RECORDATORIO.svg",
+    image2: "/icons/DE_RECORDATORIO2.svg"
+  },
   // Add more routes as needed
 };
 

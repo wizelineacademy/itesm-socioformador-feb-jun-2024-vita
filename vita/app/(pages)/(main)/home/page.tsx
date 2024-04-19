@@ -86,7 +86,18 @@ const Home = () => {
     setRandomSuggestion(newRandomSuggestion);
   };
 
-  const tam = window.innerWidth; 
+  const [tam, setTam] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
+  useEffect(() => {
+    const handleResize = () => {
+      setTam(window.innerWidth);
+    };
+  
+    // Add event listener for window resize
+    window.addEventListener('resize', handleResize);
+  
+    // Remove event listener on component unmount
+    return () => window.removeEventListener('resize', handleResize);
+  }, []); // Empty dependency array ensures this effect runs only once on component mount
   
   return (
     <div className="mb-4">
@@ -240,8 +251,6 @@ const Home = () => {
             </span>
             <FontAwesomeIcon icon={faAngleRight} size="2x" color='white' className="ml-4 mb-2"  />
           </div>
-
-
         </div>
 
       </div>

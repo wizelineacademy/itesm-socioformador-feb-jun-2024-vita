@@ -1,7 +1,7 @@
 'use client';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { FaUtensils, FaHome,FaComments, FaRunning  } from 'react-icons/fa';
+import { FaUtensils, FaHome,FaComments, FaRunning , FaBell } from 'react-icons/fa';
 import { usePathname } from "next/navigation";
 
 
@@ -30,6 +30,12 @@ const routes = [
         href: "/chat",
         color: "bg-chat-color"
     },
+    {
+        label: "Recordatorios",
+        icon: FaBell ,
+        href: "/reminders",
+        color: "bg-reminders-color"
+    },
     
 ]
 
@@ -57,6 +63,7 @@ const SidebarInfo = () => {
                             [route.color]: pathname === route.href, 
                         })}
                     >
+                    
                         <div className={cn("flex items-center flex-1 mr-3")}>
                             <route.icon 
                                 className={cn("mr-3")} 
