@@ -10,15 +10,21 @@ const MobileSidebar = () => {
 
     const routes = [
         {
-            label: 'Home',
+            label: 'Inicio',
             href: '/home',
             backgroundColor: 'bg-home-background',
             buttonColor: 'text-black',
         },
         {
-            label: 'Nutrition',
+            label: 'Nutrición',
             href: '/nutrition',
             backgroundColor: 'bg-nutrition-background',
+            buttonColor: 'text-white',
+        },
+        {
+            label: 'Ejercicio',
+            href: '/exercise',
+            backgroundColor: 'bg-exercise-background',
             buttonColor: 'text-white',
         },
         {
@@ -28,9 +34,9 @@ const MobileSidebar = () => {
             buttonColor: 'text-white',
         },
         {
-            label: 'Exercise',
-            href: '/exercise',
-            backgroundColor: 'bg-exercise-background',
+            label: 'Recordatorios',
+            href: '/reminders',
+            backgroundColor: 'bg-reminders-background',
             buttonColor: 'text-white',
         },
     ];
