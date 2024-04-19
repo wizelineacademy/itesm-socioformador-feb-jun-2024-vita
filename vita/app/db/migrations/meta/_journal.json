@@ -15,6 +15,20 @@
       "when": 1713428763219,
       "tag": "0001_date_type",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1713556354479,
+      "tag": "0002_reminders",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1713556642518,
+      "tag": "0003_renameReminders",
+      "breakpoints": true
     }
   ]
 }
