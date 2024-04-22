@@ -1,6 +1,7 @@
 /// <reference path="./.sst/platform/config.d.ts" />
 
 export default $config({
+
   app(input) {
     return {
       name: "vita",
@@ -8,6 +9,7 @@ export default $config({
       home: "aws",
     };
   },
+
   async run() {
     const openApiKey = new sst.Secret("OpenApiKey");
     const facebookId = new sst.Secret("FacebookId");
@@ -17,16 +19,8 @@ export default $config({
     const nextAuthUrl = new sst.Secret("NextAuthUrl");
     const nextAuthSecret = new sst.Secret("NextAuthSecret");
 
-    const database = new sst.aws.Postgres("MyDatabase", {
-      scaling: {
-        min: "2 ACU",
-        max: "128 ACU"
-      }
-    })
-
     new sst.aws.Nextjs("MyWeb", {
       link: [
-        database, 
         openApiKey,
         facebookId,
         facebookSecret,
@@ -37,7 +31,10 @@ export default $config({
       ],
       environment: {
         NEXTAUTH_URL: process.env.NEXTAUTH_URL!,
-        NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET!
+        NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET!,
+        DATABASE_NAME: process.env.DATABASE_NAME!,
+        SERVICE_ARN: process.env.SERVICE_ARN!,
+        SECRET_ARN: process.env.SECRET_ARN!
       }
     });
   },

@@ -12,9 +12,9 @@ let db: PostgresJsDatabase<Record<string, never>>
 if(config.nodeEnv === "production"){
     const sql = new RDSDataClient({})
     db = AWSDrizzle(sql, {
-        database: Resource.MyDatabase.database,
-        secretArn: Resource.MyDatabase.secretArn,
-        resourceArn: Resource.MyDatabase.clusterArn,
+        database: config.databaseName,
+        secretArn: config.secretARN,
+        resourceArn: config.serviceARN,
     })
 } else {
     const client = postgres(config.databaseUrl, { max: 1 })

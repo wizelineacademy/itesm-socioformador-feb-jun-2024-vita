@@ -41,7 +41,6 @@ export const authOptions: NextAuthOptions = {
                 .where(eq(user.email, credentials?.email ?? ""))
                 .limit(1)
 
-                console.log(existingUser)
 
                 if(existingUser.length === 0){
                     throw new Error( JSON.stringify({ errors: "El correo no se encuentra registrado", status: false }))
