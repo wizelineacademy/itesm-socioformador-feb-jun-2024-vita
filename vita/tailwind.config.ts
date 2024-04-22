@@ -63,6 +63,8 @@ const config = {
         'reminders-background':'#05272C',
         'reminders-color':'#41B0C0',
         'reminders-input':'#041C1F',
+        'reminder-mid-gray':'#4F676B',
+        'reminder-low-gray':'#577175',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
       },

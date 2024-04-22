@@ -29,6 +29,20 @@
       "when": 1713556642518,
       "tag": "0003_renameReminders",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1713739212427,
+      "tag": "0004_milky_gorgon",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1713741829263,
+      "tag": "0005_curious_bucky",
+      "breakpoints": true
     }
   ]
 }
