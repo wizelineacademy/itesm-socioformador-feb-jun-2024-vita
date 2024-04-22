@@ -70,3 +70,4 @@ export async function GET(request: Request) {
     return NextResponse.json("Error retrieving reminders", { status: 400 });
   }
 }
+

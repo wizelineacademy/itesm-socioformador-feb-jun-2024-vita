@@ -46,7 +46,7 @@ const routes = [
 
 const SidebarInfo = () => {
     const pathname = usePathname();
-    {console.log("pathname:", pathname)}
+  
     
     return ( 
         <div className="space-y-4 py-4 flex flex-col h-full bg-side-color text-white">

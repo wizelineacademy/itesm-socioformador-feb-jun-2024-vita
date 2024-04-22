@@ -61,8 +61,8 @@ const [reminders, setReminders] = useState<ReminderData[]>([]);
     fetchData();
   }, []);
 
-  const navigateToExercise = (selected: string) => {
-    router.push(`/reminders/editreminders`)
+  const navigateToReminder = (idReminders: string) => {
+    router.push(`/reminders/editreminders/${idReminders}`)
   };
 
   return (
@@ -82,7 +82,7 @@ const [reminders, setReminders] = useState<ReminderData[]>([]);
           reminders.map(reminder => (
             <PlanItemLink 
               onClick={(e) => {
-                navigateToExercise(reminder.idReminders)
+                navigateToReminder(reminder.idReminders)
               }}
               key={reminder.name} 
               content={`${reminder.name} / desde ${reminder.startTime}${reminder.endTime ? ` hasta ${reminder.endTime}` : ''}`}

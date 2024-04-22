@@ -104,7 +104,6 @@ const GeneralData = () => {
 
             setUserData(fetchedData);
             setEditedData(fetchedData); 
-            
         
         } catch (error) {
             Swal.fire({
@@ -295,7 +294,6 @@ const GeneralData = () => {
                                     <div className="text-2xl py-2 px-6 rounded-full bg-input-home w-60">
                                         {userData && formatBirthDate(userData.birthDate)}
                                     </div>
-                                    
                                 </span>
                             )}
                         </div>
