@@ -5,42 +5,30 @@ import Link from 'next/link';
 import Swal from 'sweetalert2';
 import axios from "axios";
 import PlanItemLink from "@/components/list/PlanItemLink";
-import { useRouter } from 'next/navigation';
 
 const Reminders = () => {
-
-  const router = useRouter();
-
-  interface ReminderData {
-    idReminders: string;
-    name: string;
-    frequency: number;
-    startTime: string; 
-    endTime: string;
-}
-
-const [reminders, setReminders] = useState<ReminderData[]>([]);
+  const [reminders, setReminders] = useState([]);
 
   const fetchData = async () => {
     try {
       const response = await axios.get("/api/reminders");
       if (response.data && response.data.length > 0) {
-        const remindersWithConvertedFrequency = response.data.map((reminder: ReminderData) => {
+        const remindersWithConvertedFrequency = response.data.map(reminder => {
           const frequencyInMinutes = reminder.frequency;
           const frequencyInHours = Math.floor(frequencyInMinutes / 3600);
-          const frequency = Math.floor(frequencyInHours / 24);
+          const frequencyInDays = Math.floor(frequencyInHours / 24);
           const remainingHours = frequencyInHours % 24;
 
           // Convertir las fechas de startTime y endTime al formato dd-mm-yyyy
           const startTime = new Date(reminder.startTime).toLocaleDateString('es-ES');
           // Verificar si endTime es null o no antes de convertirlo a formato de fecha
-          let endTime= null ;
+          let endTime= "Indefinido";
           if (reminder.endTime) {
             endTime = new Date(reminder.endTime).toLocaleDateString('es-ES');
           }
           return {
             ...reminder,
-            frequency: ` Durante ${frequency} días, cada ${remainingHours} horas`,
+            frequencyInDays: ` Durante ${frequencyInDays} días, cada ${remainingHours} horas`,
             startTime: startTime,
             endTime: endTime
           };
@@ -62,7 +50,7 @@ const [reminders, setReminders] = useState<ReminderData[]>([]);
   }, []);
 
   const navigateToExercise = (selected: string) => {
-    router.push(`/reminders/editreminders`)
+    // Define tu lógica de navegación aquí
   };
 
   return (
@@ -85,8 +73,8 @@ const [reminders, setReminders] = useState<ReminderData[]>([]);
                 navigateToExercise(reminder.idReminders)
               }}
               key={reminder.name} 
-              content={`${reminder.name} / desde ${reminder.startTime}${reminder.endTime ? ` hasta ${reminder.endTime}` : ''}`}
-              tag={` ${reminder.frequency}`}
+              content={`${reminder.name} programado desde ${reminder.startTime} hasta ${reminder.endTime}`}
+              tag={` ${reminder.frequencyInDays}`}
               color={"bg-reminder-mid-gray"}
               hoverColor={"bg-reminder-low-gray"}
             />

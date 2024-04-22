@@ -7,7 +7,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useRouter } from "next/navigation";
 
-const Reminders = () => {
+const CrudReminders = () => {
   const router = useRouter();
   const [selectedOption, setSelectedOption] = useState("I");
   const [formData, setFormData] = useState({
@@ -38,7 +38,7 @@ const Reminders = () => {
       try {
           // Convertir horas y días a segundos y sumarlos
           const frequencyInSeconds = (formData.frequencyHours * 3600) + (formData.frequencyDays * 86400);
-            alert(frequencyInSeconds)
+        
           // Combinar fecha y hora de inicio
           const startTime = new Date(formData.startDate + "T" + formData.startTime);
           // Validar que startTime no sea menor que el día actual
@@ -69,9 +69,7 @@ const Reminders = () => {
               }
           }
 
-          console.log(formData.startDate)
-          console.log(formData.startTime)
-          console.log(startTime)
+         
           const response = await axios.post('/api/reminders', {
               ...formData,
               frequency: frequencyInSeconds,
@@ -168,9 +166,8 @@ const Reminders = () => {
                               name="frequencyHours" 
                               placeholder="0" 
                               className="text-2xl py-2 px-6 rounded-full text-white bg-reminders-input w-40" 
-                              min={0.5} 
+                              min={1} 
                               max={12}
-                              step="0.1"
                               value={formData.frequencyHours}
                               onChange={handleChange}
                               required 
@@ -248,7 +245,7 @@ const Reminders = () => {
                                       className="text-2xl text-white py-2 px-6 rounded-full bg-reminders-input w-50" 
                                       value={formData.endDate}
                                       onChange={handleChange}
-                                      
+                                      required 
                                     />
                                 </div>
                                 <div className="flex flex-col mt-4">
@@ -260,7 +257,7 @@ const Reminders = () => {
                                       className="text-2xl text-white py-2 px-6 rounded-full bg-reminders-input w-50" 
                                       value={formData.endTime}
                                       onChange={handleChange}
-                                      
+                                      required 
                                     />
                                 </div>
                             </div>
@@ -277,4 +274,4 @@ const Reminders = () => {
     );
 };
 
-export default Reminders;
+export default CrudReminders;
