@@ -16,9 +16,9 @@ export async function migrate() {
     if(config.nodeEnv === "production"){
       const sql = new RDSDataClient({})
       db = AWSDrizzle(sql, {
-          database: Resource.MyDatabase.database,
-          secretArn: Resource.MyDatabase.secretArn,
-          resourceArn: Resource.MyDatabase.clusterArn,
+        database: config.databaseName,
+        secretArn: config.secretARN,
+        resourceArn: config.serviceARN,
       })
       await AWSMigrate(db, {migrationsFolder: "app/db/migrations"}) 
     } else {
