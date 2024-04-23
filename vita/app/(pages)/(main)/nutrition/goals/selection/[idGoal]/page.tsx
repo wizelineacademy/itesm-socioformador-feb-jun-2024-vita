@@ -12,10 +12,15 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
 
     const [goal, setGoal] = useState<Goal>();
     const [extra, setExtra] = useState<boolean>(true);
-    const [previous, setPrevious] = useState<number>();
-    const [next, setNext] = useState<number>();
+    const [previous, setPrevious] = useState<number>(0);
+    const [next, setNext] = useState<number>(0);
 
     const router = useRouter();
+
+    const fetchHealthData = async (goal: Goal) => {
+        const data = await axios.get("/api/healthdata");
+        setPrevious(goal?.data ? data.data[goal.data] : 0);
+    }
 
     useEffect(() => {
         
@@ -27,9 +32,13 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
         if(!selected?.variable){
             setExtra(false);
             createGoal(selected!);
+        } else {
+            setExtra(true);
+            fetchHealthData(selected);
         }
 
     }, []);
+
 
     const validateGoal = ():boolean => {
 
@@ -69,9 +78,11 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
     const createGoal = async (goal: Goal) => {
         try {
 
-            const valid = validateGoal();
-            if(!valid){
-                return;
+            if(goal.variable){
+                const valid = validateGoal();
+                if(!valid){
+                    return;
+                }
             }
 
             await axios.post("/api/goals", {
@@ -116,7 +127,7 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
                         className="flex w-full max-w-[1000px] flex-col gap-y-8"
                     >
                         <div>
-                            <p className="text-xl font-bold mb-4 md:text-2xl">¿En qué {goal.variable} te encuentras?</p>
+                            <p className="text-xl font-bold mb-4">¿En qué {goal.variable} te encuentras?</p>
                             <div className="w-full flex items-center">
                                 <input
                                     type="number"
@@ -135,7 +146,7 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
                         </div>
 
                         <div>
-                            <p className="text-xl font-bold mb-4 md:text-2xl">¿A qué {goal.variable} quieres llegar?</p>
+                            <p className="text-xl font-bold mb-4">¿A qué {goal.variable} quieres llegar?</p>
                             <div className="w-full flex items-center">
                                 <input
                                     type="number"
