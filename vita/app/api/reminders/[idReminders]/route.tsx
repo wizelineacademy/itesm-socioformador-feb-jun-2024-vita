@@ -53,7 +53,7 @@ export async function PUT(request: Request, { params }: { params: { idReminders:
     const endTimeDate = endTime ? new Date(endTime) : null;
    
   
-
+    
     const res = await db.update(Reminders)
       .set({ name, description, frequency: Number(frequency),
          startTime: new Date(startTimeDate), endTime: endTimeDate ? new Date(endTimeDate) : null,})
@@ -63,5 +63,25 @@ export async function PUT(request: Request, { params }: { params: { idReminders:
   } catch (error) {
     console.log(error);
     return NextResponse.json("Error updating reminder", { status: 400 });
+  }
+}
+
+
+export async function DELETE(request: Request, { params }: { params: { idReminders: string } }) {
+  try {
+    const { idReminders } = params;
+
+    if (!idReminders) {
+      return NextResponse.json("ID parameter is missing", { status: 400 });
+    }
+
+    const res = await db.delete(Reminders)
+  .where(eq(Reminders.idReminders, Number(idReminders)));
+
+
+    return NextResponse.json("Reminder deleted successfully", { status: 200 });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json("Error deleting reminder", { status: 400 });
   }
 }

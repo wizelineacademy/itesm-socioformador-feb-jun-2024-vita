@@ -1,11 +1,12 @@
 'use client'
 import React, { useState, useEffect } from "react";
 import { FaBell } from 'react-icons/fa';
-
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import Swal from 'sweetalert2';
 
 const EditReminders = ({ params }: { params: { idReminders: string } }) => {
+  const router = useRouter();
 
   interface ReminderData {
     idReminders: number;
@@ -13,14 +14,14 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
     name: string;
     frequency: number;
     startTime: string;
-    endTime: string | null; // Ahora endTime puede ser null
+    endTime: string | null; 
     description: string;
-    frequencyDays: number; // Agregamos frequencyDays
-    frequencyHours: number; // Agregamos frequencyHours
-    startDays: string; // Nuevas variables para almacenar los días en startTime y endTime
+    frequencyDays: number; 
+    frequencyHours: number; 
+    startDays: string;
     startHours: string;
-    endDays: string | null; // endTime puede ser null
-    endHours: string | null; // endTime puede ser null
+    endDays: string | null; 
+    endHours: string | null; 
   }
 
   interface EditReminderData {
@@ -29,14 +30,14 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
     name: string;
     frequency: number;
     startTime: string;
-    endTime: string | null; // Ahora endTime puede ser null
+    endTime: string | null; 
     description: string;
-    frequencyDays: number; // Agregamos frequencyDays
-    frequencyHours: number; // Agregamos frequencyHours
-    startDays: string; // Nuevas variables para almacenar los días en startTime y endTime
+    frequencyDays: number; 
+    frequencyHours: number; 
+    startDays: string; 
     startHours: string;
-    endDays: string | null; // endTime puede ser null
-    endHours: string | null; // endTime puede ser null
+    endDays: string | null; 
+    endHours: string | null; 
   }
 
   const idReminders = params.idReminders;
@@ -46,11 +47,52 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
   const [selectedOption, setSelectedOption] = useState("I");
 
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption(event.target.value);
+  const DeleteReminder = async (idReminders: string) => {
+    // Mostrar mensaje de confirmación
+    const confirmationResult = await Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Quieres eliminar este recordatorio?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true
+    });
+  
+    // Si el usuario confirma la eliminación
+    if (confirmationResult.isConfirmed) {
+      try {
+        const response = await axios.delete(`/api/reminders/${idReminders}`);
+        if (response.status === 200) {
+          router.replace("/reminders");
+        router.refresh();
+          Swal.fire({
+            title: 'Éxito',
+            text: 'El recordatorio ha sido eliminado exitosamente',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
+
+        } 
+        
+
+
+      } catch (error) {
+        console.log(error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Ocurrió un error al eliminar el recordatorio',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+      }
+    }
   };
 
   
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedOption(event.target.value);
+  };
 
   const formatDays = (dateString: string): string => {
     const date = new Date(dateString);
@@ -145,17 +187,9 @@ const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelec
 
 const formatDate2 = (dateString: string): string => {
   const date = new Date(dateString);
-  const year = date.getFullYear();
-  let month = (date.getMonth() + 1).toString();
-  let day = date.getDate().toString();
-
-  // Asegúrate de que el mes y el día tengan dos dígitos
-  if (month.length === 1) {
-      month = "0" + month;
-  }
-  if (day.length === 1) {
-      day = "0" + day;
-  }
+  const year = date.getUTCFullYear();
+  let month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
+  let day = date.getUTCDate().toString().padStart(2, '0');
 
   return `${year}-${month}-${day}`;
 };
@@ -177,10 +211,12 @@ const handleSaveChanges = async () => {
         const frequencyInSeconds = (editedData.frequencyHours * 3600) + (editedData.frequencyDays * 86400);
         
         // Combinar fecha y hora de inicio
-        alert(editedData.startDays)
+        if (editedData.startDays.includes("T")) {
+          editedData.startDays = editedData.startDays.split("T")[0];
+      }
         const startTime = new Date(editedData.startDays + "T" + editedData.startHours);
         // Validar que startTime no sea menor que el día actual
-        
+       
         const currentDate = new Date();
         if (startTime < currentDate) {
           Swal.fire({
@@ -232,7 +268,7 @@ const handleSaveChanges = async () => {
           icon: 'error',
           confirmButtonText: 'OK'
       });
-      alert(error)
+   
   }
 };
 
@@ -481,16 +517,23 @@ const handleSaveChanges = async () => {
             </div>
             {!editMode ? (
                 <div className="flex lg:justify-center lg:items-center ml-2 mb-6">
-                  <button onClick={handleCancelEdit} className="rounded-full mt-2 text-2xl px-3 
+                  <span> 
+                  <button onClick={(e) => {
+                e.preventDefault();
+                DeleteReminder(idReminders)
+            }}  className="rounded-full mt-2 text-2xl px-3 
                     py-2 bg-mid-red w-60 text-white mr-6">
                         Eliminar
                     </button>
+                  </span>
+                  <span> 
                     <button
                         onClick={() => setEditMode(true)}
                         className="rounded-full mt-2 text-2xl py-2 bg-reminders-color w-60 text-white"
                     >
                         Editar
                     </button>
+                  </span>
                 </div>
             ) : (
                 <>
