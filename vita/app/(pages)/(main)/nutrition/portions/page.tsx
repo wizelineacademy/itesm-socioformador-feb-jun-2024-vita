@@ -4,6 +4,8 @@ import { FaAppleAlt, FaCarrot, FaLeaf, FaDrumstickBite, FaGlassWhiskey, FaSeedli
 import Image from 'next/image';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import calories_portions from '@/data/calories_portions';
+import { CaloriesPortion } from '@/data/datatypes/portion';
 
 interface Numero {
     number: string;
@@ -71,6 +73,14 @@ const Nutrition: FC = () => {
     const [validationMessages, setValidationMessages] = useState<string[]>(Array(numeros.length).fill(''));
     const [edit, setEdit] = useState(false);
 
+    //states for calories-based portions
+    const [increase, setIncrease] = useState(true);
+    const [decrease, setDecrease] = useState(false);
+    const [gender, setGender] = useState("M");
+    const [options, setOptions] = useState<CaloriesPortion>(calories_portions["M"]["increase"]);
+    const [caloriesSelection, setCaloriesSelection] = useState<string>("");
+
+    const labels: ("fruits" | "vegetables" | "legumes" | "meat" | "milk" | "cereals" | "sugar" | "fat")[] = ["fruits", "vegetables", "legumes", "meat", "milk", "cereals", "sugar", "fat"]
 
     const updateValue = (index: number, value: string) => {
 
@@ -79,8 +89,7 @@ const Nutrition: FC = () => {
         setValues(newValues);
 
         const newMessages = [...validationMessages];
-        console.log(value)
-        newMessages[index] =  value !== "" && Number(value) >= 0 && Number(value) <= 10 ? '' : 'Sólo se aceptan valores entre 0 y 10';
+        newMessages[index] =  value !== "" && Number(value) >= 0 && Number(value) <= 20 ? '' : 'Sólo se aceptan valores entre 0 y 20';
         setValidationMessages(newMessages);
     };
 
@@ -89,11 +98,11 @@ const Nutrition: FC = () => {
         if(!edit){
             setEdit(true)
         } else {
-            const invalid = values.some(value => value ==="" || Number(value) < 0 || Number(value) > 10);
+            const invalid = values.some(value => value ==="" || Number(value) < 0 || Number(value) > 20);
             if (invalid) {
                 Swal.fire({
                     title: 'Error',
-                    text: "Los valores de las porciones deben encontrarse entre 0 y 10",
+                    text: "Los valores de las porciones deben encontrarse entre 0 y 20",
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });
@@ -111,15 +120,13 @@ const Nutrition: FC = () => {
             const response = await axios.post("/api/portions", {
                 fruits: values[0],
                 vegetables: values[1], 
-                milk: values[2], 
-                legumes: values[3], 
-                cereals: values[4], 
-                meat: values[5],
+                legumes: values[2], 
+                meat: values[3], 
+                milk: values[4], 
+                cereals: values[5],
                 sugar: values[6], 
                 fat: values[7]
             });
-
-            console.log(response);
 
             Swal.fire({
                 title: 'Éxito',
@@ -140,19 +147,20 @@ const Nutrition: FC = () => {
         
     }
 
-    const labels = ["fruits", "vegetables", "milk", "legumes", "cereals", "meat", "sugar", "fat"]
-
-    useEffect(() => {
-      const getPortions = async () => {
+    const getPortions = async () => {
         try {
             const response = await axios.get("/api/portions");
             const data = response.data;
+
+            if(!data){ //return if portions have not been entered yet
+                return;
+            }
+
             const newValues = [...values];
             for(let i = 0; i < labels.length; i++){
                 newValues[i] = data[labels[i]];
             }
             setValues(newValues);
-            console.log(newValues);
         } catch(error){
             Swal.fire({
                 title: 'Error',
@@ -161,26 +169,45 @@ const Nutrition: FC = () => {
                 confirmButtonText: 'OK'
             });
         }
-      } 
-      
-      getPortions();
+    }
+
+    const getGender = async () => {
+        try {
+            const response = await axios.get("/api/healthdata");
+            const data = response.data;
+            setGender(data.sex);
+            setOptions(calories_portions[data.sex === "M" ? "M" : "F"]["increase"])
+
+        } catch(error){
+            Swal.fire({
+                title: 'Error',
+                text: "Ocurrió un error al encontrar tu información",
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    }
+
+    useEffect(() => {
+        getPortions();
+        getGender();
     }, [])
 
     const iconsFirstColumn: JSX.Element[] = [
-        <FaAppleAlt className="text-white text-5xl" />,
-        <FaCarrot className="text-white text-5xl" />,
-        <FaLeaf className="text-white text-5xl" />,
-        <FaDrumstickBite className="text-white text-5xl" />,
+        <FaAppleAlt key="apple" className="text-white text-5xl" />,
+        <FaCarrot key="carrot" className="text-white text-5xl" />,
+        <FaLeaf key="leaf" className="text-white text-5xl" />,
+        <FaDrumstickBite key="drum" className="text-white text-5xl" />,
     ];
     const iconsSecondColumn: JSX.Element[] = [
-        <FaGlassWhiskey className="text-white text-5xl" />,
-        <FaSeedling className="text-white text-5xl" />,
-        <FaIceCream className="text-white text-5xl" />,
-        <FaBacon className="text-white text-5xl" />,
+        <FaGlassWhiskey key="glass" className="text-white text-5xl" />,
+        <FaSeedling key="seedling" className="text-white text-5xl" />,
+        <FaIceCream key="icecream" className="text-white text-5xl" />,
+        <FaBacon key="bacon" className="text-white text-5xl" />,
     ];
 
     return (
-        <div className="h-screen overflow-auto bg-[#2C0521]">
+        <div className="min-h-screen bg-[#2C0521]">
             <div className="mt-4 ml-4 mr-4">
                 <div className="flex items-center justify-between">
                     <div className="flex flex-col">
@@ -189,7 +216,7 @@ const Nutrition: FC = () => {
                         </div>
                         <div className="flex items-center">
                             <h2 className="text-white text-4xl font-bold lg:text-5xl">Porciones</h2>
-                            <Image src="/Food.svg" alt="Imagen 2" width={45} height={45} className='lg:w-24 lg:h-24 lg:pb-3' 
+                            <Image src="/icons/Food.svg" alt="Imagen 2" width={45} height={45} className='lg:w-24 lg:h-24 lg:pb-3' 
                             style={{ marginLeft: '2rem' }} />
                         </div>
                     </div>
@@ -199,20 +226,57 @@ const Nutrition: FC = () => {
 
                 <>
                     <h3 className="mt-7 text-xl font-bold text-white">Porciones en base a calorías</h3>
-                    <p className="mt-5 text-md leading-5 text-white max-w-[700px] lg:font-semibold">Ingresa la cantidad de calorías diarias que buscas consumir y se generará automáticamente un plan de acuerdo a estas</p>
+                    <p className="mt-5 text-md leading-5 text-white max-w-[700px] lg:font-semibold">Ingresa si deseas aumentar o disminuir de peso y la cantidad de calorías diarias que buscas consumir y se generará automáticamente un plan de acuerdo a estas</p>
+                    <div className='w-full flex flex-wrap justify-center sm:justify-start gap-x-3 lg:gap-x-6'> 
+                        <button 
+                            onClick={() => {
+                                setIncrease(false)
+                                setDecrease(true)
+                                const genderVar = gender === "M" ? "M" : "F";
+                                setOptions(calories_portions[genderVar]["decrease"]);
+                            }}
+                            className={`mt-5 w-4/5 text-white h-auto py-3 px-10 rounded-full font-bold ${decrease ? "bg-decoration-nutrition-colordark" : "bg-decoration-nutrition-colorlight"} hover:bg-decoration-nutrition-colordark sm:w-2/5 lg:max-w-[300px] lg:py-3 lg:px-12 xl:px-20`}>
+                                Disminuir
+                        </button>
+                        <button 
+                            onClick={() => {
+                                setDecrease(false)
+                                setIncrease(true)
+                                const genderVar = gender === "M" ? "M" : "F";
+                                setOptions(calories_portions[genderVar]["increase"]);
+                            }}
+                            className={`mt-5 w-4/5 text-white h-auto py-3 px-10 rounded-full font-bold ${increase ? "bg-decoration-nutrition-colordark" : "bg-decoration-nutrition-colorlight"} hover:bg-decoration-nutrition-colordark sm:w-2/5 lg:max-w-[300px] lg:py-3 lg:px-12 xl:px-20`}>
+                                Aumentar
+                        </button>
+                    </div> 
                     <div className="flex flex-col items-center sm:items-start lg:flex-row lg:mt-5 lg:items-end lg:justify-start lg:space-x-3">
                         <div className='mt-5 flex flex-col justify-center align-top space-y-1 w-full sm:w-3/5 md:mt-2 lg:w-2/5 lg:max-w-[380px]'>
                             <p className="mb-2 font-semibold text-white md:mb-3 md:max-w-40 lg:max-w-none">Cantidad de calorías</p>
                             <div className="flex items-center">
-                                <input
-                                    type="number"
-                                    min={0}
-                                    max={5000}
-                                    className='w-4/5 px-3 py-2 rounded-2xl max-w-[350px] text-white border-none outline-none bg-custom-lightpurple placeholder-slate-300' placeholder="Cantidad"/>
+                                <select
+                                    onChange={(e) => {
+                                        setCaloriesSelection(e.target.value)
+                                    }}
+                                    className='w-4/5 px-3 py-2 rounded-2xl max-w-[350px] text-white border-none outline-none bg-custom-lightpurple placeholder-slate-300'>
+                                    {Object.keys(options).map(opt => (
+                                        <option key={opt} value={opt}>{opt}</option>
+                                    ))}
+                                </select>
                                 <p className='ml-2 font-semibold text-white'>kcal</p>
                             </div>
                         </div>
-                        <button className='mt-5 w-4/5 text-white h-auto py-3 px-10 rounded-full font-bold bg-decoration-nutrition-colorlight hover:bg-decoration-nutrition-colordark sm:w-3/5 lg:w-auto lg:py-3 lg:px-12 xl:px-20'>Generar plan</button>
+                        <button 
+                            onClick={(e) => {    
+                                const newValues = [...values];
+                                const portions = options[Number(caloriesSelection)];
+                                for(let i = 0; i < labels.length; i++){
+                                    newValues[i] = portions[labels[i]].toString();
+                                }
+                                setValues(newValues);
+                            }}
+                            className='mt-5 w-4/5 text-white h-auto py-3 px-10 rounded-full font-bold bg-decoration-nutrition-colorlight hover:bg-decoration-nutrition-colordark sm:w-3/5 lg:w-auto lg:py-3 lg:px-12 xl:px-20'>
+                                Generar plan
+                        </button>
                     </div>
 
                     <hr className='mt-5 mx-auto w-full'/>

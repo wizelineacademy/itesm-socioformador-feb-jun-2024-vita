@@ -1,16 +1,18 @@
 import { NextResponse } from "next/server";
 import {OpenAI} from "openai";
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
+import config from "@/lib/environment/config";
+
 
 const openai = new OpenAI({
-    apiKey: process.env.OPEN_API_KEY
+    apiKey: config.openApiKey
 })
 
 const instructionMessage: ChatCompletionMessageParam = {
     role: "system",
     content: `
     Dame algunas ideas de recetas saludables. Te indicaré la cantidad de calorias que deseo consumir y cómo quiero que esté divida mi alimentación en proporciones de lípidos, carbohidratos y proteínas.
-    El JSON será una lista de objetos receta. Cada receta debe contener los siguientes campos:    
+    El JSON será una lista de objetos receta. Después del último elemento de las listas de ingredients y steps no pongas coma. Cada receta debe contener los siguientes campos:    
     - name: nombre de la receta en string
     - description: descripción en una a dos líneas de la receta en string
     - ingredients: una lista con los ingredientes de la receta y cantidades de cada uno, cada elemento de la lista es un string con el ingrediente y su cantidad. 
@@ -39,7 +41,7 @@ const instructionMessage: ChatCompletionMessageParam = {
           "En un tazón grande, mezcla la quinoa cocida, las espinacas y los tomates cherry.",
           "Agrega las verduras asadas a la mezcla de quinoa y espinacas.",
           "Aliña con vinagre balsámico y mezcla bien.",
-          "Sirve y disfruta esta deliciosa ensalada de quinoa y verduras asadas.",
+          "Sirve y disfruta esta deliciosa ensalada de quinoa y verduras asadas."
         ],
         "time": "30 minutos"
       }
@@ -57,7 +59,7 @@ export async function POST(request: Request) {
         return new NextResponse("message is required", {status: 400})
     }
 
-    if(!process.env.OPEN_API_KEY){
+    if(!config.openApiKey){
         return new NextResponse("OpenAI API Key not configured", {status: 400})
     }
 

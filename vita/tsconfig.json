@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/auth/route.tss"],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/auth/route.tss", "migrate.mtss"],
+  "exclude": ["node_modules","sst.config.ts"]
 }

@@ -18,6 +18,8 @@ const config = {
       }),
       
       colors: {
+        'reminders-background':'#05272C',
+        'reminders-color':'#184950',
         'custom-red': '#FF8484', 
         'custom-blue':'#0B1F2E',
         'custom-green': '#86FFA8',
@@ -26,6 +28,7 @@ const config = {
         'nutrition-color': '#DA56B575',
         'nutrition-background':'#2C0521',
         'home-background':'#F4FDFF',
+        'exercise-background': "#07191C",
         'custom-extralightpurple': '#95808F',
         'custom-lightpurple': ' #71566c',
         'custom-purple3': '#741B5B',
@@ -36,6 +39,9 @@ const config = {
         "mid-blue": "#2064B3",
         "mid-red": "#C13131",
         "light-red": "#DE4C4C",
+        "mid-green": "#278E7C",
+        "dark-green": "#194A48",
+        "input-green": "#2D3B3D",
         'dark-background-purple': "#3A0A2D",
         'decoration-nutrition-colordark':'#861B68',
         'decoration-nutrition-colorlight':'#F84AC7',
@@ -47,7 +53,15 @@ const config = {
         'ask-color':'#3868AF',
         'answer-color':'#741B5B',
         'question-color':'#133848',
-
+        'input-home': 'rgba(105, 201, 255, 0.19)',
+        'button-home': '#3868AF',
+        'color-home2':'#2E7390',
+        'color-home3':'#BFEBFF',
+        'color-home4':'#1D154A',
+        'color-home5':'#2D7593',
+        'color-home6':'#144154',
+        'color-home7':'#94D8F3',
+       
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
       },

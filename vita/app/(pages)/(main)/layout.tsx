@@ -2,13 +2,14 @@
 
 import {Inter} from "next/font/google";
 
-import SidebarInfo from "../../components/(routes)/SidebarInfo";
-import MobileSidebar from "../../components/(routes)/MobileSidebar";
-import Decoration from "../../components/Decoration";
+import SidebarInfo from "@/components/sidebar/SidebarInfo";
+import MobileSidebar from "@/components/sidebar/MobileSidebar";
+import Decoration from "@/components/Decoration";
 import { usePathname } from "next/navigation"; 
 import { useEffect, useState } from 'react';
 import { RecipesContextProvider } from "@/context/ingredients";
 import NextAuthProvider from "@/context/authprovider";
+import { ExercisesContextProvider } from "@/context/exercises";
 
 // Define font settings
 
@@ -22,6 +23,7 @@ const routes: { [key: string]: string } = {
   "/home": "bg-home-background",
   "/nutrition": "bg-nutrition-background",
   "/chat": "bg-chat-background",
+  "/exercise": "bg-exercise-background"
 };
 
 /**
@@ -61,14 +63,16 @@ export default function RootLayout({
             <div className="md:hidden lg:hidden">
               <MobileSidebar />
             </div>
-            <div id="PrincipalPage" className={`h-screen overflow-auto flex flex-col relative lg:m-0 
+            <div id="PrincipalPage" className={`min-h-screen flex flex-col relative lg:m-0 
                 md:m-0 lg:pl-8 md:pl-8 ${backgroundColor}`}>
               {/* Decoration component */}
               <Decoration pathname={pathname}/>
               {/* Render children components */}
               <NextAuthProvider>
                 <RecipesContextProvider> {/*Context for recipes**/}
-                  {children}
+                  <ExercisesContextProvider> {/*Context for exercise routines**/}
+                    {children}
+                  </ExercisesContextProvider>
                 </RecipesContextProvider>
               </NextAuthProvider>
             </div>  

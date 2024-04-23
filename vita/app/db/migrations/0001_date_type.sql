@@ -1,0 +1,1 @@
+ALTER TABLE "UserDetail" ALTER COLUMN "birth_date" SET DATA TYPE date;

@@ -2,17 +2,17 @@
 'use client';
 import { signIn, useSession } from 'next-auth/react';
 import React, { useCallback,useEffect,useState } from "react";
-import Information from '@/app/components/information/Information';
-import Button from "@/components/Button";
+import Information from '@/components/information/Information';
+import Button from "@/components/buttons/Button";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from 'react-icons/fa'; 
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { 
   FieldValues, 
   SubmitHandler,
   useForm
 } from "react-hook-form";
-import Input from '@/app/components/Inputs/Input';
+import Input from '@/components/Inputs/Input';
 import Link from "next/link";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginSchema } from '@/app/validations/LoginSchema';
@@ -55,24 +55,22 @@ const Login = () => {
         redirect: false
       });
 
-      if(!response?.error){
-        router.push("/home");
-        router.refresh();
-      }
-
       if (!response?.ok) {
         const error = JSON.parse(response?.error ?? "{errors: \"Ocurrió un error durante el inicio de sesión\"}")
         throw new Error(error.errors);
       }
       // Process response here
-      console.log("Login Successful", response);
       swal.fire({
         title: 'Se ha iniciado sesión',
         text: 'Se realizó el inicio de sesión con éxito',
         icon: 'success',
         confirmButtonText: 'OK'
       });
-      router.push("/home");
+
+      if(!response?.error){
+        router.push("/home");
+        router.refresh();
+      }
     } catch (error: any) {
       swal.fire({
         title: 'Error',
@@ -115,7 +113,7 @@ const Login = () => {
             </div>
 
             {errors.email && typeof errors.email.message === 'string' && (
-              <span className="text-red-500 mb-5">{errors.email.message}</span>
+              <span className="text-custom-red mb-5">{errors.email.message}</span>
             )}
 
             <div className=" pb-4">
@@ -131,7 +129,7 @@ const Login = () => {
             </div>
 
             {errors.password && typeof errors.password.message === 'string' && (
-              <span className="text-red-500 mb-5">{errors.password.message}</span>
+              <span className="text-custom-red mb-5">{errors.password.message}</span>
             )}
 
             <div className=" pb-4">

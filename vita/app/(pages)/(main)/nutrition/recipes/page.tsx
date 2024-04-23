@@ -26,7 +26,7 @@ const RecipeSelection = () => {
                 >
                     <p className="text-lg md:mb-5 md:text-xl">Ingredientes</p>
                     <Image 
-                        src="/Food.svg" 
+                        src="/icons/Food.svg" 
                         alt="Ingredientes" 
                         width={60} 
                         height={60} 
@@ -39,7 +39,7 @@ const RecipeSelection = () => {
                 >
                     <p className="text-lg md:mb-5 md:text-xl lg:text-xl">Calorías</p>
                     <Image 
-                        src="/Calories.svg" 
+                        src="/icons/Calories.svg" 
                         alt="Calorías" 
                         width={60} 
                         height={60} 
