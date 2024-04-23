@@ -1,0 +1,1 @@
+ALTER TABLE "Goals" ADD COLUMN "variable" varchar(30);

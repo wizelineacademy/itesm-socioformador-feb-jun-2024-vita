@@ -57,6 +57,20 @@
       "when": 1713896172070,
       "tag": "0007_category_varchar",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1713904456993,
+      "tag": "0008_goals_variable",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1713905734449,
+      "tag": "0009_goal_name_length",
+      "breakpoints": true
     }
   ]
 }
