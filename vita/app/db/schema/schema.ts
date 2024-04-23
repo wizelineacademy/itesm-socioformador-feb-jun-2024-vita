@@ -57,3 +57,11 @@ export const Reminders = pgTable("Reminders", {
 	endTime: timestamp("end_time", {mode: "date"}), 
 });
 
+export const Goals = pgTable("Goals", {
+	idGoal: serial("id_goal").primaryKey().notNull(),
+	idUser: integer("id_user").notNull().references(() => user.idUser, { onDelete: "restrict", onUpdate: "cascade" } ),
+	category: varchar("category", {length: 15}).notNull(),
+	name: varchar("name", {length: 30}).notNull(),
+	currentValue: doublePrecision("current_value"),
+	desiredValue: doublePrecision("desired_value")
+});
