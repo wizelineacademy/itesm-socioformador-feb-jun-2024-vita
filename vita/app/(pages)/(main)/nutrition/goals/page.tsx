@@ -1,38 +1,60 @@
-// vita/app/(main)/nutrition/goals/page.tsx
+"use client"
 
-import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
+import React, { useState, useEffect } from 'react';
 
 const GoalsPage = () => {
+  const [goal, setGoal] = useState<string>('');
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
+
+  useEffect(() => {
+    const savedGoal = sessionStorage.getItem('goal');
+    if (savedGoal) {
+      setGoal(savedGoal);
+    }
+  }, []);
+
+  const handleSelectGoal = (selectedGoal: string) => {
+    setGoal(selectedGoal);
+    sessionStorage.setItem('goal', selectedGoal); 
+    setShowDropdown(false); 
+  };
+
+  const handleEditGoal = () => {
+    setShowDropdown(true); 
+  };
+
   return (
-    <div className="h-screen overflow-auto bg-[#2C0521]">
-      <div className="mt-4 ml-4 mr-4">
-        <div className="flex items-center justify-between">
-          <div className="flex flex-col">
-            <div className="flex items-center">
-              <h2 className="text-white text-4xl font-bold lg:text-5xl md:mt-5">Crear</h2>
-            </div>
-            <div className="flex items-center">
-              <h2 className="text-white text-4xl font-bold lg:text-5xl">Meta</h2>
-              <Image src="/Food.svg" alt="Imagen Meta" width={45} height={45} className='lg:w-24 lg:h-24 lg:pb-3' 
-              style={{ marginLeft: '2rem' }} />
-            </div>
-          </div>
-        </div>
+    <div className="h-screen overflow-auto bg-[#2C0521] p-4 text-white flex flex-col items-start justify-start space-y-4 pt-10">
+      <h2 className="text-5xl font-bold mb-4">Mi Meta</h2>
 
-        <div className="flex flex-col items-center sm:items-start lg:flex-row lg:mt-5 lg:items-end lg:justify-start lg:space-x-3">
-          <p className="text-white">Contenido de Crear Meta</p>
-        </div>
+      {!goal && (
+        <>
+          <p className="text-xl">No tienes ninguna meta configurada actualmente.</p>
+          <button onClick={() => setShowDropdown(true)} className="mt-4 px-4 py-2 bg-blue-500 rounded-full text-xl">
+            Crear Meta
+          </button>
+        </>
+      )}
 
-        <div className="flex justify-start">
-          <Link href="/nutrition">
-            <a className="text-white underline">
-              Volver a Nutrición
-            </a>
-          </Link>
+      {goal && (
+        <>
+          <p className="text-xl">Tu meta actual es: <span className="font-bold">{goal}</span></p>
+          <button onClick={handleEditGoal} className="px-4 py-2 bg-yellow-400 rounded-full text-xl">
+            Editar Meta
+          </button>
+        </>
+      )}
+
+      {showDropdown && (
+        <div className="mt-4 flex flex-col">
+          <button onClick={() => handleSelectGoal('Aumentar masa muscular')} className="text-left px-4 py-2 bg-purple-300 rounded-full text-xl">
+            Aumentar masa muscular
+          </button>
+          <button onClick={() => handleSelectGoal('Bajar de peso')} className="mt-2 text-left px-4 py-2 bg-purple-300 rounded-full text-xl">
+            Bajar de peso
+          </button>
         </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -72,7 +72,7 @@ const Nutrition = () => {
             </div>
           ))}
         </div>
-
+ 
         {/* Options for nutrition */}
         <div className="flex lg:flex-row  flex-col pt-4 pl-4 pr-4  ">
           <div className="lg:w-1/2 lg:mr-10 w-full ">
@@ -90,17 +90,19 @@ const Nutrition = () => {
             </Link>
 
             {/* Custom option 2 */}
-            <div className='bg-custom-purple3 lg:rounded-2xl  md:rounded-2xl rounded-full  
-            lg:w-[320px]  w-[330px]px-4 lg:py-4  md:py-4 py-2 flex justify-between 
-            lg:mt-[75px] mt-4 transition-colors duration-300 ease-in-out hover:bg-custom-purple4'>
-              
-              <h3 className='pt-1 pl-2 text-white font-bold lg:text-2xl text-xl  
-                lg:w-[140px] md:w-[140px] w-[280px] '>
-                  Mi meta de nutrición
-              </h3>
-              <Image src="/Healthy.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
-            </div>
-
+            <Link href="/nutrition/goals">
+              <div className='bg-custom-purple3 lg:rounded-2xl  md:rounded-2xl rounded-full  
+              lg:w-[320px]  w-[330px]px-4 lg:py-4  md:py-4 py-2 flex justify-between 
+              lg:mt-[75px] mt-4 transition-colors duration-300 ease-in-out hover:bg-custom-purple4'>
+                
+                <h3 className='pt-1 pl-2 text-white font-bold lg:text-2xl text-xl  
+                  lg:w-[140px] md:w-[140px] w-[280px] '>
+                    Mi meta de nutrición
+                </h3>
+                <Image src="/Healthy.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
+              </div>
+            </Link>
+            
           </div>
           <div className="lg:w-1/2 w-full">
             {/* Custom option 3 */}
