@@ -1,16 +1,24 @@
 "use client"
 
 import ButtonEvaluation from '@/components/buttons/ButtonEvaluation.';
+import axios from 'axios';
+import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
 const GoalsPage = () => {
   const [goal, setGoal] = useState<string>('');
 
   useEffect(() => {
-    const savedGoal = sessionStorage.getItem('goal');
-    if (savedGoal) {
-      setGoal(savedGoal);
+    const fetchGoal = async () => {
+      try {
+        const goal = await axios.get("/api/goals");
+        setGoal(goal.data.name);
+      } catch(error) {
+        console.log(error);
+      }
     }
+    
+    fetchGoal();
   }, []);
 
   return (
@@ -20,7 +28,9 @@ const GoalsPage = () => {
       {!goal && (
         <div className='flex flex-col w-full gap-y-5 lg:items-start'>
           <p className="text-xl font-bold">No tienes ninguna meta configurada actualmente.</p>
-          <ButtonEvaluation onClick={() => {}} text='Crear meta'/>
+          <Link className='w-full' href="/nutrition/goals/selection">
+            <ButtonEvaluation onClick={() => {}} text='Crear meta'/>
+          </Link>
         </div>
       )}
 
@@ -28,7 +38,9 @@ const GoalsPage = () => {
           <div className='flex flex-col w-full gap-y-5 lg:items-start'>
             <p className="text-xl font-bold">Tu meta actual es:</p>
             <p className='mt-5 py-3 pl-4 w-full max-w-[500px] rounded-2xl text-lg bg-custom-lightpurple'>{goal}</p>
-            <ButtonEvaluation onClick={() => {}} text='Editar meta'/>
+            <Link className='w-full' href="/nutrition/goals/selection">
+              <ButtonEvaluation onClick={() => {}} text='Editar meta'/>
+            </Link>
           </div>
       )}
 

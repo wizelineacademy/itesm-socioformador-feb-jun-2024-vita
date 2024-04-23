@@ -27,21 +27,49 @@
       "idx": 3,
       "version": "5",
       "when": 1713556642518,
-      "tag": "0003_renameReminders",
+      "tag": "0003_rename_reminders",
       "breakpoints": true
     },
     {
       "idx": 4,
       "version": "5",
       "when": 1713739212427,
-      "tag": "0004_milky_gorgon",
+      "tag": "0004_made_end_time_optional",
       "breakpoints": true
     },
     {
       "idx": 5,
       "version": "5",
       "when": 1713741829263,
-      "tag": "0005_curious_bucky",
+      "tag": "0005_drop_unique_id_user_contstraint",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1713894305231,
+      "tag": "0006_goals",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1713896172070,
+      "tag": "0007_category_varchar",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1713904456993,
+      "tag": "0008_goals_variable",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1713905734449,
+      "tag": "0009_goal_name_length",
       "breakpoints": true
     }
   ]
