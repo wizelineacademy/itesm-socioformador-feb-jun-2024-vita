@@ -5,5 +5,7 @@ export interface Goal {
     measure?: string,
     category: string,
     min?: number,
-    max?: number
+    max?: number,
+    constraint?: "increase" | "decrease",
+    data?: string
 }

@@ -8,7 +8,9 @@ export const nutritionGoals: Goal[] = [
         measure: "kg",
         category: "nutrition",
         min: 0,
-        max: 200
+        max: 200,
+        constraint: "increase",
+        data: "weight"
     },
     {
         id: 2,
@@ -17,7 +19,9 @@ export const nutritionGoals: Goal[] = [
         measure: "kg",
         category: "nutrition",
         min: 0,
-        max: 200
+        max: 200,
+        constraint: "decrease",
+        data: "weight"
     },
     {
         id: 3,
@@ -31,7 +35,9 @@ export const nutritionGoals: Goal[] = [
         measure: "%",
         category: "nutrition",
         min: 0,
-        max: 60
+        max: 60,
+        constraint: "decrease",
+        data: "bodyFat"
     },
     {
         id: 5,
@@ -40,6 +46,8 @@ export const nutritionGoals: Goal[] = [
         measure: "kg",
         category: "nutrition",
         min: 0,
-        max: 80
+        max: 80,
+        constraint: "increase",
+        data: "muscularMass"
     }
 ]
