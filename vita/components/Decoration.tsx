@@ -57,6 +57,7 @@ const Decoration: React.FC<DecorationProps> = ({ pathname }) => {
   const rootRoute = pathname.split('/')[1]; 
 
   useEffect(() => {
+   
     const route = routes[`/${rootRoute}`];
     if (route) {
       setImages(route);
@@ -68,6 +69,7 @@ const Decoration: React.FC<DecorationProps> = ({ pathname }) => {
 
   return (
     <> 
+    
       {loading && <Loading />}
       {!loading && (
         <>

@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/auth/route.tss", "migrate.mtss"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/auth/route.tss", "migrate.mtss", "app/api/reminders/[idReminders]"],
   "exclude": ["node_modules","sst.config.ts"]
 }

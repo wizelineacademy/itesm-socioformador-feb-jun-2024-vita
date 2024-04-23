@@ -18,8 +18,7 @@ const config = {
       }),
       
       colors: {
-        'reminders-background':'#05272C',
-        'reminders-color':'#184950',
+        
         'custom-red': '#FF8484', 
         'custom-blue':'#0B1F2E',
         'custom-green': '#86FFA8',
@@ -61,7 +60,11 @@ const config = {
         'color-home5':'#2D7593',
         'color-home6':'#144154',
         'color-home7':'#94D8F3',
-       
+        'reminders-background':'#05272C',
+        'reminders-color':'#41B0C0',
+        'reminders-input':'#041C1F',
+        'reminder-mid-gray':'#4F676B',
+        'reminder-low-gray':'#577175',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
       },

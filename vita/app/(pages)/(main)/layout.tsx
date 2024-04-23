@@ -23,7 +23,8 @@ const routes: { [key: string]: string } = {
   "/home": "bg-home-background",
   "/nutrition": "bg-nutrition-background",
   "/chat": "bg-chat-background",
-  "/exercise": "bg-exercise-background"
+  "/exercise": "bg-exercise-background",
+  "/reminders": "bg-reminders-background"
 };
 
 /**

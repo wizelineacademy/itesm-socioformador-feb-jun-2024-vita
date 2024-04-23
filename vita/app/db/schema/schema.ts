@@ -46,3 +46,14 @@ export const userDetail = pgTable("UserDetail", {
 	muscularMass: doublePrecision("muscular_mass").notNull(),
 });
 
+
+export const Reminders = pgTable("Reminders", {
+	idReminders: serial("id_reminders").primaryKey().notNull(),
+	idUser: integer("id_user").notNull().references(() => user.idUser, { onDelete: "restrict", onUpdate: "cascade" } ),
+	name: varchar("name", { length: 100 }).notNull(),
+	description: text("description").notNull(),
+	frequency: integer("frequency").notNull(),
+	startTime: timestamp("start_time", {mode: "date"}).notNull(), 
+	endTime: timestamp("end_time", {mode: "date"}), 
+});
+
