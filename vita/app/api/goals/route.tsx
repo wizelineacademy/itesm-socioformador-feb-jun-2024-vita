@@ -18,17 +18,47 @@ export async function POST(request: Request) {
         category,
         name,
         currentValue,
-        desiredValue
+        desiredValue,
+        variable
     } = body;
 
-    // Insertamos el nuevo recordatorio en la base de datos
-    const res = await db.insert(Goals).values({
-        idUser: session.user?.id,
-        name: name,
-        category: category,
-        currentValue: currentValue,
-        desiredValue: desiredValue
-    });
+    if(!name || !category){
+        return NextResponse.json({ error: 'Bad request' }, { status: 400 })    
+    }
+
+    //find if a nutrition goal already exists
+    const previousGoal = await db.select({
+        name: Goals.name
+    })
+      .from(Goals)
+      .where(
+        and(
+            eq(Goals.idUser, session.user?.id), 
+            eq(Goals.category, 'nutrition')
+        )
+    );
+
+    let res;
+
+    //if there is already a goal update it, else create a new one
+    if(previousGoal.length > 0){
+        res = await db.update(Goals).set({
+            name: name,
+            category: category,
+            variable: variable,
+            currentValue: currentValue,
+            desiredValue: desiredValue
+        }).where(eq(Goals.idUser, session.user?.id));
+    } else {
+        res = await db.insert(Goals).values({
+            idUser: session.user?.id,
+            name: name,
+            category: category,
+            variable: variable,
+            currentValue: currentValue,
+            desiredValue: desiredValue
+        });
+    }
 
     return NextResponse.json(res, { status: 200 });
   } catch (error) {
@@ -57,12 +87,15 @@ export async function GET(request: Request) {
         )
     );
 
+    if(!res.length){
+        return NextResponse.json(res, { status: 400 });
+    } else {
+        return NextResponse.json(res[0], { status: 200 })
+    }
 
-
-    return NextResponse.json(res, { status: 200 });
   } catch (error) {
     console.log(error);
-    return NextResponse.json("Error retrieving reminders", { status: 400 });
+    return NextResponse.json("Error retrieving goal", { status: 400 });
   }
 }
 
