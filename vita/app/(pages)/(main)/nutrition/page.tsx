@@ -100,7 +100,7 @@ const Nutrition = () => {
                   lg:w-[140px] md:w-[140px] w-[280px] '>
                     Mi meta de nutrición
                 </h3>
-                <Image src="/Healthy.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
+                <Image src="/icons/Healthy.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>
               </div>
             </Link>
             

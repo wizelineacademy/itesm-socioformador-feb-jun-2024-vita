@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 
 import "../globals.css";
 import { Inter } from "next/font/google";
-import { SessionProvider } from "next-auth/react";
 import NextAuthProvider from "@/context/authprovider";
 
 const interFont = Inter({

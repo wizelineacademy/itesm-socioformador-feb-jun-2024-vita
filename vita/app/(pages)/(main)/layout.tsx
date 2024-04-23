@@ -6,7 +6,6 @@ import SidebarInfo from "@/components/sidebar/SidebarInfo";
 import MobileSidebar from "@/components/sidebar/MobileSidebar";
 import Decoration from "@/components/Decoration";
 import { usePathname } from "next/navigation"; 
-import { useEffect, useState } from 'react';
 import { RecipesContextProvider } from "@/context/ingredients";
 import NextAuthProvider from "@/context/authprovider";
 import { ExercisesContextProvider } from "@/context/exercises";
