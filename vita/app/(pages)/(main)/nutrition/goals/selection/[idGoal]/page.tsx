@@ -31,8 +31,48 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
 
     }, []);
 
+    const validateGoal = ():boolean => {
+
+        if(!goal || !next || !previous){
+            Swal.fire({
+                title: 'Error',
+                text: 'Debes ingresar el valor actual y el deseado',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            return false
+        }
+
+
+        if(goal.constraint === "increase" && next <= previous){
+            Swal.fire({
+                title: 'Error',
+                text: 'El valor deseado debe ser mayor que el valor actual',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            return false
+        } else if(goal.constraint === "decrease" && next >= previous) {
+            Swal.fire({
+                title: 'Error',
+                text: 'El valor deseado debe ser menor que el valor actual',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
     const createGoal = async (goal: Goal) => {
         try {
+
+            const valid = validateGoal();
+            if(!valid){
+                return;
+            }
 
             await axios.post("/api/goals", {
                 name: goal?.title,
@@ -40,17 +80,17 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
                 variable: goal?.variable,
                 currentValue: previous,
                 desiredValue: next
-            })
+            });
             Swal.fire({
                 title: 'Meta agregada',
                 text: 'Se agregó la meta con éxito',
                 icon: 'success',
                 confirmButtonText: 'OK'
-              }).then(result => {
+            }).then(result => {
                 if(result.isConfirmed){
                     router.push("/nutrition/goals")
                 }
-              })
+            })
         } catch(error){
             console.log(error);
             Swal.fire({
@@ -58,7 +98,7 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
                 text: 'Ocurrió un error al agregar la meta',
                 icon: 'error',
                 confirmButtonText: 'OK'
-              });
+            });
         }
     }
 
