@@ -6,7 +6,6 @@ import SidebarInfo from "@/components/sidebar/SidebarInfo";
 import MobileSidebar from "@/components/sidebar/MobileSidebar";
 import Decoration from "@/components/Decoration";
 import { usePathname } from "next/navigation"; 
-import { useEffect, useState } from 'react';
 import { RecipesContextProvider } from "@/context/ingredients";
 import NextAuthProvider from "@/context/authprovider";
 import { ExercisesContextProvider } from "@/context/exercises";
@@ -64,7 +63,7 @@ export default function RootLayout({
             <div className="md:hidden lg:hidden">
               <MobileSidebar />
             </div>
-            <div id="PrincipalPage" className={`min-h-screen flex flex-col relative lg:m-0 
+            <div id="PrincipalPage" className={`min-h-[95vh] md:min-h-screen flex flex-col relative lg:m-0 
                 md:m-0 lg:pl-8 md:pl-8 ${backgroundColor}`}>
               {/* Decoration component */}
               <Decoration pathname={pathname}/>

@@ -118,13 +118,13 @@ const Home = () => {
           </div>
 
           <div id="Preguntame" className="bg-color-home5 h-16 w-56 mt-4 rounded-full flex items-center justify-between px-4 
-          transition-colors duration-300 ease-in-out hover:bg-color-home6">
+          transition-colors duration-300 ease-in-out hover:bg-color-home6 hover:cursor-pointer">
             <FaComments size={24}color='white' className="ml-4 mb-2"  />
             <span className="text-white font-bold text-2xl">Pregúntame</span>
           </div>
 
           <div id="Perfil" className="bg-color-home5 h-16 w-56  mt-4 rounded-full flex items-center justify-between px-4
-          transition-colors duration-300 ease-in-out hover:bg-color-home6">
+          transition-colors duration-300 ease-in-out hover:bg-color-home6 hover:cursor-pointer">
             <span className="text-white font-bold text-2xl ml-3">Perfil</span>
             <FaCircle  size={32} color='white' className="ml-4 mb-2"  />
           </div>
@@ -186,7 +186,7 @@ const Home = () => {
         <div id="Derecha" className="flex flex-col lg:mr-6" >
 
           <div id="Dashboard" className=" flex flex-row bg-color-home7 h-[120px] w-[232px] rounded-3xl justify-between mt-4
-           transition-colors duration-300 ease-in-out hover:bg-color-home2" >
+           transition-colors duration-300 ease-in-out hover:bg-color-home2 hover:cursor-pointer" >
             <h2 className="text-color-home6 font-bold text-2xl pl-4 mt-2 w-[120px] ">
               Mi Dashboard de Salud
             </h2> 
@@ -216,17 +216,17 @@ const Home = () => {
              
 
                 <div className="flex flex-row mt-2 p-1 w-[190px]  bg-white rounded-2xl justify-between
-                transition-colors duration-300 ease-in-out hover:bg-color-home3">
+                transition-colors duration-300 ease-in-out hover:bg-color-home3 hover:cursor-pointer">
                   <h2 className="text-color-home6 font-bold text-lg pl-2">Nutrición</h2>
                   <FaAngleRight  size={28}    />
                 </div>
                 <div className="flex flex-row mt-4 p-1 w-[190px]  bg-white rounded-2xl justify-between
-                transition-colors duration-300 ease-in-out hover:bg-color-home3">
+                transition-colors duration-300 ease-in-out hover:bg-color-home3 hover:cursor-pointer">
                   <h2 className="text-color-home6 font-bold text-lg pl-2">Ejercicio</h2>
                   <FaAngleRight  size={28}    />
                 </div>
                 <div className="flex flex-row mt-4 p-1  w-[190px]  bg-white rounded-2xl justify-between
-                transition-colors duration-300 ease-in-out hover:bg-color-home3">
+                transition-colors duration-300 ease-in-out hover:bg-color-home3 hover:cursor-pointer">
                   <h2 className="text-color-home6 font-bold text-lg pl-2 ">Sueño</h2>
                   <FaAngleRight  size={28}    />
                 </div>
@@ -236,7 +236,7 @@ const Home = () => {
           </div>
 
           <div id="Perfil" className="bg-color-home6 h-16 w-56 ml-4 mt-4 rounded-full flex items-center justify-between px-4
-           transition-colors duration-300 ease-in-out hover:bg-color-home5">
+           transition-colors duration-300 ease-in-out hover:bg-color-home5 hover:cursor-pointer">
             <span className="text-white font-bold text-lg ml-3">
               Vincular con aplicaciones
             </span>
