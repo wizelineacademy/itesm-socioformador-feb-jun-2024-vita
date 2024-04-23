@@ -140,7 +140,7 @@ const CrudReminders = () => {
                     <input 
                     required 
                     placeholder="Paracetamol" 
-                    className="mt-4 w-60 text-2xl py-2 px-6 rounded-full text-white bg-reminders-input" 
+                    className="mt-4 w-[85%] text-2xl py-2 px-6 rounded-full text-white bg-reminders-input" 
                     type="text" 
                     name="name" 
                     value={formData.name}

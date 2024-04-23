@@ -7,85 +7,105 @@ import Swal from 'sweetalert2';
 
 const EditReminders = ({ params }: { params: { idReminders: string } }) => {
 
+  interface ReminderData {
+    idReminders: number;
+    idUser: number;
+    name: string;
+    frequency: number;
+    startTime: string;
+    endTime: string | null; // Ahora endTime puede ser null
+    description: string;
+    frequencyDays: number; // Agregamos frequencyDays
+    frequencyHours: number; // Agregamos frequencyHours
+    startDays: string; // Nuevas variables para almacenar los días en startTime y endTime
+    startHours: string;
+    endDays: string | null; // endTime puede ser null
+    endHours: string | null; // endTime puede ser null
+  }
+
+  interface EditReminderData {
+    idReminders: number;
+    idUser: number;
+    name: string;
+    frequency: number;
+    startTime: string;
+    endTime: string | null; // Ahora endTime puede ser null
+    description: string;
+    frequencyDays: number; // Agregamos frequencyDays
+    frequencyHours: number; // Agregamos frequencyHours
+    startDays: string; // Nuevas variables para almacenar los días en startTime y endTime
+    startHours: string;
+    endDays: string | null; // endTime puede ser null
+    endHours: string | null; // endTime puede ser null
+  }
+
   const idReminders = params.idReminders;
   const [editMode, setEditMode] = useState(false);
-  const [userData, setUserData] = useState<reminderData | null>(null);
-  const [selectedOption, setSelectedOption] = useState(userData && userData.endDays === null ? "D" : "I");
+  const [userData, setUserData] = useState<ReminderData | null>(null);
+  const [editedData, setEditedData] = useState<EditReminderData | null>(null);
+  const [selectedOption, setSelectedOption] = useState("I");
 
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(event.target.value);
   };
 
-  interface reminderData {
-    idReminders: number;
-    idUser: number;
-    name: string;
-    frequency: number;
-    startTime: string;
-    endTime: string | null; // Ahora endTime puede ser null
-    description: string;
-    frequencyDays: number; // Agregamos frequencyDays
-    frequencyHours: number; // Agregamos frequencyHours
-    startDays: string; // Nuevas variables para almacenar los días en startTime y endTime
-    startHours: string;
-    endDays: string | null; // endTime puede ser null
-    endHours: string | null; // endTime puede ser null
-  }
-
-  interface editreminderData {
-    idReminders: number;
-    idUser: number;
-    name: string;
-    frequency: number;
-    startTime: string;
-    endTime: string | null; // Ahora endTime puede ser null
-    description: string;
-    frequencyDays: number; // Agregamos frequencyDays
-    frequencyHours: number; // Agregamos frequencyHours
-    startDays: string; // Nuevas variables para almacenar los días en startTime y endTime
-    startHours: string;
-    endDays: string | null; // endTime puede ser null
-    endHours: string | null; // endTime puede ser null
-  }
+  
 
   const formatDays = (dateString: string): string => {
     const date = new Date(dateString);
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
-  
+   
     return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
+};
+
+  const getData = async () => {
+    try {
+      const response = await axios.get(`/api/reminders/${idReminders}`);
+      const fetchedData = response.data;
+      // Determinar el valor inicial de selectedOption
+      const initialSelectedOption = fetchedData.endTime === null ? "I" : "D";
+      setSelectedOption(initialSelectedOption);
+      // Asignamos los datos recibidos a userData
+    
+      setUserData({
+        ...fetchedData,
+        frequencyDays: calculateDays(fetchedData.frequency),
+        frequencyHours: calculateHours(fetchedData.frequency),
+        startDays: fetchedData.startTime,
+        startHours: calculateHoursTime(fetchedData.startTime),
+        endDays: fetchedData.endTime ? fetchedData.endTime : null,
+        endHours: fetchedData.endTime ? calculateHoursTime(fetchedData.endTime) : null
+      });
+    
+      setEditedData({
+        ...fetchedData,
+        frequencyDays: calculateDays(fetchedData.frequency),
+        frequencyHours: calculateHours(fetchedData.frequency),
+        startDays: fetchedData.startTime,
+        startHours: calculateHoursTime(fetchedData.startTime),
+        endDays: fetchedData.endTime ? fetchedData.endTime : null,
+        endHours: fetchedData.endTime ? calculateHoursTime(fetchedData.endTime) : null
+      });
+      
+    } catch (error) {
+      Swal.fire({
+        title: 'Error',
+        text: "Ocurrió un error al recuperar los datos",
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    }
   };
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await axios.get(`/api/reminders/${idReminders}`);
-        const fetchedData = response.data;
-
-        // Asignamos los datos recibidos a userData
-        setUserData({
-          ...fetchedData,
-          frequencyDays: calculateDays(fetchedData.frequency),
-          frequencyHours: calculateHours(fetchedData.frequency),
-          startDays: calculateDaysTime(fetchedData.startTime),
-          startHours: calculateHoursTime(fetchedData.startTime),
-          endDays: fetchedData.endTime ? calculateDaysTime(fetchedData.endTime) : null,
-          endHours: fetchedData.endTime ? calculateHoursTime(fetchedData.endTime) : null
-        });
-      } catch (error) {
-        Swal.fire({
-          title: 'Error',
-          text: "Ocurrió un error al recuperar los datos",
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
-      }
-    };
+    
 
     getData();
-  }, [idReminders]);
+   
+  }, []);
 
   // Función para calcular días
   const calculateDays = (frequencyInSeconds: number): number => {
@@ -97,12 +117,6 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
     return Math.floor((frequencyInSeconds % (24 * 3600)) / 3600);
   };
 
-  // Función para calcular días
-  const calculateDaysTime = (dateTimeString: string): number => {
-    const [days] = dateTimeString.split('T');
-    const [date] = days.split('D');
-    return parseInt(date);
-  };
 
   // Función para calcular horas
 
@@ -116,8 +130,111 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
   // Función para cancelar la edición y volver a los datos originales
   const handleCancelEdit = () => {
     setEditMode(false);
-    //setEditedData(userData); // Restaura los datos editados a los datos originales
+    setEditedData(userData); // Restaura los datos editados a los datos originales
   };
+
+// Función para manejar el cambio en los inputs
+const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const { name, value } = event.target;
+
+  // Validamos si hay datos editados y los actualizamos
+  if (editedData) {
+      setEditedData({ ...editedData, [name]: value });
+  }
+};
+
+const formatDate2 = (dateString: string): string => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  let month = (date.getMonth() + 1).toString();
+  let day = date.getDate().toString();
+
+  // Asegúrate de que el mes y el día tengan dos dígitos
+  if (month.length === 1) {
+      month = "0" + month;
+  }
+  if (day.length === 1) {
+      day = "0" + day;
+  }
+
+  return `${year}-${month}-${day}`;
+};
+
+const handleTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const { name, value } = event.target;
+
+  // Validamos si hay datos editados y los actualizamos
+  if (editedData) {
+      setEditedData({ ...editedData, [name]: value });
+  }
+};
+
+// Función para guardar los cambios editados
+const handleSaveChanges = async () => {
+  try {
+      if (editedData) {
+        // Convertir horas y días a segundos y sumarlos
+        const frequencyInSeconds = (editedData.frequencyHours * 3600) + (editedData.frequencyDays * 86400);
+        
+        // Combinar fecha y hora de inicio
+        alert(editedData.startDays)
+        const startTime = new Date(editedData.startDays + "T" + editedData.startHours);
+        // Validar que startTime no sea menor que el día actual
+        
+        const currentDate = new Date();
+        if (startTime < currentDate) {
+          Swal.fire({
+            title: 'Error',
+            text: "Asegurese que la fecha y hora inicio sean mayores mayores a la hora y fecha actual ",
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
+          return;
+        }
+        
+        // Combinar fecha y hora de fin si está definido
+      let endTime = null;
+      if ( editedData.endDays && editedData.endHours) {
+          endTime = new Date(editedData.endDays + "T" + editedData.endHours);
+          // Validar que endTime no sea menor que startTime
+          if (endTime < startTime) {
+            Swal.fire({
+              title: 'Error',
+              text: "Asegurese que la fecha y hora fin sean mayores mayores a la hora y fecha de inicio ",
+              icon: 'error',
+              confirmButtonText: 'OK'
+            });
+            return;
+          }
+      }
+          await axios.put(`/api/reminders/${idReminders}`, {
+            ...editedData,
+            frequency: frequencyInSeconds,
+            startTime,
+            endTime: selectedOption === "I" ? null : endTime
+        });
+        
+          Swal.fire({
+              title: 'Éxito',
+              text: 'Se han guardado las datos con éxito',
+              icon: 'success',
+              confirmButtonText: 'OK'
+          });
+          getData()
+          setEditMode(false); 
+     
+          
+      }
+  } catch (error) {
+      Swal.fire({
+          title: 'Error',
+          text: "Ocurrió un error al actualizar los datos",
+          icon: 'error',
+          confirmButtonText: 'OK'
+      });
+      alert(error)
+  }
+};
 
   return (
     <>
@@ -156,18 +273,36 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
         <FaBell size={36} color="white"/>
       </div>
       <div className="flex flex-col  lg:justify-start md:justify-start justify-center px-5 ">
-        <form>
+        <form onSubmit={(e) => {
+                e.preventDefault();
+                handleSaveChanges();
+            }}>
           <h2 className="text-3xl text-white">Nombre</h2>
             {editMode ? (
-              <p></p>
+              <input
+                  type="text"
+                  name="name"
+                  value={editedData?.name|| ""}
+                  onChange={handleInputChange}
+                  className="mt-4 w-[85%] text-2xl py-2 px-6 rounded-full text-white bg-reminders-input"
+                  required 
+              />
               ) : (            
-                <div  className="mt-4 w-60 text-2xl py-2 px-6 rounded-full text-white bg-reminders-input" >
+                <div  className="mt-4 w-[85%] text-2xl py-2 px-6 rounded-full text-white bg-reminders-input" >
                   {userData && userData.name}
                 </div>           
               )}
           <h2 className="text-3xl text-white mt-4">Descripción</h2>
             {editMode ? (
-              <p></p>
+               <textarea 
+               id="Comentarios" 
+               required 
+               placeholder="Describe el recordatorio..." 
+               className="mt-4 w-[85%] h-[100px] px-4 py-2 rounded-3xl bg-reminders-input text-white  resize-none"
+               name="description"
+               value={editedData?.description || ""}
+               onChange={handleTextAreaChange}
+           />
               ) : (            
                 <div   className="mt-4 w-[85%] h-[100px] px-4 py-2 rounded-3xl bg-reminders-input text-white  overflow-auto" >
                   {userData && userData.description}
@@ -178,7 +313,16 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
                 <div className="flex flex-col mt-4">
                   <h2 className="text-2xl text-white mb-4">Número de horas</h2>
                   {editMode ? (
-                    <p></p>
+                    <input
+                     type="number"
+                     name="frequencyHours"
+                     value={editedData?.frequencyHours}
+                     onChange={handleInputChange}
+                     className="mt-4 w-60 text-2xl py-2 px-6 rounded-full text-white bg-reminders-input"
+                     required 
+                     min={1}
+                    max={12}
+                    />
                     ) : (            
                       <div  className="mt-4 w-60 text-2xl py-2 px-6 rounded-full text-white bg-reminders-input" >
                         {userData && userData.frequencyHours}
@@ -188,7 +332,16 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
                 <div className="flex flex-col mt-4 lg:w-3/4">
                 <h2 className="text-2xl text-white mb-4">Número de días</h2>
                   {editMode ? (
-                    <p></p>
+                    <input
+                      type="number"
+                      name="frequencyDays"
+                      value={editedData?.frequencyDays}
+                      onChange={handleInputChange}
+                      min={0}
+                      max={7}
+                      className="mt-4 w-60 text-2xl py-2 px-6 rounded-full text-white bg-reminders-input"
+                      required 
+                    />
                     ) : (            
                       <div  className="mt-4 w-60 text-2xl py-2 px-6 rounded-full text-white bg-reminders-input" >
                         {userData && userData.frequencyDays}
@@ -200,11 +353,25 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
                 <h2 className="text-3xl text-white mt-4">Inicio</h2>
                   <div className="flex flex-row w-1/2">
                     <h2 className="text-3xl text-white mt-4 mr-6">Fin</h2>
+                    {editMode ? (
+                      <select 
+                      
+                      className="text-2xl py-2 px-6 rounded-full text-white bg-reminders-input w-60 mt-4" 
+                      value={selectedOption}
+                      onChange={handleSelectChange}
+                      required
+                  >
+                      <option value="I">Indefinido</option>
+                      <option value="D">Definido</option>
+                  </select>
+                    ) : (            
                       <div 
                         className="text-2xl py-2 px-6 rounded-full text-white bg-reminders-input w-60 mt-4"
                       >
                         {userData && userData.endDays ? "Definido" : "Indefinido"}
-                      </div>
+                      </div>           
+                    )}
+                      
                   </div>
               </div>
            
@@ -212,9 +379,15 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
               <div className="flex flex-row justify-between lg:gap-16">
                 <div className="flex flex-col mt-4 ">
                   <h2 className="text-2xl text-white mb-4">Fecha de Inicio</h2>
-                  {editMode ? (
-                                  
-                    <p></p>   
+                  {editMode ? (          
+                    <input 
+                      type="date" 
+                      name="startDays" 
+                      className="text-2xl text-white py-2 px-6 rounded-full bg-reminders-input w-50" 
+                      value={formatDate2(editedData?.startDays|| "")}
+                      onChange={handleInputChange}
+                      required 
+                    /> 
                   ) : (          
                     <div className="mt-4 w-60 text-2xl py-2 px-6 rounded-full text-white bg-reminders-input">
                       {userData && formatDays(userData.startDays)}
@@ -223,9 +396,15 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
                 </div>
                 <div className="flex flex-col mt-4 ">
                   <h2 className="text-2xl text-white mb-4">Hora de Inicio</h2>
-                  {editMode ? (
-                                  
-                    <p></p>
+                  {editMode ? (             
+                    <input 
+                      type="time" 
+                      name="startHours" 
+                      className="text-2xl text-white py-2 px-6 rounded-full bg-reminders-input w-50" 
+                      value={editedData?.startHours || ""}
+                      onChange={handleInputChange}
+                      required 
+                    /> 
                   ) : (          
                     <div className="mt-4 w-60 text-2xl py-2 px-6 rounded-full text-white bg-reminders-input">
                       {userData && userData.startHours}
@@ -236,8 +415,20 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
                   
                   {editMode ? (
                     <> 
-                      <h2 className="text-2xl text-white mb-4">Fecha de fin</h2>           
-                      <p></p>   
+                                
+                    {selectedOption === "D" && (
+                      <>
+                        <h2 className="text-2xl text-white mb-4">Fecha de fin</h2> 
+                        <input 
+                          type="date" 
+                          name="endDays" 
+                          className="text-2xl text-white py-2 px-6 rounded-full bg-reminders-input w-50" 
+                          value={formatDate2(editedData?.endDays || "")}
+                          onChange={handleInputChange}
+                          required 
+                        /> 
+                      </>
+                    )}  
                     </>
                   ) : (   
 
@@ -258,8 +449,19 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
                   
                   {editMode ? (         
                     <> 
-                      <h2 className="text-2xl text-white mb-4">Hora de fin</h2>           
-                      <p></p>   
+                      {selectedOption === "D" && (
+                      <>
+                        <h2 className="text-2xl text-white mb-4">Hora de fin</h2> 
+                        <input 
+                          type="time" 
+                          name="endHours" 
+                          className="text-2xl text-white py-2 px-6 rounded-full bg-reminders-input w-50" 
+                          value={editedData?.endHours || ""}
+                          onChange={handleInputChange}
+                          required 
+                        /> 
+                      </>
+                    )}    
                     </>
                   ) : (      
                     <>
