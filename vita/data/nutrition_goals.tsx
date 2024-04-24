@@ -1,6 +1,6 @@
-import { Goal } from "./datatypes/goal";
+import { NumericGoal } from "./datatypes/goal";
 
-export const nutritionGoals: Goal[] = [
+export const nutritionGoals: NumericGoal[] = [
     {
         id: 1,
         title: "Subir de peso",
