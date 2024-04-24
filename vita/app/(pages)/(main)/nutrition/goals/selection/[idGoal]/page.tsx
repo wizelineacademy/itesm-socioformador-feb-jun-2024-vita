@@ -2,7 +2,7 @@
 
 import { LbMsrInput } from "@/components/Inputs/LbMsrInput";
 import MainButton from "@/components/buttons/MainButton";
-import { Goal } from "@/data/datatypes/goal";
+import { NumericGoal } from "@/data/datatypes/goal";
 import { nutritionGoals } from "@/data/nutrition_goals";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -11,14 +11,14 @@ import Swal from "sweetalert2";
 
 const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
 
-    const [goal, setGoal] = useState<Goal>();
+    const [goal, setGoal] = useState<NumericGoal>();
     const [extra, setExtra] = useState<boolean>(true);
     const [previous, setPrevious] = useState<number>(0);
     const [next, setNext] = useState<number>(0);
 
     const router = useRouter();
 
-    const fetchHealthData = async (goal: Goal) => {
+    const fetchHealthData = async (goal: NumericGoal) => {
         const data = await axios.get("/api/healthdata");
         setPrevious(goal?.data ? data.data[goal.data] : 0);
     }
@@ -35,7 +35,9 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
             createGoal(selected!);
         } else {
             setExtra(true);
-            fetchHealthData(selected);
+            if(selected.data){
+                fetchHealthData(selected);
+            }
         }
 
     }, []);
@@ -75,7 +77,7 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
 
     }
 
-    const createGoal = async (goal: Goal) => {
+    const createGoal = async (goal: NumericGoal) => {
         try {
 
             if(goal.variable){
@@ -128,6 +130,7 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
                     >
 
                         <LbMsrInput
+                            label={`¿En qué ${goal.variable} te encuentras?`}
                             variable={goal.variable ?? ""}
                             min={goal.min ?? 0}
                             max={goal.max ?? 0}
@@ -137,6 +140,7 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
                         />
 
                         <LbMsrInput
+                            label={`¿Qué ${goal.variable} te gustaría alcanzar?`}
                             variable={goal.variable ?? ""}
                             min={goal.min ?? 0}
                             max={goal.max ?? 0}

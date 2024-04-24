@@ -11,7 +11,7 @@ const GoalsPage = () => {
   useEffect(() => {
     const fetchGoal = async () => {
       try {
-        const goal = await axios.get("/api/goals");
+        const goal = await axios.get("/api/goals/nutrition");
         setGoal(goal.data.name);
       } catch(error) {
         console.log(error);
