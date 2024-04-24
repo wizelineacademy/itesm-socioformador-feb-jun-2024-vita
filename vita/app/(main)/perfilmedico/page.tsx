@@ -45,6 +45,7 @@ interface RectangleProps {
 const Rectangle: FC<RectangleProps> = ({ text, requiredFields }) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [error, setError] = useState('');
+    const [isHovering, setIsHovering] = useState(false);
     const [inputValues, setInputValues] = useState<{ [key: string]: string }>({});
     const [savedData, setSavedData] = useState<string | null>(null); // State to store saved data
 
@@ -58,6 +59,7 @@ const Rectangle: FC<RectangleProps> = ({ text, requiredFields }) => {
         display: 'flex',
         alignItems: 'center',
         position: 'relative',
+        cursor: 'pointer',
     };
 
     const textStyle: CSSProperties = {
@@ -71,7 +73,8 @@ const Rectangle: FC<RectangleProps> = ({ text, requiredFields }) => {
         color: '#000000',
         position: 'absolute',
         right: '10px',
-        transform: 'rotate(-90deg) scale(1.5)',
+        transform: `rotate(${isHovering ? -180 : -90}deg) scale(1.5)`, // Change rotation on hover
+        transition: 'transform 0.3s',// Add smooth transition
     };
 
     const handleOpenModal = () => {
@@ -98,10 +101,17 @@ const Rectangle: FC<RectangleProps> = ({ text, requiredFields }) => {
         }
         return true;
     };
+    const isValidPhone = (phone: string): boolean => {
+        return phone.length === 10 && /^\d+$/.test(phone); // Must be exactly 10 digits
+    };
 
     const handleSave = () => {
+        const phone = inputValues['Teléfono del Contacto'] || '';
+
         if (!validateInputs()) {
             setError('Por favor, ¡rellena todos los campos!');
+        } else if (!isValidPhone(phone)) {
+            setError('El teléfono debe tener 10 dígitos'); // Display error for invalid phone
         } else {
             setModalOpen(false);
             setError('');
@@ -110,6 +120,7 @@ const Rectangle: FC<RectangleProps> = ({ text, requiredFields }) => {
             setSavedData(data);
         }
     };
+
 
     let modalContent: ReactNode = null;
 
