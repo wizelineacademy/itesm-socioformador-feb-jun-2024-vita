@@ -28,7 +28,7 @@ const Exercise = () => {
   };
 
   // State to hold the current random suggestion
-  const [randomSuggestion, setRandomSuggestion] = useState(generateRandomSuggestion());
+  const [randomSuggestion, setRandomSuggestion] = useState<string>("");
 
   // Function to generate a new random suggestion
   const handleGenerateSuggestion = () => {
@@ -65,14 +65,15 @@ const Exercise = () => {
                     <div className="flex justify-center items-center px-8   py-6 md:py-12
                     bg-mid-green  rounded-3xl lg:w-[340px] sm:w-[330px]  w-[240px] mt-4 
                     transition-colors duration-300 ease-in-out hover:bg-dark-green">
-                        <h3 className='pt-1 pl-4 text-white font-bold lg:text-3xl text-2xl w-[240px] '>
+                        <h3 className='pt-1 md:pl-4 text-white font-bold lg:text-3xl text-2xl w-[240px] '>
                             Autoevaluación
                         </h3>
                         <Image src="/icons/Pass.svg" alt="Imagen 2" width={60} height={60}  className='pr-2 hidden md:flex'/>
                     </div>
                 </div>
                 <div className="flex flex-col ">
-                    <div className="flex justify-center items-center px-8   py-6 md:py-6
+
+                    <Link href={"/exercise/goals"} className="flex justify-center items-center px-8   py-6 md:py-6
                     bg-mid-green  rounded-3xl lg:w-[340px] sm:w-[330px]  w-[240px] mt-4 lg:mt-8 
                 transition-colors duration-300 ease-in-out hover:bg-dark-green z-10">
                         <h3 className='pt-1  text-white font-bold lg:text-3xl text-2xl w-[240px] '>
@@ -80,12 +81,12 @@ const Exercise = () => {
                         </h3>
                         < FaBullseye size={60} className='pr-2' color="white"/> 
                       
-                    </div>
+                    </Link>
 
-                    <div className="flex flex-col justify-center items-center px-8   py-6 md:py-6
-                    bg-mid-green  rounded-3xl lg:w-[340px] sm:w-[330px]  w-[240px] mt-4 
-                    transition-colors duration-300 ease-in-out hover:bg-dark-green gap-y-3 z-10">
-                        <h3 className='pt-1 lg:pl-2 pl-8 text-white font-bold lg:text-3xl  text-2xl w-[240px] '>
+                    <div className="flex flex-col justify-center items-center px-8 py-6 md:py-6
+                    bg-mid-green rounded-3xl lg:w-[340px] sm:w-[330px]  w-[240px] mt-4 
+                    transition-colors duration-300 ease-in-out gap-y-3 z-10">
+                        <h3 className='pt-1 lg:pl-2 pl-8 text-white font-bold lg:text-3xl text-2xl w-[240px] '>
                             Recomendación del día 
                         </h3>
                         < FaDumbbell size={60} className='pr-2' color="white"/> 

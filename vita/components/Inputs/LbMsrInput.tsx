@@ -1,4 +1,6 @@
  interface LbMsrInputInterface {
+    color?: string,
+    label: string,
     variable: string
     min: number
     max: number
@@ -8,6 +10,8 @@
  }
  
  export const LbMsrInput = ({
+    color = "bg-custom-lightpurple",
+    label,
     variable,
     min,
     max,
@@ -17,7 +21,7 @@
  }:LbMsrInputInterface) => {
     return (
         <div>
-            <p className="text-xl font-bold mb-4">¿En qué {variable} te encuentras?</p>
+            <p className="text-xl font-bold mb-4">{label}</p>
             <div className="w-full flex items-center">
                 <input
                     type="number"
@@ -28,7 +32,7 @@
                     onChange={(e) => {
                         setValue(parseInt(e.target.value))
                     }}
-                    className='w-4/5 max-w-56 md:max-w-80 px-3 py-3 md:py-4 rounded-2xl text-white border-none outline-none bg-custom-lightpurple placeholder-slate-300' 
+                    className={`w-4/5 max-w-56 md:max-w-80 px-3 py-3 md:py-4 rounded-2xl text-white border-none outline-none ${color} placeholder-slate-300`}
                     placeholder={variable}
                 />
                 <p className='ml-2 font-semibold text-white'>{measure}</p>
