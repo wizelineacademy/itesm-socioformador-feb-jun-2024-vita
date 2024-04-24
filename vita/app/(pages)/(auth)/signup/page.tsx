@@ -9,16 +9,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from 'react-icons/fa'; 
-import swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 import { RegisterSchema } from "@/app/validations/RegisterSchema";
 import Information from "@/components/information/Information";
 import Input from "@/components/Inputs/Input";
 import { signIn } from "next-auth/react";
 
-
-
 const SignUp = () => {
+
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const swal = require('sweetalert2')
@@ -142,7 +140,6 @@ const SignUp = () => {
               <span className="text-custom-red mb-2">{errors.email.message}</span>
           )}
 
-
           <div className="sm:md:lg:flex flex-row  ">
             <div className="md:lg:mr-4 pb-4">
               <Input
@@ -154,9 +151,7 @@ const SignUp = () => {
                 errors={errors}
                 required
               />
-            </div>
-
-            
+            </div> 
 
             <div className="pb-4">
               <Input

@@ -1,5 +1,6 @@
 "use client";
 
+import { LbMsrInput } from "@/components/Inputs/LbMsrInput";
 import MainButton from "@/components/buttons/MainButton";
 import { Goal } from "@/data/datatypes/goal";
 import { nutritionGoals } from "@/data/nutrition_goals";
@@ -51,7 +52,6 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
             });
             return false
         }
-
 
         if(goal.constraint === "increase" && next <= previous){
             Swal.fire({
@@ -126,47 +126,27 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
                         }} 
                         className="flex w-full max-w-[1000px] flex-col gap-y-8"
                     >
-                        <div>
-                            <p className="text-xl font-bold mb-4">¿En qué {goal.variable} te encuentras?</p>
-                            <div className="w-full flex items-center">
-                                <input
-                                    type="number"
-                                    min={goal.min}
-                                    max={goal.max}
-                                    value={previous} 
-                                    required
-                                    onChange={(e) => {
-                                        setPrevious(parseInt(e.target.value))
-                                    }}
-                                    className='w-4/5 max-w-56 md:max-w-80 px-3 py-3 md:py-4 rounded-2xl text-white border-none outline-none bg-custom-lightpurple placeholder-slate-300' 
-                                    placeholder={goal.variable}
-                                />
-                                <p className='ml-2 font-semibold text-white'>{goal.measure}</p>
-                            </div>
-                        </div>
 
-                        <div>
-                            <p className="text-xl font-bold mb-4">¿A qué {goal.variable} quieres llegar?</p>
-                            <div className="w-full flex items-center">
-                                <input
-                                    type="number"
-                                    min={goal.min}
-                                    max={goal.max}
-                                    value={next} 
-                                    required
-                                    onChange={(e) => {
-                                        setNext(parseInt(e.target.value))
-                                    }}
-                                    className='w-4/5 max-w-56 md:max-w-80 px-3 py-3 md:py-4 rounded-2xl text-white border-none outline-none bg-custom-lightpurple placeholder-slate-300' 
-                                    placeholder={goal.variable}
-                                />
-                                <p className='ml-2 font-semibold text-white'>{goal.measure}</p>
-                            </div>
-                        </div>
+                        <LbMsrInput
+                            variable={goal.variable ?? ""}
+                            min={goal.min ?? 0}
+                            max={goal.max ?? 0}
+                            measure={goal.measure ?? ""}
+                            value={previous}
+                            setValue={setPrevious}
+                        />
+
+                        <LbMsrInput
+                            variable={goal.variable ?? ""}
+                            min={goal.min ?? 0}
+                            max={goal.max ?? 0}
+                            measure={goal.measure ?? ""}
+                            value={next}
+                            setValue={setNext}
+                        />
                     
                         <MainButton 
-                            onClick={() => {
-                            }} 
+                            onClick={() => {}} 
                             text="Guardar meta"/>
                     </form>
                 </>

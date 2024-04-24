@@ -1,4 +1,6 @@
-export interface Goal {
+import { IdentifiableAndNameable } from "./general";
+
+export interface Goal extends IdentifiableAndNameable {
     id: number,
     title: string,
     variable?: string,
