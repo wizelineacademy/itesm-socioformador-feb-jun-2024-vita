@@ -1,5 +1,22 @@
 import { NumericGoal, Goal, CategoricGoal } from "./datatypes/goal";
 
+export const exerciseAreas = [
+    "Hombros",
+    "Trapecio",
+    "Bíceps",
+    "Pecho",
+    "Abdominales",
+    "Antebrazo",
+    "Cuádriceps",
+    "Tríceps",
+    "Glúteos",
+    "Espalda",
+    "Isquiotibiales",
+    "Gemelos",
+    "Muslos",
+    "Cuello"
+]
+
 const actividadFisica: NumericGoal = {
     id: 1,
     title: "Realizar más actividad física",
@@ -40,22 +57,7 @@ const enternarArea: CategoricGoal = {
     title: "Entrenar más un área del cuerpo",
     variable: "área",
     category: "exercise",
-    options: [
-        "Hombros",
-        "Trapecio",
-        "Bíceps",
-        "Pecho",
-        "Abdominales",
-        "Antebrazo",
-        "Cuádriceps",
-        "Tríceps",
-        "Glúteos",
-        "Espalda",
-        "Isquiotibiales",
-        "Gemelos",
-        "Muslos",
-        "Cuello"
-    ]
+    options: exerciseAreas
 }
 
 export const exerciseGoals: Goal[] = [

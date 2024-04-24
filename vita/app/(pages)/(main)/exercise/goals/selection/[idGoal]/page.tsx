@@ -1,8 +1,9 @@
 "use client";
 
 import { LbMsrInput } from "@/components/Inputs/LbMsrInput";
+import { LbSelect } from "@/components/Inputs/LbSelect";
 import MainButton from "@/components/buttons/MainButton";
-import { NumericGoal } from "@/data/datatypes/goal";
+import { CategoricGoal, Goal, NumericGoal, isCategoricalGoal, isNumericGoal } from "@/data/datatypes/goal";
 import { exerciseGoals } from "@/data/exercise_goals";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -11,14 +12,14 @@ import Swal from "sweetalert2";
 
 const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
 
-    const [goal, setGoal] = useState<NumericGoal>();
+    const [goal, setGoal] = useState<Goal>();
     const [extra, setExtra] = useState<boolean>(true);
-    const [previous, setPrevious] = useState<number>(0);
-    const [next, setNext] = useState<number>(0);
+    const [previous, setPrevious] = useState<number|string>(0);
+    const [next, setNext] = useState<number|string>(0);
 
     const router = useRouter();
 
-    const fetchHealthData = async (goal: NumericGoal) => {
+    const fetchHealthData = async (goal: Goal) => {
         const data = await axios.get("/api/healthdata");
         setPrevious(goal?.data ? data.data[goal.data] : 0);
     }
@@ -28,6 +29,7 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
         const selected = exerciseGoals.find(goal => {
             return goal.id === Number(params.idGoal)
         });
+
         setGoal(selected);
         
         if(!selected?.variable){
@@ -43,7 +45,7 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
     }, []);
 
 
-    const validateGoal = ():boolean => {
+    const validateGoalNumeric = ():boolean => {
 
         if(!goal || !next || !previous){
             Swal.fire({
@@ -55,7 +57,7 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
             return false
         }
 
-        if(goal.constraint === "increase" && next <= previous){
+        if((goal as NumericGoal).constraint === "increase" && next <= previous){
             Swal.fire({
                 title: 'Error',
                 text: 'El valor deseado debe ser mayor que el valor actual',
@@ -63,7 +65,7 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
                 confirmButtonText: 'OK'
             });
             return false
-        } else if(goal.constraint === "decrease" && next >= previous) {
+        } else if((goal as NumericGoal).constraint === "decrease" && next >= previous) {
             Swal.fire({
                 title: 'Error',
                 text: 'El valor deseado debe ser menor que el valor actual',
@@ -77,11 +79,12 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
 
     }
 
-    const createGoal = async (goal: NumericGoal) => {
+    const createGoal = async (goal: Goal) => {
         try {
 
-            if(goal.variable){
-                const valid = validateGoal();
+            
+            if(goal.variable && isNumericGoal(goal)){
+                const valid = validateGoalNumeric();
                 if(!valid){
                     return;
                 }
@@ -90,9 +93,9 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
             await axios.post("/api/goals", {
                 name: goal?.title,
                 category: goal?.category,
-                variable: goal?.variable,
-                currentValue: previous,
-                desiredValue: next
+                variable: isNumericGoal(goal) ? goal?.variable : next,
+                currentValue: isNumericGoal(goal) ? previous : null,
+                desiredValue: isNumericGoal(goal) ? next : null
             });
             Swal.fire({
                 title: 'Meta agregada',
@@ -129,36 +132,42 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
                         className="flex w-full max-w-[1000px] flex-col gap-y-8"
                     >
 
-                        {("measure" in goal) &&
+                        {isNumericGoal(goal) &&
                             <>
                                 <LbMsrInput
-                                color={"bg-input-green"}
-                                label={goal.id === 1 ? "¿Cuántas veces a la semana haces ejercicio?" : `¿En qué ${goal.variable} te encuentras?`}
-                                variable={goal.variable ?? ""}
-                                min={goal.min ?? 0}
-                                max={goal.max ?? 0}
-                                measure={goal.measure ?? ""}
-                                value={previous}
-                                setValue={setPrevious}
+                                    color={"bg-input-green"}
+                                    label={goal.id === 1 ? "¿Cuántas veces a la semana haces ejercicio?" : `¿En qué ${goal.variable} te encuentras?`}
+                                    variable={goal.variable ?? ""}
+                                    min={(goal as NumericGoal).min ?? 0}
+                                    max={(goal as NumericGoal).max ?? 0}
+                                    measure={(goal as NumericGoal).measure ?? ""}
+                                    value={previous as number}
+                                    setValue={setPrevious as  React.Dispatch<React.SetStateAction<number>>}
                                 />
 
                                 <LbMsrInput
                                     color={"bg-input-green"}
                                     label={goal.id === 1 ? "¿Cuántas veces a la semana deseas hacer ejercicio?" : `¿Qué ${goal.variable} te gustaría alcanzar?`}
                                     variable={goal.variable ?? ""}
-                                    min={goal.min ?? 0}
-                                    max={goal.max ?? 0}
-                                    measure={goal.measure ?? ""}
-                                    value={next}
-                                    setValue={setNext}
+                                    min={(goal as NumericGoal).min ?? 0}
+                                    max={(goal as NumericGoal).max ?? 0}
+                                    measure={(goal as NumericGoal).measure ?? ""}
+                                    value={next as number}
+                                    setValue={setNext as  React.Dispatch<React.SetStateAction<number>>}
                                 />
                             </> 
                         }
 
-                        {"categories" in goal}
+                        {isCategoricalGoal(goal) && 
+                            <LbSelect
+                                color={"bg-input-green"}
+                                label={"Selecciona una opción"}
+                                options={(goal as CategoricGoal).options}
+                                value={next as string}
+                                setValue={setNext as React.Dispatch<React.SetStateAction<string>>}
+                            />
+                        }
 
-                        
-                    
                         <MainButton 
                             onClick={() => {}} 
                             text="Guardar meta"/>

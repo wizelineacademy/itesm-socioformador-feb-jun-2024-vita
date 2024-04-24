@@ -26,10 +26,6 @@ export async function GET(
               eq(Goals.category, params.category)
           )
       );
-
-      console.log(session.user?.id)
-      console.log(params.category)
-      console.log(res)
   
       if(!res.length){
           return NextResponse.json(res, { status: 400 });
