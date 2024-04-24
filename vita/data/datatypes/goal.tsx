@@ -1,13 +1,20 @@
-import { IdentifiableAndNameable } from "./general";
+import { IdNameable } from "./general";
 
-export interface Goal extends IdentifiableAndNameable {
+export interface Goal extends IdNameable {
     id: number,
     title: string,
-    variable?: string,
-    measure?: string,
     category: string,
+    variable?: string,
+    data?: string
+}
+
+export interface NumericGoal extends Goal {
+    measure?: string,
     min?: number,
     max?: number,
     constraint?: "increase" | "decrease",
-    data?: string
+}
+
+export interface CategoricGoal extends Goal {
+    options: string[]
 }
