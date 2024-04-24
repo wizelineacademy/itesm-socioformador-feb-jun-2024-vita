@@ -45,7 +45,7 @@ const Home = () => {
 
         {/* Existing blue containers */}
         <div style={{ backgroundColor: '#2E7390', height: '225px', width: '225px', marginLeft: '10px', marginTop: '35px', borderRadius: '33px' }}>
-          <h2 style={{ color: 'white', fontWeight: 'bold', fontSize: '26px', marginLeft: '23px', marginTop: '20px' }}>Recomendación del Día <FontAwesomeIcon icon={faLightbulb} color="#144154" style={{ marginLeft: '65px', marginBottom: '4px' }} /></h2>
+          <h2 style={{ color: 'white', fontWeight: 'bold', fontSize: '26px', marginLeft: '23px', marginTop: '20px' }}>Recomendación del Día <FontAwesomeIcon icon={faLightbulb} color="#144154" style={{ marginLeft: '70px', marginBottom: '4px' }} /></h2>
           <div style={{ backgroundColor: '#BFEBFF', height: '120px', width: '185px', marginLeft: '20px', marginTop: '17px', borderRadius: '17px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 15px' }}>
             {/* Display the random suggestion with bigger and bolder text */}
             <p style={{ color: '#1D154A', fontSize: '20px', fontWeight: 'bold' }}>{randomSuggestion}</p>
