@@ -48,7 +48,12 @@ export async function POST(request: Request) {
             variable: variable,
             currentValue: currentValue,
             desiredValue: desiredValue
-        }).where(eq(Goals.idUser, session.user?.id));
+        }).where(
+          and(
+            eq(Goals.idUser, session.user?.id),
+            eq(Goals.category, category)
+          )
+        );
     } else {
         res = await db.insert(Goals).values({
             idUser: session.user?.id,

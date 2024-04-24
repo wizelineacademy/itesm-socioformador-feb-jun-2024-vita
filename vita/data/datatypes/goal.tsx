@@ -18,3 +18,11 @@ export interface NumericGoal extends Goal {
 export interface CategoricGoal extends Goal {
     options: string[]
 }
+
+export const isNumericGoal = (goal: Goal) => {
+    return "min" in goal;
+}
+
+export const isCategoricalGoal = (goal: Goal) => {
+    return "options" in goal;
+}
