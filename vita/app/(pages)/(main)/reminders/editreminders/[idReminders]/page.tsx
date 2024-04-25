@@ -4,41 +4,11 @@ import { FaBell } from 'react-icons/fa';
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import Swal from 'sweetalert2';
+import { calculateDays, calculateHours, calculateHoursTime, formatDays, formatDays2 } from "@/lib/DaysFormat/days";
+import { EditReminderData, ReminderData } from "@/data/datatypes/reminder";
 
 const EditReminders = ({ params }: { params: { idReminders: string } }) => {
   const router = useRouter();
-
-  interface ReminderData {
-    idReminders: number;
-    idUser: number;
-    name: string;
-    frequency: number;
-    startTime: string;
-    endTime: string | null; 
-    description: string;
-    frequencyDays: number; 
-    frequencyHours: number; 
-    startDays: string;
-    startHours: string;
-    endDays: string | null; 
-    endHours: string | null; 
-  }
-
-  interface EditReminderData {
-    idReminders: number;
-    idUser: number;
-    name: string;
-    frequency: number;
-    startTime: string;
-    endTime: string | null; 
-    description: string;
-    frequencyDays: number; 
-    frequencyHours: number; 
-    startDays: string; 
-    startHours: string;
-    endDays: string | null; 
-    endHours: string | null; 
-  }
 
   const idReminders = params.idReminders;
   const [editMode, setEditMode] = useState(false);
@@ -74,8 +44,6 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
           });
 
         } 
-        
-
 
       } catch (error) {
         console.log(error);
@@ -93,15 +61,6 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(event.target.value);
   };
-
-  const formatDays = (dateString: string): string => {
-    const date = new Date(dateString);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-   
-    return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
-};
 
   const getData = async () => {
     try {
@@ -143,32 +102,9 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
   };
 
   useEffect(() => {
-    
-
     getData();
-   
   }, []);
 
-  // Función para calcular días
-  const calculateDays = (frequencyInSeconds: number): number => {
-    return Math.floor(frequencyInSeconds / (24 * 3600));
-  };
-
-  // Función para calcular horas
-  const calculateHours = (frequencyInSeconds: number): number => {
-    return Math.floor((frequencyInSeconds % (24 * 3600)) / 3600);
-  };
-
-
-  // Función para calcular horas
-
-  const calculateHoursTime = (dateTimeString: string | null): string | null => {
-    if (!dateTimeString) return null;
-    const date = new Date(dateTimeString);
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    return `${hours}:${minutes}`;
-  };
   // Función para cancelar la edición y volver a los datos originales
   const handleCancelEdit = () => {
     setEditMode(false);
@@ -185,14 +121,6 @@ const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelec
   }
 };
 
-const formatDate2 = (dateString: string): string => {
-  const date = new Date(dateString);
-  const year = date.getUTCFullYear();
-  let month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
-  let day = date.getUTCDate().toString().padStart(2, '0');
-
-  return `${year}-${month}-${day}`;
-};
 
 const handleTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
   const { name, value } = event.target;
@@ -420,7 +348,7 @@ const handleSaveChanges = async () => {
                       type="date" 
                       name="startDays" 
                       className="text-2xl text-white py-2 px-6 rounded-full bg-reminders-input w-50" 
-                      value={formatDate2(editedData?.startDays|| "")}
+                      value={formatDays2(editedData?.startDays|| "")}
                       onChange={handleInputChange}
                       required 
                     /> 
@@ -459,7 +387,7 @@ const handleSaveChanges = async () => {
                           type="date" 
                           name="endDays" 
                           className="text-2xl text-white py-2 px-6 rounded-full bg-reminders-input w-50" 
-                          value={formatDate2(editedData?.endDays || "")}
+                          value={formatDays2(editedData?.endDays || "")}
                           onChange={handleInputChange}
                           required 
                         /> 

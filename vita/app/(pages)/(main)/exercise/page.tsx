@@ -54,7 +54,7 @@ const Exercise = () => {
                     <Link href="/exercise/routines" >
                         <div className="bg-mid-green flex  flex-row md:flex-col px-8 py-6 md:py-8 items-center 
                         justify-center md:w-80 lg:w-[340px] sm:w-[330px]  w-[240px]  mt-4  rounded-3xl
-                        transition-colors duration-300 ease-in-out hover:bg-dark-green">
+                        transition-colors duration-300 ease-in-out hover:bg-dark-green cursor-pointer">
                             <p className="text-white font-bold lg:text-3xl text-2xl mb-4 md:px-6  w-[240] pl-0">
                                 Crea tu rutina 
                                 <span className="hidden md:flex"> personalizada </span>
@@ -64,7 +64,7 @@ const Exercise = () => {
                     </Link>
                     <div className="flex justify-center items-center px-8   py-6 md:py-12
                     bg-mid-green  rounded-3xl lg:w-[340px] sm:w-[330px]  w-[240px] mt-4 
-                    transition-colors duration-300 ease-in-out hover:bg-dark-green">
+                    transition-colors duration-300 ease-in-out hover:bg-dark-green cursor-pointer">
                         <h3 className='pt-1 md:pl-4 text-white font-bold lg:text-3xl text-2xl w-[240px] '>
                             Autoevaluación
                         </h3>
@@ -75,7 +75,7 @@ const Exercise = () => {
 
                     <Link href={"/exercise/goals"} className="flex justify-center items-center px-8   py-6 md:py-6
                     bg-mid-green  rounded-3xl lg:w-[340px] sm:w-[330px]  w-[240px] mt-4 lg:mt-8 
-                transition-colors duration-300 ease-in-out hover:bg-dark-green z-10">
+                transition-colors duration-300 ease-in-out hover:bg-dark-green z-10 cursor-pointer">
                         <h3 className='pt-1  text-white font-bold lg:text-3xl text-2xl w-[240px] '>
                             Mi meta de ejercicio
                         </h3>
@@ -85,7 +85,7 @@ const Exercise = () => {
 
                     <div className="flex flex-col justify-center items-center px-8 py-6 md:py-6
                     bg-mid-green rounded-3xl lg:w-[340px] sm:w-[330px]  w-[240px] mt-4 
-                    transition-colors duration-300 ease-in-out gap-y-3 z-10">
+                    transition-colors duration-300 ease-in-out gap-y-3 z-10 cursor-pointer">
                         <h3 className='pt-1 lg:pl-2 pl-8 text-white font-bold lg:text-3xl text-2xl w-[240px] '>
                             Recomendación del día 
                         </h3>
