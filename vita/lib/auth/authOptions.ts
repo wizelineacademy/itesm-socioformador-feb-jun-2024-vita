@@ -3,8 +3,8 @@ import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
-import { db } from "@/app/db/drizzle";
-import { user } from "@/app/db/schema/schema";
+import { db } from "@/db/drizzle";
+import { user } from "@/db/schema/schema";
 import { eq } from "drizzle-orm";
 import config from "@/lib/environment/config";
 

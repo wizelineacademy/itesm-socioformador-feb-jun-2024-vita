@@ -5,7 +5,7 @@ import {RDSDataClient} from "@aws-sdk/client-rds-data";
 import { Resource } from "sst";
 import { migrate as LocalMigrate } from "drizzle-orm/postgres-js/migrator";
 import { migrate as AWSMigrate } from "drizzle-orm/aws-data-api/pg/migrator"
-import config from "@/lib/environment/config";
+import config from "../lib/environment/config"
 
 let db;
 
@@ -16,15 +16,16 @@ export async function migrate() {
     if(config.nodeEnv === "production"){
       const sql = new RDSDataClient({})
       db = AWSDrizzle(sql, {
-        database: config.databaseName,
-        secretArn: config.secretARN,
-        resourceArn: config.serviceARN,
+        database: Resource.MyDatabase.database,
+        secretArn: Resource.MyDatabase.secretArn,
+        resourceArn: Resource.MyDatabase.clusterArn,
       })
-      await AWSMigrate(db, {migrationsFolder: "app/db/migrations"}) 
+      await AWSMigrate(db, {migrationsFolder: "db/migrations/"}) 
     } else {
       const client = postgres(config.databaseUrl, { max: 1 })
       db = LocalDrizzle(client);
-      await LocalMigrate(db, { migrationsFolder: "app/db/migrations" });
+      console.log(__dirname + "/migrations/")
+      await LocalMigrate(db, { migrationsFolder: __dirname + "/migrations/" });
       await client.end();
     }
 

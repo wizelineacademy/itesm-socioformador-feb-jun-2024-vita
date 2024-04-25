@@ -1,9 +1,8 @@
-import { migrate } from "@/app/db/migrations/migrate";
+import { migrate } from "@/db/migrate";
 import { NextResponse } from "next/server";
 
 
 export async function POST(request: Request) {
-
 
     try {
         await migrate();

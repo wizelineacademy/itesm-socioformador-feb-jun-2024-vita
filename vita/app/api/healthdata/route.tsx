@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/authOptions";
 import { eq } from "drizzle-orm";
-import { userDetail } from "@/app/db/schema/schema";
-import { db } from "@/app/db/drizzle";
+import { userDetail } from "@/db/schema/schema";
+import { db } from "@/db/drizzle";
 
 export async function GET(request: Request) {
   try {
@@ -32,6 +32,8 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const session = await getServerSession(authOptions);
+
+    console.log(session)
 
     if(!session){
         return NextResponse.json("Unauthorized", {status: 401});
