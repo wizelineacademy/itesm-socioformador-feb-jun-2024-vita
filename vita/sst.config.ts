@@ -19,8 +19,16 @@ export default $config({
     const nextAuthUrl = new sst.Secret("NextAuthUrl");
     const nextAuthSecret = new sst.Secret("NextAuthSecret");
 
+    const database = new sst.aws.Postgres("MyDatabase", {
+      scaling: {
+        min: "0.5 ACU",
+        max: "1 ACU"
+      }
+    })
+
     new sst.aws.Nextjs("MyWeb", {
       link: [
+        database,
         openApiKey,
         facebookId,
         facebookSecret,

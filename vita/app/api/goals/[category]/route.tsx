@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/authOptions";
 import { and, eq } from "drizzle-orm";
-import { db } from "@/app/db/drizzle";
-import { Goals} from "@/app/db/schema/schema";
+import { db } from "@/db/drizzle";
+import { Goals} from "@/db/schema/schema";
 
 export async function GET(
   request: Request, 

@@ -5,11 +5,11 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "sst-dev": "NO_BUN=true sst dev next dev",
-    "lint": "next lint",
     "drizzle-kit": "drizzle-kit",
+    "drizzle:apply-migration": "tsx db/migrate.ts",
     "drizzle:generate-migration": "drizzle-kit generate:pg",
-    "drizzle:apply-migration": "tsx app/db/migrations/migrate.ts",
+    "lint": "next lint",
+    "sst-dev": "NO_BUN=true sst dev next dev",
     "start": "next start"
   },
   "dependencies": {
