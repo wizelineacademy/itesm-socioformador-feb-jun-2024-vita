@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/authOptions";
-import { db } from "@/app/db/drizzle";
-import { portionsNutrition } from "@/app/db/schema/schema";
+import { db } from "@/db/drizzle";
+import { portionsNutrition } from "@/db/schema/schema";
 import { eq } from "drizzle-orm";
 
 

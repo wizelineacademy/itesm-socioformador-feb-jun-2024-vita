@@ -3,7 +3,7 @@ import { drizzle as LocalDrizzle, type PostgresJsDatabase } from "drizzle-orm/po
 import {drizzle as AWSDrizzle, type AwsDataApiPgDatabase} from "drizzle-orm/aws-data-api/pg"
 import {RDSDataClient} from "@aws-sdk/client-rds-data";
 import { Resource } from "sst";
-import config from "@/lib/environment/config";
+import config from "../lib/environment/config";
 
 
 let db: PostgresJsDatabase<Record<string, never>>
@@ -12,9 +12,9 @@ let db: PostgresJsDatabase<Record<string, never>>
 if(config.nodeEnv === "production"){
     const sql = new RDSDataClient({})
     db = AWSDrizzle(sql, {
-        database: config.databaseName,
-        secretArn: config.secretARN,
-        resourceArn: config.serviceARN,
+        database: Resource.MyDatabase.database,
+          secretArn: Resource.MyDatabase.secretArn,
+          resourceArn: Resource.MyDatabase.clusterArn,
     })
 } else {
     const client = postgres(config.databaseUrl, { max: 1 })

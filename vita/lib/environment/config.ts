@@ -14,9 +14,6 @@ const config = process.env.NODE_ENV === "production" ? {
     nextAuthUrl: process.env.NEXTAUTH_URL!,
     nextAuthSecret: process.env.NEXTAUTH_SECRET!,
     nextPublicSecret: process.env.NEXT_PUBLIC_SECRET!,
-    databaseName: process.env.DATABASE_NAME!,
-    serviceARN: process.env.SERVICE_ARN!,
-    secretARN: process.env.SECRET_ARN!
 } : {
     nodeEnv: process.env.NODE_ENV!,
     databaseUrl: process.env.DATABASE_URL!,

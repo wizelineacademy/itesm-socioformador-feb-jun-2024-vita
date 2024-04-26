@@ -2,9 +2,11 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/authOptions";
 import { eq } from "drizzle-orm";
+
 import { userDetail } from "@/app/db/schema/schema";
 import { db } from "@/app/db/drizzle";
 import { user} from "@/app/db/schema/schema"; 
+
 
 export async function GET(request: Request) {
   try {
@@ -34,6 +36,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const session = await getServerSession(authOptions);
 
+
     if (!session) {
       return NextResponse.json("Unauthorized", { status: 401 });
     }
@@ -47,6 +50,7 @@ export async function POST(request: Request) {
           phoneNumber: phoneNumber
         })
         .where(eq(user.idUser, session.user?.id));
+
     }
 
     // Now, proceed with updating or creating userDetail
