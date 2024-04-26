@@ -15,7 +15,6 @@ import { useRouter } from "next/navigation";
 import { HealthSchema } from '@/app/validations/HealthSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-
 /**
  * @description Pantalla de registro 
  * @author Bernardo de la Sierra
@@ -39,6 +38,7 @@ const HealthData = () => {
       bodyFat: '',
       muscularMass: '',
       birthDate: '',
+      phoneNumber: '',
     },
   });
 
@@ -200,6 +200,22 @@ const HealthData = () => {
 
          {errors.muscularMass && typeof errors.muscularMass.message === 'string' && (
               <span className="text-custom-red mb-5 block">{errors.muscularMass.message}</span>
+        )}
+
+        <div className="pb-4">
+            <Input
+              id="phoneNumber"
+              label="Teléfono"
+              disabled={isLoading}
+              register={register}
+              errors={errors}
+              required
+              big
+            />
+          </div>
+
+          {errors.phoneNumber && typeof errors.phoneNumber.message === 'string' && (
+              <span className="text-custom-red mb-5 block">{errors.phoneNumber.message}</span>
         )}
         
           <div className='items-center justify-center m-auto flex flex-col'>

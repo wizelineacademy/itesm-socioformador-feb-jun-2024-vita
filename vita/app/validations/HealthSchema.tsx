@@ -25,6 +25,10 @@ export const HealthSchema = z.object({
     .min(1, {
       message: "Debes ingresar el sexo"
     }),
+    phoneNumber: z.string()
+    .min(10, {
+      message: "El teléfono debe tener 10 digitos "
+    }),
   birthDate: z
     .string()
     .min(1, {
