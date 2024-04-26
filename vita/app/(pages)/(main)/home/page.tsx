@@ -86,7 +86,7 @@ const Home = () => {
   };
 
   return (
-    <div className="mb-4">
+    <div>
       <div className="flex text-white sm:px-5 sm:py-4  text-5xl  font-bold 
         lg:justify-start md:justify-start sm:justify-center justify-start mt-4">
         <h1 className=" pl-2 sm:pl-0 mr-2 text-home-title w-[800px]">
@@ -122,13 +122,14 @@ const Home = () => {
             <FaComments size={24}color='white' className="ml-4 mb-2"  />
             <span className="text-white font-bold text-2xl">Pregúntame</span>
           </div>
-
-          <div id="Perfil" className="bg-color-home5 h-16 w-56  mt-4 rounded-full flex items-center justify-between px-4
-          transition-colors duration-300 ease-in-out hover:bg-color-home6 hover:cursor-pointer">
-            <span className="text-white font-bold text-2xl ml-3">Perfil</span>
-            <FaCircle  size={32} color='white' className="ml-4 mb-2"  />
-          </div>
-  
+          <Link href="/home/medicalprofile"> 
+            <div id="Perfil" className="bg-color-home5 h-16 w-56  mt-4 rounded-full flex items-center
+             justify-between px-4transition-colors duration-300 ease-in-out hover:bg-color-home6
+              hover:cursor-pointer">
+              <span className="text-white font-bold text-2xl ml-4">Perfil</span>
+              <FaCircle  size={32} color='white' className="mr-4 mb-2"  />
+            </div>
+          </Link> 
         </div>
 
         <div id="Centro" className="flex flex-col" >

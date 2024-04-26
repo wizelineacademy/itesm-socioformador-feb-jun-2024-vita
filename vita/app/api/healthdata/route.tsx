@@ -3,9 +3,9 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/authOptions";
 import { eq } from "drizzle-orm";
 
-import { userDetail } from "@/app/db/schema/schema";
-import { db } from "@/app/db/drizzle";
-import { user} from "@/app/db/schema/schema"; 
+import { userDetail } from "@/db/schema/schema";
+import { db } from "@/db/drizzle";
+import { user} from "@/db/schema/schema"; 
 
 
 export async function GET(request: Request) {
