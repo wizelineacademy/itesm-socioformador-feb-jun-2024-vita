@@ -7,6 +7,11 @@ import {OpenAI} from "openai";
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import config from "@/lib/environment/config";
 import { desc } from "drizzle-orm";
+import { Resource } from "sst";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import axios from "axios";
+
 
 const openai = new OpenAI({
     apiKey: config.openApiKey
@@ -29,6 +34,15 @@ const instructionMessage: ChatCompletionMessageParam = {
         "imagePrompt": "Una persona durmiendo plácidamente en una habitación acogedora y oscura, rodeada de almohadas suaves y una manta cálida."
     }
    `
+}
+
+const createS3Url  = async () => {
+  const command = new PutObjectCommand({
+    Key: crypto.randomUUID(),
+    Bucket: Resource.MyBucket.name
+  });
+  const url = await getSignedUrl(new S3Client({}), command);
+  return url;
 }
 
 
@@ -68,16 +82,42 @@ export async function POST(request: Request) {
         size: "1024x1024"
     });
 
-    const image_url = image_res.data[0].url;
+    const imgUrl = image_res.data[0].url;
+
+    if(!imgUrl){
+      return NextResponse.json("Error posting reminder", { status: 400 });
+    }
+
+    //obtener imagen
+    const img = await axios.get(imgUrl, {
+      responseType: "arraybuffer",
+      responseEncoding: "binary"
+    })
+
+    //objeto del insert
+    let postDb = {
+      name: post.name,
+      description: post.description,
+      imageUrl: ""
+    }
+
+    //Subir la imagen a S3
+    //if(config.nodeEnv === "production"){
+      const image = await fetch(await createS3Url(), {
+        body: img.data,
+        method: "PUT",
+        headers: {
+          "Content-Type": img.headers["Content-Type"]?.toString() ?? "json",
+          "Content-Length": img.data.length ?? img.headers["Content-Length"],
+        },
+      });
+      postDb.imageUrl = image.url.split("?")[0];
+    //} else {
+    //  postDb.imageUrl = image_res.data[0].url ?? "";
+    //}
 
     //Insertar en base de datos el post
-    const res = await db.insert(Articles).values(
-        {
-            name: post.name,
-            description: post.description,
-            imageUrl: image_url
-        }
-    ); 
+    const res = await db.insert(Articles).values(postDb); 
 
     return NextResponse.json(res, { status: 200 });
   } catch (error) {

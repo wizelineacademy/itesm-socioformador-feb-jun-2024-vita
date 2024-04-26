@@ -26,8 +26,13 @@ export default $config({
       }
     })
 
+    const bucket = new sst.aws.Bucket("MyBucket", {
+      public: true
+    });
+
     new sst.aws.Nextjs("MyWeb", {
       link: [
+        bucket,
         database,
         openApiKey,
         facebookId,
