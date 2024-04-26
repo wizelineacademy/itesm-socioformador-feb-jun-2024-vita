@@ -9,7 +9,7 @@ export const config = {
         "/nutrition/:path*",
         "/exercise",
         "/exercise/:path*",
-        "/conversation*",
+        "/conversation",
         "/reminders",
         "/reminders/:path*"
     ] 

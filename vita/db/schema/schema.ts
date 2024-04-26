@@ -66,3 +66,10 @@ export const Goals = pgTable("Goals", {
 	currentValue: doublePrecision("current_value"),
 	desiredValue: doublePrecision("desired_value")
 });
+
+export const Articles = pgTable("Article", {
+	idArticle: serial("id_article").primaryKey().notNull(),
+	name: varchar("name", {length: 50}).notNull(),
+	description: text("description"),
+	imageUrl: text("image_url")
+});
