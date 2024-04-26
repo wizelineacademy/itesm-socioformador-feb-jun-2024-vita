@@ -30,10 +30,16 @@ export default $config({
       public: true
     });
 
+    const cron = new sst.aws.Cron("MyCronJob", {
+      job: "cron_functions/blog.handler",
+      schedule: "cron(0 6 * * ? *)"
+    })
+
     new sst.aws.Nextjs("MyWeb", {
       link: [
         bucket,
         database,
+        cron,
         openApiKey,
         facebookId,
         facebookSecret,

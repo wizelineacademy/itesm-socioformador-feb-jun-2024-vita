@@ -50,8 +50,8 @@ const GeneralData = () => {
                 dataLength={posts.length}
                 next={fetchPosts}
                 hasMore={!finished}
-                loader={<p className="text-lg font-bold text-center mb-5">Cargando...</p>}
-                endMessage={<p className="text-lg font-bold text-center mb-5">Estas son todas las publicaciones por el momento. Vuelve más tarde...</p>}
+                loader={<p className="w-full text-lg font-bold text-center mb-5">Cargando...</p>}
+                endMessage={<p className="w-full text-lg font-bold text-center mb-5">Estas son todas las publicaciones por el momento. Vuelve más tarde...</p>}
             >
                 {posts && 
                     posts?.map((post) => (
@@ -64,7 +64,7 @@ const GeneralData = () => {
                 ))}
             </InfiniteScroll>
             </div>
-            {error && <p className="text-lg font-bold text-center mb-5">Error: {error.message}</p>}
+            {error && <p className="w-full text-lg font-bold text-center mb-5">Error: {error.message}</p>}
         </div>
         
         
