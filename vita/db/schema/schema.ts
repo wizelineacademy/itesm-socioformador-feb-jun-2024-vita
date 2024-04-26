@@ -69,7 +69,7 @@ export const Goals = pgTable("Goals", {
 
 export const Articles = pgTable("Article", {
 	idArticle: serial("id_article").primaryKey().notNull(),
-	name: varchar("name", {length: 30}).notNull(),
+	name: varchar("name", {length: 50}).notNull(),
 	description: text("description"),
 	imageUrl: text("image_url")
 });
