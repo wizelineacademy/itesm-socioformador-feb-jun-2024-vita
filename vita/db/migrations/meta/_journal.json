@@ -71,6 +71,13 @@
       "when": 1713905734449,
       "tag": "0009_goal_name_length",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1714090204158,
+      "tag": "0010_articles",
+      "breakpoints": true
     }
   ]
 }
