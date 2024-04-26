@@ -6,6 +6,7 @@ import { Articles } from "@/db/schema/schema";
 import {OpenAI} from "openai";
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import config from "@/lib/environment/config";
+import { desc } from "drizzle-orm";
 
 const openai = new OpenAI({
     apiKey: config.openApiKey
@@ -87,6 +88,10 @@ export async function POST(request: Request) {
 
 export async function GET(request: Request) {
   try {
+    const { searchParams } = new URL(request.url)
+    const limit = Number(searchParams.get('limit')) ?? 6;
+    const offset = Number(searchParams.get("offset")) ?? 0;
+
     const session = await getServerSession(authOptions);
 
     if (!session) {
@@ -95,6 +100,10 @@ export async function GET(request: Request) {
 
     const res = await db.select()
       .from(Articles)
+      .orderBy(desc(Articles.idArticle))
+      .limit(limit)
+      .offset(offset * 6);
+
 
     return NextResponse.json(res, { status: 200 });
   } catch (error) {
