@@ -1,0 +1,1 @@
+ALTER TABLE "MedicalProfile" ALTER COLUMN "policy" SET DATA TYPE varchar(40);

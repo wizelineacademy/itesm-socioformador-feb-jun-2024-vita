@@ -2,12 +2,12 @@
 import Swal from 'sweetalert2';
 import React, { useState, useEffect} from "react";
 import axios from  "axios"
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { UserData } from '@/data/datatypes/user';
 import ToggleComponent from '@/components/information/toggle';
+import { ProfileData } from '@/data/datatypes/profile';
 
 const Profile = () => {
-    const [visible, setVisible] = useState(false);
+    
     const [userData, setUserData] = useState<UserData | null>(null);
 
     const getData = async () => {
@@ -27,8 +27,29 @@ const Profile = () => {
         }
     }; 
 
+    const [userDataProfile, setUserDataProfile] = useState<ProfileData | null>(null);
+
+    const getDataProfile = async () => {
+        try {
+            const response = await axios.get("/api/profile/userData");
+            const fetchedData = response.data;
+            console.log(fetchedData)
+            setUserDataProfile(fetchedData);
+            console.log(fetchedData)
+            console.log(userDataProfile)
+        } catch (error) {
+            Swal.fire({
+                title: 'Error',
+                text: "Ocurrió un error al recuperar los datos",
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    }; 
+
     useEffect(() => {
         getData();
+        getDataProfile();
     }, []);
 
     
@@ -47,13 +68,21 @@ const Profile = () => {
                     <div className='flex flex-col  ml-2'> 
                         <p className="font-bold mb-2 mt-2">Nombre </p>
                         <div className="text-2xl py-2 px-6 rounded-full bg-input-home  w-[320px] ">
-                            {userData && userData.name}
+                        {userData && userData.name ? (
+                                userData.name
+                            ) : (
+                                ' Sin datos'
+                            )}
                         </div>
                     </div>
                     <div className='flex flex-col  ml-2'> 
                         <p className="font-bold mb-2 mt-2">Correo </p>
                         <div className="text-2xl py-2 px-6 rounded-full bg-input-home    w-[320px] ">
-                            {userData && userData.email}
+                        {userData && userData.email ? (
+                                userData.email 
+                            ) : (
+                                ' Sin datos'
+                            )}
                         </div>
                     </div>
                 </div>
@@ -63,13 +92,21 @@ const Profile = () => {
                         <p className="font-bold mb-2 mt-2"> Teléfono </p>
                         <div className="text-2xl py-2 px-6 rounded-full bg-input-home  w-[320px]
                      ">
-                            {userData && userData.phoneNumber}
+                            {userData && userData.phoneNumber ? (
+                                userData.phoneNumber 
+                            ) : (
+                                ' Sin datos'
+                            )}
                         </div>
                     </div>
                     <div className='flex flex-col  ml-2'> 
                         <p className="font-bold mb-2 mt-2">Tipo de Sangre </p>
                         <div className="text-2xl py-2 px-6 rounded-full bg-input-home  w-[320px] ">
-                            O+
+                        {userDataProfile && userDataProfile.bloodType ? (
+                                userDataProfile.bloodType
+                            ) : (
+                                ' Sin datos'
+                            )}
                         </div>
                     </div>
                 </div>
@@ -83,13 +120,25 @@ const Profile = () => {
                         <div className='flex  flex-col '> 
                             <p className="font-bold text-black text-lg py-2 px-6"> Nombre del contacto:</p>
                             <div className='py-2 px-6 rounded-full  lg:w-[280px] w-70 bg-white'> 
-                                <p className="font-bold text-gray-400 text-lg"> pepe penas</p>
+                                <p className="font-bold text-gray-400 text-lg"> 
+                                {userDataProfile && userDataProfile.emergencyName ? (
+                                    userDataProfile.emergencyName
+                                ) : (
+                                    ' Sin datos'
+                                )}
+                                </p>
                             </div>
                         </div> 
                         <div className='flex  flex-col '> 
                             <p className="font-bold text-black text-lg py-2 px-6"> Teléfono del contacto:</p>
                             <div className='py-2 px-6 rounded-full lg:w-[280px] w-70 bg-white'> 
-                                <p className="font-bold text-gray-400 text-lg"> 231 205 2221</p>
+                                <p className="font-bold text-gray-400 text-lg"> 
+                                {userDataProfile && userDataProfile.emergencyPhone ? (
+                                    userDataProfile.emergencyPhone
+                                ) : (
+                                    ' Sin datos'
+                                )}
+                                </p>
                             </div>
                         </div> 
                     </div>
@@ -100,13 +149,25 @@ const Profile = () => {
                         <div className='flex  flex-col '> 
                             <p className="font-bold text-black text-lg py-2 px-6"> Número del seguro:</p>
                             <div className='py-2 px-6 rounded-full lg:w-[280px] w-70 bg-white'> 
-                                <p className="font-bold text-gray-400 text-lg"> 474657483t47389</p>
+                                <p className="font-bold text-gray-400 text-lg">
+                                    {userDataProfile && userDataProfile.policyUser ? (
+                                        userDataProfile.policyUser
+                                    ) : (
+                                        ' Sin datos'
+                                    )}
+                                </p>
                             </div>
                         </div> 
                         <div className='flex  flex-col '> 
                             <p className="font-bold text-black text-lg py-2 px-6">Nombre de la aseguradora:</p>
                             <div className='py-2 px-6 rounded-full  lg:w-[280px] w-70 bg-white'> 
-                                <p className="font-bold text-gray-400 text-lg"> Chubb</p>
+                                <p className="font-bold text-gray-400 text-lg">
+                                    {userDataProfile && userDataProfile.insuranceCompany ? (
+                                        userDataProfile.insuranceCompany 
+                                    ) : (
+                                        ' Sin datos'
+                                    )}
+                                    </p>
                             </div>
                         </div> 
                     </div>
@@ -178,7 +239,7 @@ const Profile = () => {
                             </div>
                         </div> 
                         <div className='flex  flex-col '> 
-                            <p className="font-bold text-black text-lg py-2 px-6">Duración :</p>
+                            <p className="font-bold text-black text-lg py-2 px-6">Duración:</p>
                             <div className='py-2 px-6 rounded-full  lg:w-[280px] w-70 bg-white'> 
                                 <p className="font-bold text-gray-400 text-lg">Cada 2 horas</p>
                             </div>

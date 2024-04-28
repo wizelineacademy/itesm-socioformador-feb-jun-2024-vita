@@ -80,7 +80,7 @@ export const medicalProfile = pgTable("MedicalProfile", {
 	idUser: integer("id_user").notNull().unique().references(() => user.idUser, { onDelete: "restrict", onUpdate: "cascade" } ),
 	emergencyName: varchar("emergency_name", {length: 50}),
 	emergencyPhone: varchar("emergency_phone", {length: 12}),
-	policy: varchar("policy", {length: 30}),
+	policyUser: varchar("policyUser", {length: 30}),
 	insuranceCompany: varchar("insurance_company", {length: 50}),
 	bloodType: varchar("bloodType", {length: 30}),
 });
