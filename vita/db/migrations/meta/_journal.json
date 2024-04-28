@@ -85,6 +85,13 @@
       "when": 1714092230157,
       "tag": "0011_updated_article_name_len",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "5",
+      "when": 1714264398587,
+      "tag": "0012_medical",
+      "breakpoints": true
     }
   ]
 }

@@ -65,6 +65,8 @@ const config = {
         'reminder-mid-gray':'#4F676B',
         'reminder-low-gray':'#577175',
         'title-profile':'#353535',
+        'toggle-title':'#186476',
+        'toggle-content': 'rgba(89, 157, 180, 0.38)',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
       },

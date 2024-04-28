@@ -19,7 +19,7 @@ export const user = pgTable("User", {
 	name: varchar("name", { length: 100 }).notNull(),
 	email: varchar("email", { length: 50 }).notNull().unique(),
 	password: varchar("password", { length: 64 }),
-	phoneNumber: varchar("phone_number", { length: 50 }).unique(),
+	phoneNumber: varchar("phone_number", { length: 12 }).unique(),
 });
 
 export const portionsNutrition = pgTable("PortionsNutrition", {
@@ -72,4 +72,44 @@ export const Articles = pgTable("Article", {
 	name: varchar("name", {length: 50}).notNull(),
 	description: text("description"),
 	imageUrl: text("image_url")
+});
+
+
+export const medicalProfile = pgTable("MedicalProfile", {
+	idMedicalProfile: serial("id_medical_profile").primaryKey().notNull(),
+	idUser: integer("id_user").notNull().unique().references(() => user.idUser, { onDelete: "restrict", onUpdate: "cascade" } ),
+	emergencyName: varchar("emergency_name", {length: 50}),
+	emergencyPhone: varchar("emergency_phone", {length: 12}),
+	policy: varchar("policy", {length: 30}),
+	insuranceCompany: varchar("insurance_company", {length: 50}),
+	bloodType: varchar("bloodType", {length: 30}),
+});
+
+export const chronicalDesease = pgTable("ChronicalDesease", {
+	idChronicalDesease: serial("id_chronical_desease").primaryKey().notNull(),
+	idMedicalProfile: integer("id_medical_profile").notNull().unique().references(() => medicalProfile.idMedicalProfile, { onDelete: "restrict", onUpdate: "cascade" } ),
+	name: varchar("name", {length: 100}),
+});
+
+export const  medicines = pgTable("Medicines", {
+	idMedicines: serial("id_medicines").primaryKey().notNull(),
+	idMedicalProfile: integer("id_medical_profile").notNull().unique().references(() => medicalProfile.idMedicalProfile, { onDelete: "restrict", onUpdate: "cascade" } ),
+	name: varchar("name", {length: 100}),
+	routeAdmin: varchar("route_admin", {length: 100}),
+	dose: varchar("dose", {length: 100}),
+	duration: varchar("duration", {length: 100}),
+});
+
+export const  disability = pgTable("Disability", {
+	idDisability : serial("id_disability").primaryKey().notNull(),
+	idMedicalProfile: integer("id_medical_profile").notNull().unique().references(() => medicalProfile.idMedicalProfile, { onDelete: "restrict", onUpdate: "cascade" } ),
+	name: varchar("name", {length: 100}),
+	
+});
+
+export const  allergies = pgTable("Allergies", {
+	idAllergies : serial("id_allergies").primaryKey().notNull(),
+	idMedicalProfile: integer("id_medical_profile").notNull().unique().references(() => medicalProfile.idMedicalProfile, { onDelete: "restrict", onUpdate: "cascade" } ),
+	name: varchar("name", {length: 100}),
+	reaction: varchar("reaction", {length: 100}),
 });

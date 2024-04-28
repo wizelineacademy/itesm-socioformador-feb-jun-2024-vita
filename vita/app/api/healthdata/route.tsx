@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/authOptions";
 import { eq } from "drizzle-orm";
 
-import { userDetail } from "@/db/schema/schema";
+import { medicalProfile, userDetail } from "@/db/schema/schema";
 import { db } from "@/db/drizzle";
 import { user} from "@/db/schema/schema"; 
 
@@ -93,8 +93,23 @@ export async function POST(request: Request) {
           })
           .where(eq(user.idUser, session.user?.id));
       }
-    }
 
+      const medicalProfileExists = await db.select()
+      .from(medicalProfile)
+      .where(eq(medicalProfile.idUser, session.user?.id))
+      .limit(1);
+
+    if (medicalProfileExists.length === 0) {
+      await db.insert(medicalProfile).values({
+        idUser: session.user?.id,
+        emergencyName: null,
+        emergencyPhone: null,
+        policy: null,
+        insuranceCompany: null,
+        bloodType: null,
+      });
+    }
+  }
     return NextResponse.json(res, { status: 200 });
   } catch (error) {
     console.log(error);
