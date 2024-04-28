@@ -107,7 +107,7 @@ const Nutrition = () => {
           </div>
           <div className="lg:w-1/2 w-full">
             {/* Custom option 3 */}
-            <Link href="/nutrition/autoevaluacion">
+            <Link href="/nutrition/self_evaluation">
             <div className="flex justify-between px-4 lg:py-2.5  md:py-2.5 py-2
              bg-custom-purple3 lg:rounded-2xl  md:rounded-2xl rounded-full lg:w-[340px] sm:w-[330px]  w-[240px] mt-4 
              lg:mt-0 transition-colors duration-300 ease-in-out hover:bg-custom-purple4">
