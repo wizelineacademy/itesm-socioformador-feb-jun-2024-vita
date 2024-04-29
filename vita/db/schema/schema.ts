@@ -87,13 +87,13 @@ export const medicalProfile = pgTable("MedicalProfile", {
 
 export const chronicalDesease = pgTable("ChronicalDesease", {
 	idChronicalDesease: serial("id_chronical_desease").primaryKey().notNull(),
-	idMedicalProfile: integer("id_medical_profile").notNull().unique().references(() => medicalProfile.idMedicalProfile, { onDelete: "restrict", onUpdate: "cascade" } ),
+	idMedicalProfile: integer("id_medical_profile").notNull().references(() => medicalProfile.idMedicalProfile, { onDelete: "restrict", onUpdate: "cascade" } ),
 	name: varchar("name", {length: 100}),
 });
 
 export const  medicines = pgTable("Medicines", {
 	idMedicines: serial("id_medicines").primaryKey().notNull(),
-	idMedicalProfile: integer("id_medical_profile").notNull().unique().references(() => medicalProfile.idMedicalProfile, { onDelete: "restrict", onUpdate: "cascade" } ),
+	idMedicalProfile: integer("id_medical_profile").notNull().references(() => medicalProfile.idMedicalProfile, { onDelete: "restrict", onUpdate: "cascade" } ),
 	name: varchar("name", {length: 100}),
 	routeAdmin: varchar("route_admin", {length: 100}),
 	dose: varchar("dose", {length: 100}),
@@ -102,14 +102,14 @@ export const  medicines = pgTable("Medicines", {
 
 export const  disability = pgTable("Disability", {
 	idDisability : serial("id_disability").primaryKey().notNull(),
-	idMedicalProfile: integer("id_medical_profile").notNull().unique().references(() => medicalProfile.idMedicalProfile, { onDelete: "restrict", onUpdate: "cascade" } ),
+	idMedicalProfile: integer("id_medical_profile").notNull().references(() => medicalProfile.idMedicalProfile, { onDelete: "restrict", onUpdate: "cascade" } ),
 	name: varchar("name", {length: 100}),
 	
 });
 
 export const  allergies = pgTable("Allergies", {
 	idAllergies : serial("id_allergies").primaryKey().notNull(),
-	idMedicalProfile: integer("id_medical_profile").notNull().unique().references(() => medicalProfile.idMedicalProfile, { onDelete: "restrict", onUpdate: "cascade" } ),
+	idMedicalProfile: integer("id_medical_profile").notNull().references(() => medicalProfile.idMedicalProfile, { onDelete: "restrict", onUpdate: "cascade" } ),
 	name: varchar("name", {length: 100}),
 	reaction: varchar("reaction", {length: 100}),
 });

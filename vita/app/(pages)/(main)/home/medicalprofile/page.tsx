@@ -4,7 +4,7 @@ import React, { useState, useEffect} from "react";
 import axios from  "axios"
 import {  UserData } from '@/data/datatypes/user';
 import ToggleComponent from '@/components/information/toggle';
-import { AllergiesData, EditProfileData, ProfileData } from '@/data/datatypes/profile';
+import { AllergiesData, EditProfileData, GetAllergiesData, ProfileData } from '@/data/datatypes/profile';
 import { FiInfo } from 'react-icons/fi';
 
 
@@ -14,7 +14,7 @@ const Profile = () => {
     const [userDataProfile, setUserDataProfile] = useState<ProfileData | null>(null);
     const [editedDataProfile, setEditedDataProfile] = useState<EditProfileData | null>(null);
     const [modalOpen, setModalOpen] = useState(false); // Estado para controlar la visibilidad del modal
-
+    const [allergiesData, setAllergiesData] = useState<GetAllergiesData | null>(null);
     // Función para abrir el modal
     const openModal = () => {
         setModalOpen(true);
@@ -72,7 +72,10 @@ const Profile = () => {
                 bloodType:  fetchedData2.bloodType 
             });
            
-            
+            const allergies = await axios.get(`/api/profile/allergies/${fetchedData2.idMedicalProfile}`);
+            const dataAllergies  = allergies.data;
+            setAllergiesData(dataAllergies);
+            alert(dataAllergies)
         } catch (error) {
             Swal.fire({
                 title: 'Error',
@@ -128,6 +131,7 @@ const Profile = () => {
 
     // Función para cerrar el modal de alergia
     const closeAllergyModal = () => {
+        resetAllergy();
         setAllergyModalOpen(false);
     };
 
@@ -142,8 +146,10 @@ const Profile = () => {
     }
       
 
+    const resetAllergy = () => {
+        setNewAllergy({name: "", reaction: ""})
+    };
 
-   
     // Función para agregar una nueva alergia
 const handleAddAllergy = async () => {
     try {
@@ -162,7 +168,7 @@ const handleAddAllergy = async () => {
                 icon: 'success',
                 confirmButtonText: 'OK'
             });
-
+            resetAllergy();
             // Cerrar el modal después de agregar la alergia
             closeAllergyModal();
             
@@ -397,15 +403,25 @@ const handleAddAllergy = async () => {
 
                     <ToggleComponent title="Alergías" editModeToggle={false}>
                     <>
-                        <div className="flex flex-row mb-2 justify-around items-center"> 
-                            <p className="font-bold text-black text-lg py-2 px-6">Nombre de la alergía:</p>
-                            <div className="py-2 px-6 rounded-full lg:w-[280px] w-70  flex items-center bg-white " >
-                                <p className="font-bold text-gray-400 text-lg">Polvo</p>
+                    {allergiesData ? (
+                    <div>
+                        {/* Utilizar un map para renderizar cada alergia */}
+                        {allergiesData.map((allergy, index) => (
+                            <div key={index} className="flex flex-row mb-2 justify-around items-center">
+                                <p className="font-bold text-black text-lg py-2 px-6">Nombre de la alergía:</p>
+                                <div className="py-2 px-6 rounded-full lg:w-[280px] w-70 flex items-center bg-white">
+                                    <p className="font-bold text-gray-400 text-lg">{allergy.name}</p>
+                                </div>
+                                <FiInfo
+                                    className="ml-2 h-8 w-8 text-gray-500 cursor-pointer hover:text-gray-800 transition duration-300 ease-in-out transform hover:scale-105"
+                                    onClick={openModal}
+                                />
                             </div>
-                            <FiInfo className="ml-2 h-8 w-8 text-gray-500 cursor-pointer hover:text-gray-800
-                            transition duration-300 ease-in-out transform hover:scale-105"  onClick={openModal}/>
-                            
-                        </div> 
+                        ))}
+                    </div>
+                ) : (
+                    <p className="text-2xl text-black items-center ">No se han encontrado alergias.</p>
+                )} 
                         {editMode ? (
                             <div className='flex justify-end mr-5'> 
                             <button

@@ -26,3 +26,10 @@ export interface ProfileData {
     reaction: string;
   }
   
+export interface GetAllergiesData {
+  map(arg0: (allergy: any, index: any) => import("react").JSX.Element): import("react").ReactNode;
+  name: string;
+  reaction: string;
+  idMedicalProfile: Number;
+  idAllergies: Number;
+}
