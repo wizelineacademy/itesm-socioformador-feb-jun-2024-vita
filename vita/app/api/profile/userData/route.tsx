@@ -20,7 +20,7 @@ export async function GET(request: Request) {
       .limit(1)
     
     const res = detail.length > 0 ? detail[0] : null
-    console.log(res)
+ 
     return NextResponse.json(res, {status: 200});
   } catch (error) {
     console.log(error)
