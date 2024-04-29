@@ -4,13 +4,26 @@ import React, { useState, useEffect} from "react";
 import axios from  "axios"
 import {  UserData } from '@/data/datatypes/user';
 import ToggleComponent from '@/components/information/toggle';
-import { EditProfileData, ProfileData } from '@/data/datatypes/profile';
+import { AllergiesData, EditProfileData, ProfileData } from '@/data/datatypes/profile';
+import { FiInfo } from 'react-icons/fi';
+
 
 const Profile = () => {
     const [editMode, setEditMode] = useState(false);
     const [userData, setUserData] = useState<UserData | null>(null);
     const [userDataProfile, setUserDataProfile] = useState<ProfileData | null>(null);
     const [editedDataProfile, setEditedDataProfile] = useState<EditProfileData | null>(null);
+    const [modalOpen, setModalOpen] = useState(false); // Estado para controlar la visibilidad del modal
+
+    // Función para abrir el modal
+    const openModal = () => {
+        setModalOpen(true);
+    };
+
+    // Función para cerrar el modal
+    const closeModal = () => {
+        setModalOpen(false);
+    };
 
     const handleCancelEdit = () => {
         setEditMode(false);
@@ -102,6 +115,73 @@ const Profile = () => {
         }
     };
 
+    
+    // Estado local para almacenar el nombre de la nueva alergia
+    const [newAllergy, setNewAllergy] = useState<AllergiesData>({ name: "", reaction: "" });
+    // Estado local para controlar la visibilidad del modal de alergia
+    const [allergyModalOpen, setAllergyModalOpen] = useState(false);
+
+    // Función para abrir el modal de alergia
+    const openAllergyModal = () => {
+        setAllergyModalOpen(true);
+    };
+
+    // Función para cerrar el modal de alergia
+    const closeAllergyModal = () => {
+        setAllergyModalOpen(false);
+    };
+
+    // Función para manejar el cambio en el campo de nueva alergia
+    const handleNewAllergyChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = event.target;
+        // Asigna un nuevo objeto AllergyData al estado newAllergy
+        setNewAllergy(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    }
+      
+
+
+   
+    // Función para agregar una nueva alergia
+const handleAddAllergy = async () => {
+    try {
+        if (editedDataProfile && newAllergy) {
+            const { idMedicalProfile } = editedDataProfile;
+            const allergyData = {
+                name: newAllergy.name,
+                reaction: newAllergy.reaction, // Cambiar por la reacción adecuada
+                idMedicalProfile: idMedicalProfile
+            };
+
+            await axios.post("/api/profile/allergies", allergyData); 
+            Swal.fire({
+                title: 'Éxito',
+                text: 'Se ha agregado una nueva alergia con éxito',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+
+            // Cerrar el modal después de agregar la alergia
+            closeAllergyModal();
+            
+            // Actualizar la información del perfil después de agregar la alergia
+            getData();
+        }
+    } catch (error) {
+        Swal.fire({
+            title: 'Error',
+            text: "Ocurrió un error al agregar la alergia",
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+        // Aquí puedes manejar el error, por ejemplo, mostrando un mensaje al usuario
+    }
+};
+
+
+ 
     return (
         <div className="mb-4">
             <div className="flex text-white sm:px-5 sm:py-4  text-5xl  font-bold 
@@ -316,34 +396,34 @@ const Profile = () => {
                     </ToggleComponent>
 
                     <ToggleComponent title="Alergías" editModeToggle={false}>
-                    <div className="flex lg:flex-row flex-col justify-around mb-2"> 
-                            <div className='flex  flex-col '> 
-                                <p className="font-bold text-black text-lg py-2 px-6"> Nombre de la alergía:</p>
-                                <div className='py-2 px-6 rounded-full lg:w-[280px] w-70 bg-white'> 
-                                    <p className="font-bold text-gray-400 text-lg"> Polvo</p>
-                                </div>
-                            </div> 
-                            <div className='flex  flex-col '> 
-                                <p className="font-bold text-black text-lg py-2 px-6">Reacción alérgica:</p>
-                                <div className='py-2 px-6 rounded-full   lg:w-[280px] w-70 bg-white'> 
-                                    <p className="font-bold text-gray-400 text-lg">Dolor de Cabeza</p>
-                                </div>
-                            </div> 
-                    </div>
-                    <div className="flex lg:flex-row flex-col justify-around mb-2"> 
-                            <div className='flex  flex-col '> 
-                                <p className="font-bold text-black text-lg py-2 px-6"> Nombre de la alergía:</p>
-                                <div className='py-2 px-6 rounded-full lg:w-[280px]  w-70 bg-white'> 
-                                    <p className="font-bold text-gray-400 text-lg"> Polvo</p>
-                                </div>
-                            </div> 
-                            <div className='flex  flex-col '> 
-                                <p className="font-bold text-black text-lg py-2 px-6">Reacción alérgica:</p>
-                                <div className='py-2 px-6 rounded-full  lg:w-[280px] w-70 bg-white'> 
-                                    <p className="font-bold text-gray-400 text-lg">Dolor de Cabeza</p>
-                                </div>
-                            </div> 
-                    </div>   
+                    <>
+                        <div className="flex flex-row mb-2 justify-around items-center"> 
+                            <p className="font-bold text-black text-lg py-2 px-6">Nombre de la alergía:</p>
+                            <div className="py-2 px-6 rounded-full lg:w-[280px] w-70  flex items-center bg-white " >
+                                <p className="font-bold text-gray-400 text-lg">Polvo</p>
+                            </div>
+                            <FiInfo className="ml-2 h-8 w-8 text-gray-500 cursor-pointer hover:text-gray-800
+                            transition duration-300 ease-in-out transform hover:scale-105"  onClick={openModal}/>
+                            
+                        </div> 
+                        {editMode ? (
+                            <div className='flex justify-end mr-5'> 
+                            <button
+                            onClick={(e) => {
+                                e.preventDefault();
+                                openAllergyModal();
+                            }}
+                                className="  text-3xl bg-blue-500 hover:bg-blue-700 
+                                 text-white font-bold py-1 px-4 rounded-full mt-2"
+                            >
+                                +
+                            </button>
+                            </div>
+                        
+                            ) : (
+                                ''
+                            )}
+                    </>
                     </ToggleComponent>
 
                     <ToggleComponent title="Discapacidades" editModeToggle={false}> 
@@ -409,7 +489,7 @@ const Profile = () => {
                                 Cancelar
                             </button>
                             <button  type="submit" className="rounded-full mt-2 text-2xl px-3 
-                            py-2 bg-button-home w-70 text-white">
+                            py-2 bg-blue-500 hover:bg-blue-700 w-70 text-white">
                                 Guardar Cambios
                             </button>
                         </div>   
@@ -417,7 +497,78 @@ const Profile = () => {
                     )}
                 
             </form>
+            
+            {modalOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+                    <div className="bg-white p-8 rounded-lg">
+                        <h2 className="text-2xl font-bold mb-4">Alergia</h2>
+                        <div className='flex flex-col'>
+                            <p className="font-bold text-black text-lg py-2 px-6">Nombre de la alergía:</p>
+                            <div className='py-2 px-6 rounded-full lg:w-[280px] w-70 bg-white'>
+                                <p className="font-bold text-gray-400 text-lg">Polvo</p>
+                            </div>
+                        </div>
+                        <div className='flex flex-col'>
+                            <p className="font-bold text-black text-lg py-2 px-6">Reacción alérgica:</p>
+                            <div className='py-2 px-6 rounded-full lg:w-[280px] w-70 bg-white'>
+                                <p className="font-bold text-gray-400 text-lg">Dolor de Cabeza</p>
+                            </div>
+                        </div>
+                        <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={closeModal}>Cerrar</button>
+                    </div>
+                </div>
+            )}
+
+           {/* Modal  Crear de alergia */}
+            {allergyModalOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+                    <div className="bg-white p-8 rounded-lg w-80">
+                        <h2 className="text-2xl font-bold mb-4">Agregar Alergia</h2>
+                        <div className="mb-4">
+                            {/* Campo para ingresar el nombre de la nueva alergia */}
+                            <input
+                                type="text"
+                                name="name"
+                                value={newAllergy?.name}
+                                onChange={handleNewAllergyChange }
+                                className="w-full border border-gray-300 rounded-md p-2"
+                                placeholder="Nombre de la alergia"
+                                required
+                            />
+                        </div>
+                        <div className="mb-4">
+                            {/* Campo para ingresar el nombre de la nueva alergia */}
+                            <input
+                                type="text"
+                                value={newAllergy?.reaction}
+                                name="reaction"
+                                onChange={handleNewAllergyChange}
+                                className="w-full border border-gray-300 rounded-md p-2"
+                                placeholder="Nombre de la reacción"
+                                required
+                            />
+                        </div>
+                        {/* Botones para agregar y cancelar */}
+                        <div className="flex justify-end">
+                            <button
+                                onClick={handleAddAllergy}
+                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+                            >
+                                Agregar
+                            </button>
+                            <button
+                                onClick={closeAllergyModal}
+                                className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+                            >
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
         </div>
+        
     );
 };
 

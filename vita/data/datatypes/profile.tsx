@@ -21,3 +21,8 @@ export interface ProfileData {
     bloodType: string | null;
   }
   
+  export interface AllergiesData {
+    name: string;
+    reaction: string;
+  }
+  
