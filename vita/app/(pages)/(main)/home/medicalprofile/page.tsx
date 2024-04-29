@@ -15,8 +15,11 @@ const Profile = () => {
     const [editedDataProfile, setEditedDataProfile] = useState<EditProfileData | null>(null);
     const [modalOpen, setModalOpen] = useState(false); // Estado para controlar la visibilidad del modal
     const [allergiesData, setAllergiesData] = useState<GetAllergiesData | null>(null);
+    const [selectedAllergy, setSelectedAllergy] = useState<AllergiesData | null>(null);
+
     // Función para abrir el modal
-    const openModal = () => {
+    const openModal = (allergy: AllergiesData) => {
+        setSelectedAllergy(allergy);
         setModalOpen(true);
     };
 
@@ -75,7 +78,7 @@ const Profile = () => {
             const allergies = await axios.get(`/api/profile/allergies/${fetchedData2.idMedicalProfile}`);
             const dataAllergies  = allergies.data;
             setAllergiesData(dataAllergies);
-            alert(dataAllergies)
+
         } catch (error) {
             Swal.fire({
                 title: 'Error',
@@ -404,24 +407,24 @@ const handleAddAllergy = async () => {
                     <ToggleComponent title="Alergías" editModeToggle={false}>
                     <>
                     {allergiesData ? (
-                    <div>
-                        {/* Utilizar un map para renderizar cada alergia */}
-                        {allergiesData.map((allergy, index) => (
-                            <div key={index} className="flex flex-row mb-2 justify-around items-center">
-                                <p className="font-bold text-black text-lg py-2 px-6">Nombre de la alergía:</p>
-                                <div className="py-2 px-6 rounded-full lg:w-[280px] w-70 flex items-center bg-white">
-                                    <p className="font-bold text-gray-400 text-lg">{allergy.name}</p>
+                        <div>
+                            {/* Utilizar un map para renderizar cada alergia */}
+                            {allergiesData.map((allergy, index) => (
+                                <div key={index} className="flex flex-row mb-2 justify-around items-center">
+                                    <p className="font-bold text-black text-lg py-2 px-6">Nombre de la alergía:</p>
+                                    <div className="py-2 px-6 rounded-full lg:w-[280px] w-70 flex items-center bg-white">
+                                        <p className="font-bold text-gray-400 text-lg">{allergy.name}</p>
+                                    </div>
+                                    <FiInfo
+                                        className="ml-2 h-8 w-8 text-gray-500 cursor-pointer hover:text-gray-800 transition duration-300 ease-in-out transform hover:scale-105"
+                                        onClick={() => openModal(allergy)}
+                                    />
                                 </div>
-                                <FiInfo
-                                    className="ml-2 h-8 w-8 text-gray-500 cursor-pointer hover:text-gray-800 transition duration-300 ease-in-out transform hover:scale-105"
-                                    onClick={openModal}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                ) : (
-                    <p className="text-2xl text-black items-center ">No se han encontrado alergias.</p>
-                )} 
+                            ))}
+                        </div>
+                    ) : (
+                        <p className="text-2xl text-black items-center ">No se han encontrado alergias.</p>
+                    )}
                         {editMode ? (
                             <div className='flex justify-end mr-5'> 
                             <button
@@ -514,20 +517,20 @@ const handleAddAllergy = async () => {
                 
             </form>
             
-            {modalOpen && (
+            {modalOpen && selectedAllergy && (
                 <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
                     <div className="bg-white p-8 rounded-lg">
                         <h2 className="text-2xl font-bold mb-4">Alergia</h2>
                         <div className='flex flex-col'>
                             <p className="font-bold text-black text-lg py-2 px-6">Nombre de la alergía:</p>
                             <div className='py-2 px-6 rounded-full lg:w-[280px] w-70 bg-white'>
-                                <p className="font-bold text-gray-400 text-lg">Polvo</p>
+                                <p className="font-bold text-gray-400 text-lg">{selectedAllergy.name}</p>
                             </div>
                         </div>
                         <div className='flex flex-col'>
                             <p className="font-bold text-black text-lg py-2 px-6">Reacción alérgica:</p>
                             <div className='py-2 px-6 rounded-full lg:w-[280px] w-70 bg-white'>
-                                <p className="font-bold text-gray-400 text-lg">Dolor de Cabeza</p>
+                                <p className="font-bold text-gray-400 text-lg">{selectedAllergy.reaction}</p>
                             </div>
                         </div>
                         <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={closeModal}>Cerrar</button>
