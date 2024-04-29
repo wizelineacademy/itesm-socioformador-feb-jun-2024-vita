@@ -5,7 +5,7 @@ import axios from  "axios"
 import {  UserData } from '@/data/datatypes/user';
 import ToggleComponent from '@/components/information/toggle';
 import { AllergiesData, EditProfileData, GetAllergiesData, ProfileData } from '@/data/datatypes/profile';
-import { FiInfo } from 'react-icons/fi';
+import { FiInfo,FiEdit, FiTrash2 } from 'react-icons/fi';
 
 
 const Profile = () => {
@@ -16,6 +16,54 @@ const Profile = () => {
     const [modalOpen, setModalOpen] = useState(false); // Estado para controlar la visibilidad del modal
     const [allergiesData, setAllergiesData] = useState<GetAllergiesData | null>(null);
     const [selectedAllergy, setSelectedAllergy] = useState<AllergiesData | null>(null);
+    const handleEditClick = () => {
+        // Lógica para manejar la acción de editar
+    };
+
+    const handleDeleteClick = () => {
+        // Lógica para manejar la acción de eliminar
+    };
+
+    const DeleteAllergies = async (idAllergies: string) => {
+        // Mostrar mensaje de confirmación
+        const confirmationResult = await Swal.fire({
+          title: '¿Estás seguro?',
+          text: '¿Quieres eliminar esta alergia?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Eliminar',
+          cancelButtonText: 'Cancelar',
+          reverseButtons: true
+        });
+      
+        // Si el usuario confirma la eliminación
+        if (confirmationResult.isConfirmed) {
+          try {
+            alert(idAllergies)
+            const response = await axios.delete(`/api/profile/allergies/${idAllergies}`);
+            if (response.status === 200) {
+              
+              Swal.fire({
+                title: 'Éxito',
+                text: 'La alergia ha sido eliminado exitosamente',
+                icon: 'success',
+                confirmButtonText: 'OK'
+              });
+              getData()
+    
+            } 
+    
+          } catch (error) {
+            alert(error);
+            Swal.fire({
+              title: 'Error',
+              text: 'Ocurrió un error al eliminar la alergia',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            });
+          }
+        }
+      };
 
     // Función para abrir el modal
     const openModal = (allergy: AllergiesData) => {
@@ -415,11 +463,29 @@ const handleAddAllergy = async () => {
                                     <div className="py-2 px-6 rounded-full lg:w-[280px] w-70 flex items-center bg-white">
                                         <p className="font-bold text-gray-400 text-lg">{allergy.name}</p>
                                     </div>
-                                    <FiInfo
-                                        className="ml-2 h-8 w-8 text-gray-500 cursor-pointer hover:text-gray-800 transition duration-300 ease-in-out transform hover:scale-105"
-                                        onClick={() => openModal(allergy)}
-                                    />
-                                </div>
+                                    {editMode ? (
+                                    // Si está en modo de edición, mostrar los iconos de editar y eliminar
+                                        <>
+                                            <FiTrash2
+                                                className="ml-2 h-8 w-8 text-red-500 cursor-pointer hover:text-red-800 transition duration-300 ease-in-out transform hover:scale-105"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    DeleteAllergies(allergy.idAllergies)
+                                                }}
+                                            />
+                                            <FiEdit
+                                                className="ml-2 h-8 w-8 text-blue-500 cursor-pointer hover:text-blue-800 transition duration-300 ease-in-out transform hover:scale-105"
+                                                onClick={handleEditClick}
+                                            />
+                                        </>
+                                    ) : (
+                                        // Si no está en modo de edición, mostrar el icono de información
+                                        <FiInfo
+                                            className="ml-2 h-8 w-8 text-gray-500 cursor-pointer hover:text-gray-800 transition duration-300 ease-in-out transform hover:scale-105"
+                                            onClick={() => openModal(allergy)}
+                                            />
+                                        )}
+                                                    </div>
                             ))}
                         </div>
                     ) : (
