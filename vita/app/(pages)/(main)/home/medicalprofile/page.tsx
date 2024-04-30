@@ -8,7 +8,8 @@ import { AllergiesData, DisabilityData, EditAllergiesData, EditDisabilityData, E
 import { FiInfo,FiEdit, FiTrash2 } from 'react-icons/fi';
 import GetModal from '@/components/modal/getModal';
 import AddModal from '@/components/modal/addModal';
-import { disability } from '../../../../../db/schema/schema';
+import { confirmAndDelete } from '@/lib/profile/functions';
+
 
 
 const Profile = () => {
@@ -32,47 +33,13 @@ const Profile = () => {
         openAllergyModal();
     };
 
-    const DeleteAllergies = async (idAllergies: string) => {
-        // Mostrar mensaje de confirmación
-        const confirmationResult = await Swal.fire({
-          title: '¿Estás seguro?',
-          text: '¿Quieres eliminar esta alergia?',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Eliminar',
-          cancelButtonText: 'Cancelar',
-          reverseButtons: true
+    const  DeleteAllergies= async (idAllergy: string) => {
+        await confirmAndDelete(idAllergy, 'alergia', async (id) => {
+          return await axios.delete(`/api/profile/allergies/${id}`);
         });
-      
-        // Si el usuario confirma la eliminación
-        if (confirmationResult.isConfirmed) {
-          try {
-           
-            const response = await axios.delete(`/api/profile/allergies/${idAllergies}`);
-            if (response.status === 200) {
-              
-              Swal.fire({
-                title: 'Éxito',
-                text: 'La alergia ha sido eliminado exitosamente',
-                icon: 'success',
-                confirmButtonText: 'OK'
-              });
-              getData()
-    
-            } 
-    
-          } catch (error) {
-            alert(error);
-            Swal.fire({
-              title: 'Error',
-              text: 'Ocurrió un error al eliminar la alergia',
-              icon: 'error',
-              confirmButtonText: 'OK'
-            });
-          }
-        }
+        getData()
       };
-
+      
     // Función para abrir el modal
     const openModal = (allergy: AllergiesData) => {
         setSelectedAllergy(allergy);
@@ -278,8 +245,6 @@ const handleAddAllergy = async () => {
         }
     };
 
-    
-
         //Disabilities
         const [modalOpen2, setModalOpen2] = useState(false);
         const [disabilityData, setDisabilityData] = useState<GetDisabilityData | null>(null);  
@@ -296,63 +261,24 @@ const handleAddAllergy = async () => {
         };
     
         const DeleteDisability = async (idDisability: string) => {
-            // Mostrar mensaje de confirmación
-            const confirmationResult = await Swal.fire({
-              title: '¿Estás seguro?',
-              text: '¿Quieres eliminar esta discapacidad?',
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonText: 'Eliminar',
-              cancelButtonText: 'Cancelar',
-              reverseButtons: true
+            await confirmAndDelete(idDisability, 'discapacidad', async (id) => {
+              return await axios.delete(`/api/profile/disabilities/${id}`);
             });
-          
-            // Si el usuario confirma la eliminación
-            if (confirmationResult.isConfirmed) {
-              try {
-               
-                const response = await axios.delete(`/api/profile/disabilities/${idDisability}`);
-                if (response.status === 200) {
-                  
-                  Swal.fire({
-                    title: 'Éxito',
-                    text: 'La alergia ha sido eliminado exitosamente',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                  });
-                  getData()
-        
-                } 
-        
-              } catch (error) {
-                alert(error);
-                Swal.fire({
-                  title: 'Error',
-                  text: 'Ocurrió un error al eliminar la alergia',
-                  icon: 'error',
-                  confirmButtonText: 'OK'
-                });
-              }
-            }
+            getData()
           };
     
-        // Función para abrir el modal
         const openModalDisability = (disability: DisabilityData) => {
             setSelectedDisability(disability);
             setModalOpen2(true);
         };
     
-        // Función para cerrar el modal
         const closeModalDisability = () => {
             setModalOpen2(false);
         };
     
-        // Estado local para almacenar el nombre de la nueva alergia
         const [newDisability, setNewDisability] = useState<DisabilityData>({ name: "" });
-        // Estado local para controlar la visibilidad del modal de alergia
         const [disabilityModalOpen, setDisabilityModalOpen] = useState(false);
     
-        // Función para abrir el modal de alergia
         const openDisabilityModal = () => {
             setDisabilityModalOpen(true);
         };
