@@ -33,3 +33,9 @@ export interface GetAllergiesData {
   idMedicalProfile: Number;
   idAllergies: Number;
 }
+
+export interface EditAllergiesData {
+  idAllergies: Number;
+  name: string;
+  reaction: string;
+}

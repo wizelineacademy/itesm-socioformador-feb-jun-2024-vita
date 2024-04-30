@@ -4,7 +4,7 @@ import React, { useState, useEffect} from "react";
 import axios from  "axios"
 import {  UserData } from '@/data/datatypes/user';
 import ToggleComponent from '@/components/information/toggle';
-import { AllergiesData, EditProfileData, GetAllergiesData, ProfileData } from '@/data/datatypes/profile';
+import { AllergiesData, EditAllergiesData, EditProfileData, GetAllergiesData, ProfileData } from '@/data/datatypes/profile';
 import { FiInfo,FiEdit, FiTrash2 } from 'react-icons/fi';
 
 
@@ -16,12 +16,16 @@ const Profile = () => {
     const [modalOpen, setModalOpen] = useState(false); // Estado para controlar la visibilidad del modal
     const [allergiesData, setAllergiesData] = useState<GetAllergiesData | null>(null);
     const [selectedAllergy, setSelectedAllergy] = useState<AllergiesData | null>(null);
-    const handleEditClick = () => {
-        // Lógica para manejar la acción de editar
-    };
-
-    const handleDeleteClick = () => {
-        // Lógica para manejar la acción de eliminar
+    const [editingAllergy, setEditingAllergy] = useState<EditAllergiesData | null>(null);
+    
+    const handleEditClick = (allergy: AllergiesData, allergyId: number) => {
+        const editedAllergyData: EditAllergiesData = {
+            idAllergies: allergyId,
+            name: allergy.name,
+            reaction: allergy.reaction
+        };
+        setEditingAllergy(editedAllergyData);
+        openAllergyModal();
     };
 
     const DeleteAllergies = async (idAllergies: string) => {
@@ -39,7 +43,7 @@ const Profile = () => {
         // Si el usuario confirma la eliminación
         if (confirmationResult.isConfirmed) {
           try {
-            alert(idAllergies)
+           
             const response = await axios.delete(`/api/profile/allergies/${idAllergies}`);
             if (response.status === 200) {
               
@@ -184,6 +188,36 @@ const Profile = () => {
     const closeAllergyModal = () => {
         resetAllergy();
         setAllergyModalOpen(false);
+        setEditingAllergy(null);
+    };
+
+    const handleEdit = async () => {
+        try {
+            if (editingAllergy) {
+                const response = await axios.put(`/api/profile/allergies/${editingAllergy.idAllergies}`, {
+                    name: editingAllergy.name,
+                    reaction: editingAllergy.reaction
+                });
+                if (response.status === 200) {
+                    Swal.fire({
+                        title: 'Éxito',
+                        text: 'Se han guardado los cambios con éxito',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                    closeAllergyModal();
+                    getData();
+                    setEditingAllergy(null);
+                }
+            }
+        } catch (error) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Ocurrió un error al guardar los cambios',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
     };
 
     // Función para manejar el cambio en el campo de nueva alergia
@@ -474,12 +508,17 @@ const handleAddAllergy = async () => {
                                                 }}
                                             />
                                             <FiEdit
-                                                className="ml-2 h-8 w-8 text-blue-500 cursor-pointer hover:text-blue-800 transition duration-300 ease-in-out transform hover:scale-105"
-                                                onClick={handleEditClick}
+                                                 className="ml-2 h-8 w-8 text-blue-500 cursor-pointer hover:text-blue-800 transition duration-300 ease-in-out transform hover:scale-105"
+                                                 onClick={(e) => {
+                                                    e.preventDefault();
+                                                    handleEditClick(allergy, allergy.idAllergies)
+                                                }}
+                                              
+                                             
                                             />
                                         </>
                                     ) : (
-                                        // Si no está en modo de edición, mostrar el icono de información
+
                                         <FiInfo
                                             className="ml-2 h-8 w-8 text-gray-500 cursor-pointer hover:text-gray-800 transition duration-300 ease-in-out transform hover:scale-105"
                                             onClick={() => openModal(allergy)}
@@ -605,7 +644,7 @@ const handleAddAllergy = async () => {
             )}
 
            {/* Modal  Crear de alergia */}
-            {allergyModalOpen && (
+            {allergyModalOpen && editMode &&  (
                 <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
                     <div className="bg-white p-8 rounded-lg w-80">
                         <h2 className="text-2xl font-bold mb-4">Agregar Alergia</h2>
@@ -651,6 +690,55 @@ const handleAddAllergy = async () => {
                     </div>
                 </div>
             )}
+
+            {/* Modal de edición de alergia */}
+{editingAllergy && editMode &&  (
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+        <div className="bg-white p-8 rounded-lg">
+            <h2 className="text-2xl font-bold mb-4">Editar Alergia</h2>
+            <div className="mb-4">
+                {/* Campo para editar el nombre de la alergia */}
+                <input
+                    type="text"
+                    name="name"
+                    value={editingAllergy.name}
+                    onChange={(e) => setEditingAllergy({ ...editingAllergy, name: e.target.value })}
+                    className="w-full border border-gray-300 rounded-md p-2"
+                    placeholder="Nombre de la alergia"
+                    required
+                />
+            </div>
+            <div className="mb-4">
+                {/* Campo para editar la reacción de la alergia */}
+                <input
+                    type="text"
+                    name="reaction"
+                    value={editingAllergy.reaction}
+                    onChange={(e) => setEditingAllergy({ ...editingAllergy, reaction: e.target.value })}
+                    className="w-full border border-gray-300 rounded-md p-2"
+                    placeholder="Reacción de la alergia"
+                    required
+                />
+            </div>
+            {/* Botones para guardar los cambios o cancelar */}
+            <div className="flex justify-end">
+                <button
+                    onClick={handleEdit}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+                >
+                    Guardar
+                </button>
+                <button
+                    onClick={closeAllergyModal}
+                    className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+                >
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+)}
+
 
         </div>
         

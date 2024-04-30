@@ -45,3 +45,40 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
     return NextResponse.json("Error deleting reminder", { status: 400 });
   }
 }
+
+
+export async function PUT(request: Request, { params }: { params: { id: string } }) {
+  try {
+    const { id } = params;
+
+    if (!id) {
+      return NextResponse.json("ID parameter is missing", { status: 400 });
+    }
+
+    const body = await request.json();
+    
+    const {
+       name, reaction 
+    } = body;
+
+    // Initialize insertValues with the correct values
+    const insertValues = {
+      name: name,
+      reaction: reaction
+    };
+
+    // Aquí corrige el error de sintaxis, agregando una coma después de 'allergies'
+    const res = await db.update(allergies)
+  .set({
+    name: insertValues.name,
+    reaction: insertValues.reaction
+  })
+  .where(eq(allergies.idAllergies, Number(id)));
+    console.log("papa")
+
+    return NextResponse.json(res, { status: 200 });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json("Error deleting reminder", { status: 400 });
+  }
+}
