@@ -1,3 +1,4 @@
+import { disability } from '@/db/schema/schema';
 export interface ProfileData {
     idMedicalProfile: number;
     idUser: number;
@@ -38,4 +39,21 @@ export interface EditAllergiesData {
   idAllergies: Number;
   name: string;
   reaction: string;
+}
+
+
+export interface DisabilityData {
+  name: string;
+}
+
+export interface GetDisabilityData {
+map(arg0: (disability: any, index: any) => import("react").JSX.Element): import("react").ReactNode;
+name: string;
+idMedicalProfile: Number;
+idDisability: Number;
+}
+
+export interface EditDisabilityData {
+  idDisability: Number;
+  name: string;
 }
