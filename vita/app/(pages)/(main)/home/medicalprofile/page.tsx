@@ -10,8 +10,10 @@ import GetModal from '@/components/modal/getModal';
 import AddModal from '@/components/modal/addModal';
 import { confirmAndDelete, handleAddItem, handleEditItem, handleInput } from '@/lib/profile/functions';
 import EditModal from '@/components/modal/editModal';
-     
+import { useRouter } from "next/navigation";
+
 const Profile = () => {
+    const router = useRouter();
     const [editMode, setEditMode] = useState(false);
     const [userData, setUserData] = useState<UserData | null>(null);
     const [userDataProfile, setUserDataProfile] = useState<ProfileData | null>(null);
@@ -166,8 +168,6 @@ const Profile = () => {
             const chronical = await axios.get(`/api/profile/chronicalDesease/${fetchedData2.idMedicalProfile}`);
             const dataChronical = chronical.data;
             setChronicalData(dataChronical);
-            console.log(dataChronical)
-            alert(dataChronical)
              //Medicines 
              const medicines = await axios.get(`/api/profile/medicines/${fetchedData2.idMedicalProfile}`);
              const dataMedicines = medicines.data;
@@ -192,6 +192,37 @@ const Profile = () => {
     const handleSaveChanges = async () => {
         try {
             if (editedDataProfile) {
+                if (editedDataProfile?.email !== userData?.email) {
+                    const confirmResult = await Swal.fire({
+                        title: 'Advertencia',
+                        text: 'Si modificas tu correo electrónico, se te redirigirá a la página de inicio de sesión. ¿Estás seguro de que quieres continuar?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Sí, modificar correo',
+                        cancelButtonText: 'Cancelar',
+                        reverseButtons: true
+                    });
+    
+                    if (confirmResult.isConfirmed) {
+                        await axios.put("/api/profile", editedDataProfile); 
+                        router.push("/login");
+                        router.refresh();
+                        Swal.fire({
+                            title: 'Éxito',
+                            text: 'Se han guardado las datos con éxito',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                        
+                        return;
+                    } else {
+                        setEditedDataProfile((prevData) => ({
+                            ...prevData!,
+                            email: userData?.email || ""
+                        }));
+                        return;
+                    }
+                }
                 
                 await axios.put("/api/profile", editedDataProfile); 
               
@@ -943,7 +974,7 @@ const Profile = () => {
                         <>
                         <div className="flex lg:justify-center lg:items-center ml-2 mb-6 ">
                             <button onClick={handleCancelEdit} className="rounded-full mt-2 text-2xl px-3 
-                            py-2 bg-mid-red w-60 text-white mr-6">
+                            py-2 w-60 bg-gray-300 hover:bg-gray-400 text-gray-800 mr-6">
                                 Cancelar
                             </button>
                             <button  type="submit" className="rounded-full mt-2 text-2xl px-3 

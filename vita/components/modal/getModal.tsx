@@ -27,7 +27,9 @@ export const GetModal: React.FC<GetModalProps> = ({ modalOpen, closeModal, modal
                             </div>
                         ))}
                     </div>
-                    <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={onCloseButtonClick}>Cerrar</button>
+                    <div className="flex justify-end">
+                        <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={onCloseButtonClick}>Cerrar</button>
+                    </div>
                 </div>
             </div>
         )

@@ -42,17 +42,18 @@ function AddModal({
                     ))}
                     {/* Botones para agregar y cancelar */}
                     <div className="flex justify-end">
-                        <button
-                            onClick={handleAddItem}
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-                        >
-                            Agregar
-                        </button>
+                        
                         <button
                             onClick={closeModal}
-                            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+                            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2"
                         >
                             Cancelar
+                        </button>
+                        <button
+                            onClick={handleAddItem}
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        >
+                            Agregar
                         </button>
                     </div>
                 </div>

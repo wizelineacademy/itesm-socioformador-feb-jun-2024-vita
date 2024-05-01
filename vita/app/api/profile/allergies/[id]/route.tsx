@@ -72,7 +72,6 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     reaction: insertValues.reaction
   })
   .where(eq(allergies.idAllergies, Number(id)));
-    console.log("papa")
 
     return NextResponse.json(res, { status: 200 });
   } catch (error) {

@@ -44,17 +44,18 @@ const EditModal: React.FC<Props> = ({
           ))}
           {/* Botones para guardar los cambios o cancelar */}
           <div className="flex justify-end">
-            <button
-              onClick={handleEdit}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-            >
-              Guardar
-            </button>
+            
             <button
               onClick={closeModal}
-              className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+              className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2"
             >
               Cancelar
+            </button>
+            <button
+              onClick={handleEdit}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
+            >
+              Guardar
             </button>
           </div>
         </div>
