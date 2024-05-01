@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 import { db } from "@/db/drizzle";
-import { disability} from "@/db/schema/schema";
+import { chronicalDesease } from "@/db/schema/schema";
 
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
@@ -13,8 +13,8 @@ export async function GET(request: Request, { params }: { params: { id: string }
     }
 
     const res = await db.select()
-    .from(disability)
-    .where(eq(disability.idMedicalProfile, Number(id)));
+    .from(chronicalDesease)
+    .where(eq(chronicalDesease.idChronicalDesease, Number(id)));
     
   return NextResponse.json(res, { status: 200 });
   } catch (error) {
@@ -28,13 +28,12 @@ export async function GET(request: Request, { params }: { params: { id: string }
 export async function DELETE(request: Request, { params }: { params: { id: string } }) {
   try {
     const { id } = params;
-  
     if (!id) {
       return NextResponse.json("ID parameter is missing", { status: 400 });
     }
-   
-    const res = await db.delete(disability)
-  .where(eq(disability.idDisability, Number(id)));
+    console.log(id)
+    const res = await db.delete(chronicalDesease)
+  .where(eq(chronicalDesease.idChronicalDesease, Number(id)));
 
 
     return NextResponse.json("Allergie deleted successfully", { status: 200 });
@@ -64,11 +63,11 @@ export async function PUT(request: Request, { params }: { params: { id: string }
       name: name,
     };
 
-    const res = await db.update(disability)
+    const res = await db.update(chronicalDesease)
   .set({
     name: insertValues.name
   })
-  .where(eq(disability.idDisability, Number(id)));
+  .where(eq(chronicalDesease.idChronicalDesease, Number(id)));
     
     return NextResponse.json(res, { status: 200 });
   } catch (error) {

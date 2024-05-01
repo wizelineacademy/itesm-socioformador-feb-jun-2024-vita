@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 import { db } from "@/db/drizzle";
-import { disability} from "@/db/schema/schema";
+import { medicines } from "@/db/schema/schema";
 
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
@@ -13,13 +13,13 @@ export async function GET(request: Request, { params }: { params: { id: string }
     }
 
     const res = await db.select()
-    .from(disability)
-    .where(eq(disability.idMedicalProfile, Number(id)));
+    .from(medicines)
+    .where(eq(medicines.idMedicines, Number(id)));
     
   return NextResponse.json(res, { status: 200 });
   } catch (error) {
     console.log(error);
-    return NextResponse.json("Error get reminder", { status: 400 });
+    return NextResponse.json("Error get medicine", { status: 400 });
   }
 }
 
@@ -33,14 +33,14 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
       return NextResponse.json("ID parameter is missing", { status: 400 });
     }
    
-    const res = await db.delete(disability)
-  .where(eq(disability.idDisability, Number(id)));
+    const res = await db.delete(medicines)
+  .where(eq(medicines.idMedicines, Number(id)));
 
 
-    return NextResponse.json("Allergie deleted successfully", { status: 200 });
+    return NextResponse.json("Medicine deleted successfully", { status: 200 });
   } catch (error) {
     console.log(error);
-    return NextResponse.json("Error deleting reminder", { status: 400 });
+    return NextResponse.json("Error deleting medicine", { status: 400 });
   }
 }
 
@@ -56,23 +56,29 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     const body = await request.json();
     
     const {
-       name
+       name, routeAdmin, dose, duration 
     } = body;
 
     // Initialize insertValues with the correct values
     const insertValues = {
       name: name,
+      routeAdmin: routeAdmin, 
+      dose: dose,
+      duration: duration
     };
 
-    const res = await db.update(disability)
+    const res = await db.update(medicines)
   .set({
-    name: insertValues.name
+    name: insertValues.name,
+    routeAdmin: insertValues.routeAdmin,
+    dose: insertValues.dose,
+    duration: insertValues.duration
   })
-  .where(eq(disability.idDisability, Number(id)));
+  .where(eq(medicines.idMedicines, Number(id)));
     
     return NextResponse.json(res, { status: 200 });
   } catch (error) {
     console.log(error);
-    return NextResponse.json("Error deleting reminder", { status: 400 });
+    return NextResponse.json("Error deleting medicine", { status: 400 });
   }
 }

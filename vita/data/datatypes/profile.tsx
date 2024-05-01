@@ -57,3 +57,45 @@ export interface EditDisabilityData {
   idDisability: Number;
   name: string;
 }
+
+
+export interface ChronicalData {
+  name: string;
+}
+
+export interface GetChronicalData {
+map(arg0: (chronical: any, index: any) => import("react").JSX.Element): import("react").ReactNode;
+name: string;
+idMedicalProfile: Number;
+idChronicalDesease: Number;
+}
+
+export interface EditChronicalData {
+  idChronicalDesease: Number;
+  name: string;
+}
+
+export interface MedicinesData {
+  name: string;
+  routeAdmin: string;
+  dose: string;
+  duration: string;
+}
+
+export interface GetMedicinesData {
+  map(arg0: (disability: any, index: any) => import("react").JSX.Element): import("react").ReactNode;
+  name: string;
+  idMedicalProfile: Number;
+  idMedicines: Number;
+  routeAdmin: string;
+  dose: string;
+  duration: string;
+  }
+  
+  export interface EditMedicinesData {
+    idMedicines: Number;
+    name: string;
+    routeAdmin: string;
+    dose: string;
+    duration: string;
+  }

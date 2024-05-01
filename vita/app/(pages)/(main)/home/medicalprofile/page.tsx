@@ -4,14 +4,13 @@ import React, { useState, useEffect} from "react";
 import axios from  "axios"
 import {  UserData } from '@/data/datatypes/user';
 import ToggleComponent from '@/components/information/toggle';
-import { AllergiesData, DisabilityData, EditAllergiesData, EditDisabilityData, EditProfileData, GetAllergiesData, GetDisabilityData, ProfileData } from '@/data/datatypes/profile';
+import { AllergiesData, ChronicalData, DisabilityData, EditAllergiesData, EditChronicalData, EditDisabilityData, EditMedicinesData, EditProfileData, GetAllergiesData, GetChronicalData, GetDisabilityData, GetMedicinesData, MedicinesData, ProfileData } from '@/data/datatypes/profile';
 import { FiInfo,FiEdit, FiTrash2 } from 'react-icons/fi';
 import GetModal from '@/components/modal/getModal';
 import AddModal from '@/components/modal/addModal';
-import { confirmAndDelete } from '@/lib/profile/functions';
-
-
-
+import { confirmAndDelete, handleAddItem, handleEditItem, handleInput } from '@/lib/profile/functions';
+import EditModal from '@/components/modal/editModal';
+     
 const Profile = () => {
     const [editMode, setEditMode] = useState(false);
     const [userData, setUserData] = useState<UserData | null>(null);
@@ -68,44 +67,26 @@ const Profile = () => {
         setEditingAllergy(null);
     };
 
-    const handleEdit = async () => {
-        try {
-            if (editingAllergy) {
-                const response = await axios.put(`/api/profile/allergies/${editingAllergy.idAllergies}`, {
-                    name: editingAllergy.name,
-                    reaction: editingAllergy.reaction
-                });
-                if (response.status === 200) {
-                    Swal.fire({
-                        title: 'Éxito',
-                        text: 'Se han guardado los cambios con éxito',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    });
-                    closeAllergyModal();
-                    getData();
-                    setEditingAllergy(null);
-                }
-            }
-        } catch (error) {
-            Swal.fire({
-                title: 'Error',
-                text: 'Ocurrió un error al guardar los cambios',
-                icon: 'error',
-                confirmButtonText: 'OK'
+    const handleEditAllergy = async () => {
+        await handleEditItem(
+          editingAllergy,
+          'alergia',
+          async (editedItem) => {
+            return await axios.put(`/api/profile/allergies/${editedItem.idAllergies}`, {
+              name: editedItem.name,
+              reaction: editedItem.reaction
             });
-        }
-    };
+          },
+          closeAllergyModal,
+          getData,
+          setEditingAllergy
+        );
+      };      
 
     // Función para manejar el cambio en el campo de nueva alergia
     const handleNewAllergyChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = event.target;
-        // Asigna un nuevo objeto AllergyData al estado newAllergy
-        setNewAllergy(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    }
+        handleInput(event, setNewAllergy);
+      };
       
 
     const resetAllergy = () => {
@@ -113,40 +94,20 @@ const Profile = () => {
     };
 
     // Función para agregar una nueva alergia
-const handleAddAllergy = async () => {
-    try {
-        if (editedDataProfile && newAllergy) {
-            const { idMedicalProfile } = editedDataProfile;
-            const allergyData = {
-                name: newAllergy.name,
-                reaction: newAllergy.reaction, // Cambiar por la reacción adecuada
-                idMedicalProfile: idMedicalProfile
-            };
-
-            await axios.post("/api/profile/allergies", allergyData); 
-            Swal.fire({
-                title: 'Éxito',
-                text: 'Se ha agregado una nueva alergia con éxito',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            });
-            resetAllergy();
-            // Cerrar el modal después de agregar la alergia
-            closeAllergyModal();
-            
-            // Actualizar la información del perfil después de agregar la alergia
-            getData();
-        }
-    } catch (error) {
-        Swal.fire({
-            title: 'Error',
-            text: "Ocurrió un error al agregar la alergia",
-            icon: 'error',
-            confirmButtonText: 'OK'
-        });
-        // Aquí puedes manejar el error, por ejemplo, mostrando un mensaje al usuario
-    }
-};
+    const handleAddAllergy = async () => {
+        await handleAddItem(
+          newAllergy,
+          'una nueva alergia',
+          editedDataProfile,
+          async (allergyData) => {
+            return await axios.post("/api/profile/allergies", allergyData);
+          },
+          resetAllergy,
+          closeAllergyModal,
+          getData
+        );
+      };
+      
 
     const handleCancelEdit = () => {
         setEditMode(false);
@@ -167,7 +128,6 @@ const handleAddAllergy = async () => {
     // Función para manejar el cambio en los inputs
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = event.target;
-        // Validamos si hay datos editados y los actualizamos
         if (editedDataProfile) {  
             setEditedDataProfile({ ...editedDataProfile, [name]: value }); 
         }
@@ -202,6 +162,14 @@ const handleAddAllergy = async () => {
             const disability = await axios.get(`/api/profile/disabilities/${fetchedData2.idMedicalProfile}`);
             const dataDisability  = disability.data;
             setDisabilityData(dataDisability);
+            // Chronical Desease
+            const chronical = await axios.get(`/api/profile/chronicalDesease/${fetchedData2.idMedicalProfile}`);
+            const dataChronical = chronical.data;
+            setChronicalData(dataChronical);
+             //Medicines 
+             const medicines = await axios.get(`/api/profile/medicines/${fetchedData2.idMedicalProfile}`);
+             const dataMedicines = medicines.data;
+             setMedicinesData( dataMedicines);
 
         } catch (error) {
             Swal.fire({
@@ -215,7 +183,7 @@ const handleAddAllergy = async () => {
 
     useEffect(() => {
         getData();
-        
+
     }, []);
 
     // Función para guardar los cambios editados
@@ -291,82 +259,218 @@ const handleAddAllergy = async () => {
         };
     
         const handleEditDisability = async () => {
-            try {
-                if (editingDisability) {
-                    const response = await axios.put(`/api/profile/disabilities/${editingDisability.idDisability}`, {
-                        name: editingDisability.name
-                    });
-                    if (response.status === 200) {
-                        Swal.fire({
-                            title: 'Éxito',
-                            text: 'Se han guardado los cambios con éxito',
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        });
-                        closeDisabilityModal();
-                        getData();
-                        setEditingDisability(null);
-                    }
-                }
-            } catch (error) {
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Ocurrió un error al guardar los cambios',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
+            await handleEditItem(
+              editingDisability,
+              'discapacidad',
+              async (editedItem) => {
+                return await axios.put(`/api/profile/disabilities/${editedItem.idDisability}`, {
+                  name: editedItem.name
                 });
-            }
-        };
+              },
+              closeDisabilityModal,
+              getData,
+              setEditingDisability
+            );
+          };
     
         // Función para manejar el cambio en el campo de nueva alergia
         const handleNewDisabilityChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-            const { name, value } = event.target;
-            // Asigna un nuevo objeto AllergyData al estado newAllergy
-            setNewDisability(prevState => ({
-                ...prevState,
-                [name]: value
-            }));
-        }
+            handleInput(event, setNewDisability);
+          };
           
-    
         const resetDisability = () => {
             setNewDisability({name: ""})
         };
     
         // Función para agregar una nueva alergia
-    const handleAddDisability= async () => {
-        try {
-            if (editedDataProfile && newDisability) {
-                const { idMedicalProfile } = editedDataProfile;
-                const disabilityData = {
-                    name: newDisability.name,
-                    idMedicalProfile: idMedicalProfile
-                };
+        const handleAddDisability = async () => {
+            await handleAddItem(
+              newDisability,
+              'una nueva discapacidad',
+              editedDataProfile,
+              async (disabilityData) => {
+                return await axios.post("/api/profile/disabilities", disabilityData);
+              },
+              resetDisability,
+              closeDisabilityModal,
+              getData
+            );
+          };
+
+
+     //chronical
+     const [modalOpen3, setModalOpen3] = useState(false);
+     const [chronicalData, setChronicalData] = useState<GetChronicalData | null>(null);  
+     const [selectedChronical, setSelectedChronical] = useState<ChronicalData | null>(null);
+     const [editingChronical, setEditingChronical ]= useState<EditChronicalData | null>(null);
+     
+     const handleEditClickChronical= (chronical: ChronicalData, chronicalId: number) => {
+         const editedChronicalData: EditChronicalData = {
+             idChronicalDesease: chronicalId,
+             name: chronical.name
+         };
+         setEditingChronical(editedChronicalData);
+         openChronicalModal();
+     };
+ 
+     const DeleteChronical = async (idChronicalDesease: string) => {
+         await confirmAndDelete(idChronicalDesease, 'enfermedad crónica', async (id) => {
+           return await axios.delete(`/api/profile/chronicalDeasease/${id}`);
+         });
+         getData()
+       };
+ 
+     const openModalChronical= (chronical: ChronicalData) => {
+         setSelectedChronical(chronical);
+         setModalOpen3(true);
+     };
+ 
+     const closeModalChronical = () => {
+         setModalOpen3(false);
+     };
+ 
+     const [newChronical, setNewChronical] = useState<ChronicalData>({ name: "" });
+     const [chronicalModalOpen, setChronicalModalOpen] = useState(false);
+ 
+     const openChronicalModal = () => {
+         setChronicalModalOpen(true);
+     };
+ 
+     // Función para cerrar el modal de alergia
+     const closeChronicalModal = () => {
+         resetChronical();
+         setChronicalModalOpen(false);
+         setEditingChronical(null);
+     };
+ 
+     const handleEditChronical = async () => {
+         await handleEditItem(
+           editingChronical,
+           'discapacidad',
+           async (editedItem) => {
+             return await axios.put(`/api/profile/chronicalDesease/${editedItem.idChronicalDesease}`, {
+               name: editedItem.name
+             });
+           },
+           closeChronicalModal,
+           getData,
+           setEditingChronical
+         );
+       };
+ 
+     // Función para manejar el cambio en el campo de nueva alergia
+     const handleNewChronicalChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+         handleInput(event, setNewChronical);
+       };
+       
+     const resetChronical = () => {
+         setNewChronical({name: ""})
+     };
+ 
+     // Función para agregar una nueva alergia
+     const handleAddChronical = async () => {
+         await handleAddItem(
+           newChronical,
+           'una nueva enfermedad crónica',
+           editedDataProfile,
+           async (chronicalData) => {
+             return await axios.post("/api/profile/chronicalDesease", chronicalData);
+           },
+           resetChronical,
+           closeChronicalModal,
+           getData
+         );
+       };
     
-                await axios.post("/api/profile/disabilities", disabilityData); 
-                Swal.fire({
-                    title: 'Éxito',
-                    text: 'Se ha agregado  con éxito',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                });
-                resetDisability();
-                // Cerrar el modal después de agregar la alergia
-                closeDisabilityModal();
-                
-                // Actualizar la información del perfil después de agregar la alergia
-                getData();
-            }
-        } catch (error) {
-            Swal.fire({
-                title: 'Error',
-                text: "Ocurrió un error al agregar la discapacidad",
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-            // Aquí puedes manejar el error, por ejemplo, mostrando un mensaje al usuario
-        }
+    //medicines
+    const [modalOpen4, setModalOpen4] = useState(false);
+    const [medicinesData, setMedicinesData] = useState<GetMedicinesData | null>(null);  
+    const [selectedMedicines, setSelectedMedicines] = useState<MedicinesData | null>(null);
+    const [editingMedicines, setEditingMedicines ]= useState<EditMedicinesData | null>(null);
+    
+    const handleEditClickMedicines= (medicines: MedicinesData, medicinesId: number) => {
+        const editedMedicinesData: EditMedicinesData = {
+            idMedicines: medicinesId,
+            name: medicines.name,
+            routeAdmin: medicines.routeAdmin,
+            dose: medicines.dose,
+            duration: medicines.duration
+        };
+        setEditingMedicines(editedMedicinesData);
+        openMedicinesModal();
     };
+
+    const DeleteMedicines = async (idMedicines: string) => {
+        await confirmAndDelete(idMedicines, 'Medicina', async (id) => {
+          return await axios.delete(`/api/profile/medicines/${id}`);
+        });
+        getData()
+      };
+
+    const openModalMedicines= (medicines: MedicinesData) => {
+        setSelectedMedicines(medicines);
+        setModalOpen4(true);
+    };
+
+    const closeModalMedicines = () => {
+        setModalOpen4(false);
+    };
+
+    const [newMedicines, setNewMedicines] = useState<MedicinesData>({ name: "", routeAdmin: "", dose: "", duration: "" });
+    const [medicinesModalOpen, setMedicinesModalOpen] = useState(false);
+
+    const openMedicinesModal = () => {
+        setMedicinesModalOpen(true);
+    };
+
+    // Función para cerrar el modal de alergia
+    const closeMedicinesModal = () => {
+        resetMedicines();
+        setMedicinesModalOpen(false);
+        setEditingMedicines(null);
+    };
+
+    const handleEditMedicines = async () => {
+        await handleEditItem(
+          editingMedicines,
+          'medicina',
+          async (editedItem) => {
+            return await axios.put(`/api/profile/medicines/${editedItem.idMedicines}`, {
+              name: editedItem.name,
+              routeAdmin: editedItem.routeAdmin,
+              dose: editedItem.dose,
+              duration: editedItem.duration,
+            });
+          },
+          closeMedicinesModal,
+          getData,
+          setEditingMedicines
+        );
+      };
+
+    // Función para manejar el cambio en el campo de nueva alergia
+    const handleNewMedicinesChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        handleInput(event, setNewMedicines);
+      };
+      
+    const resetMedicines = () => {
+        setNewMedicines({ name: "", routeAdmin: "", dose: "", duration: "" });
+    };
+
+    // Función para agregar una nueva alergia
+    const handleAddMedicines = async () => {
+        await handleAddItem(
+          newMedicines,
+          'una nueva medicina',
+          editedDataProfile,
+          async (medinesData) => {
+            return await axios.post("/api/profile/medicines", medicinesData);
+          },
+          resetMedicines,
+          closeMedicinesModal,
+          getData
+        );
+      };
 
     return (
         <div className="mb-4">
@@ -585,7 +689,6 @@ const handleAddAllergy = async () => {
                     <>
                     {allergiesData ? (
                         <div>
-                            {/* Utilizar un map para renderizar cada alergia */}
                             {allergiesData.map((allergy, index) => (
                                 <div key={index} className="flex flex-row mb-2 justify-around items-center">
                                     <p className="font-bold text-black text-lg py-2 px-6">Nombre de la alergía:</p>
@@ -618,7 +721,7 @@ const handleAddAllergy = async () => {
                                             onClick={() => openModal(allergy)}
                                             />
                                         )}
-                                                    </div>
+                                 </div>
                             ))}
                         </div>
                     ) : (
@@ -648,7 +751,6 @@ const handleAddAllergy = async () => {
                     <>
                     {disabilityData ? (
                         <div>
-                            {/* Utilizar un map para renderizar cada alergia */}
                             {disabilityData.map((disability, index) => (
                                 <div key={index} className="flex flex-row mb-2 justify-around items-center">
                                     <p className="font-bold text-black text-lg py-2 px-6">Nombre de la dispacidad:</p>
@@ -696,11 +798,9 @@ const handleAddAllergy = async () => {
                             }}
                                 className="  text-3xl bg-blue-500 hover:bg-blue-700 
                                  text-white font-bold py-1 px-4 rounded-full mt-2"
-                            >
-                                +
-                            </button>
+                            > + </button>
                             </div>
-                        
+
                             ) : (
                                 ''
                             )}
@@ -708,40 +808,121 @@ const handleAddAllergy = async () => {
                     </ToggleComponent>
 
                     <ToggleComponent title="Enfermedades crónicas " editModeToggle={false}>
-                        <div className='py-2 px-6 rounded-full lg:w-[280px]  w-70 bg-white'> 
-                            <p className="font-bold text-gray-400 text-lg"> Diabetes</p>
+                    <>
+                    {chronicalData ? (
+                        <div>
+                            {chronicalData.map((chronical, index) => (
+                                <div key={index} className="flex flex-row mb-2 justify-around items-center">
+                                    <p className="font-bold text-black text-lg py-2 px-6">Nombre de la enfermedad:</p>
+                                    <div className="py-2 px-6 rounded-full lg:w-[280px] w-70 flex items-center bg-white">
+                                        <p className="font-bold text-gray-400 text-lg">{chronical.name}</p>
+                                    </div>
+                                    {editMode ? (
+                                        <>
+                                            <FiTrash2
+                                                className="ml-2 h-8 w-8 text-red-500 cursor-pointer hover:text-red-800 transition duration-300 ease-in-out transform hover:scale-105"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    DeleteChronical(chronical.idChronicalDesease)
+                                                }}
+                                            />
+                                            <FiEdit
+                                                 className="ml-2 h-8 w-8 text-blue-500 cursor-pointer hover:text-blue-800 transition duration-300 ease-in-out transform hover:scale-105"
+                                                 onClick={(e) => {
+                                                    e.preventDefault();
+                                                    handleEditClickChronical(chronical, chronical.idChronicalDesease)
+                                                }}
+                                              
+                                             
+                                            />
+                                        </>
+                                    ) : (
+
+                                        <FiInfo
+                                            className="ml-2 h-8 w-8 text-gray-500 cursor-pointer hover:text-gray-800 transition duration-300 ease-in-out transform hover:scale-105"
+                                            onClick={() => openModalChronical(chronical)}
+                                            />
+                                        )}
+                                                    </div>
+                            ))}
                         </div>
+                    ) : (
+                        <p className="text-2xl text-black items-center ">No se han encontrado enfermedades.</p>
+                    )}
+                        {editMode ? (
+                            <div className='flex justify-end mr-5'> 
+                            <button
+                            onClick={(e) => {
+                                e.preventDefault();
+                                openChronicalModal();
+                            }}
+                                className="  text-3xl bg-blue-500 hover:bg-blue-700 
+                                 text-white font-bold py-1 px-4 rounded-full mt-2"
+                            > + </button>
+                            </div>
+
+                            ) : (
+                                ''
+                            )}
+                    </>
                     </ToggleComponent>
 
                     <ToggleComponent title="Medicinas" editModeToggle={false}>
-                    <div className="flex lg:flex-row flex-col justify-around mb-2"> 
-                            <div className='flex  flex-col '> 
-                                <p className="font-bold text-black text-lg py-2 px-6"> Nombre de la medicina:</p>
-                                <div className='py-2 px-6 rounded-full lg:w-[280px] w-70 bg-white'> 
-                                    <p className="font-bold text-gray-400 text-lg"> Salbutamol</p>
-                                </div>
-                            </div> 
-                            <div className='flex  flex-col '> 
-                                <p className="font-bold text-black text-lg py-2 px-6">Vía de administración:</p>
-                                <div className='py-2 px-6 rounded-full lg:w-[280px] w-70 bg-white'> 
-                                    <p className="font-bold text-gray-400 text-lg">Oral</p>
-                                </div>
-                            </div> 
-                    </div>
-                    <div className="flex lg:flex-row flex-col justify-around mb-2"> 
-                            <div className='flex  flex-col '> 
-                                <p className="font-bold text-black text-lg py-2 px-6"> Dosis:</p>
-                                <div className='py-2 px-6 rounded-full lg:w-[280px] w-70 bg-white'> 
-                                    <p className="font-bold text-gray-400 text-lg"> 20 ml</p>
-                                </div>
-                            </div> 
-                            <div className='flex  flex-col '> 
-                                <p className="font-bold text-black text-lg py-2 px-6">Duración:</p>
-                                <div className='py-2 px-6 rounded-full  lg:w-[280px] w-70 bg-white'> 
-                                    <p className="font-bold text-gray-400 text-lg">Cada 2 horas</p>
-                                </div>
-                            </div> 
-                    </div>   
+                    {medicinesData ? (
+                        <div>
+                            {medicinesData.map((medicine, index) => (
+                                <div key={index} className="flex flex-row mb-2 justify-around items-center">
+                                    <p className="font-bold text-black text-lg py-2 px-6">Nombre de la medicina:</p>
+                                    <div className="py-2 px-6 rounded-full lg:w-[280px] w-70 flex items-center bg-white">
+                                        <p className="font-bold text-gray-400 text-lg">{medicine.name}</p>
+                                    </div>
+                                    {editMode ? (
+                                        <>
+                                            <FiTrash2
+                                                className="ml-2 h-8 w-8 text-red-500 cursor-pointer hover:text-red-800 transition duration-300 ease-in-out transform hover:scale-105"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    DeleteMedicines(medicine.idMedicines)
+                                                }}
+                                            />
+                                            <FiEdit
+                                                 className="ml-2 h-8 w-8 text-blue-500 cursor-pointer hover:text-blue-800 transition duration-300 ease-in-out transform hover:scale-105"
+                                                 onClick={(e) => {
+                                                    e.preventDefault();
+                                                    handleEditClickMedicines(medicine, medicine.idMedicines)
+                                                }}
+                                              
+                                             
+                                            />
+                                        </>
+                                    ) : (
+
+                                        <FiInfo
+                                            className="ml-2 h-8 w-8 text-gray-500 cursor-pointer hover:text-gray-800 transition duration-300 ease-in-out transform hover:scale-105"
+                                            onClick={() => openModalMedicines(medicine)}
+                                            />
+                                        )}
+                                    </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <p className="text-2xl text-black items-center ">No se han encontrado medicinas.</p>
+                    )}
+                        {editMode ? (
+                            <div className='flex justify-end mr-5'> 
+                            <button
+                            onClick={(e) => {
+                                e.preventDefault();
+                                openMedicinesModal();
+                            }}
+                                className="  text-3xl bg-blue-500 hover:bg-blue-700 
+                                 text-white font-bold py-1 px-4 rounded-full mt-2"
+                            > + </button>
+                            </div>
+
+                            ) : (
+                                ''
+                            )} 
                     </ToggleComponent>
 
                 
@@ -795,6 +976,29 @@ const handleAddAllergy = async () => {
                 onCloseButtonClick={closeModalDisability}
             />
 
+            <GetModal
+                modalOpen={modalOpen3 && selectedChronical != null}
+                closeModal={closeModalChronical}
+                modalTitle="Enfermedad crónica"
+                modalContent={[
+                    { label: "Nombre de la enfermedad:", value: selectedChronical?.name || "" },
+                ]}
+                onCloseButtonClick={closeModalChronical}
+            />
+
+            <GetModal
+                modalOpen={modalOpen4 && selectedMedicines != null}
+                closeModal={closeModalMedicines}
+                modalTitle="Medicina"
+                modalContent={[
+                    { label: "Nombre de la medicina:", value: selectedMedicines?.name || "" },
+                    { label: "Vía de administración:", value: selectedMedicines?.routeAdmin || "" },
+                    { label: "Dosis:", value: selectedMedicines?.dose || "" },
+                    { label: "Duración:", value: selectedMedicines?.duration || "" },
+                ]}
+                onCloseButtonClick={closeModalMedicines}
+            />
+
 
            {/* Modal  POst */}
            <AddModal
@@ -818,96 +1022,91 @@ const handleAddAllergy = async () => {
                 handleAddItem={handleAddDisability}
                 item={newDisability}
                 handleItemChange={handleNewDisabilityChange }
-                title="Agregar Discapacidad"
+                title="Agregar Enfermedad"
                 fields={[
                     { name: "name", placeholder: "Nombre de la discapacidad" },
                 ]}
             />
 
+            <AddModal
+                modalOpen={chronicalModalOpen}
+                editMode={editMode}
+                closeModal={closeChronicalModal}
+                handleAddItem={handleAddChronical}
+                item={newChronical}
+                handleItemChange={handleNewChronicalChange }
+                title="Agregar Enfermedad"
+                fields={[
+                    { name: "name", placeholder: "Nombre de la enfermedad" },
+                ]}
+            />
+
+            <AddModal
+                modalOpen={medicinesModalOpen}
+                editMode={editMode}
+                closeModal={closeMedicinesModal}
+                handleAddItem={handleAddMedicines}
+                item={newMedicines}
+                handleItemChange={handleNewMedicinesChange}
+                title="Agregar Medicina"
+                fields={[
+                    { name: "name", placeholder: "Nombre de la medicina" },
+                    { name: "routeAdmin", placeholder: "Vía de administración" },
+                    { name: "dose", placeholder: "Dosis" },
+                    { name: "duration", placeholder: "Duración" },
+                ]}
+            />
+
+
 
             {/* Modal de edición de alergia */}
-{editingAllergy && editMode &&  (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-        <div className="bg-white p-8 rounded-lg">
-            <h2 className="text-2xl font-bold mb-4">Editar Alergia</h2>
-            <div className="mb-4">
-                {/* Campo para editar el nombre de la alergia */}
-                <input
-                    type="text"
-                    name="name"
-                    value={editingAllergy.name}
-                    onChange={(e) => setEditingAllergy({ ...editingAllergy, name: e.target.value })}
-                    className="w-full border border-gray-300 rounded-md p-2"
-                    placeholder="Nombre de la alergia"
-                    required
-                />
-            </div>
-            <div className="mb-4">
-                {/* Campo para editar la reacción de la alergia */}
-                <input
-                    type="text"
-                    name="reaction"
-                    value={editingAllergy.reaction}
-                    onChange={(e) => setEditingAllergy({ ...editingAllergy, reaction: e.target.value })}
-                    className="w-full border border-gray-300 rounded-md p-2"
-                    placeholder="Reacción de la alergia"
-                    required
-                />
-            </div>
-            {/* Botones para guardar los cambios o cancelar */}
-            <div className="flex justify-end">
-                <button
-                    onClick={handleEdit}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-                >
-                    Guardar
-                </button>
-                <button
-                    onClick={closeAllergyModal}
-                    className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                >
-                    Cancelar
-                </button>
-            </div>
-        </div>
-    </div>
-)}
+            <EditModal
+                editingData={editingAllergy}
+                editMode={editMode}
+                handleEdit={handleEditAllergy}
+                closeModal={closeAllergyModal}
+                fields={[
+                { name: 'name', placeholder: 'Nombre de la alergia' },
+                { name: 'reaction', placeholder: 'Reacción de la alergia' }
+                ]}
+                setEditingData={setEditingAllergy}
+            />
 
-{/* Modal de edición de discapacidad*/}
-{editingDisability && editMode &&  (
-<div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-<div className="bg-white p-8 rounded-lg">
-<h2 className="text-2xl font-bold mb-4">Editar Discapacidad</h2>
-<div className="mb-4">
-    {/* Campo para editar el nombre de la alergia */}
-    <input
-        type="text"
-        name="name"
-        value={editingDisability.name}
-        onChange={(e) => setEditingDisability({ ...editingDisability, name: e.target.value })}
-        className="w-full border border-gray-300 rounded-md p-2"
-        placeholder="Nombre de la alergia"
-        required
-    />
-</div>
-{/* Botones para guardar los cambios o cancelar */}
-<div className="flex justify-end">
-    <button
-        onClick={handleEditDisability}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-    >
-        Guardar
-    </button>
-    <button
-        onClick={closeDisabilityModal}
-        className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-    >
-        Cancelar
-    </button>
-</div>
-</div>
-</div>
-)}
+            <EditModal
+                editingData={editingDisability}
+                editMode={editMode}
+                handleEdit={handleEditDisability}
+                closeModal={closeDisabilityModal}
+                fields={[
+                { name: 'name', placeholder: 'Nombre de la discapacidad' }
+                ]}
+                setEditingData={setEditingDisability}
+            />
+
+            <EditModal
+                editingData={editingChronical}
+                editMode={editMode}
+                handleEdit={handleEditChronical}
+                closeModal={closeChronicalModal}
+                fields={[
+                { name: 'name', placeholder: 'Nombre de la enfermedad' }
+                ]}
+                setEditingData={setEditingChronical}
+            />
+
+            <EditModal
+                editingData={editingMedicines}
+                editMode={editMode}
+                handleEdit={handleEditMedicines}
+                closeModal={closeMedicinesModal}
+                fields={[
+                    { name: "name", placeholder: "Nombre de la medicina" },
+                    { name: "routeAdmin", placeholder: "Vía de administración" },
+                    { name: "dose", placeholder: "Dosis" },
+                    { name: "duration", placeholder: "Duración" },
+                ]}
+                setEditingData={setEditingMedicines}
+            />
         </div>
         
     );
