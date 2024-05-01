@@ -14,12 +14,12 @@ export async function GET(request: Request, { params }: { params: { id: string }
 
     const res = await db.select()
     .from(chronicalDesease)
-    .where(eq(chronicalDesease.idChronicalDesease, Number(id)));
+    .where(eq(chronicalDesease.idMedicalProfile, Number(id)));
     
   return NextResponse.json(res, { status: 200 });
   } catch (error) {
     console.log(error);
-    return NextResponse.json("Error get reminder", { status: 400 });
+    return NextResponse.json("Error get chronical desease", { status: 400 });
   }
 }
 
@@ -36,10 +36,10 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
   .where(eq(chronicalDesease.idChronicalDesease, Number(id)));
 
 
-    return NextResponse.json("Allergie deleted successfully", { status: 200 });
+    return NextResponse.json("Chronical Desease deleted successfully", { status: 200 });
   } catch (error) {
     console.log(error);
-    return NextResponse.json("Error deleting reminder", { status: 400 });
+    return NextResponse.json("Error deleting chronical desease", { status: 400 });
   }
 }
 
@@ -72,6 +72,6 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     return NextResponse.json(res, { status: 200 });
   } catch (error) {
     console.log(error);
-    return NextResponse.json("Error deleting reminder", { status: 400 });
+    return NextResponse.json("Error editing chronical desease", { status: 400 });
   }
 }

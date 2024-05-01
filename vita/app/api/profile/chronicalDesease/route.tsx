@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     return NextResponse.json(res, { status: 200 });
   } catch (error) {
     console.error(error);
-    return NextResponse.json("Error posting reminder", { status: 400 });
+    return NextResponse.json("Error posting chronical desease", { status: 400 });
   }
 }
 

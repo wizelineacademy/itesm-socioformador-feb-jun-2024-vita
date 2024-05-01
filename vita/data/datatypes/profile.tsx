@@ -83,7 +83,7 @@ export interface MedicinesData {
 }
 
 export interface GetMedicinesData {
-  map(arg0: (disability: any, index: any) => import("react").JSX.Element): import("react").ReactNode;
+  map(arg0: (medicine: any, index: any) => import("react").JSX.Element): import("react").ReactNode;
   name: string;
   idMedicalProfile: Number;
   idMedicines: Number;

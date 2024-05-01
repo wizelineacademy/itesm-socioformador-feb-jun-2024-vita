@@ -166,6 +166,8 @@ const Profile = () => {
             const chronical = await axios.get(`/api/profile/chronicalDesease/${fetchedData2.idMedicalProfile}`);
             const dataChronical = chronical.data;
             setChronicalData(dataChronical);
+            console.log(dataChronical)
+            alert(dataChronical)
              //Medicines 
              const medicines = await axios.get(`/api/profile/medicines/${fetchedData2.idMedicalProfile}`);
              const dataMedicines = medicines.data;
@@ -315,7 +317,7 @@ const Profile = () => {
  
      const DeleteChronical = async (idChronicalDesease: string) => {
          await confirmAndDelete(idChronicalDesease, 'enfermedad crónica', async (id) => {
-           return await axios.delete(`/api/profile/chronicalDeasease/${id}`);
+           return await axios.delete(`/api/profile/chronicalDesease/${id}`);
          });
          getData()
        };
@@ -346,7 +348,7 @@ const Profile = () => {
      const handleEditChronical = async () => {
          await handleEditItem(
            editingChronical,
-           'discapacidad',
+           'enfermedad crónica',
            async (editedItem) => {
              return await axios.put(`/api/profile/chronicalDesease/${editedItem.idChronicalDesease}`, {
                name: editedItem.name
@@ -463,7 +465,7 @@ const Profile = () => {
           newMedicines,
           'una nueva medicina',
           editedDataProfile,
-          async (medinesData) => {
+          async (medicinesData) => {
             return await axios.post("/api/profile/medicines", medicinesData);
           },
           resetMedicines,
@@ -749,7 +751,7 @@ const Profile = () => {
 
                     <ToggleComponent title="Discapacidades" editModeToggle={false}> 
                     <>
-                    {disabilityData ? (
+                    {disabilityData  ? (
                         <div>
                             {disabilityData.map((disability, index) => (
                                 <div key={index} className="flex flex-row mb-2 justify-around items-center">
@@ -787,7 +789,7 @@ const Profile = () => {
                             ))}
                         </div>
                     ) : (
-                        <p className="text-2xl text-black items-center ">No se han encontrado alergias.</p>
+                        <p className="text-2xl text-black items-center ">No se han encontrado discapacidades.</p>
                     )}
                         {editMode ? (
                             <div className='flex justify-end mr-5'> 

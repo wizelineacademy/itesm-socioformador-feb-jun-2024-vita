@@ -21,7 +21,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
   return NextResponse.json(res, { status: 200 });
   } catch (error) {
     console.log(error);
-    return NextResponse.json("Error get reminder", { status: 400 });
+    return NextResponse.json("Error get allergies ", { status: 400 });
   }
 }
 
@@ -41,7 +41,7 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
     return NextResponse.json("Allergie deleted successfully", { status: 200 });
   } catch (error) {
     console.log(error);
-    return NextResponse.json("Error deleting reminder", { status: 400 });
+    return NextResponse.json("Error deleting allergie", { status: 400 });
   }
 }
 
@@ -77,6 +77,6 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     return NextResponse.json(res, { status: 200 });
   } catch (error) {
     console.log(error);
-    return NextResponse.json("Error deleting reminder", { status: 400 });
+    return NextResponse.json("Error editing allergie", { status: 400 });
   }
 }

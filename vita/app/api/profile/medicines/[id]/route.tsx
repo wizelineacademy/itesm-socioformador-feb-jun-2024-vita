@@ -14,7 +14,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
 
     const res = await db.select()
     .from(medicines)
-    .where(eq(medicines.idMedicines, Number(id)));
+    .where(eq(medicines.idMedicalProfile, Number(id)));
     
   return NextResponse.json(res, { status: 200 });
   } catch (error) {
@@ -79,6 +79,6 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     return NextResponse.json(res, { status: 200 });
   } catch (error) {
     console.log(error);
-    return NextResponse.json("Error deleting medicine", { status: 400 });
+    return NextResponse.json("Error editing medicine", { status: 400 });
   }
 }

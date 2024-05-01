@@ -19,7 +19,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
   return NextResponse.json(res, { status: 200 });
   } catch (error) {
     console.log(error);
-    return NextResponse.json("Error get reminder", { status: 400 });
+    return NextResponse.json("Error get disabilities", { status: 400 });
   }
 }
 
@@ -37,10 +37,10 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
   .where(eq(disability.idDisability, Number(id)));
 
 
-    return NextResponse.json("Allergie deleted successfully", { status: 200 });
+    return NextResponse.json("Disability deleted successfully", { status: 200 });
   } catch (error) {
     console.log(error);
-    return NextResponse.json("Error deleting reminder", { status: 400 });
+    return NextResponse.json("Error deleting disability", { status: 400 });
   }
 }
 
@@ -73,6 +73,6 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     return NextResponse.json(res, { status: 200 });
   } catch (error) {
     console.log(error);
-    return NextResponse.json("Error deleting reminder", { status: 400 });
+    return NextResponse.json("Error editing disability", { status: 400 });
   }
 }

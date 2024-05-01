@@ -62,7 +62,6 @@ export async function PUT(request: Request) {
         })
         .where(eq(medicalProfile.idUser, session.user?.id));
 
- 
         return NextResponse.json("Profile was edited successfully", { status: 200 });
   } catch (error) {
     console.log(error)
