@@ -41,6 +41,7 @@ const config = {
         "dark-green": "#194A48",
         "input-green": "#2D3B3D",
         "dark-purple": "#121535",
+        "input-purple": "#65677C",
         "decoration-sleep-colordark": "#2D278E",
         "decoration-sleep-colorlight": "#5044FF",
         'dark-background-purple': "#3A0A2D",

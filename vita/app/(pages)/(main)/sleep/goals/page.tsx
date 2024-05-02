@@ -37,7 +37,7 @@ const SleepGoalsPage = () => {
       {goal && (
           <div className='flex flex-col w-full gap-y-5 lg:items-start'>
             <p className="text-xl font-bold">Tu meta actual es:</p>
-            <p className='mt-5 py-3 pl-4 w-full max-w-[500px] rounded-2xl text-lg bg-custom-lightpurple'>{goal}</p>
+            <p className='mt-5 py-3 pl-4 w-full max-w-[500px] rounded-2xl text-lg bg-input-purple'>{goal}</p>
             <Link className='w-full' href="/sleep/goals/detail">
               <ButtonEvaluation onClick={() => {}} text='Editar meta'/>
             </Link>
