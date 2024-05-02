@@ -25,7 +25,8 @@ export async function GET(
               eq(Goals.idUser, session.user?.id), 
               eq(Goals.category, params.category)
           )
-      );
+        )
+        .orderBy(Goals.idGoal);
   
       if(!res.length){
           return NextResponse.json(res, { status: 400 });
@@ -37,6 +38,4 @@ export async function GET(
       console.log(error);
       return NextResponse.json("Error retrieving goal", { status: 400 });
     }
-  }
-  
-  
+}

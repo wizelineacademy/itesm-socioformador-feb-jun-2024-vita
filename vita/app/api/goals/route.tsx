@@ -26,7 +26,7 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: 'Bad request' }, { status: 400 })    
     }
 
-    //find if a nutrition goal already exists
+    //find if a goal already exists
     const previousGoal = await db.select({
         name: Goals.name
     })

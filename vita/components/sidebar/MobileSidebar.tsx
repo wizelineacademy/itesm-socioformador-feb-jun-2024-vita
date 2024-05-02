@@ -28,6 +28,12 @@ const MobileSidebar = () => {
             buttonColor: 'text-white',
         },
         {
+            label: 'Sueño',
+            href: '/sleep',
+            backgroundColor: 'bg-dark-purple',
+            buttonColor: 'text-white'
+        },
+        {
             label: 'Chat',
             href: '/chat',
             backgroundColor: 'bg-chat-background',
@@ -43,7 +49,6 @@ const MobileSidebar = () => {
 
     // Find the current route based on whether the pathname starts with the defined route href
     const currentRoute = routes.find((route) => pathname.startsWith(route.href)) || {
-        
         label: '',
         href: '',
         backgroundColor: 'bg-white',
