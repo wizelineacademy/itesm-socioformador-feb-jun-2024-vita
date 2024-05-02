@@ -1,7 +1,7 @@
 'use client';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { FaUtensils, FaHome,FaComments, FaRunning , FaBell, FaDoorOpen } from 'react-icons/fa';
+import { FaUtensils, FaHome,FaComments, FaRunning , FaBell, FaDoorOpen, FaMoon } from 'react-icons/fa';
 import { usePathname } from "next/navigation";
 import { signOut } from 'next-auth/react';
 
@@ -23,6 +23,12 @@ const routes = [
         icon: FaRunning,
         href: "/exercise",
         color: "bg-mid-green"
+    },
+    {
+        label: "Sueño",
+        icon: FaMoon,
+        href: "/sleep/goals",
+        color: "bg-decoration-sleep-colordark"
     },
     {
         label: "Chat",
