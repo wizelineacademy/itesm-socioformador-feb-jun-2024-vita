@@ -451,14 +451,14 @@ const handleSaveChanges = async () => {
                 e.preventDefault();
                 DeleteReminder(idReminders)
             }}  className="rounded-full mt-2 text-2xl px-3 
-                    py-2 bg-mid-red w-60 text-white mr-6">
+                    py-2 bg-mid-red hover:text-red-800 transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer w-60 text-white mr-6">
                         Eliminar
                     </button>
                   </span>
                   <span> 
                     <button
                         onClick={() => setEditMode(true)}
-                        className="rounded-full mt-2 text-2xl py-2 bg-reminders-color w-60 text-white"
+                        className="rounded-full mt-2 text-2xl py-2 bg-blue-500 hover:bg-blue-700  transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer  w-60 text-white"
                     >
                         Editar
                     </button>
@@ -468,11 +468,11 @@ const handleSaveChanges = async () => {
                 <>
                 <div className="flex lg:justify-center lg:items-center ml-2 mb-6 ">
                     <button onClick={handleCancelEdit} className="rounded-full mt-2 text-2xl px-3 
-                    py-2 bg-mid-red w-60 text-white mr-6">
+                    py-2 bg-gray-300 hover:bg-gray-400 transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer  w-60 text-white mr-6">
                         Cancelar
                     </button>
                     <button  type="submit" className="rounded-full mt-2 text-2xl px-3 
-                    py-2 bg-reminders-color w-70 text-white">
+                    py-2 bg-blue-500 hover:bg-blue-700  transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer  w-70 text-white">
                         Guardar Cambios
                     </button>
                 </div>   

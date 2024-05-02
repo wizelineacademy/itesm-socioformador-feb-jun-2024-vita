@@ -720,7 +720,7 @@ const Profile = () => {
 
                     <ToggleComponent title="Alergías" editModeToggle={false}>
                     <>
-                    {allergiesData ? (
+                    {allergiesData   && allergiesData.length > 0 ? (
                         <div>
                             {allergiesData.map((allergy, index) => (
                                 <div key={index} className="flex flex-row mb-2 justify-around items-center">
@@ -743,8 +743,6 @@ const Profile = () => {
                                                     e.preventDefault();
                                                     handleEditClick(allergy, allergy.idAllergies)
                                                 }}
-                                              
-                                             
                                             />
                                         </>
                                     ) : (
@@ -782,7 +780,7 @@ const Profile = () => {
 
                     <ToggleComponent title="Discapacidades" editModeToggle={false}> 
                     <>
-                    {disabilityData  ? (
+                    {disabilityData && disabilityData.length > 0 ? (
                         <div>
                             {disabilityData.map((disability, index) => (
                                 <div key={index} className="flex flex-row mb-2 justify-around items-center">
@@ -829,7 +827,7 @@ const Profile = () => {
                                 e.preventDefault();
                                 openDisabilityModal();
                             }}
-                                className="  text-3xl bg-blue-500 hover:bg-blue-700 
+                                className="  text-3xl bg-blue-500 hover:bg-blue-700   cursor-pointer transition duration-300 ease-in-out transform hover:scale-105
                                  text-white font-bold py-1 px-4 rounded-full mt-2"
                             > + </button>
                             </div>
@@ -842,7 +840,7 @@ const Profile = () => {
 
                     <ToggleComponent title="Enfermedades crónicas " editModeToggle={false}>
                     <>
-                    {chronicalData ? (
+                    {chronicalData && chronicalData.length > 0? (
                         <div>
                             {chronicalData.map((chronical, index) => (
                                 <div key={index} className="flex flex-row mb-2 justify-around items-center">
@@ -889,7 +887,7 @@ const Profile = () => {
                                 e.preventDefault();
                                 openChronicalModal();
                             }}
-                                className="  text-3xl bg-blue-500 hover:bg-blue-700 
+                                className="  text-3xl bg-blue-500 hover:bg-blue-700   cursor-pointer transition duration-300 ease-in-out transform hover:scale-105
                                  text-white font-bold py-1 px-4 rounded-full mt-2"
                             > + </button>
                             </div>
@@ -901,7 +899,7 @@ const Profile = () => {
                     </ToggleComponent>
 
                     <ToggleComponent title="Medicinas" editModeToggle={false}>
-                    {medicinesData ? (
+                    {medicinesData && medicinesData.length > 0? (
                         <div>
                             {medicinesData.map((medicine, index) => (
                                 <div key={index} className="flex flex-row mb-2 justify-around items-center">
@@ -919,7 +917,7 @@ const Profile = () => {
                                                 }}
                                             />
                                             <FiEdit
-                                                 className="ml-2 h-8 w-8 text-blue-500 cursor-pointer hover:text-blue-800 transition duration-300 ease-in-out transform hover:scale-105"
+                                                 className="ml-2 h-8 w-8 text-blue-500  hover:text-blue-800  cursor-pointer transition duration-300 ease-in-out transform hover:scale-105"
                                                  onClick={(e) => {
                                                     e.preventDefault();
                                                     handleEditClickMedicines(medicine, medicine.idMedicines)
@@ -948,7 +946,7 @@ const Profile = () => {
                                 e.preventDefault();
                                 openMedicinesModal();
                             }}
-                                className="  text-3xl bg-blue-500 hover:bg-blue-700 
+                                className="  text-3xl bg-blue-500 hover:bg-blue-700 cursor-pointer
                                  text-white font-bold py-1 px-4 rounded-full mt-2"
                             > + </button>
                             </div>
@@ -965,7 +963,7 @@ const Profile = () => {
                     <div className="flex lg:justify-center lg:items-center ml-2 mb-6">
                         <button
                             onClick={() => setEditMode(true)}
-                            className="rounded-full mt-2 text-2xl py-2 bg-button-home w-60 text-white"
+                            className="rounded-full mt-2 text-2xl py-2 bg-blue-500 hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105  w-60 cursor-pointer text-white"
                         >
                             Editar
                         </button>
@@ -974,11 +972,11 @@ const Profile = () => {
                         <>
                         <div className="flex lg:justify-center lg:items-center ml-2 mb-6 ">
                             <button onClick={handleCancelEdit} className="rounded-full mt-2 text-2xl px-3 
-                            py-2 w-60 bg-gray-300 hover:bg-gray-400 text-gray-800 mr-6">
+                            py-2 w-60 bg-gray-300 hover:bg-gray-400 transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-gray-800 mr-6">
                                 Cancelar
                             </button>
                             <button  type="submit" className="rounded-full mt-2 text-2xl px-3 
-                            py-2 bg-blue-500 hover:bg-blue-700 w-70 text-white">
+                            py-2 bg-blue-500 hover:bg-blue-700 cursor-pointer transition duration-300 ease-in-out transform hover:scale-105 w-70 text-white">
                                 Guardar Cambios
                             </button>
                         </div>   

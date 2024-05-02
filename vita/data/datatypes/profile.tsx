@@ -28,6 +28,7 @@ export interface ProfileData {
   }
   
 export interface GetAllergiesData {
+  length: number;
   map(arg0: (allergy: any, index: any) => import("react").JSX.Element): import("react").ReactNode;
   name: string;
   reaction: string;
@@ -47,6 +48,7 @@ export interface DisabilityData {
 }
 
 export interface GetDisabilityData {
+  length: number;
 map(arg0: (disability: any, index: any) => import("react").JSX.Element): import("react").ReactNode;
 name: string;
 idMedicalProfile: Number;
@@ -64,6 +66,7 @@ export interface ChronicalData {
 }
 
 export interface GetChronicalData {
+  length: number;
 map(arg0: (chronical: any, index: any) => import("react").JSX.Element): import("react").ReactNode;
 name: string;
 idMedicalProfile: Number;
@@ -83,6 +86,7 @@ export interface MedicinesData {
 }
 
 export interface GetMedicinesData {
+  length: number;
   map(arg0: (medicine: any, index: any) => import("react").JSX.Element): import("react").ReactNode;
   name: string;
   idMedicalProfile: Number;
