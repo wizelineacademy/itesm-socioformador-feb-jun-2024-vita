@@ -49,51 +49,55 @@ const SelfEvaluationPage = () => {
           </div>
         )}
       </div>
-      <div>
-        <p style={{ fontSize: '1.25rem' }}>¿Has tenido un progreso en tu meta?</p>
-        {[1, 2, 3, 4, 5].map((number) => (
-          <span key={number} style={ratingButtonStyle(number, progress)} onClick={() => setProgress(number)}>
-            {number}
-          </span>
-        ))}
-      </div>
-      <div>
-        <p style={{ fontSize: '1.25rem' }}>¿Qué tan bien estás siguiendo tu plan de nutrición?</p>
-        {[1, 2, 3, 4, 5].map((number) => (
-          <span key={number} style={ratingButtonStyle(number, nutritionPlanAdherence)} onClick={() => setNutritionPlanAdherence(number)}>
-            {number}
-          </span>
-        ))}
-      </div>
-      <div>
-        <p>¿Qué tan útiles han sido las funciones de generación de planes de nutrición?</p>
-        {[1, 2, 3, 4, 5].map((number) => (
-          <span key={`nutrition-plan-${number}`} style={ratingButtonStyle(number, nutritionPlanUsefulness)} onClick={() => setNutritionPlanUsefulness(number)}>
-            {number}
-          </span>
-        ))}
-      </div>
-      <div>
-        <p>¿Qué tan útiles han sido las funciones de generación de recetas?</p>
-        {[1, 2, 3, 4, 5].map((number) => (
-          <span key={`recipe-generation-${number}`} style={ratingButtonStyle(number, recipeGenerationUsefulness)} onClick={() => setRecipeGenerationUsefulness(number)}>
-            {number}
-          </span>
-        ))}
-      </div>
-      <button style={{
-        marginTop: '20px',
-        padding: '10px 20px',
-        fontSize: '1.25rem',
-        fontWeight: 'bold',
-        color: 'white',
-        backgroundColor: 'purple',
-        borderRadius: '10px',
-        border: 'none',
-        cursor: 'pointer',
-      }}>
-        Continuar
-      </button>
+      {currentGoal && (
+        <>
+          <div>
+            <p style={{ fontSize: '1.25rem' }}>¿Has tenido un progreso en tu meta?</p>
+            {[1, 2, 3, 4, 5].map((number) => (
+              <span key={number} style={ratingButtonStyle(number, progress)} onClick={() => setProgress(number)}>
+                {number}
+              </span>
+            ))}
+          </div>
+          <div>
+            <p style={{ fontSize: '1.25rem' }}>¿Qué tan bien estás siguiendo tu plan de nutrición?</p>
+            {[1, 2, 3, 4, 5].map((number) => (
+              <span key={number} style={ratingButtonStyle(number, nutritionPlanAdherence)} onClick={() => setNutritionPlanAdherence(number)}>
+                {number}
+              </span>
+            ))}
+          </div>
+          <div>
+            <p>¿Qué tan útiles han sido las funciones de generación de planes de nutrición?</p>
+            {[1, 2, 3, 4, 5].map((number) => (
+              <span key={`nutrition-plan-${number}`} style={ratingButtonStyle(number, nutritionPlanUsefulness)} onClick={() => setNutritionPlanUsefulness(number)}>
+                {number}
+              </span>
+            ))}
+          </div>
+          <div>
+            <p>¿Qué tan útiles han sido las funciones de generación de recetas?</p>
+            {[1, 2, 3, 4, 5].map((number) => (
+              <span key={`recipe-generation-${number}`} style={ratingButtonStyle(number, recipeGenerationUsefulness)} onClick={() => setRecipeGenerationUsefulness(number)}>
+                {number}
+              </span>
+            ))}
+          </div>
+          <button style={{
+            marginTop: '20px',
+            padding: '10px 20px',
+            fontSize: '1.25rem',
+            fontWeight: 'bold',
+            color: 'white',
+            backgroundColor: 'purple',
+            borderRadius: '10px',
+            border: 'none',
+            cursor: 'pointer',
+          }}>
+            Continuar
+          </button>
+        </>
+      )}
     </div>
   );
 };
