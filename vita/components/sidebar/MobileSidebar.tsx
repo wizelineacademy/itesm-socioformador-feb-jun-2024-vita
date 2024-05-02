@@ -30,7 +30,7 @@ const MobileSidebar = () => {
         {
             label: 'Sueño',
             href: '/sleep',
-            backgroundColor: 'bg-decoration-sleep-colordark',
+            backgroundColor: 'bg-dark-purple',
             buttonColor: 'text-white'
         },
         {

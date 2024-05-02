@@ -2,10 +2,10 @@ import { IdNameable } from "./general";
 
 export interface Goal extends IdNameable {
     id: number,
-    title: string,
-    category: string,
-    variable?: string,
-    data?: string
+    title: string,    // goal name
+    category: string, // sleep | exercise | nutrition
+    variable?: string, // value it is related to
+    data?: string     // related data health variable
 }
 
 export interface NumericGoal extends Goal {
