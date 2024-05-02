@@ -264,7 +264,7 @@ const CrudReminders = () => {
                         )}
                     </div>
                     <div className=" flex lg:justify-end justify-center ">
-                        <button className=" lg:justify-end text-white text-2xl bg-reminders-color mt-4 px-4 py-2 w-[280px] rounded-3xl ">
+                        <button className=" lg:justify-end text-white text-2xl bg-blue-500 hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer mt-4 px-4 py-2 w-[280px] rounded-3xl ">
                             Crea un recordatorio
                         </button>
                     </div>

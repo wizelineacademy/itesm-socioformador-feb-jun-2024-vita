@@ -283,7 +283,7 @@ const GeneralData = () => {
                                 <span className="flex flex-row">
                                 <input
                                     type="number"
-                                    name="mmuscularMass"
+                                    name="muscularMass"
                                     value={editedData?.muscularMass|| ""}
                                     onChange={handleInputChange}
                                     className="text-2xl py-2 px-6 rounded-full bg-input-home w-60"

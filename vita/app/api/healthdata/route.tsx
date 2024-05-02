@@ -94,21 +94,17 @@ export async function POST(request: Request) {
           .where(eq(user.idUser, session.user?.id));
       }
 
-      const medicalProfileExists = await db.select()
-      .from(medicalProfile)
-      .where(eq(medicalProfile.idUser, session.user?.id))
-      .limit(1);
-
-    if (medicalProfileExists.length === 0) {
-      await db.insert(medicalProfile).values({
+    
+      const medical = await db.insert(medicalProfile).values({
         idUser: session.user?.id,
         emergencyName: null,
         emergencyPhone: null,
-        policy: null,
+        policyUser: null,
         insuranceCompany: null,
         bloodType: null,
       });
-    }
+      console.log(medical)
+    
   }
     return NextResponse.json(res, { status: 200 });
   } catch (error) {
