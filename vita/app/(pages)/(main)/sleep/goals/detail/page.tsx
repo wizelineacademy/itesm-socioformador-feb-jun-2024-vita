@@ -2,12 +2,10 @@
 
 import { LbMsrInput } from "@/components/Inputs/LbMsrInput";
 import MainButton from "@/components/buttons/MainButton";
-import { NumericGoal } from "@/data/datatypes/goal";
-import { nutritionGoals } from "@/data/nutrition_goals";
+import FaceScale from "@/components/scales/FaceScale";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FaFaceFrown, FaFaceMeh, FaFaceSmile } from "react-icons/fa6";
 import Swal from "sweetalert2";
 
 const SleepGoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
@@ -17,34 +15,6 @@ const SleepGoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
     const [next, setNext] = useState<number>(0);
 
     const router = useRouter();
-
-    const qualities = [
-        {
-            Icon: FaFaceFrown,
-            color: "fill-red-500",
-            value: 1
-        },
-        {
-            Icon: FaFaceFrown,
-            color: "fill-orange-500",
-            value: 2
-        },
-        {
-            Icon: FaFaceMeh,
-            color: "fill-yellow-500",
-            value: 3
-        },
-        {
-            Icon: FaFaceSmile,
-            color: "fill-green-500",
-            value: 4
-        },
-        {
-            Icon: FaFaceSmile,
-            color: "fill-green-700",
-            value: 5
-        }
-    ]
 
     //veify that the data has been set
     const validateGoal = ():boolean => {
@@ -144,21 +114,10 @@ const SleepGoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
                         
                         <div className="w-full">
                             <p className="text-xl font-bold mb-4">¿Cómo te despiertas?</p>
-                            <div className="flex gap-x-5 sm:gap-x-10">
-                                {qualities.map(qual => (
-                                    <div
-                                        key={qual.value}
-                                        className="flex flex-col items-center gap-y-4 lg:gap-y-6 w-fit"
-                                    >
-                                        <p className="font-bold text-lg lg:text-xl">{qual.value}</p>
-                                        <qual.Icon
-                                            size={40} 
-                                            className={`z-10 sm:transform sm:scale-125 lg:scale-[140%] ${quality === qual.value ? qual.color : "fill-white" } hover:cursor-pointer hover:fill-gray-400`}
-                                            onClick={() => {setQuality(qual.value)}}
-                                    />
-                                    </div> 
-                                ))}
-                            </div>  
+                            <FaceScale
+                                quality={quality}
+                                setQuality={setQuality}
+                            />
                         </div>
                     
                         <MainButton 
