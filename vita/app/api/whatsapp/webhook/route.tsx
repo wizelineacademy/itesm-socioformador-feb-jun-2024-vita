@@ -1,5 +1,8 @@
+import { db } from '@/db/drizzle';
+import { user } from '@/db/schema/schema';
 import config from '@/lib/environment/config';
 import axios from 'axios';
+import { eq } from 'drizzle-orm';
 import { NextResponse, type NextRequest } from 'next/server'
 import OpenAI from 'openai';
 import { ChatCompletionMessageParam } from 'openai/resources/index.mjs';
@@ -39,7 +42,18 @@ export async function POST(request: Request) {
         if (message?.type === "text") {
             // extract the business number to send the reply from it
             const business_phone_number_id = body.entry?.[0].changes?.[0].value?.metadata?.phone_number_id;
-            const number = message.from.slice(0, 2) + message.from.slice(3, 13) //get user number
+            const countryCode = message.from.slice(0, 2);
+            const phoneNumber = message.from.slice(3, 13);
+            const fullNumber = countryCode + phoneNumber;  //get user number
+
+            const phoneUser = await db.select()
+            .from(user)
+            .where(eq(user.phoneNumber, phoneNumber)) 
+            .limit(1)      
+
+            if(phoneUser.length === 0){
+                return NextResponse.json("Invalid number", {status: 401})
+            }
             
             //send request to OPENAI
             const response = await openai.chat.completions.create({
@@ -54,7 +68,7 @@ export async function POST(request: Request) {
             await axios.post(`https://graph.facebook.com/v18.0/${business_phone_number_id}/messages`, 
                 {
                     messaging_product: "whatsapp",
-                    to: number,
+                    to: fullNumber,
                     text: { body: response.choices[0].message.content },
                     context: {
                         message_id: message.id, // shows the message as a reply to the original user message
