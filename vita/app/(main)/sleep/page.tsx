@@ -6,6 +6,24 @@ import { MdPlaylistAddCheck } from 'react-icons/md';
 import { FaBed } from 'react-icons/fa';
 
 const DailySleep: NextPage = () => {
+    // Array of 10 sleep recommendations
+    const recommendations = [
+        "Mantén un horario de sueño constante, incluso los fines de semana, acostándote y levantándote a la misma hora.",
+        "Practica un ritual de relajación antes de dormir.",
+        "Si tienes problemas para dormir, evita las siestas, especialmente por la tarde.",
+        "Ejercítate diariamente.",
+        "Evalúa tu habitación para asegurar una temperatura ideal, niveles de sonido y luz adecuados.",
+        "Duerme en un colchón y almohadas cómodos.",
+        "Utiliza luz brillante para ayudar a manejar tus ritmos circadianos.",
+        "Evita el alcohol, los cigarrillos y comidas pesadas por la noche.",
+        "Relaja tu mente antes de dormir leyendo o practicando ejercicios de relajación.",
+        "Apaga los dispositivos electrónicos al menos 30 minutos antes de ir a la cama."
+    ];
+
+    // Determine which recommendation to display based on the current day of the month
+    const date = new Date();
+    const index = date.getDate() % recommendations.length; // Get a repeating index from 0 to 9
+
     return (
         <div style={pageStyle}>
             <h1 style={headerStyle}>Sueño</h1>
@@ -39,10 +57,13 @@ const DailySleep: NextPage = () => {
             
             <h2 style={{ ...headingStyle, marginTop: '92px', marginLeft: '27px' }}>Tip del Día</h2>
             <div style={{ ...tipStyle, backgroundColor: '#201f3f', gridRow: '5 / 6', gridColumn: '1 / 2', position: 'absolute', top: '580px' }}>
-                {/* Aqui van los tips */}
-                <div>
+                {/* Display the tip inside this div as a paragraph, adjusted for left alignment and larger font */}
+                <p style={{ color: '#FFFFFF', fontSize: '20px', textAlign: 'left', margin: '10px 10px' }}>{recommendations[index]}</p>
+                <div style={{ marginLeft: '320px', marginTop: '30px',  }}> {/* Adjusted marginTop */}
+                    <FaBed size="50px" />
                 </div>
             </div>
+            
         </div>
     );
 };
