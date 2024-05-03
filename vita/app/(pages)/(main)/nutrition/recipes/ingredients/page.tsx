@@ -182,6 +182,7 @@ const RecipesIngredients = () => {
         swal.close()
         
     } catch(error: any){
+        console.log(error)
         swal.close()
         swal.fire({
             title: 'Error',
