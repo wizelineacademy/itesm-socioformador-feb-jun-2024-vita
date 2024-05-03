@@ -9,37 +9,61 @@ const DailySleep: NextPage = () => {
     return (
         <div style={pageStyle}>
             <h1 style={headerStyle}>Sueño</h1>
-            <Decoration pathname={''} /> {/* Using Decoration component here, adjust if necessary */}
+            
+           
+            <Decoration pathname={''} />
 
-            <div style={{ ...boxStyle, backgroundColor: '#191e54', gridRow: '2 / 3', gridColumn: '2 / 3' }}> {/* Horario De Ayer */}
-                <h2 style={headingStyle}>Horario De Ayer</h2>
-                <p style={textStyle}>22:00 - 8:00</p>
+            <div style={{ ...rectangleStyle, backgroundColor: '#383470' }}>
+                {/* New rectangle on top left corner */}
             </div>
-            <div style={{ ...boxStyle, backgroundColor: '#403c74', gridRow: '3 / 4', gridColumn: '2 / 3' }}> {/* Autoevaluación */}
+
+            <div style={{ ...boxStyle, backgroundColor: '#191e54', gridRow: '2 / 3', gridColumn: '2 / 3', marginRight: '100px' }}>
+                {/* Horario De Ayer */}
+                <h2 style={headingStyle}>Horario de Ayer</h2>
+                
+            </div>
+            <div style={{ ...boxxStyle, backgroundColor: '#403c74', gridRow: '3 / 4', gridColumn: '2 / 3', marginRight: '80px' }}>
+                {/* Autoevaluación */}
                 <h2 style={headingStyle}>Autoevaluación</h2>
-                <div style={{marginLeft: '300px' }}> {/* Adjust margin as needed */}
+                <div style={{ marginLeft: '350px', marginTop: '-40px',  }}> {/* Adjusted marginTop */}
                     <MdPlaylistAddCheck size="50px" />
                 </div>
             </div>
-            <div style={{ ...boxStyle, backgroundColor: '#1f1a67', gridRow: '4 / 5', gridColumn: '2 / 3' }}> {/* Metas de Sueño */}
+            <div style={{ ...boxxStyle, backgroundColor: '#1f1a67', gridRow: '3 / 4', gridColumn: '2 / 3', marginRight: '100px', marginTop: '200px' }}>
+                {/* Metas de Sueño */}
                 <h2 style={headingStyle}>Metas de Sueño</h2>
-                <div style={{marginLeft: '300px' }}> {/* Adjust margin as needed */}
+                <div style={{ marginLeft: '350px', marginTop: '-40px',  }}> {/* Adjusted marginTop */}
                     <FaBed size="50px" />
                 </div>
             </div>
-            <div style={{ ...boxStyle, backgroundColor: '#383470', gridRow: '5 / 6', gridColumn: '1 / 2' }}> {/* Tip del Día */}
-                <h2 style={headingStyle}>Tip del Día</h2>
+            
+            <h2 style={{ ...headingStyle, marginTop: '92px', marginLeft: '27px' }}>Tip del Día</h2>
+            <div style={{ ...tipStyle, backgroundColor: '#201f3f', gridRow: '5 / 6', gridColumn: '1 / 2', position: 'absolute', top: '580px' }}>
+                {/* Aqui van los tips */}
                 <div>
-            
-            
-        </div>
+                </div>
             </div>
         </div>
-        
     );
 };
 
+
 // Styles
+const tipStyle: React.CSSProperties = {
+    borderRadius: '43px',
+    padding: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start', // Align items to the start
+    alignItems: 'flex-start', // Align items to the start horizontally
+    minHeight: '0px', // Decreased minHeight for smaller rectangles
+    color: '#FFFFFF',
+    width: '430px',  // Adjusted width
+    height: '180px',  // Adjusted height
+    textAlign: 'left', // Align text inside the box to the left
+    marginLeft: '50px'
+};
+
 const pageStyle: React.CSSProperties = {
     backgroundColor: '#131535',
     color: '#fff',
@@ -54,33 +78,49 @@ const pageStyle: React.CSSProperties = {
 
 const headerStyle: React.CSSProperties = {
     gridColumn: '1 / -1', // Span across all columns
-    fontSize: '36px', // Larger font size for the page header
+    fontSize: '58px', // Increased font size for the page header
     color: '#fff',
     marginBottom: '20px',
     fontWeight: 'bold', // Make the header bold
-    textAlign: 'left' // Align header text to the left
+    textAlign: 'left', // Align header text to the left
+    marginLeft: '55px' // Move the header to the left
 };
 
 const boxStyle: React.CSSProperties = {
-    borderRadius: '20px',
+    borderRadius: '33px',
     padding: '20px',
+    marginRight: '80px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start', // Align items to the start
     alignItems: 'flex-start', // Align items to the start horizontally
-    minHeight: '150px',
+    minHeight: '0px', // Decreased minHeight for smaller rectangles
     color: '#FFFFFF',
-    width: '100%',  // Ensuring boxes take full width of their columns
+    width: '500px', 
+    height: '260px', // Ensuring boxes take full width of their columns
+    textAlign: 'left' // Align text inside the box to the left
+};
+const boxxStyle: React.CSSProperties = {
+    borderRadius: '33px',
+    padding: '20px',
+    marginTop: '10px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start', // Align items to the start
+    alignItems: 'flex-start', // Align items to the start horizontally
+    minHeight: '158px', // Decreased minHeight for smaller rectangles
+    color: '#FFFFFF',
+    width: '495px',  // Ensuring boxes take full width of their columns
     textAlign: 'left' // Align text inside the box to the left
 };
 
 const headingStyle: React.CSSProperties = {
-    fontSize: '35px', // Larger font size for headings
-    fontWeight: 'bold', // Bold headings
+    fontSize: '35px',
+    fontWeight: 'bold',
     color: '#FFFFFF',
-    textAlign: 'left', // Align heading text to the left
-    paddingTop: '28px',
-    paddingLeft: '14px'
+    textAlign: 'left',
+    paddingTop: '40px', // Increased padding-top to move headings down
+    paddingLeft: '8px'
 };
 
 const textStyle: React.CSSProperties = {
@@ -88,6 +128,19 @@ const textStyle: React.CSSProperties = {
     fontWeight: 'bold', // Normal weight for other texts
     color: '#FFFFFF',
     textAlign: 'left' // Align text to the left
+};
+
+const rectangleStyle: React.CSSProperties = {
+    borderRadius: '80px',
+    padding: '40px',
+    marginTop: '20px',
+    color: '#FFFFFF',
+    width: '490px',
+    height: '370px',
+    textAlign: 'left',
+    position: 'absolute', // Position the rectangle absolutely
+    top: '100px', // Adjust top position
+    left: '70px' // Adjust left position
 };
 
 export default DailySleep;
