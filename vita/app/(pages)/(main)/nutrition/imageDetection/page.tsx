@@ -1,12 +1,13 @@
 "use client"
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import { useState } from "react";
 
-// Access your API key (see "Set up your API key" above)
-// Assuming you meant to use the GEMINI_API_KEY instead of NEXT_PUBLIC_GENERATIVE_AI_API_KEY
-const API_KEY = process.env.GEMINI_API_KEY;
+
+import { useState } from "react";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+const API_KEY = "AIzaSyC1aNuMH4WNR7S3fqHShtrktR3ZVB3XyMo";
 
 interface NutritionalInfo {
+  name: string;
   calories: number;
   lipids: number;
   proteins: number;
@@ -14,73 +15,7 @@ interface NutritionalInfo {
   subgroups: string[];
 }
 
-async function getNutritionalInfo(file: File): Promise<NutritionalInfo | null> {
-  // if (!"AIzaSyC1aNuMH4WNR7S3fqHShtrktR3ZVB3XyMo") {
-  //   throw new Error("Generative AI API key is not provided");
-  // }
-
-  const genAI = new GoogleGenerativeAI("AIzaSyC1aNuMH4WNR7S3fqHShtrktR3ZVB3XyMo");
-
-  const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
-
-  const prompt = `
-  Dime las calorías, lípidos, proteínas, carbohidratos y subgrupos alimenticios en formato JSON. El JSON será una lista de objetos NutritionalInfo. Por ejemplo:
-{
-  "calories": 250,
-  "lipids": 10,
-  "proteins": 15,
-  "carbohydrates": 30,
-  "subgroups": ["Frutas", "Verduras"]
-}
-
-Por favor, proporciona los valores de calorías, lípidos, proteínas, carbohidratos 
-y subgrupos para un alimento, 
-separados por comas y en ese orden. Esto es un ejemplo;
- 250, 10, 15, 30, "Frutas, Verduras`
-  ;
-  const imagePart = await fileToGenerativePart(file);
-
-  try {
-    const result = await model.generateContent([prompt, imagePart]);
-    const response = await result.response;
-    const text = response.text();
-
-    
-
-    // Extract the JSON data
-
-    console.log("Respuesta de json a la conversion",JSON.parse(text))
-    // Parse the JSON data
-    const nutritionalInfo: NutritionalInfo = JSON.parse(text);
-
-    return nutritionalInfo;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-}
-
-// Converts a File object to a GoogleGenerativeAI.Part object.
-async function fileToGenerativePart(file: File) {
-  const base64EncodedDataPromise = new Promise<string>((resolve) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const result = reader.result;
-      if (typeof result === 'string') {
-        resolve(result.split(',')[1]);
-      } else {
-        resolve('');
-      }
-    };
-    reader.readAsDataURL(file);
-  });
-
-  return {
-    inlineData: { data: await base64EncodedDataPromise, mimeType: file.type },
-  };
-}
-
-export default function FoodAnalysisPage() {
+function FoodAnalysisPage() {
   const [nutritionalInfos, setNutritionalInfos] = useState<NutritionalInfo[] | null>(null);
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,19 +27,103 @@ export default function FoodAnalysisPage() {
     console.log("Nutritional Infos:", nutritionalInfos); // Log to console
   };
 
+  const getNutritionalInfo = async (file: File): Promise<NutritionalInfo[] | null> => {
+    const genAI = new GoogleGenerativeAI(API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
+
+    const prompt = `
+    El usuario va a subir una imagen  plato de comida como entrada y genere una lista de objetos NutritionalInfo en formato JSON como salida. Cada objeto NutritionalInfo debe contener los siguientes atributos:
+  
+  name: Nombre del alimento identificado en la imagen.
+  calories: Valor de las calorías del alimento (kcal).
+  lipids: Valor de los lípidos totales del alimento (g).
+  proteins: Valor de las proteínas totales del alimento (g).
+  carbohydrates: Valor de los carbohidratos totales del alimento (g).
+  subgroups: Lista de subgrupos alimenticios a los que pertenece el alimento.
+  El sistema debe utilizar técnicas de aprendizaje profundo para:
+  
+  Reconocer y clasificar los diferentes tipos de alimentos presentes en la imagen.
+  Estimar la cantidad de cada alimento en la imagen.
+  Además, el sistema debe acceder a una base de datos confiable de información nutricional para obtener los valores nutricionales de cada alimento identificado.
+  
+  Ejemplo:
+  
+  Ejemplo de entrada: Imagen de un plato de sushi.
+  
+  Ejemplo de alida:
+  
+  JSON
+  [
+    {
+      "name": "Arroz de sushi",
+      "calories": 150,
+      "lipids": 2,
+      "proteins": 4,
+      "carbohydrates": 32,
+      "subgroups": ["Cereales"]
+    },
+    {
+      "name": "Atún",
+      "calories": 50,
+      "lipids": 2,
+      "proteins": 12,
+      "carbohydrates": 0,
+      "subgroups": ["Pescados y mariscos"]
+    },
+  ]`
+
+    const imagePart = await fileToGenerativePart(file);
+
+    try {
+      const result = await model.generateContent([prompt, imagePart]);
+      const response = await result.response;
+      let text = await response.text();
+      text = text.replaceAll("`", "")
+      text = text.replaceAll("json", "")
+      console.log("Respuesta", text)
+      const nutritionalInfos: NutritionalInfo[] = JSON.parse(text);
+
+      return nutritionalInfos;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
+  const fileToGenerativePart = async (file: File) => {
+    const base64EncodedDataPromise = new Promise<string>((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const result = reader.result;
+        if (typeof result === 'string') {
+          resolve(result.split(',')[1]);
+        } else {
+          resolve('');
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+
+    return {
+      inlineData: { data: await base64EncodedDataPromise, mimeType: file.type },
+    };
+  };
+
   const renderNutritionalInfo = () => {
     if (!nutritionalInfos) return null;
 
     return (
-      <div>
+      <div className="grid gap-4 mt-4">
         {nutritionalInfos.map((nutritionalInfo, index) => (
-          <div key={index} className="mt-4 p-4 bg-gray-200 rounded-md">
-            <h2>Alimento {index + 1}:</h2>
-            <p>Calorías: {nutritionalInfo.calories}</p>
-            <p>Lípidos: {nutritionalInfo.lipids}</p>
-            <p>Proteínas: {nutritionalInfo.proteins}</p>
-            <p>Carbohidratos: {nutritionalInfo.carbohydrates}</p>
-            <p>Subgrupos: {nutritionalInfo.subgroups.join(", ")}</p>
+          <div key={index} className="bg-white p-4 rounded-lg shadow-md">
+            <h2 className="text-lg font-semibold mb-2">{nutritionalInfo.name}</h2>
+            <div>
+              <p><span className="font-semibold">Calorías:</span> {nutritionalInfo.calories}</p>
+              <p><span className="font-semibold">Lípidos:</span> {nutritionalInfo.lipids}</p>
+              <p><span className="font-semibold">Proteínas:</span> {nutritionalInfo.proteins}</p>
+              <p><span className="font-semibold">Carbohidratos:</span> {nutritionalInfo.carbohydrates}</p>
+              <p><span className="font-semibold">Subgrupos:</span> {nutritionalInfo.subgroups.join(", ")}</p>
+            </div>
           </div>
         ))}
       </div>
@@ -112,12 +131,14 @@ export default function FoodAnalysisPage() {
   };
 
   return (
-    <div className="container mx-auto">
-      <h1 className="text-3xl font-bold text-start my-4 text-white">Análisis Nutricional de Alimentos</h1>
-      <div className="flex flex-col items-start">
-        <input type="file" onChange={handleImageUpload} className="text-white text-2xl mt-4"/>
-        {renderNutritionalInfo()}
+    <div className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold text-center mb-4 text-white">Análisis Nutricional de Alimentos</h1>
+      <div className="flex justify-center mb-4">
+        <input type="file" onChange={handleImageUpload} className="px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer"/>
       </div>
+      {renderNutritionalInfo()}
     </div>
   );
 }
+
+export default FoodAnalysisPage;
