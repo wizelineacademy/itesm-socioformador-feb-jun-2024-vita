@@ -1,6 +1,4 @@
 "use client"
-
-
 import { useState } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
@@ -17,14 +15,17 @@ interface NutritionalInfo {
 
 function FoodAnalysisPage() {
   const [nutritionalInfos, setNutritionalInfos] = useState<NutritionalInfo[] | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
+    const imageUrl = URL.createObjectURL(file);
+    setImageUrl(imageUrl);
+
     const nutritionalInfos = await getNutritionalInfo(file);
     setNutritionalInfos(nutritionalInfos);
-    console.log("Nutritional Infos:", nutritionalInfos); // Log to console
   };
 
   const getNutritionalInfo = async (file: File): Promise<NutritionalInfo[] | null> => {
@@ -70,7 +71,8 @@ function FoodAnalysisPage() {
       "carbohydrates": 0,
       "subgroups": ["Pescados y mariscos"]
     },
-  ]`
+  ]
+  El name debe estar en español de México`
 
     const imagePart = await fileToGenerativePart(file);
 
@@ -80,7 +82,7 @@ function FoodAnalysisPage() {
       let text = await response.text();
       text = text.replaceAll("`", "")
       text = text.replaceAll("json", "")
-      console.log("Respuesta", text)
+      
       const nutritionalInfos: NutritionalInfo[] = JSON.parse(text);
 
       return nutritionalInfos;
@@ -113,16 +115,18 @@ function FoodAnalysisPage() {
     if (!nutritionalInfos) return null;
 
     return (
-      <div className="grid gap-4 mt-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-12 lg:w-3/4">
         {nutritionalInfos.map((nutritionalInfo, index) => (
-          <div key={index} className="bg-white p-4 rounded-lg shadow-md">
-            <h2 className="text-lg font-semibold mb-2">{nutritionalInfo.name}</h2>
-            <div>
-              <p><span className="font-semibold">Calorías:</span> {nutritionalInfo.calories}</p>
-              <p><span className="font-semibold">Lípidos:</span> {nutritionalInfo.lipids}</p>
-              <p><span className="font-semibold">Proteínas:</span> {nutritionalInfo.proteins}</p>
-              <p><span className="font-semibold">Carbohidratos:</span> {nutritionalInfo.carbohydrates}</p>
-              <p><span className="font-semibold">Subgrupos:</span> {nutritionalInfo.subgroups.join(", ")}</p>
+          <div key={index} className="bg-decoration-nutrition-colordark rounded-lg overflow-hidden shadow-md ">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold mb-2 text-white">{nutritionalInfo.name}</h2>
+              <div className="grid grid-cols-2 gap-1">
+                <p className="text-md text-white"><span className="font-semibold">Calorías:</span> {nutritionalInfo.calories}</p>
+                <p className="text-md text-white"><span className="font-semibold">Lípidos:</span> {nutritionalInfo.lipids}</p>
+                <p className="text-md text-white"><span className="font-semibold">Proteínas:</span> {nutritionalInfo.proteins}</p>
+                <p className="text-md text-white "><span className="font-semibold">Carbohidratos:</span> {nutritionalInfo.carbohydrates}</p>
+                <p className="col-span-2 text-md text-white"><span className="font-semibold">Subgrupos:</span> {nutritionalInfo.subgroups.join(", ")}</p>
+              </div>
             </div>
           </div>
         ))}
@@ -131,11 +135,16 @@ function FoodAnalysisPage() {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold text-center mb-4 text-white">Análisis Nutricional de Alimentos</h1>
-      <div className="flex justify-center mb-4">
+    <div className="container p-4">
+      <h1 className="text-2xl font-bold text-start mb-4 text-white">Conteo Calórico </h1>
+      <div className="flex justify-start mb-4">
         <input type="file" onChange={handleImageUpload} className="px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer"/>
       </div>
+      {imageUrl && (
+        <div className="mt-4">
+          <img src={imageUrl} alt="Uploaded" className="max-w-full h-auto sm:w-[500px] sm:h-[300px]" />
+        </div>
+      )}
       {renderNutritionalInfo()}
     </div>
   );
