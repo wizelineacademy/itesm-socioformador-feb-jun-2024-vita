@@ -80,20 +80,20 @@ export const medicalProfile = pgTable("MedicalProfile", {
 	idUser: integer("id_user").notNull().unique().references(() => user.idUser, { onDelete: "restrict", onUpdate: "cascade" } ),
 	emergencyName: varchar("emergency_name", {length: 50}),
 	emergencyPhone: varchar("emergency_phone", {length: 12}),
-	policy: varchar("policy", {length: 30}),
+	policyUser: varchar("policyUser", {length: 30}),
 	insuranceCompany: varchar("insurance_company", {length: 50}),
 	bloodType: varchar("bloodType", {length: 30}),
 });
 
 export const chronicalDesease = pgTable("ChronicalDesease", {
 	idChronicalDesease: serial("id_chronical_desease").primaryKey().notNull(),
-	idMedicalProfile: integer("id_medical_profile").notNull().unique().references(() => medicalProfile.idMedicalProfile, { onDelete: "restrict", onUpdate: "cascade" } ),
+	idMedicalProfile: integer("id_medical_profile").notNull().references(() => medicalProfile.idMedicalProfile, { onDelete: "restrict", onUpdate: "cascade" } ),
 	name: varchar("name", {length: 100}),
 });
 
 export const  medicines = pgTable("Medicines", {
 	idMedicines: serial("id_medicines").primaryKey().notNull(),
-	idMedicalProfile: integer("id_medical_profile").notNull().unique().references(() => medicalProfile.idMedicalProfile, { onDelete: "restrict", onUpdate: "cascade" } ),
+	idMedicalProfile: integer("id_medical_profile").notNull().references(() => medicalProfile.idMedicalProfile, { onDelete: "restrict", onUpdate: "cascade" } ),
 	name: varchar("name", {length: 100}),
 	routeAdmin: varchar("route_admin", {length: 100}),
 	dose: varchar("dose", {length: 100}),
@@ -102,14 +102,40 @@ export const  medicines = pgTable("Medicines", {
 
 export const  disability = pgTable("Disability", {
 	idDisability : serial("id_disability").primaryKey().notNull(),
-	idMedicalProfile: integer("id_medical_profile").notNull().unique().references(() => medicalProfile.idMedicalProfile, { onDelete: "restrict", onUpdate: "cascade" } ),
+	idMedicalProfile: integer("id_medical_profile").notNull().references(() => medicalProfile.idMedicalProfile, { onDelete: "restrict", onUpdate: "cascade" } ),
 	name: varchar("name", {length: 100}),
 	
 });
 
 export const  allergies = pgTable("Allergies", {
 	idAllergies : serial("id_allergies").primaryKey().notNull(),
-	idMedicalProfile: integer("id_medical_profile").notNull().unique().references(() => medicalProfile.idMedicalProfile, { onDelete: "restrict", onUpdate: "cascade" } ),
+	idMedicalProfile: integer("id_medical_profile").notNull().references(() => medicalProfile.idMedicalProfile, { onDelete: "restrict", onUpdate: "cascade" } ),
 	name: varchar("name", {length: 100}),
 	reaction: varchar("reaction", {length: 100}),
 });
+
+export const goalEvaluation = pgTable("GoalEvaluation", {
+	idGoalEvaluation: serial("id_goal_evaluation").primaryKey().notNull(),
+	idUser: integer("id_user").notNull().references(() => user.idUser, { onDelete: "restrict", onUpdate: "cascade" } ),
+	idGoal: integer("id_goal").notNull().references(() => Goals.idGoal, {onDelete: "cascade", onUpdate: "cascade"}),
+	name: varchar("name", {length: 50}).notNull(),
+	grade: integer("grade").notNull(),
+	updated_at: timestamp("updated_at", {mode: "date"}).notNull().defaultNow()
+})
+
+export const featureEvaluation = pgTable("FeatureEvaluation", {
+	idFeatureEvaluation: serial("id_feature_evaluation").primaryKey().notNull(),
+	idUser: integer("id_user").notNull().references(() => user.idUser, { onDelete: "restrict", onUpdate: "cascade" } ),
+	name: varchar("name", {length: 50}).notNull(),
+	grade: integer("grade").notNull(),
+	updated_at: timestamp("updated_at", {mode: "date"}).notNull().defaultNow()
+})
+
+export const register = pgTable("Register", {
+	idRegister: serial("id_register").primaryKey().notNull(),
+	idUser: integer("id_user").notNull().references(() => user.idUser, { onDelete: "restrict", onUpdate: "cascade" } ),
+	category: varchar("category", {length: 15}).notNull(),
+	name: varchar("name", {length: 50}).notNull(),
+	value: doublePrecision("value"),
+	date: timestamp("date", {mode: "date"}).notNull().defaultNow()
+})

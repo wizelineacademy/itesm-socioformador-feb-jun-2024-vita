@@ -16,8 +16,8 @@ export default $config({
     const facebookSecret = new sst.Secret("FacebookSecret");
     const googleId = new sst.Secret("GoogleId");
     const googleSecret = new sst.Secret("GoogleSecret");
-    const nextAuthUrl = new sst.Secret("NextAuthUrl");
-    const nextAuthSecret = new sst.Secret("NextAuthSecret");
+    const WebhookVerifyToken = new sst.Secret("WebhookVerifyToken");
+    const GraphApiToken = new sst.Secret("GraphApiToken");
 
     const database = new sst.aws.Postgres("MyDatabase", {
       scaling: {
@@ -45,8 +45,8 @@ export default $config({
         facebookSecret,
         googleId,
         googleSecret,
-        nextAuthUrl,
-        nextAuthSecret
+        WebhookVerifyToken,
+        GraphApiToken,
       ],
       environment: {
         NEXTAUTH_URL: process.env.NEXTAUTH_URL!,
