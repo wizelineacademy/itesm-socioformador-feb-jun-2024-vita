@@ -59,7 +59,7 @@ const DailySleep: NextPage = () => {
             <div style={{ ...tipStyle, backgroundColor: '#201f3f', gridRow: '5 / 6', gridColumn: '1 / 2', position: 'absolute', top: '580px' }}>
                 {/* Display the tip inside this div as a paragraph, adjusted for left alignment and larger font */}
                 <p style={{ color: '#FFFFFF', fontSize: '20px', textAlign: 'left', margin: '10px 10px' }}>{recommendations[index]}</p>
-                <div style={{ marginLeft: '320px', marginTop: '30px',  }}> {/* Adjusted marginTop */}
+                <div style={{ marginLeft: '319px', marginTop: '30px',  }}> {/* Adjusted marginTop */}
                     <FaBed size="50px" />
                 </div>
             </div>
