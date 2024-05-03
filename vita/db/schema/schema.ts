@@ -113,3 +113,29 @@ export const  allergies = pgTable("Allergies", {
 	name: varchar("name", {length: 100}),
 	reaction: varchar("reaction", {length: 100}),
 });
+
+export const goalEvaluation = pgTable("GoalEvaluation", {
+	idGoalEvaluation: serial("id_goal_evaluation").primaryKey().notNull(),
+	idUser: integer("id_user").notNull().references(() => user.idUser, { onDelete: "restrict", onUpdate: "cascade" } ),
+	idGoal: integer("id_goal").notNull().references(() => Goals.idGoal, {onDelete: "cascade", onUpdate: "cascade"}),
+	name: varchar("name", {length: 50}).notNull(),
+	grade: integer("grade").notNull(),
+	updated_at: timestamp("updated_at", {mode: "date"}).notNull().defaultNow()
+})
+
+export const featureEvaluation = pgTable("FeatureEvaluation", {
+	idFeatureEvaluation: serial("id_feature_evaluation").primaryKey().notNull(),
+	idUser: integer("id_user").notNull().references(() => user.idUser, { onDelete: "restrict", onUpdate: "cascade" } ),
+	name: varchar("name", {length: 50}).notNull(),
+	grade: integer("grade").notNull(),
+	updated_at: timestamp("updated_at", {mode: "date"}).notNull().defaultNow()
+})
+
+export const register = pgTable("Register", {
+	idRegister: serial("id_register").primaryKey().notNull(),
+	idUser: integer("id_user").notNull().references(() => user.idUser, { onDelete: "restrict", onUpdate: "cascade" } ),
+	category: varchar("category", {length: 15}).notNull(),
+	name: varchar("name", {length: 50}).notNull(),
+	value: doublePrecision("value"),
+	date: timestamp("date", {mode: "date"}).notNull().defaultNow()
+})
