@@ -45,10 +45,8 @@ const Input: React.FC<InputProps> = ({
   const inputType = isPasswordInput ? (showPassword ? 'text' : 'password') : type;
 
   const handlePhoneNumberChange = (passwordValue: string) => {
-    setPasswordValue(passwordValue);
-    
+    setPasswordValue(passwordValue); 
   };
-  
 
   return (
     <div className="w-full relative">
@@ -108,9 +106,6 @@ const Input: React.FC<InputProps> = ({
           country={'mx'}
           value={passwordValue}
           onChange={handlePhoneNumberChange}
-         
-          
-          buttonClass="button-flag"
         />
       )}
       <label

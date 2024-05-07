@@ -53,14 +53,16 @@ select:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
 }
 
-.button-flag {
-  background: transparent !important ;
-  border: none !important;
+.react-tel-input .selected-flag {
+  background-color: #0B1F2E !important;
 }
 
-.button-flag:hover .button-flag:focus .selected-flag:hover .selected-flag:focus {
-  background: transparent !important ;
-  border: none !important;
+.react-tel-input .flag-dropdown {
+  border: transparent !important;
+}
+
+.react-tel-input .selected-flag:focus, .react-tel-input .selected-flag:hover {
+  background-color: #0B1F2E !important;
 }
 
 
