@@ -93,12 +93,10 @@ const Nutrition = () => {
             {/* Custom option 2 */}
             <Link href="/nutrition/goals">
               <div className='bg-custom-purple3 lg:rounded-2xl  md:rounded-2xl rounded-full  
-              lg:w-[320px]  w-[330px]px-4 lg:py-4  md:py-4 py-2 flex justify-between 
-              lg:mt-[75px] mt-4 transition-colors duration-300 ease-in-out hover:bg-custom-purple4
-              cursor-pointer'>
+              lg:w-[340px]  sm:w-[330px]  w-[240px] lg:px-6 px-4 py-4 flex justify-between transition-colors 
+              duration-300 ease-in-out hover:bg-custom-purple4 cursor-pointer mt-4 lg:mt-[110px]'>
                 
-                <h3 className='pt-1 pl-2 text-white font-bold lg:text-2xl text-3xl  
-                  lg:w-[140px] md:w-[140px] w-[280px] '>
+                <h3 className='pt-1 pl-2 text-white font-bold lg:text-3xl text-xl   lg:w-[240px] md:w-[240px] '>
                     Mi meta de nutrición
                 </h3>
                 <Image src="/icons/Healthy.svg" alt="Imagen 2" width={45} height={45} className='pr-2'/>

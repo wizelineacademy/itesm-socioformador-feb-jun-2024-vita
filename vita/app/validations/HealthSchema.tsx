@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const HealthSchema = z.object({
+ 
   weight: z.coerce
     .number({
       invalid_type_error: "El valor del peso debe ser un número"
@@ -25,10 +26,10 @@ export const HealthSchema = z.object({
     .min(1, {
       message: "Debes ingresar el sexo"
     }),
-    phoneNumber: z.string()
-    .min(10, {
-      message: "El teléfono debe tener 10 digitos "
-    }),
+    phoneNumber: z.string(),
+    // .min(10, {
+    //   message: "El teléfono debe tener 10 digitos "
+    // }),
   birthDate: z
     .string()
     .min(1, {

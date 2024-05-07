@@ -14,6 +14,8 @@ import { RegisterSchema } from "@/app/validations/RegisterSchema";
 import Information from "@/components/information/Information";
 import Input from "@/components/Inputs/Input";
 import { signIn } from "next-auth/react";
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
 const SignUp = () => {
 

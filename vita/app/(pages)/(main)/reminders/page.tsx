@@ -31,16 +31,26 @@ const [reminders, setReminders] = useState<ReminderData[]>([]);
           const frequency = Math.floor(frequencyInHours / 24);
           const remainingHours = frequencyInHours % 24;
 
+          let frequencyText = '';
+          if (frequency > 0) {
+            frequencyText = ` Cada ${frequency} días,`;
+          }
+
+          if (remainingHours > 0) {
+            frequencyText += ` Cada ${remainingHours} horas`;
+          }
+
           // Convertir las fechas de startTime y endTime al formato dd-mm-yyyy
           const startTime = new Date(reminder.startTime).toLocaleDateString('es-ES');
           // Verificar si endTime es null o no antes de convertirlo a formato de fecha
-          let endTime= null ;
+          let endTime = null;
           if (reminder.endTime) {
             endTime = new Date(reminder.endTime).toLocaleDateString('es-ES');
           }
+
           return {
             ...reminder,
-            frequency: ` Durante ${frequency} días, cada ${remainingHours} horas`,
+            frequency: frequencyText.trim(),
             startTime: startTime,
             endTime: endTime
           };

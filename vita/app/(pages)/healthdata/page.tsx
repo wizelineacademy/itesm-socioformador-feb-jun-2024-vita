@@ -42,6 +42,7 @@ const HealthData = () => {
     },
   });
 
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -90,6 +91,7 @@ const HealthData = () => {
     }
   };
 
+  
 
   return (
     <div id="Background" className="min-h-screen bg-gradient-custom flex flex-col">
@@ -206,6 +208,7 @@ const HealthData = () => {
             <Input
               id="phoneNumber"
               label="Teléfono"
+              type="tel"
               disabled={isLoading}
               register={register}
               errors={errors}

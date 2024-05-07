@@ -34,45 +34,45 @@ function FoodAnalysisPage() {
 
     const prompt = `
     El usuario va a subir una imagen  plato de comida como entrada y genere una lista de objetos NutritionalInfo en formato JSON como salida. Cada objeto NutritionalInfo debe contener los siguientes atributos:
-  
-  name: Nombre del alimento identificado en la imagen.
-  calories: Valor de las calorías del alimento (kcal).
-  lipids: Valor de los lípidos totales del alimento (g).
-  proteins: Valor de las proteínas totales del alimento (g).
-  carbohydrates: Valor de los carbohidratos totales del alimento (g).
-  subgroups: Lista de subgrupos alimenticios a los que pertenece el alimento.
-  El sistema debe utilizar técnicas de aprendizaje profundo para:
-  
-  Reconocer y clasificar los diferentes tipos de alimentos presentes en la imagen.
-  Estimar la cantidad de cada alimento en la imagen.
-  Además, el sistema debe acceder a una base de datos confiable de información nutricional para obtener los valores nutricionales de cada alimento identificado.
-  
-  Ejemplo:
-  
-  Ejemplo de entrada: Imagen de un plato de sushi.
-  
-  Ejemplo de alida:
-  
-  JSON
-  [
-    {
-      "name": "Arroz de sushi",
-      "calories": 150,
-      "lipids": 2,
-      "proteins": 4,
-      "carbohydrates": 32,
-      "subgroups": ["Cereales"]
-    },
-    {
-      "name": "Atún",
-      "calories": 50,
-      "lipids": 2,
-      "proteins": 12,
-      "carbohydrates": 0,
-      "subgroups": ["Pescados y mariscos"]
-    },
-  ]
-  El name debe estar en español de México`
+    
+    name: Nombre del alimento identificado en la imagen.
+    calories: Valor de las calorías del alimento (kcal).
+    lipids: Valor de los lípidos totales del alimento (g).
+    proteins: Valor de las proteínas totales del alimento (g).
+    carbohydrates: Valor de los carbohidratos totales del alimento (g).
+    subgroups: Lista de subgrupos alimenticios a los que pertenece el alimento.
+    El sistema debe utilizar técnicas de aprendizaje profundo para:
+    
+    Reconocer y clasificar los diferentes tipos de alimentos presentes en la imagen.
+    Estimar la cantidad de cada alimento en la imagen.
+    Además, el sistema debe acceder a una base de datos confiable de información nutricional para obtener los valores nutricionales de cada alimento identificado.
+    
+    Ejemplo:
+    
+    Ejemplo de entrada: Imagen de un plato de sushi.
+    
+    Ejemplo de alida:
+    
+    JSON
+    [
+      {
+        "name": "Arroz de sushi",
+        "calories": 150,
+        "lipids": 2,
+        "proteins": 4,
+        "carbohydrates": 32,
+        "subgroups": ["Cereales"]
+      },
+      {
+        "name": "Atún",
+        "calories": 50,
+        "lipids": 2,
+        "proteins": 12,
+        "carbohydrates": 0,
+        "subgroups": ["Pescados y mariscos"]
+      },
+    ]
+    El name debe estar en español de México`
 
     const imagePart = await fileToGenerativePart(file);
 
@@ -138,7 +138,7 @@ function FoodAnalysisPage() {
     <div className="container p-4">
       <h1 className="text-2xl font-bold text-start mb-4 text-white">Conteo Calórico </h1>
       <div className="flex justify-start mb-4">
-        <input type="file" onChange={handleImageUpload} className="px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer"/>
+        <input type="file" onChange={handleImageUpload} className="px-4 py-2 bg-decoration-nutrition-colordark  text-white rounded-md cursor-pointer"/>
       </div>
       {imageUrl && (
         <div className="mt-4">
