@@ -11,6 +11,7 @@ import {
 } from "react-hook-form";
 import Select from '@/components/Inputs/Select';
 import Input from '@/components/Inputs/Input';
+import InputPhone from '@/components/Inputs/InputPhone';
 import { useRouter } from "next/navigation";
 import { HealthSchema } from '@/app/validations/HealthSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -46,6 +47,7 @@ const HealthData = () => {
   useEffect(() => {
     const getData = async () => {
       try {
+      
         const response = await axios.get("/api/healthdata");
         const data = response.data;
 
@@ -68,6 +70,8 @@ const HealthData = () => {
     setIsLoading(true); 
 
     try {
+      console.log(data)
+      alert(data)
       const response = await axios.post("/api/healthdata", data);
 
       Swal.fire({
@@ -205,10 +209,9 @@ const HealthData = () => {
         )}
 
         <div className="pb-4">
-            <Input
+            <InputPhone
               id="phoneNumber"
               label="Teléfono"
-              type="tel"
               disabled={isLoading}
               register={register}
               errors={errors}

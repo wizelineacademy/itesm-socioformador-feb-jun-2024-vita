@@ -1,10 +1,6 @@
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import PhoneInput from 'react-phone-input-2';
-import isPossiblePhoneNumber from 'react-phone-input-2';
-
-import 'react-phone-input-2/lib/style.css';
 
 interface InputProps {
   id: string;
@@ -44,13 +40,8 @@ const Input: React.FC<InputProps> = ({
 
   const inputType = isPasswordInput ? (showPassword ? 'text' : 'password') : type;
 
-  const handlePhoneNumberChange = (passwordValue: string) => {
-    setPasswordValue(passwordValue); 
-  };
-
   return (
     <div className="w-full relative">
-      {type !== 'tel' ? (
         <input
           id={id}
           disabled={disabled}
@@ -61,7 +52,7 @@ const Input: React.FC<InputProps> = ({
           onChange={handleInputChange}
           className={`
             peer
-            ${big ? 'lg:w-[500px] w-60' : 'w-60'}
+            ${big ? 'lg:w-[500px] ' : 'w-60'}
             px-4
             pt-6
             pb-2
@@ -77,37 +68,6 @@ const Input: React.FC<InputProps> = ({
             ${errors[id] ? 'focus:border-rose-500' : ''}
           `}
         />
-      ) : (
-        <PhoneInput
-          inputProps={{
-            id: id,
-            name: id,
-            disabled: disabled,
-            placeholder: " ",
-            required: required,
-            className: `
-              peer
-              ${big ? 'lg:w-[500px] w-60' : 'w-60'}
-              px-4
-              pt-6
-              pb-2
-              font-light 
-              bg-custom-blue
-              outline-none
-              transition
-              disabled:opacity-70
-              disabled:cursor-not-allowed
-              rounded-full
-              text-white 
-              pl-12
-              ${errors[id] ? 'focus:border-rose-500' : ''}
-            `,
-          }}
-          country={'mx'}
-          value={passwordValue}
-          onChange={handlePhoneNumberChange}
-        />
-      )}
       <label
         className={`
           absolute 

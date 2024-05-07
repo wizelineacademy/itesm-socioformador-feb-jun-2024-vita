@@ -52,7 +52,7 @@ function FoodAnalysisPage() {
     Ejemplo de entrada: Imagen de un plato de sushi.
     
     Ejemplo de alida:
-    
+
     JSON
     [
       {

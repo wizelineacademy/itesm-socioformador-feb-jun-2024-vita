@@ -42,7 +42,7 @@ export async function POST(request: Request) {
     }
 
     const { phoneNumber } = body;
-
+    console.log("Aca llego",phoneNumber)
     // Update phoneNumber if it exists in the body
     if (phoneNumber) {
       await db.update(user)

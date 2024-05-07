@@ -55,17 +55,18 @@ select:-webkit-autofill:focus {
 
 .react-tel-input .selected-flag {
   background-color: #0B1F2E !important;
+  border-radius: 9999px;
 }
 
 .react-tel-input .flag-dropdown {
   border: transparent !important;
+  border-radius: 9999px;
 }
 
 .react-tel-input .selected-flag:focus, .react-tel-input .selected-flag:hover {
   background-color: #0B1F2E !important;
+  border-radius: 9999px;
 }
 
 
 /* fin del reseet css*/
-
-
