@@ -33,7 +33,9 @@ function FoodAnalysisPage() {
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
     const prompt = `
-    El usuario va a subir una imagen de un plato de comida como entrada y genere una lista de objetos NutritionalInfo en formato JSON como salida. Cada objeto NutritionalInfo debe contener los siguientes atributos:
+    El usuario va a subir una imagen de un plato de comida como entrada y 
+genere una lista de objetos NutritionalInfo en formato JSON como salida.
+ Cada objeto NutritionalInfo debe contener los siguientes atributos:
 
   name: Nombre del alimento identificado en la imagen.
   calories: Valor de las calorías del alimento (kcal).
@@ -47,13 +49,14 @@ function FoodAnalysisPage() {
   Reconocer y clasificar los diferentes tipos de alimentos presentes en la imagen.
   Estimar la cantidad de cada alimento en la imagen.
 
-  Además, el sistema debe acceder a una base de datos confiable de información nutricional para obtener los valores nutricionales de cada alimento identificado.
+  Además, el sistema debe acceder a una base de datos confiable de información nutricional 
+para obtener los valores nutricionales de cada alimento identificado.
 
   Ejemplo:
 
   Ejemplo de entrada: Imagen de un plato de sushi.
 
-  Ejemplo de alida:
+  Ejemplo de salida:
 
   JSON
   [
@@ -75,7 +78,7 @@ function FoodAnalysisPage() {
     },
   ]
 
-  El name debe estar en español de México
+  El name debe estar en español de México y acuerdate que debe ser por ingredientes
 
   **Si la imagen no contiene comida, establezca 'name' en 'Invalido' .**
 `;
@@ -123,7 +126,7 @@ function FoodAnalysisPage() {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-12 lg:w-3/4">
         {nutritionalInfos.map((nutritionalInfo, index) => (
-        nutritionalInfo.name === "Invalido" || nutritionalInfo.name === "Inválido" ? (
+        nutritionalInfo.name === "Invalido"  || nutritionalInfo.name === "Inválido" ? (
           <p key={index} className="text-3xl font-bold text-white">Imagen Inválida</p>
         ) : (
           <div key={index} className="bg-decoration-nutrition-colordark rounded-lg overflow-hidden shadow-md ">
