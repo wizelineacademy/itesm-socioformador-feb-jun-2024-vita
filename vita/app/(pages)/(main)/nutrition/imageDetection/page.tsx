@@ -33,46 +33,52 @@ function FoodAnalysisPage() {
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
     const prompt = `
-    El usuario va a subir una imagen  plato de comida como entrada y genere una lista de objetos NutritionalInfo en formato JSON como salida. Cada objeto NutritionalInfo debe contener los siguientes atributos:
-  
-  name: Nombre del alimento identificado en la imagen.
-  calories: Valor de las calorías del alimento (kcal).
-  lipids: Valor de los lípidos totales del alimento (g).
-  proteins: Valor de las proteínas totales del alimento (g).
-  carbohydrates: Valor de los carbohidratos totales del alimento (g).
-  subgroups: Lista de subgrupos alimenticios a los que pertenece el alimento.
-  El sistema debe utilizar técnicas de aprendizaje profundo para:
-  
-  Reconocer y clasificar los diferentes tipos de alimentos presentes en la imagen.
-  Estimar la cantidad de cada alimento en la imagen.
-  Además, el sistema debe acceder a una base de datos confiable de información nutricional para obtener los valores nutricionales de cada alimento identificado.
-  
-  Ejemplo:
-  
-  Ejemplo de entrada: Imagen de un plato de sushi.
-  
-  Ejemplo de alida:
-  
-  JSON
-  [
-    {
-      "name": "Arroz de sushi",
-      "calories": 150,
-      "lipids": 2,
-      "proteins": 4,
-      "carbohydrates": 32,
-      "subgroups": ["Cereales"]
-    },
-    {
-      "name": "Atún",
-      "calories": 50,
-      "lipids": 2,
-      "proteins": 12,
-      "carbohydrates": 0,
-      "subgroups": ["Pescados y mariscos"]
-    },
-  ]
-  El name debe estar en español de México`
+    El usuario va a subir una imagen de un plato de comida como entrada y genere una lista de objetos NutritionalInfo en formato JSON como salida. Cada objeto NutritionalInfo debe contener los siguientes atributos:
+
+  name: Nombre del alimento identificado en la imagen.
+  calories: Valor de las calorías del alimento (kcal).
+  lipids: Valor de los lípidos totales del alimento (g).
+  proteins: Valor de las proteínas totales del alimento (g).
+  carbohydrates: Valor de los carbohidratos totales del alimento (g).
+  subgroups: Lista de subgrupos alimenticios a los que pertenece el alimento.
+
+  El sistema debe utilizar técnicas de aprendizaje profundo para:
+
+  Reconocer y clasificar los diferentes tipos de alimentos presentes en la imagen.
+  Estimar la cantidad de cada alimento en la imagen.
+
+  Además, el sistema debe acceder a una base de datos confiable de información nutricional para obtener los valores nutricionales de cada alimento identificado.
+
+  Ejemplo:
+
+  Ejemplo de entrada: Imagen de un plato de sushi.
+
+  Ejemplo de alida:
+
+  JSON
+  [
+    {
+      "name": "Arroz de sushi",
+      "calories": 150,
+      "lipids": 2,
+      "proteins": 4,
+      "carbohydrates": 32,
+      "subgroups": ["Cereales"]
+    },
+    {
+      "name": "Atún",
+      "calories": 50,
+      "lipids": 2,
+      "proteins": 12,
+      "carbohydrates": 0,
+      "subgroups": ["Pescados y mariscos"]
+    },
+  ]
+
+  El name debe estar en español de México
+
+  **Si la imagen no contiene comida, establezca 'name' en 'Invalido' .**
+`;
 
     const imagePart = await fileToGenerativePart(file);
 
@@ -117,6 +123,9 @@ function FoodAnalysisPage() {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-12 lg:w-3/4">
         {nutritionalInfos.map((nutritionalInfo, index) => (
+        nutritionalInfo.name === "Invalido" || nutritionalInfo.name === "Inválido" ? (
+          <p key={index} className="text-3xl font-bold text-white">Imagen Inválida</p>
+        ) : (
           <div key={index} className="bg-decoration-nutrition-colordark rounded-lg overflow-hidden shadow-md ">
             <div className="p-6">
               <h2 className="text-xl font-semibold mb-2 text-white">{nutritionalInfo.name}</h2>
@@ -129,7 +138,8 @@ function FoodAnalysisPage() {
               </div>
             </div>
           </div>
-        ))}
+        )
+      ))}
       </div>
     );
   };
