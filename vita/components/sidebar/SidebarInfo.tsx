@@ -27,7 +27,7 @@ const routes = [
     {
         label: "Sueño",
         icon: FaMoon,
-        href: "/sleep/goals",
+        href: "/sleep",
         color: "bg-decoration-sleep-colordark"
     },
     {
