@@ -27,7 +27,7 @@ const Sleep = () => {
   };
 
   const [randomSuggestion, setRandomSuggestion] = useState("");
-  const [sleepHours, setSleepHours] = useState(0);
+  const [sleepHours, setSleepHours] = useState(7.3);
 
   const handleGenerateSuggestion = () => {
     const newRandomSuggestion = generateRandomSuggestion();
@@ -36,9 +36,7 @@ const Sleep = () => {
 
   useEffect(() => {
     setRandomSuggestion(generateRandomSuggestion());
-    // Simulación de horas de sueño, en una aplicación real obtendrías este valor de una API o base de datos
-    const simulatedSleepHours = 7.3; // Cambia este valor para simular diferentes horas de sueño
-    setSleepHours(simulatedSleepHours);
+    
   }, []);
 
   return (
