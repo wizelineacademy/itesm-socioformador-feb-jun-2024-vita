@@ -1,6 +1,7 @@
 'use client';
 import * as z from 'zod';
 import { FaComments } from 'react-icons/fa';
+import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { formSchema } from './constants';
@@ -17,8 +18,9 @@ const Chat = () => {
   const router = useRouter();
   const [messages, setMessages] = useState<ChatCompletionMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
 
-  const { transcript, listening, resetTranscript } = useSpeechRecognition();
+  const { transcript, resetTranscript } = useSpeechRecognition();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -28,9 +30,7 @@ const Chat = () => {
   });
 
   useEffect(() => {
-    if (transcript) {
-      form.setValue('prompt', transcript);
-    }
+    form.setValue('prompt', transcript);
   }, [transcript, form]);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -64,8 +64,16 @@ const Chat = () => {
     }
   }, [messages]);
 
-  const startListening = () => SpeechRecognition.startListening({ continuous: true, language: 'es-ES' });
-  const stopListening = () => SpeechRecognition.stopListening();
+  const toggleListening = () => {
+    if (isListening) {
+      SpeechRecognition.stopListening();
+      setIsListening(false);
+    } else {
+      
+      SpeechRecognition.startListening({ continuous: true, language: 'es-ES' });
+      setIsListening(true);
+    }
+  };
 
   return (
     <div className='overflow-y-visible md:overflow-y-hidden'>
@@ -93,22 +101,16 @@ const Chat = () => {
                   </FormControl>
                   <button
                     type="button"
-                    onMouseDown={startListening}
-                    onMouseUp={stopListening}
-                    className="ml-2 bg-blue-500 text-white p-3 rounded-full shadow-lg"
+                    onClick={toggleListening}
+                    className={`ml-2 bg-speech-button text-white p-3 rounded-full shadow-lg transition-transform duration-300 ${isListening ? 'scale-125' : 'scale-100'}`}
                   >
-                    🎤
+                    {isListening ? <FaMicrophoneSlash size={20} /> : <FaMicrophone size={20} />}
                   </button>
-                  {listening && (
-                    <div className="ml-2 animate-pulse text-green-500 font-bold">
-                      Escuchando...
-                    </div>
-                  )}
                 </FormItem>
               )}
             />
             <Button
-              className="col-span-12 lg:col-span-2 bg-question-color text-white w-full z-10"
+              className="col-span-12 lg:col-span-2 bg-question-color text-white w-full z-10 text-2xl pt-2 lg:mt-2"
               disabled={isLoading}
             >
               Preguntar
