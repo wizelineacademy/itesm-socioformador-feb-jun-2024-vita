@@ -1,4 +1,5 @@
-import { pgTable, varchar, timestamp, text, integer, uniqueIndex, serial, foreignKey, doublePrecision, date } from "drizzle-orm/pg-core"
+import { pgTable, varchar, timestamp, text, integer, uniqueIndex, 
+	serial, foreignKey, doublePrecision, date,boolean, PgArray   } from "drizzle-orm/pg-core"
 import { sql, relations } from "drizzle-orm"
 
 //tables
@@ -15,12 +16,47 @@ export const prismaMigrations = pgTable("_prisma_migrations", {
 });
 
 export const user = pgTable("User", {
-	idUser: serial("id_user").primaryKey().notNull(),
-	name: varchar("name", { length: 100 }).notNull(),
-	email: varchar("email", { length: 50 }).notNull().unique(),
-	password: varchar("password", { length: 64 }),
-	phoneNumber: varchar("phone_number", { length: 12 }).unique(),
+    idUser: serial("id_user").primaryKey().notNull(),
+    name: varchar("name", { length: 100 }).notNull(),
+    email: varchar("email", { length: 50 }).notNull().unique(),
+    password: varchar("password", { length: 64 }),
+    phoneNumber: varchar("phone_number", { length: 12 }).unique(),
+	bio: varchar("image", { length: 300 }),
+    image: varchar("image", { length: 300 }),
+    coverImage: varchar("coverImage", { length: 300 }),
+    profileImage: varchar("profileImage", { length: 300 }),
+    hasNotification: boolean("has_notification").notNull().default(false),
+	createdAt: timestamp("createdAt", {mode: "date"}).notNull().defaultNow()
 });
+
+export const follow = pgTable("Follow", {
+    idFollow: serial("id_follow").primaryKey().notNull(),
+    followerID: integer("follower_id").notNull().references(() => user.idUser, { onDelete: "cascade", onUpdate: "cascade" }),
+    followingID: integer("following_id").notNull().references(() => user.idUser, { onDelete: "cascade", onUpdate: "cascade" }),
+    createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow()
+});
+
+export const post = pgTable("Post", {
+	idPost: serial("id_post").primaryKey().notNull(),
+	idUser: integer("id_user").notNull().unique().references(() => user.idUser, { onDelete: "restrict", onUpdate: "cascade" } ),
+	body: varchar("image", { length: 300 }),
+});
+
+export const postLike = pgTable("PostLike", {
+    idPostLike: serial("id_post_like").primaryKey().notNull(),
+    idPost: integer("id_post").notNull().references(() => post.idPost, { onDelete: "cascade", onUpdate: "cascade" }),
+    idUser: integer("id_user").notNull().references(() => user.idUser, { onDelete: "cascade", onUpdate: "cascade" }),
+    createdAt: timestamp("createdAt", {mode: "date"}).notNull().defaultNow()
+});
+
+export const comment = pgTable("Comment", {
+    idComment: serial("id_comment").primaryKey().notNull(),
+    idPost: integer("id_post").notNull().references(() => post.idPost, { onDelete: "cascade", onUpdate: "cascade" }),
+    idUser: integer("id_user").notNull().references(() => user.idUser, { onDelete: "cascade", onUpdate: "cascade" }),
+    body: varchar("body", { length: 200 }).notNull(),
+    createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow()
+});
+
 
 export const portionsNutrition = pgTable("PortionsNutrition", {
 	idNutritonPortion: serial("id_nutriton_portion").primaryKey().notNull(),

@@ -43,11 +43,18 @@ const routes = [
         color: "bg-reminders-color"
     },
     {
+        label: "Comunidad",
+        icon: FaDoorOpen ,
+        href: "/social",
+        color: "bg-mid-red"
+    },
+    {
         label: "Cerrar sesión",
         icon: FaDoorOpen ,
         href: "/",
         color: "bg-mid-red"
     },
+    
 ]
 
 const SidebarInfo = () => {
