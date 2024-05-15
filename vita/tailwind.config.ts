@@ -74,6 +74,7 @@ const config = {
         'sleep-mid':'#37346F',
         'sleep-high':'#191E55',
         'sleep-low':'#211F3F',
+        'speech-button':'#925FD4',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
       },
