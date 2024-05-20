@@ -33,7 +33,8 @@ export const followers = pgTable('followers', {
 
   export const userPosts = pgTable('user_posts', {
 	userId: integer('user_id').references(() => user.idUser),
-	postId: integer('post_id').references(() => posts.id)
+	postId: integer('post_id').references(() => posts.id),
+	primaryKey: primaryKey('user_id', 'post_id'),
   });
 
   export const posts = pgTable('posts', {
@@ -47,6 +48,7 @@ export const followers = pgTable('followers', {
   
   // Junction table for likes
   export const postLikes = pgTable('post_likes', {
+	idLike: serial("id_like").primaryKey().notNull(),
 	postId: integer('post_id').references(() => posts.id),
 	userId: integer('user_id').references(() => user.idUser),
 	
