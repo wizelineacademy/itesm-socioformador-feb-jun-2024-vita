@@ -46,7 +46,7 @@ const routes = [
         label: "Comunidad",
         icon: FaDoorOpen ,
         href: "/social",
-        color: "bg-mid-red"
+        color: "bg-purple-2"
     },
     {
         label: "Cerrar sesión",

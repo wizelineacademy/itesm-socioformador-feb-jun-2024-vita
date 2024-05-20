@@ -25,7 +25,7 @@ const routes: { [key: string]: string } = {
   "/exercise": "bg-exercise-background",
   "/reminders": "bg-reminders-background",
   "/sleep": "bg-dark-purple",
-  "/social": "bg-black"
+  "/social": "bg-purple-2"
 };
 
 /**

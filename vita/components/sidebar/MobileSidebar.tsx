@@ -48,7 +48,7 @@ const MobileSidebar = () => {
         {
             label: 'Comunidad',
             href: '/social',
-            backgroundColor: 'bg-black',
+            backgroundColor: 'bg-purple-2',
             buttonColor: 'text-white',
         },
     ];
