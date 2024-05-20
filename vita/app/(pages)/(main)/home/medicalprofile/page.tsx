@@ -955,8 +955,6 @@ const Profile = () => {
                                 ''
                             )} 
                     </ToggleComponent>
-
-                
                     </div>
                 
                     {!editMode ? (
@@ -1030,7 +1028,6 @@ const Profile = () => {
                 onCloseButtonClick={closeModalMedicines}
             />
 
-
            {/* Modal  POst */}
            <AddModal
                 modalOpen={allergyModalOpen}
@@ -1087,8 +1084,6 @@ const Profile = () => {
                     { name: "duration", placeholder: "Duración" },
                 ]}
             />
-
-
 
             {/* Modal de edición de alergia */}
             <EditModal

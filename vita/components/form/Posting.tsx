@@ -6,9 +6,7 @@ const Posting = () => {
 
   return (
     <>
-      <p>
-        Prueba
-      </p>
+       
       
     </>
   );
