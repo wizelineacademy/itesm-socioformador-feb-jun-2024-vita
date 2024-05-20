@@ -9,6 +9,8 @@ import { usePathname } from "next/navigation";
 import { RecipesContextProvider } from "@/context/ingredients";
 import NextAuthProvider from "@/context/authprovider";
 import { ExercisesContextProvider } from "@/context/exercises";
+import MainContainer from "@/components/layoutSocial/MainContainer";
+import TopBar from "@/components/layoutSocial/TopBar";
 
 // Define font settings
 
@@ -48,6 +50,8 @@ export default function RootLayout({
 
   // Determine the background color based on the root route
   const backgroundColor = routes[`/${rootRoute}`] || 'bg-home-background';
+  // Verifica si la ruta es 'social' o tiene subrutas bajo 'social'
+  const isSocialRoute = pathname.startsWith('/social');
 
   return (
     <html lang="es">
@@ -71,12 +75,24 @@ export default function RootLayout({
               <Decoration pathname={pathname}/>
               {/* Render children components */}
               <NextAuthProvider>
-                <RecipesContextProvider> {/*Context for recipes**/}
-                  <ExercisesContextProvider> {/*Context for exercise routines**/}
+                
+                  {isSocialRoute ? (
+                  <MainContainer>
+                    <TopBar />
                     {children}
-                  </ExercisesContextProvider>
-                </RecipesContextProvider>
+                  </MainContainer>
+                ) : (
+                 
+                    <RecipesContextProvider>
+                      <ExercisesContextProvider>
+                        {children}
+                      </ExercisesContextProvider>
+                    </RecipesContextProvider>
+                )}
+                  
               </NextAuthProvider>
+
+              
             </div>  
           </main>  
         </div>

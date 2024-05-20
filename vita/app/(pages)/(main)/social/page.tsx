@@ -11,14 +11,11 @@ import BottomBar from "@/components/layoutSocial/ButtomBar";
 const Social = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <main className="flex flex-row"> 
+      <p> Papa</p>
         {/* <LeftSideBar />  */}
-        <MainContainer>
-          <TopBar />
-          {children}
-        </MainContainer>
+       
         {/* <RightSideBar /> */}
-      </main>
+   
       {/* <BottomBar />  */}
     </>
   );
