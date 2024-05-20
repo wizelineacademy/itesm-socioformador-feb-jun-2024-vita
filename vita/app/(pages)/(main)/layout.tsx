@@ -78,7 +78,6 @@ export default function RootLayout({
                 
                   {isSocialRoute ? (
                   <MainContainer>
-                    <TopBar />
                     {children}
                   </MainContainer>
                 ) : (

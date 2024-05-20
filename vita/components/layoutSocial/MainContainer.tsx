@@ -21,7 +21,7 @@ const MainContainer = ({ children }: MainContainerProps) => {
 
   return (
     <section className="flex flex-col flex-1  px-4 md:px-10 lg:px-4 xl:px-20">
-      
+      <TopBar />
       <div className="mt-6 mb-20">
         <h1 className="mb-5 text-[30px] leading-[140%] font-bold max-sm:text-[24px] text-light-1">
           {title}
