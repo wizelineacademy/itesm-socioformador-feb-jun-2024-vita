@@ -20,8 +20,39 @@ export const user = pgTable("User", {
 	email: varchar("email", { length: 50 }).notNull().unique(),
 	password: varchar("password", { length: 64 }),
 	phoneNumber: varchar("phone_number", { length: 12 }).unique(),
+	username: varchar('username', { length: 100 }).notNull(),
+	profilePhoto: text('profile_photo').notNull(),
+  	createdAt: date('created_at').default(() => 'NOW()').notNull()
 });
 
+export const followers = pgTable('followers', {
+	userId: integer('user_id').references(() => user.idUser),
+	followerId: integer('follower_id').references(() => user.idUser),
+	primaryKey: primaryKey('user_id', 'follower_id'),
+  });
+
+  export const userPosts = pgTable('user_posts', {
+	userId: integer('user_id').references(() => user.idUser),
+	postId: integer('post_id').references(() => posts.id)
+  });
+
+  export const posts = pgTable('posts', {
+	id: serial('id').primaryKey().notNull(),
+	creatorId: integer('creator_id').references(() => user.idUser).notNull(),
+	caption: text('caption').notNull(),
+	postPhoto: text('post_photo').notNull(),
+	tag: varchar('tag', { length: 50 }).notNull(),
+	createdAt: date('created_at').default(() => 'NOW()').notNull(),
+  });
+  
+  // Junction table for likes
+  export const postLikes = pgTable('post_likes', {
+	postId: integer('post_id').references(() => posts.id),
+	userId: integer('user_id').references(() => user.idUser),
+	
+  });
+
+  
 export const portionsNutrition = pgTable("PortionsNutrition", {
 	idNutritonPortion: serial("id_nutriton_portion").primaryKey().notNull(),
 	idUser: integer("id_user").notNull().unique().references(() => user.idUser, { onDelete: "restrict", onUpdate: "cascade" } ),
