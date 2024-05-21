@@ -1,7 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from 'react';
-import { FaAngleRight } from 'react-icons/fa';
+import React, { useState } from 'react';
 
 const SelfEvaluationPage = () => {
   const [progress, setProgress] = useState(0);
@@ -11,12 +10,27 @@ const SelfEvaluationPage = () => {
   const [currentGoal, setCurrentGoal] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
 
+  const handleGoalSelect = (goal: string) => {
   const handleGoalSelect = (goal) => {
     setCurrentGoal(goal);
     localStorage.setItem('currentGoal', goal);
     setShowDropdown(false);
   };
 
+  const ratingButtonStyle = (number: number, stateValue: number) => ({
+    width: '40px',
+    height: '40px',
+    lineHeight: '40px',
+    display: 'inline-block',
+    margin: '0 5px',
+    borderRadius: '50%',
+    border: '2px solid white',
+    backgroundColor: stateValue === number ? 'green' : 'transparent',
+    color: 'white',
+    fontSize: '1.5rem',
+    textAlign: 'center',
+    cursor: 'pointer',
+  });
   const handleSubmit = () => {
     console.log('Form data:', { currentGoal, progress, nutritionPlanAdherence, nutritionPlanUsefulness, recipeGenerationUsefulness });
   };
@@ -25,9 +39,9 @@ const SelfEvaluationPage = () => {
     <div className="bg-[#2C0521] text-white p-5">
       <h1 className="text-5xl font-bold">Autoevaluación</h1>
       <div>
-        <h2 className="text-3xl font-bold">Meta Actual</h2>
-        <button onClick={() => setShowDropdown(!showDropdown)} className="text-xl font-bold bg-transparent border-none cursor-pointer">
-          {currentGoal || 'Seleccione meta'} <FaAngleRight className="inline" />
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Meta Actual</h2>
+        <button onClick={() => setShowDropdown(!showDropdown)} style={{ fontSize: '1.25rem', fontWeight: 'bold', backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}>
+          {currentGoal || 'Seleccione meta'} ▼
         </button>
         {showDropdown && (
           <div className="absolute z-10 bg-[#2C0521]">
@@ -36,6 +50,51 @@ const SelfEvaluationPage = () => {
           </div>
         )}
       </div>
+      <div>
+        <p style={{ fontSize: '1.25rem' }}>¿Has tenido un progreso en tu meta?</p>
+        {[1, 2, 3, 4, 5].map((number) => (
+          <span key={number} style={ratingButtonStyle(number, progress)} onClick={() => setProgress(number)}>
+            {number}
+          </span>
+        ))}
+      </div>
+      <div>
+        <p style={{ fontSize: '1.25rem' }}>¿Qué tan bien estás siguiendo tu plan de nutrición?</p>
+        {[1, 2, 3, 4, 5].map((number) => (
+          <span key={number} style={ratingButtonStyle(number, nutritionPlanAdherence)} onClick={() => setNutritionPlanAdherence(number)}>
+            {number}
+          </span>
+        ))}
+      </div>
+      <div>
+        <p>¿Qué tan útiles han sido las funciones de generación de planes de nutrición?</p>
+        {[1, 2, 3, 4, 5].map((number) => (
+          <span key={`nutrition-plan-${number}`} style={ratingButtonStyle(number, nutritionPlanUsefulness)} onClick={() => setNutritionPlanUsefulness(number)}>
+            {number}
+          </span>
+        ))}
+      </div>
+      <div>
+        <p>¿Qué tan útiles han sido las funciones de generación de recetas?</p>
+        {[1, 2, 3, 4, 5].map((number) => (
+          <span key={`recipe-generation-${number}`} style={ratingButtonStyle(number, recipeGenerationUsefulness)} onClick={() => setRecipeGenerationUsefulness(number)}>
+            {number}
+          </span>
+        ))}
+      </div>
+      <button style={{
+        marginTop: '20px',
+        padding: '10px 20px',
+        fontSize: '1.25rem',
+        fontWeight: 'bold',
+        color: 'white',
+        backgroundColor: 'purple',
+        borderRadius: '10px',
+        border: 'none',
+        cursor: 'pointer',
+      }}>
+        Continuar
+      </button>
       {currentGoal && (
         <>
           <div>
@@ -73,6 +132,9 @@ const SelfEvaluationPage = () => {
           <button onClick={handleSubmit} className="mt-5 p-2.5 text-xl font-bold bg-purple-700 rounded-full border-none cursor-pointer">
             Continuar
           </button>
+          {error && <p className="text-red-500">{error.message}</p>}
+        </>
+      )}
         </>
       )}
     </div>
