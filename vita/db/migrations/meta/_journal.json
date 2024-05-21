@@ -1,0 +1,125 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1713426558031,
+      "tag": "0000_init",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1713428763219,
+      "tag": "0001_date_type",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1713556354479,
+      "tag": "0002_reminders",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1713556642518,
+      "tag": "0003_rename_reminders",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1713739212427,
+      "tag": "0004_made_end_time_optional",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1713741829263,
+      "tag": "0005_drop_unique_id_user_contstraint",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1713894305231,
+      "tag": "0006_goals",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1713896172070,
+      "tag": "0007_category_varchar",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1713904456993,
+      "tag": "0008_goals_variable",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1713905734449,
+      "tag": "0009_goal_name_length",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1714090204158,
+      "tag": "0010_articles",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "5",
+      "when": 1714092230157,
+      "tag": "0011_updated_article_name_len",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "5",
+      "when": 1714264398587,
+      "tag": "0012_medical",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "5",
+      "when": 1714267947200,
+      "tag": "0013_policy",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "5",
+      "when": 1714268318467,
+      "tag": "0014_renamePolicy",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "5",
+      "when": 1714417894665,
+      "tag": "0015_uniqueIdProfile",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "5",
+      "when": 1714766646278,
+      "tag": "0016_evaluation",
+      "breakpoints": true
+    }
+  ]
+}

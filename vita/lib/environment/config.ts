@@ -11,12 +11,11 @@ const config = process.env.NODE_ENV === "production" ? {
     facebookSecret: Resource.FacebookSecret.value,
     googleId: Resource.GoogleId.value,
     googleSecret: Resource.GoogleSecret.value,
+    webhookVerifyToken: Resource.WebhookVerifyToken.value,
+    graphApiToken: Resource.GraphApiToken.value,
     nextAuthUrl: process.env.NEXTAUTH_URL!,
     nextAuthSecret: process.env.NEXTAUTH_SECRET!,
     nextPublicSecret: process.env.NEXT_PUBLIC_SECRET!,
-    databaseName: process.env.DATABASE_NAME!,
-    serviceARN: process.env.SERVICE_ARN!,
-    secretARN: process.env.SECRET_ARN!
 } : {
     nodeEnv: process.env.NODE_ENV!,
     databaseUrl: process.env.DATABASE_URL!,
@@ -30,7 +29,9 @@ const config = process.env.NODE_ENV === "production" ? {
     nextPublicSecret: process.env.NEXT_PUBLIC_SECRET!,
     databaseName: process.env.DATABASE_NAME!,
     serviceARN: process.env.SERVICE_NAME!,
-    secretARN: process.env.SECRET_ARN
+    secretARN: process.env.SECRET_ARN,
+    webhookVerifyToken: process.env.WEBHOOK_VERIFY_TOKEN,
+    graphApiToken: process.env.GRAPH_API_TOKEN,
 };
 
 

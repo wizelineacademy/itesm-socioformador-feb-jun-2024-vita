@@ -16,18 +16,37 @@ export default $config({
     const facebookSecret = new sst.Secret("FacebookSecret");
     const googleId = new sst.Secret("GoogleId");
     const googleSecret = new sst.Secret("GoogleSecret");
-    const nextAuthUrl = new sst.Secret("NextAuthUrl");
-    const nextAuthSecret = new sst.Secret("NextAuthSecret");
+    const WebhookVerifyToken = new sst.Secret("WebhookVerifyToken");
+    const GraphApiToken = new sst.Secret("GraphApiToken");
+
+    const database = new sst.aws.Postgres("MyDatabase", {
+      scaling: {
+        min: "0.5 ACU",
+        max: "1 ACU"
+      }
+    })
+
+    const bucket = new sst.aws.Bucket("MyBucket", {
+      public: true
+    });
+
+    const cron = new sst.aws.Cron("MyCronJob", {
+      job: "cron_functions/blog.handler",
+      schedule: "cron(0 6 * * ? *)"
+    })
 
     new sst.aws.Nextjs("MyWeb", {
       link: [
+        bucket,
+        database,
+        cron,
         openApiKey,
         facebookId,
         facebookSecret,
         googleId,
         googleSecret,
-        nextAuthUrl,
-        nextAuthSecret
+        WebhookVerifyToken,
+        GraphApiToken,
       ],
       environment: {
         NEXTAUTH_URL: process.env.NEXTAUTH_URL!,

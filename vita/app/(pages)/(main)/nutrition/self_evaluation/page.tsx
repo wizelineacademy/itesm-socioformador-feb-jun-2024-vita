@@ -1,20 +1,6 @@
 "use client"
 
-<<<<<<< Updated upstream
 import React, { useState } from 'react';
-
-const SelfEvaluationPage = () => {
-  const [progress, setProgress] = useState<number>(0);
-  const [nutritionPlanAdherence, setNutritionPlanAdherence] = useState<number>(0);
-  const [nutritionPlanUsefulness, setNutritionPlanUsefulness] = useState<number>(0);
-  const [recipeGenerationUsefulness, setRecipeGenerationUsefulness] = useState<number>(0);
-  const [currentGoal, setCurrentGoal] = useState<string>('');
-  const [showDropdown, setShowDropdown] = useState<boolean>(false);
-
-  const handleGoalSelect = (goal: string) => {
-=======
-import React, { useEffect, useState } from "react";
-import axios from "axios";
 
 const SelfEvaluationPage = () => {
   const [progress, setProgress] = useState(0);
@@ -22,37 +8,15 @@ const SelfEvaluationPage = () => {
   const [nutritionPlanUsefulness, setNutritionPlanUsefulness] = useState(0);
   const [recipeGenerationUsefulness, setRecipeGenerationUsefulness] = useState(0);
   const [currentGoal, setCurrentGoal] = useState('');
-  const [currentGoalId, setCurrentGoalId] = useState(null); 
-  const [evaluations, setEvaluations] = useState([]);
-  const [error, setError] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get("/api/self_evaluation");
-        setEvaluations(res.data);
-      } catch (error) {
-        setError(error);
-        console.error(error);
-      }
-    };
-
-    const savedGoal = localStorage.getItem('currentGoal');
-    if (savedGoal) {
-      setCurrentGoal(savedGoal);
-    }
-
-    fetchData();
-  }, []);
-
+  const handleGoalSelect = (goal: string) => {
   const handleGoalSelect = (goal) => {
->>>>>>> Stashed changes
     setCurrentGoal(goal);
+    localStorage.setItem('currentGoal', goal);
     setShowDropdown(false);
   };
 
-<<<<<<< Updated upstream
   const ratingButtonStyle = (number: number, stateValue: number) => ({
     width: '40px',
     height: '40px',
@@ -67,39 +31,22 @@ const SelfEvaluationPage = () => {
     textAlign: 'center',
     cursor: 'pointer',
   });
-=======
-  const handleSubmit = async () => {
-    try {
-      const res = await axios.post("/api/self_evaluation", {
-        idGoal: 1,
-        name: currentGoal,
-        grade: progress,
-      });
-      console.log("Evaluation submitted:", res.data);
-    } catch (error) {
-      setError(error);
-      console.error(error);
-    }
+  const handleSubmit = () => {
+    console.log('Form data:', { currentGoal, progress, nutritionPlanAdherence, nutritionPlanUsefulness, recipeGenerationUsefulness });
   };
->>>>>>> Stashed changes
 
   return (
-    <div style={{ backgroundColor: '#2C0521', color: 'white', padding: '20px' }}>
-      <h1 style={{ fontSize: '2rem', fontWeight: 'bold' }}>Autoevaluación</h1>
+    <div className="bg-[#2C0521] text-white p-5">
+      <h1 className="text-5xl font-bold">Autoevaluación</h1>
       <div>
-<<<<<<< Updated upstream
         <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Meta Actual</h2>
         <button onClick={() => setShowDropdown(!showDropdown)} style={{ fontSize: '1.25rem', fontWeight: 'bold', backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}>
           {currentGoal || 'Seleccione meta'} ▼
         </button>
         {showDropdown && (
-          <div style={{ position: 'absolute', zIndex: 10, backgroundColor: '#2C0521' }}>
-            <div style={{ padding: '10px', cursor: 'pointer' }} onClick={() => handleGoalSelect('Bajar de peso')}>
-              Bajar de peso
-            </div>
-            <div style={{ padding: '10px', cursor: 'pointer' }} onClick={() => handleGoalSelect('Aumentar masa muscular')}>
-              Aumentar masa muscular
-            </div>
+          <div className="absolute z-10 bg-[#2C0521]">
+            <div className="p-2.5 cursor-pointer" onClick={() => handleGoalSelect('Bajar de peso')}>Bajar de peso</div>
+            <div className="p-2.5 cursor-pointer" onClick={() => handleGoalSelect('Aumentar masa muscular')}>Aumentar masa muscular</div>
           </div>
         )}
       </div>
@@ -148,18 +95,6 @@ const SelfEvaluationPage = () => {
       }}>
         Continuar
       </button>
-=======
-        <h2 className="text-3xl font-bold">Meta Actual</h2>
-        <button onClick={() => setShowDropdown(!showDropdown)} className="text-xl font-bold bg-transparent border-none cursor-pointer">
-          {currentGoal || 'Seleccione meta'} ▼
-        </button>
-        {showDropdown && (
-          <div className="absolute z-10 bg-[#2C0521] p-2 mt-2 rounded-lg shadow-lg">
-            <div className="p-2 cursor-pointer hover:bg-[#381a3b]" onClick={() => handleGoalSelect('Bajar de peso')}>Bajar de peso</div>
-            <div className="p-2 cursor-pointer hover:bg-[#381a3b]" onClick={() => handleGoalSelect('Aumentar masa muscular')}>Aumentar masa muscular</div>
-          </div>
-        )}
-      </div>
       {currentGoal && (
         <>
           <div>
@@ -200,7 +135,8 @@ const SelfEvaluationPage = () => {
           {error && <p className="text-red-500">{error.message}</p>}
         </>
       )}
->>>>>>> Stashed changes
+        </>
+      )}
     </div>
   );
 };

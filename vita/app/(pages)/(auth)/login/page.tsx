@@ -1,7 +1,7 @@
 
 'use client';
-import { signIn, useSession } from 'next-auth/react';
-import React, { useCallback,useEffect,useState } from "react";
+import { signIn} from 'next-auth/react';
+import React, { useState } from "react";
 import Information from '@/components/information/Information';
 import Button from "@/components/buttons/Button";
 import { FcGoogle } from "react-icons/fc";

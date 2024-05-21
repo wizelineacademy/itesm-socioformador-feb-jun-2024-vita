@@ -1,0 +1,1 @@
+ALTER TABLE "Reminders" DROP CONSTRAINT "Reminders_id_user_unique";

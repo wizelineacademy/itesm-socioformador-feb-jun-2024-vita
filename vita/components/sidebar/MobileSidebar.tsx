@@ -28,6 +28,12 @@ const MobileSidebar = () => {
             buttonColor: 'text-white',
         },
         {
+            label: 'Sueño',
+            href: '/sleep',
+            backgroundColor: 'bg-dark-purple',
+            buttonColor: 'text-white'
+        },
+        {
             label: 'Chat',
             href: '/chat',
             backgroundColor: 'bg-chat-background',

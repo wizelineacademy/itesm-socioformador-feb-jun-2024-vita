@@ -1,10 +1,9 @@
 'use client';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { FaUtensils, FaHome,FaComments, FaRunning , FaBell, FaDoorOpen } from 'react-icons/fa';
+import { FaUtensils, FaHome,FaComments, FaRunning , FaBell, FaDoorOpen, FaMoon } from 'react-icons/fa';
 import { usePathname } from "next/navigation";
 import { signOut } from 'next-auth/react';
-
 
 const routes = [
     {
@@ -24,6 +23,12 @@ const routes = [
         icon: FaRunning,
         href: "/exercise",
         color: "bg-mid-green"
+    },
+    {
+        label: "Sueño",
+        icon: FaMoon,
+        href: "/sleep",
+        color: "bg-decoration-sleep-colordark"
     },
     {
         label: "Chat",
@@ -47,7 +52,8 @@ const routes = [
 
 const SidebarInfo = () => {
     const pathname = usePathname();
-
+  
+    
     return ( 
         <div className="space-y-4 py-4 flex flex-col h-full bg-side-color text-white">
             <div className="px-3 py-2 flex-1">
@@ -75,7 +81,7 @@ const SidebarInfo = () => {
                             [`hover:bg-mid-red`]: route.label === "Cerrar sesión"
                         })}
                     >
-                    
+                        
                         <div className={cn("flex items-center flex-1 mr-3")}>
                             <route.icon 
                                 className={cn("mr-3")} 
@@ -85,7 +91,6 @@ const SidebarInfo = () => {
                         </div>
                     </Link>
                 ))}
-                
             </div>
         </div>
     );

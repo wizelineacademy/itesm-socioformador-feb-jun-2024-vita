@@ -3,37 +3,13 @@
 import Swal from 'sweetalert2';
 import React, { useState, useEffect} from "react";
 import axios from  "axios"
-
-interface HealthData {
-    idUserDetail: number;
-    idUser: number;
-    sex: string;
-    weight: number;
-    height: number;
-    birthDate: string;
-    bodyFat: number;
-    muscularMass: number;
-}
+import { formatDays } from '@/lib/DaysFormat/days';
+import { EditHealthData, HealthData } from '@/data/datatypes/healthdata';
 
 
-interface EditHealthData {
-    sex: string;
-    weight: number;
-    height: number; 
-    bodyFat: number;
-    muscularMass: number;
-    birthDate: string;
-}
 
 const GeneralData = () => {
-    const formatBirthDate = (dateString: string): string => {
-        const date = new Date(dateString);
-        const day = date.getDate();
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
     
-        return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
-    };
 
     const formatBirthDate2 = (dateString: string): string => {
         const date = new Date(dateString);
@@ -104,7 +80,6 @@ const GeneralData = () => {
 
             setUserData(fetchedData);
             setEditedData(fetchedData); 
-            
         
         } catch (error) {
             Swal.fire({
@@ -293,9 +268,8 @@ const GeneralData = () => {
                             ) : (
                                 <span className="flex flex-row">
                                     <div className="text-2xl py-2 px-6 rounded-full bg-input-home w-60">
-                                        {userData && formatBirthDate(userData.birthDate)}
+                                        {userData && formatDays(userData.birthDate)}
                                     </div>
-                                    
                                 </span>
                             )}
                         </div>
@@ -309,7 +283,7 @@ const GeneralData = () => {
                                 <span className="flex flex-row">
                                 <input
                                     type="number"
-                                    name="mmuscularMass"
+                                    name="muscularMass"
                                     value={editedData?.muscularMass|| ""}
                                     onChange={handleInputChange}
                                     className="text-2xl py-2 px-6 rounded-full bg-input-home w-60"
