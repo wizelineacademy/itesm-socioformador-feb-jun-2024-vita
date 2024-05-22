@@ -69,7 +69,7 @@ const FeatureEvaluationPage = () => {
 
       try {
 
-        if(!state.goalMetrics || !state.featureMetrics || !state.records){
+        if(state.goalMetrics.length === 0 || state.featureMetrics.length === 0 || state.records.length === 0){
           throw Error("Incomplete data")
         }
 
@@ -83,12 +83,22 @@ const FeatureEvaluationPage = () => {
           records: state.records
         })
 
-        setState({
-          goalMetrics: [],
-          featureMetrics: [],
-          records: []
+        Swal.fire({
+          title: 'Éxito',
+          text: "Se han guardado las respuestas con éxito",
+          icon: 'success',
+          confirmButtonText: 'OK'
+        }).then((result) => {
+            if(result.isConfirmed){
+                setState({
+                    goalMetrics: [],
+                    featureMetrics: [],
+                    records: []
+                })
+                router.push("/nutrition")
+            }
         })
-        router.push("/nutrition")
+
       } catch(error) {
         console.log(error)
         Swal.fire({

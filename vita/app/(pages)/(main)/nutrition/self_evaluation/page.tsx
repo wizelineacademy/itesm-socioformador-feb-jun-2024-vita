@@ -12,7 +12,7 @@ import AutoevaluationContext from "@/context/autoevaluation";
 const SelfEvaluationPage = () => {
   const [progress, setProgress] = useState(0);
   const [planAdherence, setPlanAdherence] = useState(0);
-  const [goal, setGoal] = useState("");
+  const [goal, setGoal] = useState({name: "", idGoal: 0});
   const [goalId, setGoalId] = useState(0);
   const [hasDetail, setHasDetail] = useState(false);
   const {state, setState} = useContext(AutoevaluationContext);
@@ -55,12 +55,12 @@ const SelfEvaluationPage = () => {
         {
           name: "goal_progress",
           value: progress,
-          idGoal: goalId
+          idGoal: goal.idGoal
         },
         {
           name: "plan_adherence",
           value: planAdherence,
-          idGoal: goalId
+          idGoal: goal.idGoal
         }
       ]
     })
@@ -79,7 +79,7 @@ const SelfEvaluationPage = () => {
         const response = await axios.get("/api/goals/nutrition");
         const data = response.data
 
-        setGoal(data.name);
+        setGoal(data);
         setGoalDetails(data.name)
        
       } catch(error) {
@@ -106,7 +106,7 @@ const SelfEvaluationPage = () => {
       <h2 className="text-4xl md:text-5xl font-bold mb-4">Autoevaluación</h2>
 
       <h3 className="text-2xl font-bold">Meta actual</h3>
-      <p className='mt-5 py-3 pl-4 w-full max-w-[500px] rounded-2xl text-lg bg-custom-lightpurple'>{goal}</p>
+      <p className='mt-5 py-3 pl-4 w-full max-w-[500px] rounded-2xl text-lg bg-custom-lightpurple'>{goal.name}</p>
 
       <div className="w-full flex flex-col gap-y-10 align-center">
         <div className="w-full flex flex-col">

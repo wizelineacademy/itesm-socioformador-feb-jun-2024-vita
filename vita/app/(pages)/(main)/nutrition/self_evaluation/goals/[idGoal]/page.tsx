@@ -74,7 +74,7 @@ const EvaluationGoalPage = ({ params }: { params: { idGoal: string } }) => {
         <div className="p-4 text-white flex flex-col items-start justify-start space-y-4 pt-10 md:items-start">
             <h2 className="text-5xl font-bold mb-4">Mi Meta</h2>
 
-            {goal && 
+            { goal && 
                 <>
                     <form 
                         onSubmit={(e) => {

@@ -12,19 +12,10 @@ import AutoevaluationContext from "@/context/autoevaluation";
 const SleepSelfEvaluationPage = () => {
   const [progress, setProgress] = useState(0);
   const [improvement, setImprovement] = useState(0);
-  const [goal, setGoal] = useState("");
-  const [goalId, setGoalId] = useState(0);
+  const [goal, setGoal] = useState({name: "", idGoal: 0});
   const {state, setState} = useContext(AutoevaluationContext);
 
   const router = useRouter();
-
-  //set goal id and if extra information is necessary
-  const setGoalDetails = (name: string) => {
-    const selectedGoal = nutritionGoals.find(goal => {
-      return goal.title === name
-    });
-    setGoalId(selectedGoal?.id ?? 0);
-  }
 
   //verify if all questions have been asnswered
   const verifyData = () : boolean => {
@@ -53,12 +44,12 @@ const SleepSelfEvaluationPage = () => {
         {
           name: "goal_progress",
           value: progress,
-          idGoal: goalId
+          idGoal: goal.idGoal
         },
         {
           name: "sleep_improvement",
           value: improvement,
-          idGoal: goalId
+          idGoal: goal.idGoal
         }
       ]
     })
@@ -71,11 +62,10 @@ const SleepSelfEvaluationPage = () => {
   useEffect(() => {
     const fetchGoal = async () => {
       try {
-        const response = await axios.get("/api/goals/nutrition");
+        const response = await axios.get("/api/goals/sleep");
         const data = response.data
 
-        setGoal(data.name);
-        setGoalDetails(data.name)
+        setGoal(data);
        
       } catch(error) {
         Swal.fire({
@@ -101,7 +91,7 @@ const SleepSelfEvaluationPage = () => {
       <h2 className="text-4xl md:text-5xl font-bold mb-4">Autoevaluación</h2>
 
       <h3 className="text-2xl font-bold">Meta actual</h3>
-      <p className='mt-5 py-3 pl-4 w-full max-w-[500px] rounded-2xl text-lg bg-input-purple'>{goal}</p>
+      <p className='mt-5 py-3 pl-4 w-full max-w-[500px] rounded-2xl text-lg bg-input-purple'>{goal.name}</p>
 
       <div className="w-full flex flex-col gap-y-10 align-center">
         <div className="w-full flex flex-col">
