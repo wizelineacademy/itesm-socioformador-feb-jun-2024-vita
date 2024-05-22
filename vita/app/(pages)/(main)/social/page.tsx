@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Loader from "@/components/Loader";
 import PostCard from "@/components/post/PostCard";
 import { UserPost } from "@/data/datatypes/user";
@@ -14,8 +14,6 @@ const Social = () => {
     try {
       const response = await axios.get("/api/post");
       setFeedPost(response.data); 
-      console.log(response.data)
-      alert(response.data)
     } catch (error) {
       console.error("Failed to fetch posts:", error);
     } finally {
@@ -42,12 +40,13 @@ const Social = () => {
   if (loading) return <Loader />;
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-8 items-center justify-center">
       {feedPost.map((post) => (
         <PostCard 
           key={post.idPost}
           post={post}
           creator={user}
+          onPostDelete={getFeedPost} 
         /> 
       ))}
     </div>

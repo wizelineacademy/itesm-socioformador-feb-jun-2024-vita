@@ -3,11 +3,13 @@ import { AddPhotoAlternateOutlined } from "@mui/icons-material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
-import React from "react";
+import React, { useState } from "react";
 import Swal from 'sweetalert2';
 import axios from "axios";
 
 const CreatePost = () => {
+  
+
   const postData = {
     creatorId: "",
     caption: "",
@@ -36,7 +38,7 @@ const CreatePost = () => {
 
       Swal.fire({
         title: 'Éxito',
-        text: 'Se ha creado una publ0icación',
+        text: 'Se ha creado una publicación',
         icon: 'success',
         confirmButtonText: 'OK'
       });
