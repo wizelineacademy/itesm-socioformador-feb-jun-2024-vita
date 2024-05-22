@@ -1,3 +1,4 @@
+import { GoalMetric } from "@/context/autoevaluation";
 import { db } from "@/db/drizzle";
 import { goalEvaluation } from "@/db/schema/schema";
 import { authOptions } from "@/lib/auth/authOptions";
@@ -12,19 +13,17 @@ export async function POST(request: Request) {
       if (!session) {
         return NextResponse.json("Unauthorized", { status: 401 });
       }
-  
-      const {
-        idGoal,
-        name,
-        grade
-      } = body;
-  
-      const res = await db.insert(goalEvaluation).values({
+
+      const {evaluations} = body;
+
+      const insertValues = evaluations.map((evaluation: GoalMetric) => ({
         idUser: session.user?.id,
-        idGoal,
-        name,
-        grade
-      }); 
+        idGoal: evaluation.idGoal,
+        grade: evaluation.value,
+        name: evaluation.name
+      }))
+  
+      const res = await db.insert(goalEvaluation).values(insertValues); 
   
       return NextResponse.json(res, { status: 200 });
     } catch (error) {

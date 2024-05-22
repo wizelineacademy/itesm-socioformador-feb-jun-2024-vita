@@ -64,9 +64,30 @@ const FeatureEvaluationPage = () => {
     
   }
 
-  const sendData = () => {
+  const sendData = async () => {
     if(storeData()){
+
       try {
+
+        if(!state.goalMetrics || !state.featureMetrics || !state.records){
+          throw Error("Incomplete data")
+        }
+
+        const goalsRes = await axios.post("/api/goal_evaluations", {
+          evaluations: state.goalMetrics
+        })
+        const featsRes = await axios.post("/api/feature_evaluations", {
+          evaluations: state.featureMetrics
+        })
+        const recordsRes = await axios.post("/api/records", {
+          records: state.records
+        })
+
+        setState({
+          goalMetrics: [],
+          featureMetrics: [],
+          records: []
+        })
         router.push("/nutrition")
       } catch(error) {
         console.log(error)
@@ -101,9 +122,8 @@ const FeatureEvaluationPage = () => {
     </div>
 
     <ButtonEvaluation 
-    onClick={sendData} 
+      onClick={sendData} 
         text='Enviar'/>
-
     </div>
   );
 };

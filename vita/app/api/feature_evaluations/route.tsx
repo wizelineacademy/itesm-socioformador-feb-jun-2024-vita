@@ -1,3 +1,4 @@
+import { Metric } from "@/context/autoevaluation";
 import { db } from "@/db/drizzle";
 import { featureEvaluation} from "@/db/schema/schema";
 import { authOptions } from "@/lib/auth/authOptions";
@@ -13,16 +14,15 @@ export async function POST(request: Request) {
         return NextResponse.json("Unauthorized", { status: 401 });
       }
   
-      const {
-        name,
-        grade
-      } = body;
-  
-      const res = await db.insert(featureEvaluation).values({
+      const {evaluations} = body;
+
+      const insertValues = evaluations.map((evaluation: Metric) => ({
         idUser: session.user?.id,
-        name,
-        grade
-      }); 
+        name: evaluation.name,
+        grade: evaluation.value
+      }))
+
+      const res = await db.insert(featureEvaluation).values(insertValues)
   
       return NextResponse.json(res, { status: 200 });
     } catch (error) {

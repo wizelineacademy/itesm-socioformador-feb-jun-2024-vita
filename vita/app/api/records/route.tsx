@@ -1,5 +1,6 @@
+import { Record } from "@/context/autoevaluation";
 import { db } from "@/db/drizzle";
-import { register } from "@/db/schema/schema";
+import { record } from "@/db/schema/schema";
 import { authOptions } from "@/lib/auth/authOptions";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
@@ -13,18 +14,16 @@ export async function POST(request: Request) {
         return NextResponse.json("Unauthorized", { status: 401 });
       }
   
-      const {
-        name,
-        value,
-        category
-      } = body;
-  
-      const res = await db.insert(register).values({
+      const {records} = body;
+
+      const insertValues = records.map((record: Record) => ({
         idUser: session.user?.id,
-        name,
-        value,
-        category
-      }); 
+        name: record.name,
+        value: record.value,
+        category: record.category
+      }))
+  
+      const res = await db.insert(record).values(insertValues); 
   
       return NextResponse.json(res, { status: 200 });
     } catch (error) {

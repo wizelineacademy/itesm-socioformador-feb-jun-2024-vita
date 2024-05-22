@@ -1,15 +1,15 @@
 import { ReactNode, createContext, useState } from "react";
 
-interface Metric {
+export interface Metric {
     name: string
     value: number
 }
 
-interface GoalMetric extends Metric {
+export interface GoalMetric extends Metric {
     idGoal: number
 }
 
-interface Record {
+export interface Record {
     name: string
     value: number
     category: string
