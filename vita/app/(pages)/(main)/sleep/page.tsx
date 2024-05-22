@@ -70,14 +70,14 @@ const Sleep = () => {
               </div>
             </div>
 
-            <div className="flex justify-center items-center px-8 py-6 md:py-12 bg-sleep-high rounded-3xl 
+            <Link href="/sleep/self_evaluation" className="flex justify-center items-center px-8 py-6 md:py-12 bg-sleep-high rounded-3xl 
             lg:w-[340px] sm:w-[330px] w-[240px] mt-4 transition-colors duration-300 ease-in-out 
             hover:bg-sleep-low cursor-pointer">
               <h3 className='pt-1 md:pl-4 text-white font-bold lg:text-3xl text-2xl w-[240px]'>
                 Autoevaluación
               </h3>
               <Image src="/icons/Pass.svg" alt="Imagen 2" width={60} height={60} className='pr-2 hidden md:flex' />
-            </div>
+            </Link>
 
             
           </div>
