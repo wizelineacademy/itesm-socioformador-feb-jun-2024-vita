@@ -131,8 +131,8 @@ export const featureEvaluation = pgTable("FeatureEvaluation", {
 	updated_at: timestamp("updated_at", {mode: "date"}).notNull().defaultNow()
 })
 
-export const register = pgTable("Register", {
-	idRegister: serial("id_register").primaryKey().notNull(),
+export const record = pgTable("Records", {
+	idRegister: serial("id_record").primaryKey().notNull(),
 	idUser: integer("id_user").notNull().references(() => user.idUser, { onDelete: "restrict", onUpdate: "cascade" } ),
 	category: varchar("category", {length: 15}).notNull(),
 	name: varchar("name", {length: 50}).notNull(),

@@ -116,7 +116,9 @@ const SleepGoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
                             <p className="text-xl font-bold mb-4">¿Cómo te despiertas?</p>
                             <FaceScale
                                 quality={quality}
-                                setQuality={setQuality}
+                                setQuality={(quality) => {
+                                    setQuality(quality)
+                                }}
                             />
                         </div>
                     

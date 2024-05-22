@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import { RecipesContextProvider } from "@/context/ingredients";
 import NextAuthProvider from "@/context/authprovider";
 import { ExercisesContextProvider } from "@/context/exercises";
+import { AutoevaluationContextProvider } from "@/context/autoevaluation";
 
 // Define font settings
 
@@ -72,7 +73,9 @@ export default function RootLayout({
               <NextAuthProvider>
                 <RecipesContextProvider> {/*Context for recipes**/}
                   <ExercisesContextProvider> {/*Context for exercise routines**/}
-                    {children}
+                    <AutoevaluationContextProvider> {/**Context for autoevaluation*/}
+                      {children}
+                    </AutoevaluationContextProvider>
                   </ExercisesContextProvider>
                 </RecipesContextProvider>
               </NextAuthProvider>

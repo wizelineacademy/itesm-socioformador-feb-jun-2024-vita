@@ -31,7 +31,7 @@ export const nutritionGoals: NumericGoal[] = [
     {
         id: 4,
         title: "Bajar mi porcentaje de grasa",
-        variable: "porcentaje de grasa",
+        variable: "porcentaje_grasa",
         measure: "%",
         category: "nutrition",
         min: 0,
@@ -42,12 +42,51 @@ export const nutritionGoals: NumericGoal[] = [
     {
         id: 5,
         title: "Aumentar mi masa muscular",
-        variable: "masa muscular",
+        variable: "masa_muscular",
         measure: "kg",
         category: "nutrition",
         min: 0,
         max: 80,
         constraint: "increase",
+        data: "muscularMass"
+    }
+]
+
+export const nutritionQuestions: GoalRecord[] = [
+    {
+        id: 1,
+        question: "¿Cual es tu peso actual?",
+        variable: "peso",
+        measure: "kg",
+        min: 0,
+        max: 200,
+        data: "weight"
+    }, 
+    {
+        id: 2,
+        question: "¿Cual es tu peso actual?",
+        variable: "peso",
+        measure: "kg",
+        min: 0,
+        max: 200,
+        data: "weight"
+    }, 
+    {
+        id: 4,
+        question: "¿Cuál es tu porcentaje de grasa actual?",
+        variable: "porcentaje_grasa",
+        measure: "%",
+        min: 0,
+        max: 200,
+        data: "bodyFat"
+    },
+    {
+        id: 5,
+        question: "¿Cuál es tu masa muscular actual?",
+        variable: "masa_muscular",
+        measure: "kg",
+        min: 0,
+        max: 200,
         data: "muscularMass"
     }
 ]
