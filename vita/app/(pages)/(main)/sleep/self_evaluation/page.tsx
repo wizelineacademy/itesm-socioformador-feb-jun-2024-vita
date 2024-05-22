@@ -9,28 +9,17 @@ import { useRouter } from "next/navigation";
 import { nutritionGoals } from "@/data/nutrition_goals";
 import AutoevaluationContext from "@/context/autoevaluation";
 
-const SelfEvaluationPage = () => {
+const SleepSelfEvaluationPage = () => {
   const [progress, setProgress] = useState(0);
-  const [planAdherence, setPlanAdherence] = useState(0);
+  const [improvement, setImprovement] = useState(0);
   const [goal, setGoal] = useState({name: "", idGoal: 0});
-  const [goalId, setGoalId] = useState(0);
-  const [hasDetail, setHasDetail] = useState(false);
   const {state, setState} = useContext(AutoevaluationContext);
 
   const router = useRouter();
 
-  //set goal id and if extra information is necessary
-  const setGoalDetails = (name: string) => {
-    const selectedGoal = nutritionGoals.find(goal => {
-      return goal.title === name
-    });
-    setGoalId(selectedGoal?.id ?? 0);
-    setHasDetail(selectedGoal?.variable? true : false);
-  }
-
   //verify if all questions have been asnswered
   const verifyData = () : boolean => {
-    if(progress === 0 || planAdherence === 0){
+    if(progress === 0 || improvement === 0){
       Swal.fire({
         title: 'Error',
         text: "Debes completar todas las preguntas",
@@ -58,29 +47,25 @@ const SelfEvaluationPage = () => {
           idGoal: goal.idGoal
         },
         {
-          name: "plan_adherence",
-          value: planAdherence,
+          name: "sleep_improvement",
+          value: improvement,
           idGoal: goal.idGoal
         }
       ]
     })
 
-    if(hasDetail){
-      router.push(`/nutrition/self_evaluation/goals/${goalId}`)
-    } else {
-      router.push("/nutrition/self_evaluation/feature_evaluation")
-    }
+    router.push("/sleep/self_evaluation/feature_evaluation")
+    
   }
 
   //fetch goal
   useEffect(() => {
     const fetchGoal = async () => {
       try {
-        const response = await axios.get("/api/goals/nutrition");
+        const response = await axios.get("/api/goals/sleep");
         const data = response.data
 
         setGoal(data);
-        setGoalDetails(data.name)
        
       } catch(error) {
         Swal.fire({
@@ -90,7 +75,7 @@ const SelfEvaluationPage = () => {
           confirmButtonText: 'OK'
         }).then((result) => {
           if(result.isConfirmed){
-            router.push("/nutrition")
+            router.push("/sleep")
           }
         })
         console.log(error);
@@ -106,11 +91,11 @@ const SelfEvaluationPage = () => {
       <h2 className="text-4xl md:text-5xl font-bold mb-4">Autoevaluación</h2>
 
       <h3 className="text-2xl font-bold">Meta actual</h3>
-      <p className='mt-5 py-3 pl-4 w-full max-w-[500px] rounded-2xl text-lg bg-custom-lightpurple'>{goal.name}</p>
+      <p className='mt-5 py-3 pl-4 w-full max-w-[500px] rounded-2xl text-lg bg-input-purple'>{goal.name}</p>
 
       <div className="w-full flex flex-col gap-y-10 align-center">
         <div className="w-full flex flex-col">
-          <p className="text-xl font-bold mb-4">¿Qué tanto progreso has tenido en tu meta?</p>
+          <p className="text-xl font-bold mb-4">¿Qué tanto progreso has tenido en tu calidad de sueño?</p>
           <FaceScale
               quality={progress}
               setQuality={(progress) => {
@@ -120,11 +105,11 @@ const SelfEvaluationPage = () => {
         </div>
 
         <div className="w-full flex flex-col mb-5">
-          <p className="text-xl font-bold mb-4">¿Qué tan bien estás siguiendo tu plan de nutrición?</p>
+          <p className="text-xl font-bold mb-4">¿Qué tanto progreso has tenido en la cantidad de sueño que deseas dormir?</p>
           <FaceScale
-              quality={planAdherence}
+              quality={improvement}
               setQuality={(value) => {
-                setPlanAdherence(value)
+                setImprovement(value)
               }}
           />
         </div>
@@ -132,7 +117,7 @@ const SelfEvaluationPage = () => {
 
 
       <ButtonEvaluation 
-        disabled={!goal || progress === 0 || planAdherence === 0}
+        disabled={!goal || progress === 0 || improvement === 0}
         onClick={movePage} 
         text='Continuar'/>
 
@@ -140,4 +125,4 @@ const SelfEvaluationPage = () => {
   );
 };
 
-export default SelfEvaluationPage
+export default SleepSelfEvaluationPage

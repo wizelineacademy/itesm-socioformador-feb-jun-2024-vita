@@ -7,23 +7,19 @@ import ButtonEvaluation from "@/components/buttons/ButtonEvaluation.";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import AutoevaluationContext from "@/context/autoevaluation";
+import { LbMsrInput } from "@/components/Inputs/LbMsrInput";
 
-const FeatureEvaluationPage = () => {
-  const features = ["generar planes nutricionales", "generar recetas", "dectectar calorías en imágenes"];
-  const [grades, setGrades] = useState<number[]>([0, 0, 0])
+const SleepFeatureEvalPage = () => {
+  
+  const [hours, setHours] = useState(0);
+  const [grade, setGrade] = useState<number>(0)
   const {state, setState} = useContext(AutoevaluationContext);
 
   const router = useRouter();
 
-  const updateArray = (index:number, newValue:number) => {
-    const newGrades = [...grades];
-    newGrades[index] = newValue;
-    return newGrades
-  }
-
   //verify if all questions have been asnswered
   const verifyData = () : boolean => {
-    if(grades.includes(0)){
+    if(grade === 0 || hours === 0){
     Swal.fire({
         title: 'Error',
         text: "Debes completar todas las preguntas",
@@ -46,17 +42,16 @@ const FeatureEvaluationPage = () => {
         ...state,
         featureMetrics: [
           {
-            name: "nutritional_plans",
-            value: grades[0]
-          }, 
-          {
-            name: "receipes",
-            value: grades[1]
-          }, 
-          {
-            name: "image_calories",
-            value: grades[2]
+            name: "sleep_recommendations",
+            value: grade
           }
+        ],
+        records: [
+            {
+                name: "sleep_hours",
+                value: hours,
+                category: "sleep"
+            }
         ]
     })
 
@@ -83,11 +78,12 @@ const FeatureEvaluationPage = () => {
           records: state.records
         })
 
+
         Swal.fire({
-          title: 'Éxito',
-          text: "Se han guardado las respuestas con éxito",
-          icon: 'success',
-          confirmButtonText: 'OK'
+            title: 'Éxito',
+            text: "Se han guardado las respuestas con éxito",
+            icon: 'success',
+            confirmButtonText: 'OK'
         }).then((result) => {
             if(result.isConfirmed){
                 setState({
@@ -95,7 +91,7 @@ const FeatureEvaluationPage = () => {
                     featureMetrics: [],
                     records: []
                 })
-                router.push("/nutrition")
+                router.push("/sleep")
             }
         })
 
@@ -106,7 +102,7 @@ const FeatureEvaluationPage = () => {
           text: "Ocurrió un error al enviar los datos",
           icon: 'error',
           confirmButtonText: 'OK'
-      })
+        })
       }
     }
   }
@@ -117,25 +113,38 @@ const FeatureEvaluationPage = () => {
 
       <div className="w-full flex flex-col gap-y-10 align-center">
 
-        {features.map((feature, index) => (
-            <div key={feature} className={`w-full flex flex-col ${index === features.length-1 ? "mb-5" : ""}`}>
-                <p className="text-xl font-bold mb-4">¿Qué tan útil te ha sido la función de {feature}?</p>
-                <FaceScale
-                    quality={grades[index]}
-                    setQuality={(value) => {
-                        setGrades(updateArray(index, value))
-                    }}
-                />
-            </div>
-        ))}
+        <div className="flex w-full max-w-[1000px] flex-col gap-y-8">
+            <LbMsrInput
+                color="bg-input-purple"
+                label={"¿Cuántas horas duermes actualmente?"}
+                variable={"horas"}
+                min={0}
+                max={12}
+                measure={"Horas"}
+                value={hours}
+                setValue={setHours}
+            />
+        </div>
+
+        <div className={`w-full flex flex-col mb-5`}>
+            <p className="text-xl font-bold mb-4">¿Qué tan útiles te ha sido las recomendaciones de sueño?</p>
+            <FaceScale
+                quality={grade}
+                setQuality={(value) => {
+                    setGrade(value)
+                }}
+            />
+        </div>
 
     </div>
 
     <ButtonEvaluation 
-      onClick={sendData} 
-        text='Enviar'/>
+        onClick={sendData} 
+        text='Enviar'
+        disabled={grade === 0 || hours === 0}
+    />
     </div>
   );
 };
 
-export default FeatureEvaluationPage;
+export default SleepFeatureEvalPage;
