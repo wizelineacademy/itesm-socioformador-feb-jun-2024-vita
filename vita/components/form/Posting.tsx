@@ -18,15 +18,15 @@ interface PostingProps {
 }
 
 const Posting: React.FC<PostingProps> = ({ post, apiEndpoint }) => {
-    const {
-        register,
-        handleSubmit,
-        watch,
-        formState: { errors },
-      } = useForm({
-        defaultValues: post,
-      });
-    
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    defaultValues: post,
+  });
+
   const router = useRouter();
 
   const handlePublish: SubmitHandler<FieldValues> = async (data) => {
@@ -39,7 +39,10 @@ const Posting: React.FC<PostingProps> = ({ post, apiEndpoint }) => {
       if (data.postPhoto && data.postPhoto[0]) {
         postForm.append("postPhoto", data.postPhoto[0]);
       }
-      console.log("Aqui",data.caption)
+
+      // Añadir el indicador de si la imagen se ha editado o no
+      postForm.append("imageEdited", String(watch("postPhoto") ? true : false));
+
       await axios.put(apiEndpoint, postForm);
 
       Swal.fire({
@@ -47,7 +50,7 @@ const Posting: React.FC<PostingProps> = ({ post, apiEndpoint }) => {
         text: 'Se han guardado las datos con éxito',
         icon: 'success',
         confirmButtonText: 'OK'
-    });
+      });
       router.push("/social");
       router.refresh();
     } catch (err) {
@@ -120,7 +123,6 @@ const Posting: React.FC<PostingProps> = ({ post, apiEndpoint }) => {
             placeholder="¿Qué piensas?"
             className="w-full bg-dark-1 p-2.5 rounded-lg border-none focus:outline-none mt-3 text-light-1"
             id="caption"
-          
           />
           {errors.caption && <p className="text-red-500">{errors.caption.message}</p>}
         </div>

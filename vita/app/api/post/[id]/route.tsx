@@ -33,29 +33,31 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   try {
     const { id } = params;
     const formData = await request.formData();
-    if (!id) {
-      return NextResponse.json("ID parameter is missing", { status: 400 });
-    }
-
 
     const caption = formData.get("caption") as string;
     const tag = formData.get("tag") as string;
     const postPhotoFile = formData.get("postPhoto") as File;
+    const postPhotoString = formData.get("postPhoto") as String;
+    console.log("Cambio de foto", postPhotoString)
+    // Actualizar solo caption y tag si no se proporciona una nueva foto
+    if (!postPhotoFile || postPhotoString === "/") {
+      const res = await db.update(posts)
+        .set({
+          caption: caption,
+          tag: tag,
+        })
+        .where(eq(posts.idPost, Number(id)));
 
-    if (!postPhotoFile) {
-      return NextResponse.json("Post photo is required", { status: 400 });
+      return NextResponse.json("Post caption and tag updated successfully", { status: 200 });
     }
 
+    // Si se proporciona una nueva foto, actualizar foto, caption y tag
     const buffer = Buffer.from(await postPhotoFile.arrayBuffer());
     const postPhotoName = `${postPhotoFile.name}`;
-    //const postPhotoName = `${uuidv4()}-${postPhotoFile.name}`;
     const postPhotoPath = path.join(currentWorkingDirectory, "public", "uploads", postPhotoName);
-
     await writeFile(postPhotoPath, buffer);
-
     const postPhotoUrl = `/uploads/${postPhotoName}`;
 
-    // Actualizar el post en la base de datos
     const res = await db.update(posts)
       .set({
         caption: caption,
@@ -70,6 +72,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     return NextResponse.json("Error updating post", { status: 500 });
   }
 }
+
 
 export async function DELETE(request: Request, { params }: { params: { id: string } }) {
   try {
