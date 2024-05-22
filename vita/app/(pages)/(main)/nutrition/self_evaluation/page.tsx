@@ -1,144 +1,96 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import FaceScale from "@/components/scales/FaceScale";
+import ButtonEvaluation from "@/components/buttons/ButtonEvaluation.";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
+import { nutritionGoals } from "@/data/nutrition_goals";
 
 const SelfEvaluationPage = () => {
   const [progress, setProgress] = useState(0);
-  const [nutritionPlanAdherence, setNutritionPlanAdherence] = useState(0);
-  const [nutritionPlanUsefulness, setNutritionPlanUsefulness] = useState(0);
-  const [recipeGenerationUsefulness, setRecipeGenerationUsefulness] = useState(0);
-  const [currentGoal, setCurrentGoal] = useState('');
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [planAdherence, setPlanAdherence] = useState(0);
+  const [goal, setGoal] = useState("");
+  const [goalId, setGoalId] = useState(0);
+  const [hasDetail, setHasDetail] = useState(false);
 
-  const handleGoalSelect = (goal: string) => {
-  const handleGoalSelect = (goal) => {
-    setCurrentGoal(goal);
-    localStorage.setItem('currentGoal', goal);
-    setShowDropdown(false);
-  };
+  const router = useRouter();
 
-  const ratingButtonStyle = (number: number, stateValue: number) => ({
-    width: '40px',
-    height: '40px',
-    lineHeight: '40px',
-    display: 'inline-block',
-    margin: '0 5px',
-    borderRadius: '50%',
-    border: '2px solid white',
-    backgroundColor: stateValue === number ? 'green' : 'transparent',
-    color: 'white',
-    fontSize: '1.5rem',
-    textAlign: 'center',
-    cursor: 'pointer',
-  });
-  const handleSubmit = () => {
-    console.log('Form data:', { currentGoal, progress, nutritionPlanAdherence, nutritionPlanUsefulness, recipeGenerationUsefulness });
-  };
+  useEffect(() => {
+    const fetchGoal = async () => {
+      try {
+        const response = await axios.get("/api/goals/nutrition");
+        const data = response.data
+
+        setGoal(data.name);
+
+        const selectedGoal = nutritionGoals.find(goal => {
+          return goal.title === data.name
+        });
+        setGoalId(selectedGoal?.id ?? 0);
+        setHasDetail(selectedGoal?.variable? true : false);
+      } catch(error) {
+        Swal.fire({
+          title: 'Recuerda',
+          text: "Debes elegir una meta antes de realizar una evaluación",
+          icon: 'info',
+          confirmButtonText: 'OK'
+        }).then((result) => {
+          if(result.isConfirmed){
+            router.push("/nutrition")
+          }
+        })
+        console.log(error);
+      }
+    }
+    
+    fetchGoal();
+  }, []);
+
 
   return (
-    <div className="bg-[#2C0521] text-white p-5">
-      <h1 className="text-5xl font-bold">Autoevaluación</h1>
-      <div>
-        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Meta Actual</h2>
-        <button onClick={() => setShowDropdown(!showDropdown)} style={{ fontSize: '1.25rem', fontWeight: 'bold', backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}>
-          {currentGoal || 'Seleccione meta'} ▼
-        </button>
-        {showDropdown && (
-          <div className="absolute z-10 bg-[#2C0521]">
-            <div className="p-2.5 cursor-pointer" onClick={() => handleGoalSelect('Bajar de peso')}>Bajar de peso</div>
-            <div className="p-2.5 cursor-pointer" onClick={() => handleGoalSelect('Aumentar masa muscular')}>Aumentar masa muscular</div>
-          </div>
-        )}
+    <div className="p-4 text-white flex flex-col gap-y-3 items-start justify-start space-y-4 pt-10 md:items-start">
+      <h2 className="text-4xl md:text-5xl font-bold mb-4">Autoevaluación</h2>
+
+      <h3 className="text-2xl font-bold">Meta actual</h3>
+      <p className='mt-5 py-3 pl-4 w-full max-w-[500px] rounded-2xl text-lg bg-custom-lightpurple'>{goal}</p>
+
+      <div className="w-full flex flex-col gap-y-10 align-center">
+        <div className="w-full flex flex-col">
+          <p className="text-xl font-bold mb-4">¿Qué tanto progreso has tenido en tu meta?</p>
+          <FaceScale
+              quality={progress}
+              setQuality={(progress) => {
+                setProgress(progress)
+              }}
+          />
+        </div>
+
+        <div className="w-full flex flex-col mb-5">
+          <p className="text-xl font-bold mb-4">¿Qué tan bien estás siguiendo tu plan de nutrición?</p>
+          <FaceScale
+              quality={planAdherence}
+              setQuality={(value) => {
+                setPlanAdherence(value)
+              }}
+          />
+        </div>
       </div>
-      <div>
-        <p style={{ fontSize: '1.25rem' }}>¿Has tenido un progreso en tu meta?</p>
-        {[1, 2, 3, 4, 5].map((number) => (
-          <span key={number} style={ratingButtonStyle(number, progress)} onClick={() => setProgress(number)}>
-            {number}
-          </span>
-        ))}
-      </div>
-      <div>
-        <p style={{ fontSize: '1.25rem' }}>¿Qué tan bien estás siguiendo tu plan de nutrición?</p>
-        {[1, 2, 3, 4, 5].map((number) => (
-          <span key={number} style={ratingButtonStyle(number, nutritionPlanAdherence)} onClick={() => setNutritionPlanAdherence(number)}>
-            {number}
-          </span>
-        ))}
-      </div>
-      <div>
-        <p>¿Qué tan útiles han sido las funciones de generación de planes de nutrición?</p>
-        {[1, 2, 3, 4, 5].map((number) => (
-          <span key={`nutrition-plan-${number}`} style={ratingButtonStyle(number, nutritionPlanUsefulness)} onClick={() => setNutritionPlanUsefulness(number)}>
-            {number}
-          </span>
-        ))}
-      </div>
-      <div>
-        <p>¿Qué tan útiles han sido las funciones de generación de recetas?</p>
-        {[1, 2, 3, 4, 5].map((number) => (
-          <span key={`recipe-generation-${number}`} style={ratingButtonStyle(number, recipeGenerationUsefulness)} onClick={() => setRecipeGenerationUsefulness(number)}>
-            {number}
-          </span>
-        ))}
-      </div>
-      <button style={{
-        marginTop: '20px',
-        padding: '10px 20px',
-        fontSize: '1.25rem',
-        fontWeight: 'bold',
-        color: 'white',
-        backgroundColor: 'purple',
-        borderRadius: '10px',
-        border: 'none',
-        cursor: 'pointer',
-      }}>
-        Continuar
-      </button>
-      {currentGoal && (
-        <>
-          <div>
-            <p className="text-xl">¿Has tenido un progreso en tu meta?</p>
-            {[1, 2, 3, 4, 5].map((number) => (
-              <button key={number} className={`w-10 h-10 rounded-full border-2 border-white text-center ${progress === number ? 'bg-green-500' : 'bg-transparent'}`} onClick={() => setProgress(number)}>
-                {number}
-              </button>
-            ))}
-          </div>
-          <div>
-            <p className="text-xl">¿Qué tan bien estás siguiendo tu plan de nutrición?</p>
-            {[1, 2, 3, 4, 5].map((number) => (
-              <button key={number} className={`w-10 h-10 rounded-full border-2 border-white text-center ${nutritionPlanAdherence === number ? 'bg-green-500' : 'bg-transparent'}`} onClick={() => setNutritionPlanAdherence(number)}>
-                {number}
-              </button>
-            ))}
-          </div>
-          <div>
-            <p>¿Qué tan útiles han sido las funciones de generación de planes de nutrición?</p>
-            {[1, 2, 3, 4, 5].map((number) => (
-              <button key={`nutrition-plan-${number}`} className={`w-10 h-10 rounded-full border-2 border-white text-center ${nutritionPlanUsefulness === number ? 'bg-green-500' : 'bg-transparent'}`} onClick={() => setNutritionPlanUsefulness(number)}>
-                {number}
-              </button>
-            ))}
-          </div>
-          <div>
-            <p>¿Qué tan útiles han sido las funciones de generación de recetas?</p>
-            {[1, 2, 3, 4, 5].map((number) => (
-              <button key={`recipe-generation-${number}`} className={`w-10 h-10 rounded-full border-2 border-white text-center ${recipeGenerationUsefulness === number ? 'bg-green-500' : 'bg-transparent'}`} onClick={() => setRecipeGenerationUsefulness(number)}>
-                {number}
-              </button>
-            ))}
-          </div>
-          <button onClick={handleSubmit} className="mt-5 p-2.5 text-xl font-bold bg-purple-700 rounded-full border-none cursor-pointer">
-            Continuar
-          </button>
-          {error && <p className="text-red-500">{error.message}</p>}
-        </>
-      )}
-        </>
-      )}
+
+
+      <ButtonEvaluation 
+        onClick={() => {
+          if(hasDetail){
+            router.push(`/nutrition/self_evaluation/goals/${goalId}`)
+          } else {
+            router.push("/nutrition/self_evaluation/feature_evaluation")
+          }
+        }} 
+        text='Continuar'/>
+
     </div>
   );
 };
 
-export default SelfEvaluationPage;
+export default SelfEvaluationPage
