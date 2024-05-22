@@ -1,15 +1,17 @@
 "use client"
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import FaceScale from "@/components/scales/FaceScale";
 import ButtonEvaluation from "@/components/buttons/ButtonEvaluation.";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import AutoevaluationContext from "@/context/autoevaluation";
 
 const FeatureEvaluationPage = () => {
   const features = ["generar planes nutricionales", "generar recetas", "dectectar calorías en imágenes"];
   const [grades, setGrades] = useState<number[]>([0, 0, 0])
+  const {state, setState} = useContext(AutoevaluationContext);
 
   const router = useRouter();
 
@@ -17,6 +19,65 @@ const FeatureEvaluationPage = () => {
     const newGrades = [...grades];
     newGrades[index] = newValue;
     return newGrades
+  }
+
+  //verify if all questions have been asnswered
+  const verifyData = () : boolean => {
+    if(grades.includes(0)){
+    Swal.fire({
+        title: 'Error',
+        text: "Debes completar todas las preguntas",
+        icon: 'error',
+        confirmButtonText: 'OK'
+    })
+    return false
+    }
+    return true
+  }
+
+  //update state and move page
+  const storeData = () : boolean => {
+
+    if(!verifyData()){
+      return false;
+    }
+
+    setState({
+        ...state,
+        featureMetrics: [
+          {
+            name: "nutritional_plans",
+            value: grades[0]
+          }, 
+          {
+            name: "receipes",
+            value: grades[1]
+          }, 
+          {
+            name: "image_calories",
+            value: grades[2]
+          }
+        ]
+    })
+
+    return true;
+    
+  }
+
+  const sendData = () => {
+    if(storeData()){
+      try {
+        router.push("/nutrition")
+      } catch(error) {
+        console.log(error)
+        Swal.fire({
+          title: 'Error',
+          text: "Ocurrió un error al enviar los datos",
+          icon: 'error',
+          confirmButtonText: 'OK'
+      })
+      }
+    }
   }
 
   return (
@@ -40,9 +101,7 @@ const FeatureEvaluationPage = () => {
     </div>
 
     <ButtonEvaluation 
-    onClick={() => {
-        router.push("/nutrition")
-    }} 
+    onClick={sendData} 
         text='Enviar'/>
 
     </div>

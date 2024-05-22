@@ -2,11 +2,12 @@
 
 import { LbMsrInput } from "@/components/Inputs/LbMsrInput";
 import MainButton from "@/components/buttons/MainButton";
+import AutoevaluationContext from "@/context/autoevaluation";
 import { NumericGoal } from "@/data/datatypes/goal";
 import { nutritionGoals, nutritionQuestions } from "@/data/nutrition_goals";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 const EvaluationGoalPage = ({ params }: { params: { idGoal: string } }) => {
@@ -14,6 +15,7 @@ const EvaluationGoalPage = ({ params }: { params: { idGoal: string } }) => {
     const [goal, setGoal] = useState<NumericGoal>();
     const [question, setQuestion] = useState<GoalRecord>();
     const [current, setCurrent] = useState<number>(0);
+    const {state, setState} = useContext(AutoevaluationContext);
 
     const router = useRouter();
 
@@ -34,6 +36,40 @@ const EvaluationGoalPage = ({ params }: { params: { idGoal: string } }) => {
 
     }, []);
 
+    //verify if all questions have been asnswered
+    const verifyData = () : boolean => {
+        if(current === 0){
+        Swal.fire({
+            title: 'Error',
+            text: "Debes completar todas las preguntas",
+            icon: 'error',
+            confirmButtonText: 'OK'
+        })
+        return false
+        }
+        return true
+    }
+
+    //update state and move page
+    const movePage = () => {
+
+        if(!verifyData()){
+        return;
+        }
+
+        setState({
+            ...state,
+            records: [
+                {
+                    name: goal?.variable ?? "record",
+                    value: current,
+                    category: "nutrition"
+                }
+            ]
+        })
+
+    }
+
     return (
         <div className="p-4 text-white flex flex-col items-start justify-start space-y-4 pt-10 md:items-start">
             <h2 className="text-5xl font-bold mb-4">Mi Meta</h2>
@@ -49,7 +85,7 @@ const EvaluationGoalPage = ({ params }: { params: { idGoal: string } }) => {
                     >
 
                         <LbMsrInput
-                            label={`¿Cuál es tu ${goal.variable} actual?`}
+                            label={question?.question ?? ""}
                             variable={goal.variable ?? ""}
                             min={goal.min ?? 0}
                             max={goal.max ?? 0}
@@ -59,7 +95,8 @@ const EvaluationGoalPage = ({ params }: { params: { idGoal: string } }) => {
                         />
                     
                         <MainButton
-                            onClick={() => {}} 
+                            disabled={!goal || current === 0}
+                            onClick={movePage} 
                             text="Guardar meta"/>
                     </form>
                 </>

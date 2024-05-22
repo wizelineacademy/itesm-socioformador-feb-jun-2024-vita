@@ -1,12 +1,13 @@
 "use client"
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import FaceScale from "@/components/scales/FaceScale";
 import ButtonEvaluation from "@/components/buttons/ButtonEvaluation.";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { nutritionGoals } from "@/data/nutrition_goals";
+import AutoevaluationContext from "@/context/autoevaluation";
 
 const SelfEvaluationPage = () => {
   const [progress, setProgress] = useState(0);
@@ -14,9 +15,64 @@ const SelfEvaluationPage = () => {
   const [goal, setGoal] = useState("");
   const [goalId, setGoalId] = useState(0);
   const [hasDetail, setHasDetail] = useState(false);
+  const {state, setState} = useContext(AutoevaluationContext);
 
   const router = useRouter();
 
+  //set goal id and if extra information is necessary
+  const setGoalDetails = (name: string) => {
+    const selectedGoal = nutritionGoals.find(goal => {
+      return goal.title === name
+    });
+    setGoalId(selectedGoal?.id ?? 0);
+    setHasDetail(selectedGoal?.variable? true : false);
+  }
+
+  //verify if all questions have been asnswered
+  const verifyData = () : boolean => {
+    if(progress === 0 || planAdherence === 0){
+      Swal.fire({
+        title: 'Error',
+        text: "Debes completar todas las preguntas",
+        icon: 'error',
+        confirmButtonText: 'OK'
+      })
+      return false
+    }
+    return true
+  }
+
+  //update state and move page
+  const movePage = () => {
+
+    if(!verifyData()){
+      return;
+    }
+
+    setState({
+      ...state,
+      goalMetrics: [
+        {
+          name: "goal_progress",
+          value: progress,
+          idGoal: goalId
+        },
+        {
+          name: "plan_adherence",
+          value: planAdherence,
+          idGoal: goalId
+        }
+      ]
+    })
+
+    if(hasDetail){
+      router.push(`/nutrition/self_evaluation/goals/${goalId}`)
+    } else {
+      router.push("/nutrition/self_evaluation/feature_evaluation")
+    }
+  }
+
+  //fetch goal
   useEffect(() => {
     const fetchGoal = async () => {
       try {
@@ -24,12 +80,8 @@ const SelfEvaluationPage = () => {
         const data = response.data
 
         setGoal(data.name);
-
-        const selectedGoal = nutritionGoals.find(goal => {
-          return goal.title === data.name
-        });
-        setGoalId(selectedGoal?.id ?? 0);
-        setHasDetail(selectedGoal?.variable? true : false);
+        setGoalDetails(data.name)
+       
       } catch(error) {
         Swal.fire({
           title: 'Recuerda',
@@ -80,13 +132,8 @@ const SelfEvaluationPage = () => {
 
 
       <ButtonEvaluation 
-        onClick={() => {
-          if(hasDetail){
-            router.push(`/nutrition/self_evaluation/goals/${goalId}`)
-          } else {
-            router.push("/nutrition/self_evaluation/feature_evaluation")
-          }
-        }} 
+        disabled={!goal || progress === 0 || planAdherence === 0}
+        onClick={movePage} 
         text='Continuar'/>
 
     </div>
