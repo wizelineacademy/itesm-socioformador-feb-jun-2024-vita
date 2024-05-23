@@ -67,7 +67,7 @@ import {
   
   export const tabs = [
     {
-      link: "posts",
+      link: "publicaciones",
       name: "Publicaciones",
     },
     {

@@ -71,7 +71,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, creator, onPostDelete }) => {
     <div className="md:w-3/4 w-full rounded-lg flex flex-col gap-4 bg-dark-1 p-5 max-sm:gap-2">
       <div className="flex justify-between">
         <div>
-          <Link href={`/profile/${post.creatorId}/posts`}>
+          <Link href={`/social/profile/${post.creatorId}/publicaciones`}>
             <div className="flex gap-3 items-center">
               <Image
                 src={profilePhoto}
