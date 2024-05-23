@@ -134,6 +134,13 @@
       "when": 1716486394468,
       "tag": "0018_social",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "5",
+      "when": 1716491536831,
+      "tag": "0019_low_kang",
+      "breakpoints": true
     }
   ]
 }

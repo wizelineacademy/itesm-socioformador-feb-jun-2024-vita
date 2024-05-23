@@ -97,6 +97,7 @@ export const Reminders = pgTable("Reminders", {
 	description: text("description").notNull(),
 	frequency: integer("frequency").notNull(),
 	startTime: timestamp("start_time", {mode: "date"}).notNull(), 
+	dueTime: timestamp("due_time", {mode: "date"}),
 	endTime: timestamp("end_time", {mode: "date"}), 
 });
 

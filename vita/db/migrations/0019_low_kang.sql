@@ -1,0 +1,1 @@
+ALTER TABLE "Reminders" ADD COLUMN "due_time" timestamp;
