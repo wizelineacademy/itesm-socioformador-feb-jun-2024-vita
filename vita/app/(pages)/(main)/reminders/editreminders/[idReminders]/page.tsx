@@ -4,7 +4,7 @@ import { FaBell } from 'react-icons/fa';
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import Swal from 'sweetalert2';
-import { calculateDays, calculateHours, calculateHoursTime, formatDays, formatDays2 } from "@/lib/DaysFormat/days";
+import { calculateDays, calculateHours, calculateHoursTime, formatDays, formatDaysUTC } from "@/lib/DaysFormat/days";
 import { EditReminderData, ReminderData } from "@/data/datatypes/reminder";
 
 
@@ -349,7 +349,7 @@ const handleSaveChanges = async () => {
                       type="date" 
                       name="startDays" 
                       className="text-2xl text-white py-2 px-6 rounded-full bg-reminders-input w-50" 
-                      value={formatDays2(editedData?.startDays|| "")}
+                      value={formatDaysUTC(editedData?.startDays|| "")}
                       onChange={handleInputChange}
                       required 
                     /> 
@@ -388,7 +388,7 @@ const handleSaveChanges = async () => {
                           type="date" 
                           name="endDays" 
                           className="text-2xl text-white py-2 px-6 rounded-full bg-reminders-input w-50" 
-                          value={formatDays2(editedData?.endDays || "")}
+                          value={formatDaysUTC(editedData?.endDays || "")}
                           onChange={handleInputChange}
                           required 
                         /> 
