@@ -28,8 +28,6 @@ const config = process.env.NODE_ENV === "production" ? {
     nextAuthSecret: process.env.NEXTAUTH_SECRET!,
     nextPublicSecret: process.env.NEXT_PUBLIC_SECRET!,
     databaseName: process.env.DATABASE_NAME!,
-    serviceARN: process.env.SERVICE_NAME!,
-    secretARN: process.env.SECRET_ARN,
     webhookVerifyToken: process.env.WEBHOOK_VERIFY_TOKEN,
     graphApiToken: process.env.GRAPH_API_TOKEN,
 };
