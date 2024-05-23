@@ -51,7 +51,7 @@ const SearchPost = ({ params }: { params: { query: string } }) => {
           Personas
         </Link> 
         <Link className="px-4 py-2 rounded-lg text-light-1 text-[14px] leading-[140%] 
-        bg-dark-2" href={`/social}`}>
+        bg-dark-2" href={`/social/`}>
           Regresar
         </Link>
       </div>
