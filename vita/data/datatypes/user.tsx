@@ -7,4 +7,13 @@ export interface UserData {
   }
 
  
- 
+ export  interface UserPost {
+    idUser: number;
+    name: string;
+    email: string;
+    password?: string;
+    phoneNumber?: string;
+    username?: string;
+    profilePhoto?: string;
+    createdAt: string; 
+  }

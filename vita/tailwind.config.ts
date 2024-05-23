@@ -10,7 +10,7 @@ const config = {
 	],
   prefix: "",
   theme: {
-    
+   
     extend: {
       backgroundImage: () => ({
         'gradient-custom': 'linear-gradient(229deg, rgba(255, 175, 175, 0.20) 19.95%, rgba(0, 0, 0, 0.04) 73.36%), linear-gradient(5deg, #346784 -16.61%, #062537 55.88%, #041B28 128.37%, #041B28 128.37%)',
@@ -77,6 +77,16 @@ const config = {
         'speech-button':'#925FD4',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
+
+        "purple-1": "#7857FF",
+        "purple-2": "#1D1928",
+        "pink-1": "#FF0073",
+        "light-1": "#FFFFFF",
+        "light-2": "#808080",
+        "light-3": "#626067",
+        "dark-1": "#121212",
+        "dark-2": "#34303E",
+        "blue-1": "#016FD5"
       },
     },
   },

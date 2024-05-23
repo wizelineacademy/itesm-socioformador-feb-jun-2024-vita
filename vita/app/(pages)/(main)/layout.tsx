@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import { RecipesContextProvider } from "@/context/ingredients";
 import NextAuthProvider from "@/context/authprovider";
 import { ExercisesContextProvider } from "@/context/exercises";
+import MainContainer from "@/components/layoutSocial/MainContainer";
 import { AutoevaluationContextProvider } from "@/context/autoevaluation";
 
 // Define font settings
@@ -25,7 +26,8 @@ const routes: { [key: string]: string } = {
   "/chat": "bg-chat-background",
   "/exercise": "bg-exercise-background",
   "/reminders": "bg-reminders-background",
-  "/sleep": "bg-dark-purple"
+  "/sleep": "bg-dark-purple",
+  "/social": "bg-purple-2"
 };
 
 /**
@@ -48,6 +50,8 @@ export default function RootLayout({
 
   // Determine the background color based on the root route
   const backgroundColor = routes[`/${rootRoute}`] || 'bg-home-background';
+  // Verifica si la ruta es 'social' o tiene subrutas bajo 'social'
+  const isSocialRoute = pathname.startsWith('/social');
 
   return (
     <html lang="es">
@@ -71,14 +75,25 @@ export default function RootLayout({
               <Decoration pathname={pathname}/>
               {/* Render children components */}
               <NextAuthProvider>
-                <RecipesContextProvider> {/*Context for recipes**/}
-                  <ExercisesContextProvider> {/*Context for exercise routines**/}
-                    <AutoevaluationContextProvider> {/**Context for autoevaluation*/}
+                
+                  {isSocialRoute ? (
+                  <MainContainer>
+                    {children}
+                  </MainContainer>
+                ) : (
+                 
+                  <RecipesContextProvider> {/*Context for recipes**/}
+                    <ExercisesContextProvider> {/*Context for exercise routines**/}
+                      <AutoevaluationContextProvider> {/**Context for autoevaluation*/}
                       {children}
-                    </AutoevaluationContextProvider>
-                  </ExercisesContextProvider>
-                </RecipesContextProvider>
+                      </AutoevaluationContextProvider>
+                    </ExercisesContextProvider>
+                  </RecipesContextProvider>
+                )}
+                  
               </NextAuthProvider>
+
+              
             </div>  
           </main>  
         </div>

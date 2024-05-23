@@ -1,9 +1,10 @@
 'use client';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { FaUtensils, FaHome,FaComments, FaRunning , FaBell, FaDoorOpen, FaMoon } from 'react-icons/fa';
+import { FaUtensils, FaHome,FaComments, FaRunning , FaBell, FaDoorOpen, FaMoon , FaUsers} from 'react-icons/fa';
 import { usePathname } from "next/navigation";
 import { signOut } from 'next-auth/react';
+
 
 const routes = [
     {
@@ -43,16 +44,23 @@ const routes = [
         color: "bg-reminders-color"
     },
     {
+        label: "Comunidad",
+        icon: FaUsers,
+        href: "/social",
+        color: "bg-purple-1"
+    },
+    {
         label: "Cerrar sesión",
         icon: FaDoorOpen ,
         href: "/",
         color: "bg-mid-red"
     },
+    
 ]
 
 const SidebarInfo = () => {
     const pathname = usePathname();
-  
+    const currentBasePath = pathname.split('/')[1];
     
     return ( 
         <div className="space-y-4 py-4 flex flex-col h-full bg-side-color text-white">
@@ -77,7 +85,7 @@ const SidebarInfo = () => {
                         href={route.href}
                         key={index}
                         className={cn("text-sm group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition", {
-                            [route.color]: pathname === route.href, 
+                            [route.color]: currentBasePath === route.href.split('/')[1], 
                             [`hover:bg-mid-red`]: route.label === "Cerrar sesión"
                         })}
                     >
