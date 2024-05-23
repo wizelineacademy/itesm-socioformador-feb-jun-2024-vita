@@ -56,6 +56,7 @@ const SearchUser = ({ params }: { params: { query: string } }) => {
 
   return (
     <div className="flex flex-col gap-10">
+      
       <div className="flex gap-6">
         <Link className="px-4 py-2 rounded-lg text-light-1 text-[14px] leading-[140%] font-semibold
              bg-dark-2 " href={`/social/search/posts/${query}`}>
