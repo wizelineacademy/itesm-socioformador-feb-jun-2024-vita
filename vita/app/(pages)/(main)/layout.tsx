@@ -10,7 +10,7 @@ import { RecipesContextProvider } from "@/context/ingredients";
 import NextAuthProvider from "@/context/authprovider";
 import { ExercisesContextProvider } from "@/context/exercises";
 import MainContainer from "@/components/layoutSocial/MainContainer";
-import TopBar from "@/components/layoutSocial/TopBar";
+
 
 // Define font settings
 

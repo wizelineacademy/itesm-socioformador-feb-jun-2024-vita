@@ -2,28 +2,29 @@
 
 import Loader from "@/components/Loader";
 import PostCard from "@/components/post/PostCard";
+import UserCard from "@/components/post/userCard";
 import { UserPost} from "@/data/datatypes/user";
 import axios from "axios";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const SearchPost = () => {
-  const { search: query } = useParams(); 
+const SearchUser = ({ params }: { params: { query: string } }) => {
+  const query= params.query;
   const [user, setUser] = useState<UserPost[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchedPosts, setSearchedPosts] = useState<Post[]>([]);
+  const [searchedUsers, setSearchedUsers] = useState<UserPost[]>([]);
 
-  const getSearchedPosts = async () => {
+  const getSearchedUsers = async () => {
     try {
       const response = await fetch(`/api/post/user/search/${query}`);
       const data = await response.json();
       
       // Verifica que la respuesta sea un array
       if (Array.isArray(data)) {
-        setSearchedPosts(data);
+        setSearchedUsers(data);
       } else {
-        setSearchedPosts([]);
+        setSearchedUsers([]);
         console.error("Expected array but got:", data);
       }
     } catch (error) {
@@ -45,7 +46,7 @@ const SearchPost = () => {
   };
   
   useEffect(() => {
-      getSearchedPosts();
+      getSearchedUsers();
       getUser();
   }, [query]); // Asegúrate de que el efecto dependa de 'query'
 
@@ -64,22 +65,26 @@ const SearchPost = () => {
         bg-purple-1" href={`/social/search/people/${query}`}>
           Personas
         </Link> 
+        <Link className="px-4 py-2 rounded-lg text-light-1 text-[14px] leading-[140%] 
+        bg-dark-2" href={`/social}`}>
+          Regresar
+        </Link> 
+        
       </div>
       
-      {searchedPosts.length > 0 ? (
-        searchedPosts.map((post) => (
-          <PostCard 
-            key={post.idPost}
-            post={post}
+      {searchedUsers.length > 0 ? (
+        searchedUsers.map((userData) => (
+          <UserCard 
+            key={userData.idUser}
+            userData={userData}
             creator={user}
-            onPostDelete={getSearchedPosts} 
           />
         ))
       ) : (
-        <p className="text-white text-3xl ">No se encontraron publicaciones.</p>
+        <p className="text-white text-3xl ">No se encontraron Usuarios.</p>
       )}
     </div>
   );
 };
 
-export default SearchPost;
+export default SearchUser;

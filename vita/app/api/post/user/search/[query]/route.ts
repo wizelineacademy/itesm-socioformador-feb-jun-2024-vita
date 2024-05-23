@@ -11,7 +11,7 @@ export async function GET(request: Request, { params }: { params: { query: strin
       return NextResponse.json("Search parameter is missing", { status: 400 });
     }
 
-    const queryPattern = `%${query.toLowerCase()}%`;
+    const queryPattern = `%${query}%`;
 
     const res = await db.select()
       .from(user)
