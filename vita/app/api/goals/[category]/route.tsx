@@ -17,7 +17,8 @@ export async function GET(
       }
   
       const res = await db.select({
-          name: Goals.name
+          name: Goals.name,
+          idGoal: Goals.idGoal
       })
         .from(Goals)
         .where(
