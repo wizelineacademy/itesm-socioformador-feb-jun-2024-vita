@@ -30,9 +30,9 @@ const EvaluationGoalPage = ({ params }: { params: { idGoal: string } }) => {
             return goal.id === Number(params.idGoal)
         });
         const selectedQuestion = nutritionQuestions.find(question => question.id === Number(params.idGoal))
-        setGoal(selectedGoal ?? nutritionGoals[2]);
-        setQuestion(selectedQuestion ?? nutritionQuestions[2])
-        fetchHealthData(selectedGoal ?? nutritionGoals[2]);
+        setGoal(selectedGoal ?? nutritionGoals[0]);
+        setQuestion(selectedQuestion ?? nutritionQuestions[0])
+        fetchHealthData(selectedGoal ?? nutritionGoals[0]);
 
     }, []);
 
@@ -68,6 +68,8 @@ const EvaluationGoalPage = ({ params }: { params: { idGoal: string } }) => {
             ]
         })
 
+        router.push("/nutrition/self_evaluation/feature_evaluation")
+
     }
 
     return (
@@ -79,7 +81,7 @@ const EvaluationGoalPage = ({ params }: { params: { idGoal: string } }) => {
                     <form 
                         onSubmit={(e) => {
                             e.preventDefault()
-                            router.push("/nutrition/self_evaluation/feature_evaluation")
+                            movePage()
                         }} 
                         className="flex w-full max-w-[1000px] flex-col gap-y-8"
                     >
@@ -96,8 +98,8 @@ const EvaluationGoalPage = ({ params }: { params: { idGoal: string } }) => {
                     
                         <MainButton
                             disabled={!goal || current === 0}
-                            onClick={movePage} 
-                            text="Guardar meta"/>
+                            onClick={() => {}} 
+                            text="Continuar"/>
                     </form>
                 </>
             }

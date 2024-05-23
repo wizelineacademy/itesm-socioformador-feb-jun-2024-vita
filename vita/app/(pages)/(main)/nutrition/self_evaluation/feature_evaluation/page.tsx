@@ -7,6 +7,7 @@ import ButtonEvaluation from "@/components/buttons/ButtonEvaluation.";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import AutoevaluationContext from "@/context/autoevaluation";
+import { Autoevaluation } from "@/data/datatypes/autoeval";
 
 const FeatureEvaluationPage = () => {
   const features = ["generar planes nutricionales", "generar recetas", "dectectar calorías en imágenes"];
@@ -36,51 +37,58 @@ const FeatureEvaluationPage = () => {
   }
 
   //update state and move page
-  const storeData = () : boolean => {
+  const storeData = () : Autoevaluation | null => {
 
     if(!verifyData()){
-      return false;
+      return null;
     }
 
-    setState({
-        ...state,
-        featureMetrics: [
-          {
-            name: "nutritional_plans",
-            value: grades[0]
-          }, 
-          {
-            name: "receipes",
-            value: grades[1]
-          }, 
-          {
-            name: "image_calories",
-            value: grades[2]
-          }
-        ]
-    })
+    const newState = {
+      ...state,
+      featureMetrics: [
+        {
+          name: "nutritional_plans",
+          value: grades[0]
+        }, 
+        {
+          name: "receipes",
+          value: grades[1]
+        }, 
+        {
+          name: "image_calories",
+          value: grades[2]
+        }
+      ]
+    }
 
-    return true;
+    setState(newState)
+
+    return newState;
     
   }
 
   const sendData = async () => {
-    if(storeData()){
+
+    const evaluationData = storeData()
+
+    if(evaluationData){
 
       try {
 
-        if(state.goalMetrics.length === 0 || state.featureMetrics.length === 0 || state.records.length === 0){
+        if(evaluationData.goalMetrics.length === 0 || 
+          evaluationData.featureMetrics.length === 0 || 
+          evaluationData.records.length === 0){
           throw Error("Incomplete data")
         }
 
         const goalsRes = await axios.post("/api/goal_evaluations", {
-          evaluations: state.goalMetrics
+          evaluations: evaluationData.goalMetrics
         })
         const featsRes = await axios.post("/api/feature_evaluations", {
-          evaluations: state.featureMetrics
+          evaluations: evaluationData.featureMetrics
         })
         const recordsRes = await axios.post("/api/records", {
-          records: state.records
+          records: evaluationData.records
         })
 
         Swal.fire({
@@ -106,7 +114,7 @@ const FeatureEvaluationPage = () => {
           text: "Ocurrió un error al enviar los datos",
           icon: 'error',
           confirmButtonText: 'OK'
-      })
+        })
       }
     }
   }
