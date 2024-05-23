@@ -1,19 +1,5 @@
+import { GoalMetric, Metric, Record } from "@/data/datatypes/autoeval";
 import { ReactNode, createContext, useState } from "react";
-
-export interface Metric {
-    name: string
-    value: number
-}
-
-export interface GoalMetric extends Metric {
-    idGoal: number
-}
-
-export interface Record {
-    name: string
-    value: number
-    category: string
-}
 
 interface AutoevaluationContextType {
     state: {

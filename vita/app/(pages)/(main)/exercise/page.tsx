@@ -62,14 +62,14 @@ const Exercise = () => {
                             <FaRunning size={80} color="white"  className="hidden md:flex" />
                         </div>
                     </Link>
-                    <div className="flex justify-center items-center px-8   py-6 md:py-12
+                    <Link href="/exercise/self_evaluation" className="flex justify-center items-center px-8   py-6 md:py-12
                     bg-mid-green  rounded-3xl lg:w-[340px] sm:w-[330px]  w-[240px] mt-4 
                     transition-colors duration-300 ease-in-out hover:bg-dark-green cursor-pointer">
                         <h3 className='pt-1 md:pl-4 text-white font-bold lg:text-3xl text-2xl w-[240px] '>
                             Autoevaluación
                         </h3>
                         <Image src="/icons/Pass.svg" alt="Imagen 2" width={60} height={60}  className='pr-2 hidden md:flex'/>
-                    </div>
+                    </Link>
                 </div>
                 <div className="flex flex-col ">
 
@@ -85,7 +85,7 @@ const Exercise = () => {
 
                     <div className="flex flex-col justify-center items-center px-8 py-6 md:py-6
                     bg-mid-green rounded-3xl lg:w-[340px] sm:w-[330px]  w-[240px] mt-4 
-                    transition-colors duration-300 ease-in-out gap-y-3 z-10 cursor-pointer">
+                    transition-colors duration-300 ease-in-out gap-y-3 z-10">
                         <h3 className='pt-1 lg:pl-2 pl-8 text-white font-bold lg:text-3xl text-2xl w-[240px] '>
                             Recomendación del día 
                         </h3>
