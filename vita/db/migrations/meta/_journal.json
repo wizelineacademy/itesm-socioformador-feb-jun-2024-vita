@@ -122,9 +122,16 @@
       "breakpoints": true
     },
     {
+      "idx": 17,
+      "version": "5",
+      "when": 1716345891502,
+      "tag": "0017_rename_register",
+      "breakpoints": true
+    },
+    {
       "idx": 18,
       "version": "5",
-      "when": 1716180837212,
+      "when": 1716486394468,
       "tag": "0018_social",
       "breakpoints": true
     }

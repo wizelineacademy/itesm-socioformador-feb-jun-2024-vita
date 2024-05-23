@@ -10,7 +10,7 @@ import { RecipesContextProvider } from "@/context/ingredients";
 import NextAuthProvider from "@/context/authprovider";
 import { ExercisesContextProvider } from "@/context/exercises";
 import MainContainer from "@/components/layoutSocial/MainContainer";
-
+import { AutoevaluationContextProvider } from "@/context/autoevaluation";
 
 // Define font settings
 
@@ -82,11 +82,13 @@ export default function RootLayout({
                   </MainContainer>
                 ) : (
                  
-                    <RecipesContextProvider>
-                      <ExercisesContextProvider>
-                        {children}
-                      </ExercisesContextProvider>
-                    </RecipesContextProvider>
+                  <RecipesContextProvider> {/*Context for recipes**/}
+                    <ExercisesContextProvider> {/*Context for exercise routines**/}
+                      <AutoevaluationContextProvider> {/**Context for autoevaluation*/}
+                      {children}
+                      </AutoevaluationContextProvider>
+                    </ExercisesContextProvider>
+                  </RecipesContextProvider>
                 )}
                   
               </NextAuthProvider>

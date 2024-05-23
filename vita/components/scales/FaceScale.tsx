@@ -4,7 +4,7 @@ import { FaFaceFrown, FaFaceMeh, FaFaceSmile } from "react-icons/fa6";
 
 interface FaceScaleProps {
     quality: number;
-    setQuality: Dispatch<SetStateAction<number>>;
+    setQuality: (quality: number) => void;
 }
 
 const FaceScale: React.FC<FaceScaleProps> = ({ 

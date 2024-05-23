@@ -1,5 +1,5 @@
 {
-  "id": "cd053ac1-c27c-4598-9a12-2fd592e6632d",
+  "id": "bfdc4d0a-5cd9-4e9d-83a4-49383012e05d",
   "prevId": "abf4fc12-8278-4199-803e-aeeb3cce7a42",
   "version": "5",
   "dialect": "pg",
@@ -357,116 +357,6 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "Followers": {
-      "name": "Followers",
-      "schema": "",
-      "columns": {
-        "id_followers": {
-          "name": "id_followers",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "follower_id": {
-          "name": "follower_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "Followers_user_id_User_id_user_fk": {
-          "name": "Followers_user_id_User_id_user_fk",
-          "tableFrom": "Followers",
-          "tableTo": "User",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id_user"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "Followers_follower_id_User_id_user_fk": {
-          "name": "Followers_follower_id_User_id_user_fk",
-          "tableFrom": "Followers",
-          "tableTo": "User",
-          "columnsFrom": [
-            "follower_id"
-          ],
-          "columnsTo": [
-            "id_user"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "Following": {
-      "name": "Following",
-      "schema": "",
-      "columns": {
-        "id_following": {
-          "name": "id_following",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "following_id": {
-          "name": "following_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "Following_user_id_User_id_user_fk": {
-          "name": "Following_user_id_User_id_user_fk",
-          "tableFrom": "Following",
-          "tableTo": "User",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id_user"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "Following_following_id_User_id_user_fk": {
-          "name": "Following_following_id_User_id_user_fk",
-          "tableFrom": "Following",
-          "tableTo": "User",
-          "columnsFrom": [
-            "following_id"
-          ],
-          "columnsTo": [
-            "id_user"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
     "GoalEvaluation": {
       "name": "GoalEvaluation",
       "schema": "",
@@ -767,122 +657,6 @@
         }
       }
     },
-    "PostLikes": {
-      "name": "PostLikes",
-      "schema": "",
-      "columns": {
-        "id_like": {
-          "name": "id_like",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "post_id": {
-          "name": "post_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "PostLikes_post_id_Post_id_posts_fk": {
-          "name": "PostLikes_post_id_Post_id_posts_fk",
-          "tableFrom": "PostLikes",
-          "tableTo": "Post",
-          "columnsFrom": [
-            "post_id"
-          ],
-          "columnsTo": [
-            "id_posts"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "PostLikes_user_id_User_id_user_fk": {
-          "name": "PostLikes_user_id_User_id_user_fk",
-          "tableFrom": "PostLikes",
-          "tableTo": "User",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id_user"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "Post": {
-      "name": "Post",
-      "schema": "",
-      "columns": {
-        "id_posts": {
-          "name": "id_posts",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "creator_id": {
-          "name": "creator_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "caption": {
-          "name": "caption",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "post_photo": {
-          "name": "post_photo",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "tag": {
-          "name": "tag",
-          "type": "varchar(50)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "Post_creator_id_User_id_user_fk": {
-          "name": "Post_creator_id_User_id_user_fk",
-          "tableFrom": "Post",
-          "tableTo": "User",
-          "columnsFrom": [
-            "creator_id"
-          ],
-          "columnsTo": [
-            "id_user"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
     "_prisma_migrations": {
       "name": "_prisma_migrations",
       "schema": "",
@@ -943,12 +717,12 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "Register": {
-      "name": "Register",
+    "Records": {
+      "name": "Records",
       "schema": "",
       "columns": {
-        "id_register": {
-          "name": "id_register",
+        "id_record": {
+          "name": "id_record",
           "type": "serial",
           "primaryKey": true,
           "notNull": true
@@ -987,9 +761,9 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "Register_id_user_User_id_user_fk": {
-          "name": "Register_id_user_User_id_user_fk",
-          "tableFrom": "Register",
+        "Records_id_user_User_id_user_fk": {
+          "name": "Records_id_user_User_id_user_fk",
+          "tableFrom": "Records",
           "tableTo": "User",
           "columnsFrom": [
             "id_user"
@@ -999,61 +773,6 @@
           ],
           "onDelete": "restrict",
           "onUpdate": "cascade"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "SavedPosts": {
-      "name": "SavedPosts",
-      "schema": "",
-      "columns": {
-        "id_saved_posts": {
-          "name": "id_saved_posts",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "post_id": {
-          "name": "post_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "SavedPosts_user_id_User_id_user_fk": {
-          "name": "SavedPosts_user_id_User_id_user_fk",
-          "tableFrom": "SavedPosts",
-          "tableTo": "User",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id_user"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "SavedPosts_post_id_Post_id_posts_fk": {
-          "name": "SavedPosts_post_id_Post_id_posts_fk",
-          "tableFrom": "SavedPosts",
-          "tableTo": "Post",
-          "columnsFrom": [
-            "post_id"
-          ],
-          "columnsTo": [
-            "id_posts"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -1092,25 +811,6 @@
           "type": "varchar(12)",
           "primaryKey": false,
           "notNull": false
-        },
-        "username": {
-          "name": "username",
-          "type": "varchar(100)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "profile_photo": {
-          "name": "profile_photo",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
         }
       },
       "indexes": {},
@@ -1212,61 +912,6 @@
           ]
         }
       }
-    },
-    "UserPosts": {
-      "name": "UserPosts",
-      "schema": "",
-      "columns": {
-        "id_user_posts": {
-          "name": "id_user_posts",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "post_id": {
-          "name": "post_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "UserPosts_user_id_User_id_user_fk": {
-          "name": "UserPosts_user_id_User_id_user_fk",
-          "tableFrom": "UserPosts",
-          "tableTo": "User",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id_user"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "UserPosts_post_id_Post_id_posts_fk": {
-          "name": "UserPosts_post_id_Post_id_posts_fk",
-          "tableFrom": "UserPosts",
-          "tableTo": "Post",
-          "columnsFrom": [
-            "post_id"
-          ],
-          "columnsTo": [
-            "id_posts"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
     }
   },
   "enums": {},
