@@ -2,7 +2,7 @@
 import { NextResponse } from "next/server";
 import Image from "next/image";
 import Link from "next/link"; 
-import { Follower, UserPost} from "@/data/datatypes/user";
+import {  UserPost} from "@/data/datatypes/user";
 import { tabs } from "@/constants";
 import { useState, useEffect } from "react";
 import axios from "axios";

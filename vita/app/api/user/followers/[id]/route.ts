@@ -20,7 +20,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
       .from(followers)
       .innerJoin(user, eq(followers.followerId, user.idUser))
       .where(eq(followers.userId, requestedUserId));
-      console.log(res)
+
 
       return NextResponse.json(res, { status: 200 });
     } catch (error) {

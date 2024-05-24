@@ -20,7 +20,6 @@ export const user = pgTable("User", {
 	email: varchar("email", { length: 50 }).notNull().unique(),
 	password: varchar("password", { length: 64 }),
 	phoneNumber: varchar("phone_number", { length: 12 }).unique(),
-	username: varchar('username', { length: 100 }),
 	profilePhoto: text('profile_photo'),
 	createdAt: timestamp("created_at", { mode: "string", withTimezone: true }).defaultNow().notNull()
 });
@@ -66,8 +65,7 @@ export const following = pgTable("Following", {
 	content: text('content').notNull(),
 	createdAt: timestamp('created_at', { mode: 'string', withTimezone: true }).defaultNow().notNull(),
   });
-
-  
+ 
 export const portionsNutrition = pgTable("PortionsNutrition", {
 	idNutritonPortion: serial("id_nutriton_portion").primaryKey().notNull(),
 	idUser: integer("id_user").notNull().unique().references(() => user.idUser, { onDelete: "restrict", onUpdate: "cascade" } ),
@@ -186,3 +184,4 @@ export const record = pgTable("Records", {
 	value: doublePrecision("value"),
 	date: timestamp("date", {mode: "date"}).notNull().defaultNow()
 })
+
