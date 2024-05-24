@@ -144,13 +144,13 @@ const SleepFeatureEvalPage = () => {
             />
         </div>
 
-    </div>
+      </div>
 
-    <ButtonEvaluation 
+      <ButtonEvaluation 
         onClick={sendData} 
         text='Enviar'
         disabled={grade === 0 || hours === 0}
-    />
+      />
     </div>
   );
 };
