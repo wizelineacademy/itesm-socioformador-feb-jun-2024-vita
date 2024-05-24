@@ -6,6 +6,7 @@ import {  UserPost} from "@/data/datatypes/user";
 import { tabs } from "@/constants";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import React from "react";
 
 interface UserCardProps {
   userData: UserPost;
@@ -97,11 +98,11 @@ const ProfileCard: React.FC<UserCardProps> = ({ userData, creator, activeTab }) 
       <div className="flex gap-6">
         {tabs.map((tab) => (
           <Link
-            key={userData.idUser}
+            key={userData[0].idUser}
             className={`tab ${
               activeTab === tab.name ? "bg-purple-1 p-2 text-light-1" : "bg-dark-2 p-2 text-light-1"
             }`}
-            href={`/profile/${userData.idUser}/${tab.link}`}
+            href={`/profile/${userData[0].idUser}/${tab.link}`}
           >
             {tab.name}
           </Link>
