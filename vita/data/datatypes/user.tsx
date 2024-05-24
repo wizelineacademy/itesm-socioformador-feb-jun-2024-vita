@@ -16,4 +16,14 @@ export interface UserData {
     username?: string;
     profilePhoto?: string;
     createdAt: string; 
+    followerId?: number | null;
   }
+
+  export interface Follower {
+    idUser: number;
+    followerId?: number | null;
+    name: string;
+    profilePhoto: string;
+  }
+
+  

@@ -4,8 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { UserPost } from "@/data/datatypes/user";
 import {
-  Bookmark,
-  BookmarkBorder,
   BorderColor,
   Delete,
   Favorite,
@@ -150,13 +148,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, creator, onPostDelete }) => {
           <p className="text-light-1">0 </p>
         </div>
 
-        {post.creatorId !== creator[0]?.idUser &&
-          //   (isSaved ? (
-          <Bookmark sx={{ color: "purple", cursor: "pointer" }} />
-          //   ) : (
-          //     <BookmarkBorder sx={{ color: "white", cursor: "pointer" }} onClick={() => handleSave()} />
-          //   ))
-        }
+        
 
         {creator.length > 0 && post.creatorId === creator[0]?.idUser && (
           <Delete sx={{ color: "white", cursor: "pointer" }} onClick={() => handleDelete()} />

@@ -1,12 +1,12 @@
 import { PersonAddAlt, PersonRemove } from "@mui/icons-material";
-import { UserPost } from "@/data/datatypes/user";
+import { UserPost , Follower} from "@/data/datatypes/user";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
 interface UserCardProps {
-    userData: UserPost;
+    userData: UserPost | Follower;
     creator: UserPost[];
 }
 
@@ -59,7 +59,7 @@ const UserCard: React.FC<UserCardProps> = ({ userData, creator }) => {
                     </p>
                 </div>
             </Link>
-            {userData.idUser !== creator[0]?.idUser && (
+            {userData.idUser !== creator[0]?.idUser  && (
                 isFollowing ? (
                     <PersonRemove
                         sx={{ color: "#7857FF", cursor: "pointer" }}

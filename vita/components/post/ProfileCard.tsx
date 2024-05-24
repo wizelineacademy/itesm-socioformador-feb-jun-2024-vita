@@ -37,14 +37,18 @@ const ProfileCard: React.FC<UserCardProps> = ({ userData,creator,  activeTab  })
                 <p className="text-purple-1">0</p>
                 <p className="text-light-1">Publicaciones</p>
               </div>
-              <div className="flex max-sm:flex-col gap-2 items-center max-sm:gap-0.5">
-                <p className="text-purple-1">0</p>
-                <p className="text-light-1">Seguidores</p>
-              </div>
-              <div className="flex max-sm:flex-col gap-2 items-center max-sm:gap-0.5">
-                <p className="text-purple-1">0</p>
-                <p className="text-light-1">Siguiendo</p>
-              </div>
+              <Link href={`/social/profile/${userData[0].idUser}/followers`}> 
+                <div className="flex max-sm:flex-col gap-2 items-center max-sm:gap-0.5 cursor-pointer hover:underline">
+                  <p className="text-purple-1">0</p>
+                  <p className="text-light-1">Seguidores</p>
+                </div>
+              </Link>
+              <Link href={`/social/profile/${userData[0].idUser}/following`}>
+                <div className="flex max-sm:flex-col gap-2 items-center max-sm:gap-0.5 cursor-pointer hover:underline">
+                  <p className="text-purple-1">0</p>
+                  <p className="text-light-1">Siguiendo</p>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
