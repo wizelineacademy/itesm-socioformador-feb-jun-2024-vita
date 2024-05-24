@@ -56,3 +56,6 @@ select:-webkit-autofill:focus {
 /* fin del reseet css*/
 
 
+input[type="time"]::-webkit-calendar-picker-indicator{
+  filter: invert(100%) sepia(3%) saturate(5041%) hue-rotate(237deg) brightness(104%) contrast(99%);
+}
