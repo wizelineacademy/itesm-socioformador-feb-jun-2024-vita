@@ -74,4 +74,12 @@ import {
       link: "likes",
       name: "Likes",
     },
+    {
+      link: "followers",
+      name: "Seguidores",
+    },
+    {
+      link: "following",
+      name: "Siguiendo",
+    },
   ];

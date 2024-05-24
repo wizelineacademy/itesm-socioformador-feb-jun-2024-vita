@@ -1,14 +1,10 @@
 "use client";
-import React from "react";
+
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { UserPost } from "@/data/datatypes/user";
-import {
-  BorderColor,
-  Delete,
-  Favorite,
-  FavoriteBorder,
-} from "@mui/icons-material";
+import { BorderColor, Delete, Favorite, FavoriteBorder } from "@mui/icons-material";
 import Swal from 'sweetalert2';
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -23,9 +19,42 @@ interface PostCardProps {
 const PostCard: React.FC<PostCardProps> = ({ post, creator, onPostDelete }) => {
   const profilePhoto = post.profilePhoto ?? "/assets/noAvatar.png";
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [isLiked, setIsLiked] = useState(false); // New state for like status
+  const [likeCount, setLikeCount] = useState(0); // New state for like count
   const router = useRouter();
+
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  // Fetch like status and count when component mounts
+  useEffect(() => {
+    const fetchLikeStatus = async () => {
+      try {
+        const response = await axios.get(`/api/user/like/${post.idPost}`);
+        setIsLiked(response.data.isLiked);
+        setLikeCount(response.data.likeCount); // Assuming like count is returned
+      } catch (error) {
+        console.error("Error fetching like status:", error);
+      }
+    };
+
+    fetchLikeStatus();
+  }, [post.idPost]);
+
+  const handleLike = async () => {
+    try {
+      const response = await axios.post(`/api/user/like/${post.idPost}`);
+      if (response.data.message === "Post liked successfully") {
+        setIsLiked(true);
+        setLikeCount((prevCount) => prevCount + 1); // Increment like count
+      } else if (response.data.message === "Post unliked successfully") {
+        setIsLiked(false);
+        setLikeCount((prevCount) => prevCount - 1); // Decrement like count
+      }
+    } catch (error) {
+      console.error("Error toggling like status:", error);
+    }
+  };
 
   const handleDelete = async () => {
     // Mostrar mensaje de confirmación
@@ -38,7 +67,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, creator, onPostDelete }) => {
       cancelButtonText: 'Cancelar',
       reverseButtons: true
     });
-  
+
     // Si el usuario confirma la eliminación
     if (confirmationResult.isConfirmed) {
       try {
@@ -51,7 +80,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, creator, onPostDelete }) => {
             icon: 'success',
             confirmButtonText: 'OK'
           });
-        } 
+        }
 
       } catch (error) {
         console.log(error);
@@ -140,15 +169,13 @@ const PostCard: React.FC<PostCardProps> = ({ post, creator, onPostDelete }) => {
 
       <div className="flex justify-between">
         <div className="flex gap-2 items-center">
-          {/* {!isLiked ? (
-            <FavoriteBorder sx={{ color: "white", cursor: "pointer" }} onClick={() => handleLike()} />
-          ) : ( */}
-          <Favorite sx={{ color: "red", cursor: "pointer" }} />
-          {/* )} */}
-          <p className="text-light-1">0 </p>
+          {isLiked ? (
+            <Favorite sx={{ color: "red", cursor: "pointer" }} onClick={handleLike} />
+          ) : (
+            <FavoriteBorder sx={{ color: "white", cursor: "pointer" }} onClick={handleLike} />
+          )}
+          <p className="text-light-1">{likeCount}</p>
         </div>
-
-        
 
         {creator.length > 0 && post.creatorId === creator[0]?.idUser && (
           <Delete sx={{ color: "white", cursor: "pointer" }} onClick={() => handleDelete()} />

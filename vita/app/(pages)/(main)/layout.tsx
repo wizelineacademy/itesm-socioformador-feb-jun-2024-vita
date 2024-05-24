@@ -75,13 +75,11 @@ export default function RootLayout({
               <Decoration pathname={pathname}/>
               {/* Render children components */}
               <NextAuthProvider>
-                
                   {isSocialRoute ? (
                   <MainContainer>
                     {children}
                   </MainContainer>
                 ) : (
-                 
                   <RecipesContextProvider> {/*Context for recipes**/}
                     <ExercisesContextProvider> {/*Context for exercise routines**/}
                       <AutoevaluationContextProvider> {/**Context for autoevaluation*/}
@@ -90,10 +88,7 @@ export default function RootLayout({
                     </ExercisesContextProvider>
                   </RecipesContextProvider>
                 )}
-                  
               </NextAuthProvider>
-
-              
             </div>  
           </main>  
         </div>

@@ -58,13 +58,16 @@ export const following = pgTable("Following", {
 	userId: integer('user_id').references(() => user.idUser),
 	postId: integer('post_id').references(() => posts.idPost),
   });
+  
+  export const comments = pgTable('Comments', {
+	idComment: serial('id_comment').primaryKey().notNull(),
+	postId: integer('post_id').references(() => posts.idPost).notNull(),
+	userId: integer('user_id').references(() => user.idUser).notNull(),
+	content: text('content').notNull(),
+	createdAt: timestamp('created_at', { mode: 'string', withTimezone: true }).defaultNow().notNull(),
+  });
 
-  export const savedPosts = pgTable("SavedPosts", {
-	idSavedPosts: serial("id_saved_posts").primaryKey().notNull(),
-    userId: integer("user_id").references(() => user.idUser),
-    postId: integer("post_id").references(() => posts.idPost),
-});
- 
+  
 export const portionsNutrition = pgTable("PortionsNutrition", {
 	idNutritonPortion: serial("id_nutriton_portion").primaryKey().notNull(),
 	idUser: integer("id_user").notNull().unique().references(() => user.idUser, { onDelete: "restrict", onUpdate: "cascade" } ),
