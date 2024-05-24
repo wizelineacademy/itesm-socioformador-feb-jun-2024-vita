@@ -11,6 +11,7 @@ import AddModal from '@/components/modal/addModal';
 import { confirmAndDelete, handleAddItem, handleEditItem, handleInput } from '@/lib/profile/functions';
 import EditModal from '@/components/modal/editModal';
 import { useRouter } from "next/navigation";
+import { signOut } from 'next-auth/react';
 
 const Profile = () => {
     const router = useRouter();
@@ -503,7 +504,72 @@ const Profile = () => {
           closeMedicinesModal,
           getData
         );
-      };
+    };
+
+    const deleteAccount = async (password: String) => {
+        try {
+            await axios.post("/api/delete_account", {
+                password
+            })
+            Swal.fire({
+                title: "Cuenta eliminada",
+                text: "Se ha eliminado la cuenta",
+                icon: "success"
+            }).then(() => {
+                signOut({callbackUrl: "/"})
+            })
+        } catch {
+            Swal.fire({
+                title: "Error",
+                text: "Ocurrió un error",
+                icon: "error"
+            })
+        }
+    }
+
+    const showPasswordDeleteModal = () => {
+        Swal.fire({
+            text: "Ingresa tu contraseña para desactivar tu cuenta",
+            input: "password",
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            confirmButtonText: "Eliminar",
+            confirmButtonColor: "crimson",
+            customClass: {
+                confirmButton: "order-2",
+                cancelButton: "order-1 right-gap"
+            },
+            preConfirm: async (password) => {
+                try {
+                    await deleteAccount(password)
+                } catch(error){
+                    Swal.showValidationMessage(`Ocurrió un error`);
+                }
+            }
+        })
+    }
+
+    const showDeleteAccountModal = () => {
+        Swal.fire({
+            title: "Desactivar cuenta",
+            text: "¿Estás seguro de que quieres desactivar tu cuenta VITA?",
+            icon: "warning",
+            iconColor: "crimson",
+            footer: "Tu información no podrá ser recuperada tras desactivar la cuenta",
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            confirmButtonText: "Eliminar",
+            confirmButtonColor: "crimson",
+            customClass: {
+                confirmButton: "order-2",
+                cancelButton: "order-1 right-gap"
+            }
+        }).then(result => {
+            if(result.isConfirmed){
+                showPasswordDeleteModal()
+            }
+        })
+    }
 
     return (
         <div className="mb-4">
@@ -979,6 +1045,17 @@ const Profile = () => {
                             </button>
                         </div>   
                         </>
+                    )}
+
+                    {!editMode && (
+                        <p 
+                            className='ml-2 text-red-600 font-bold text-lg hover:underline hover:cursor-pointer'
+                            onClick={() => {
+                                showDeleteAccountModal()
+                            }}
+                        >
+                            Desactivar cuenta
+                        </p>
                     )}
                 
             </form>
