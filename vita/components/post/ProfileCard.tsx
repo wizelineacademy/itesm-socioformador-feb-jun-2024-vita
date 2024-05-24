@@ -100,9 +100,9 @@ const ProfileCard: React.FC<UserCardProps> = ({ userData, creator, activeTab }) 
           <Link
             key={userData[0].idUser}
             className={`tab ${
-              activeTab === tab.name ? "bg-purple-1 p-2 text-light-1" : "bg-dark-2 p-2 text-light-1"
+              activeTab === tab.link ? "bg-purple-1 p-2 text-light-1" : "bg-dark-2 p-2 text-light-1"
             }`}
-            href={`/profile/${userData[0].idUser}/${tab.link}`}
+            href={`social/profile/${userData[0].idUser}/${tab.link}/`}
           >
             {tab.name}
           </Link>

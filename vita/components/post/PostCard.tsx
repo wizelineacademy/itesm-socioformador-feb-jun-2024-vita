@@ -22,7 +22,6 @@ const PostCard: React.FC<PostCardProps> = ({ post, creator, onPostDelete }) => {
   const [commentText, setCommentText] = useState(""); // State for comment text
   const [comments, setComments] = useState<CommentSocial[]>([]);
 
-
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
@@ -41,9 +40,6 @@ const PostCard: React.FC<PostCardProps> = ({ post, creator, onPostDelete }) => {
     fetchLikeStatus();
   }, [post.idPost]);
 
-  // Fetch comments when component mounts
- // Fetch comments when component mounts
-useEffect(() => {
   const fetchComments = async () => {
     try {
       const response = await axios.get(`/api/post/comment/${post.idPost}`);
@@ -59,10 +55,12 @@ useEffect(() => {
       console.error("Error fetching comments:", error);
     }
   };
-  
-  fetchComments();
-}, [post.idPost]);
+  // Fetch comments when component mounts
+  useEffect(() => {
+    
 
+    fetchComments();
+  }, [post.idPost]);
 
   const handleLike = async () => {
     try {
@@ -124,8 +122,9 @@ useEffect(() => {
       if (response.status === 200) {
         // Si la solicitud es exitosa, actualiza el estado de los comentarios
         const newComment = response.data;
-        setComments([...comments, newComment]);
+        setComments((prevComments) => [...prevComments, newComment]);
         setCommentText(""); // Limpia el campo del comentario
+        fetchComments();
       }
     } catch (error) {
       console.error("Error adding comment:", error);
@@ -224,20 +223,19 @@ useEffect(() => {
       <div className="mt-8">
         <h2 className="text-lg font-semibold mb-4 text-light-1">Comentarios</h2>
         <div className="space-y-4">
-
-        {Array.isArray(comments) && comments.map((comment) => (
-          <div key={comment.idComment} className="flex items-start space-x-4">
-            <img
-              src={comment.profilePhoto ?? "/assets/noAvatar.png"}
-              alt="User Avatar"
-              className="w-10 h-10 rounded-full"
-            />
-            <div>
-              <p className="font-semibold pb-2 text-light-1">{comment.name}</p>
-              <p className="bg-gray-200 rounded-lg p-2">{comment.content}</p>
+          {Array.isArray(comments) && comments.map((comment) => (
+            <div key={comment.idComment} className="flex items-start space-x-4">
+              <img
+                src={comment.profilePhoto ?? "/assets/noAvatar.png"}
+                alt="User Avatar"
+                className="w-10 h-10 rounded-full"
+              />
+              <div>
+                <p className="font-semibold pb-2 text-light-1">{comment.name}</p>
+                <p className="bg-gray-200 rounded-lg p-2">{comment.content}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
         </div>
 
         {/* Formulario para agregar comentarios */}
