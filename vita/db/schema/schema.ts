@@ -20,7 +20,6 @@ export const user = pgTable("User", {
 	email: varchar("email", { length: 50 }).notNull().unique(),
 	password: varchar("password", { length: 64 }),
 	phoneNumber: varchar("phone_number", { length: 12 }).unique(),
-	username: varchar('username', { length: 100 }),
 	profilePhoto: text('profile_photo'),
 	createdAt: timestamp("created_at", { mode: "string", withTimezone: true }).defaultNow().notNull()
 });
@@ -59,11 +58,15 @@ export const following = pgTable("Following", {
 	postId: integer('post_id').references(() => posts.idPost, { onDelete: "cascade", onUpdate: "cascade" }),
   });
 
-  export const savedPosts = pgTable("SavedPosts", {
-	idSavedPosts: serial("id_saved_posts").primaryKey().notNull(),
-    userId: integer("user_id").references(() => user.idUser, { onDelete: "cascade", onUpdate: "cascade" }),
-    postId: integer("post_id").references(() => posts.idPost, { onDelete: "cascade", onUpdate: "cascade" }),
-});
+  
+  export const comments = pgTable('Comments', {
+	idComment: serial('id_comment').primaryKey().notNull(),
+	postId: integer('post_id').references(() => posts.idPost).notNull(),
+	userId: integer('user_id').references(() => user.idUser).notNull(),
+	content: text('content').notNull(),
+	createdAt: timestamp('created_at', { mode: 'string', withTimezone: true }).defaultNow().notNull(),
+  });
+
  
 export const portionsNutrition = pgTable("PortionsNutrition", {
 	idNutritonPortion: serial("id_nutriton_portion").primaryKey().notNull(),
@@ -182,3 +185,4 @@ export const record = pgTable("Records", {
 	value: doublePrecision("value"),
 	date: timestamp("date", {mode: "date"}).notNull().defaultNow()
 })
+

@@ -67,8 +67,12 @@ import {
   
   export const tabs = [
     {
-      link: "posts",
+      link: "publicaciones",
       name: "Publicaciones",
+    },
+    {
+      link: "likes",
+      name: "Likes",
     },
     {
       link: "followers",
@@ -76,6 +80,6 @@ import {
     },
     {
       link: "following",
-      name: "Seguiendo",
+      name: "Siguiendo",
     },
   ];
