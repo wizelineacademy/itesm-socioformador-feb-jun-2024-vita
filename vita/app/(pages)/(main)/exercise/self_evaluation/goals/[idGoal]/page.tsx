@@ -4,13 +4,14 @@ import { LbMsrInput } from "@/components/Inputs/LbMsrInput";
 import MainButton from "@/components/buttons/MainButton";
 import AutoevaluationContext from "@/context/autoevaluation";
 import { NumericGoal } from "@/data/datatypes/goal";
+import { exerciseGoals, exerciseQuestions } from "@/data/exercise_goals";
 import { nutritionGoals, nutritionQuestions } from "@/data/nutrition_goals";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-const EvaluationGoalPage = ({ params }: { params: { idGoal: string } }) => {
+const ExerciseEvalGoalPage = ({ params }: { params: { idGoal: string } }) => {
 
     const [goal, setGoal] = useState<NumericGoal>();
     const [question, setQuestion] = useState<GoalRecord>();
@@ -26,13 +27,13 @@ const EvaluationGoalPage = ({ params }: { params: { idGoal: string } }) => {
 
     useEffect(() => {
         
-        const selectedGoal = nutritionGoals.find(goal => {
+        const selectedGoal = exerciseGoals.find(goal => {
             return goal.id === Number(params.idGoal)
         });
-        const selectedQuestion = nutritionQuestions.find(question => question.id === Number(params.idGoal))
-        setGoal(selectedGoal ?? nutritionGoals[0]);
-        setQuestion(selectedQuestion ?? nutritionQuestions[0])
-        fetchHealthData(selectedGoal ?? nutritionGoals[0]);
+        const selectedQuestion = exerciseQuestions.find(question => question.id === Number(params.idGoal))
+        setGoal(selectedGoal ?? exerciseGoals[0]);
+        setQuestion(selectedQuestion ?? exerciseQuestions[0])
+        fetchHealthData(selectedGoal ?? exerciseGoals[0]);
 
     }, []);
 
@@ -63,12 +64,12 @@ const EvaluationGoalPage = ({ params }: { params: { idGoal: string } }) => {
                 {
                     name: goal?.variable ?? "record",
                     value: current,
-                    category: "nutrition"
+                    category: "exercise"
                 }
             ]
         })
 
-        router.push("/nutrition/self_evaluation/feature_evaluation")
+        router.push("/exercise/self_evaluation/feature_evaluation")
 
     }
 
@@ -87,6 +88,7 @@ const EvaluationGoalPage = ({ params }: { params: { idGoal: string } }) => {
                     >
 
                         <LbMsrInput
+                            color="bg-input-green"
                             label={question?.question ?? ""}
                             variable={goal.variable ?? ""}
                             min={goal.min ?? 0}
@@ -108,4 +110,4 @@ const EvaluationGoalPage = ({ params }: { params: { idGoal: string } }) => {
     )
 }
 
-export default EvaluationGoalPage;
+export default ExerciseEvalGoalPage;

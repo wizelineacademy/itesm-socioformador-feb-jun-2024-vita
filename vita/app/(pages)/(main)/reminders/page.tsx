@@ -40,7 +40,7 @@ const [reminders, setReminders] = useState<ReminderData[]>([]);
           }
           return {
             ...reminder,
-            frequency: ` Durante ${frequency} días, cada ${remainingHours} horas`,
+            frequency: ` Cada ${frequency > 0 ? frequency + " días, " : ""}${remainingHours > 0 ? remainingHours + " horas" : ""}`,
             startTime: startTime,
             endTime: endTime
           };

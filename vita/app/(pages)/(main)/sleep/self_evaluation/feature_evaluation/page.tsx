@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import AutoevaluationContext from "@/context/autoevaluation";
 import { LbMsrInput } from "@/components/Inputs/LbMsrInput";
+import { Autoevaluation } from "@/data/datatypes/autoeval";
 
 const SleepFeatureEvalPage = () => {
   
@@ -32,13 +33,13 @@ const SleepFeatureEvalPage = () => {
   }
 
   //update state and move page
-  const storeData = () : boolean => {
+  const storeData = () : Autoevaluation | null => {
 
     if(!verifyData()){
-      return false;
+      return null;
     }
 
-    setState({
+    const newState = {
         ...state,
         featureMetrics: [
           {
@@ -53,29 +54,36 @@ const SleepFeatureEvalPage = () => {
                 category: "sleep"
             }
         ]
-    })
+    }
 
-    return true;
+    setState(newState)
+
+    return newState;
     
   }
 
   const sendData = async () => {
-    if(storeData()){
+
+    const evalData = storeData();
+
+    if(evalData){
 
       try {
 
-        if(state.goalMetrics.length === 0 || state.featureMetrics.length === 0 || state.records.length === 0){
+        if(evalData.goalMetrics.length === 0 || 
+            evalData.featureMetrics.length === 0 || 
+            evalData.records.length === 0){
           throw Error("Incomplete data")
         }
 
         const goalsRes = await axios.post("/api/goal_evaluations", {
-          evaluations: state.goalMetrics
+          evaluations: evalData.goalMetrics
         })
         const featsRes = await axios.post("/api/feature_evaluations", {
-          evaluations: state.featureMetrics
+          evaluations: evalData.featureMetrics
         })
         const recordsRes = await axios.post("/api/records", {
-          records: state.records
+          records: evalData.records
         })
 
 

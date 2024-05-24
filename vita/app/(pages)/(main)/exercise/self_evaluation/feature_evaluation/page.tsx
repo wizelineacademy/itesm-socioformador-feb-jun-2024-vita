@@ -9,8 +9,8 @@ import { useRouter } from "next/navigation";
 import AutoevaluationContext from "@/context/autoevaluation";
 import { Autoevaluation } from "@/data/datatypes/autoeval";
 
-const FeatureEvaluationPage = () => {
-  const features = ["generar planes nutricionales", "generar recetas", "dectectar calorías en imágenes"];
+const ExerciseFeatEvalPage = () => {
+  const features = ["generar rutinas en base al tipo de ejercicio", "generar rutinas en base al área del cuerpo", "generar rutinas en base al espacio"];
   const [grades, setGrades] = useState<number[]>([0, 0, 0])
   const {state, setState} = useContext(AutoevaluationContext);
 
@@ -37,28 +37,28 @@ const FeatureEvaluationPage = () => {
   }
 
   //update state and move page
-  const storeData = () : Autoevaluation | null => {
+  const storeData = () :  Autoevaluation | null => {
 
     if(!verifyData()){
       return null;
     }
 
     const newState = {
-      ...state,
-      featureMetrics: [
-        {
-          name: "nutritional_plans",
-          value: grades[0]
-        }, 
-        {
-          name: "receipes",
-          value: grades[1]
-        }, 
-        {
-          name: "image_calories",
-          value: grades[2]
-        }
-      ]
+        ...state, 
+        featureMetrics: [
+            {
+              name: "type_routines",
+              value: grades[0]
+            }, 
+            {
+              name: "area_routines",
+              value: grades[1]
+            }, 
+            {
+              name: "space_routines",
+              value: grades[2]
+            }
+        ]
     }
 
     setState(newState)
@@ -76,8 +76,8 @@ const FeatureEvaluationPage = () => {
       try {
 
         if(evaluationData.goalMetrics.length === 0 || 
-          evaluationData.featureMetrics.length === 0 || 
-          evaluationData.records.length === 0){
+            evaluationData.featureMetrics.length === 0 || 
+            evaluationData.records.length === 0){
           throw Error("Incomplete data")
         }
 
@@ -103,7 +103,7 @@ const FeatureEvaluationPage = () => {
                     featureMetrics: [],
                     records: []
                 })
-                router.push("/nutrition")
+                router.push("/exercise")
             }
         })
 
@@ -114,7 +114,7 @@ const FeatureEvaluationPage = () => {
           text: "Ocurrió un error al enviar los datos",
           icon: 'error',
           confirmButtonText: 'OK'
-        })
+      })
       }
     }
   }
@@ -146,4 +146,4 @@ const FeatureEvaluationPage = () => {
   );
 };
 
-export default FeatureEvaluationPage;
+export default ExerciseFeatEvalPage;

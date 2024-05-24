@@ -51,13 +51,17 @@ export async function PUT(request: Request, { params }: { params: { idReminders:
     // Convertir las fechas a objetos Date
     const startTimeDate = new Date(startTime);
     const endTimeDate = endTime ? new Date(endTime) : null;
-   
-  
-    
+
     const res = await db.update(Reminders)
-      .set({ name, description, frequency: Number(frequency),
-         startTime: new Date(startTimeDate), endTime: endTimeDate ? new Date(endTimeDate) : null,})
-         .where(eq(Reminders.idReminders, Number(idReminders)))
+      .set({ 
+        name, 
+        description, 
+        frequency: Number(frequency),
+        startTime: startTimeDate, 
+        dueTime: startTimeDate,
+        endTime: endTimeDate
+      })
+      .where(eq(Reminders.idReminders, Number(idReminders)))
 
     return NextResponse.json(res, { status: 200 });
   } catch (error) {

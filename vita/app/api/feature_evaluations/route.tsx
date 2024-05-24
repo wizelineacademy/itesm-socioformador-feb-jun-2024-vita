@@ -1,4 +1,4 @@
-import { Metric } from "@/context/autoevaluation";
+import { Metric } from "@/data/datatypes/autoeval";
 import { db } from "@/db/drizzle";
 import { featureEvaluation} from "@/db/schema/schema";
 import { authOptions } from "@/lib/auth/authOptions";

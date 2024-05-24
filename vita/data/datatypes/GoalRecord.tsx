@@ -5,5 +5,5 @@ interface GoalRecord {
     measure: string,
     min: number,
     max: number,
-    data: string
+    data?: string
 }

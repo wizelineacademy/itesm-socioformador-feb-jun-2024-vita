@@ -29,6 +29,7 @@ export async function POST(request: Request) {
       description: string;
       frequency: number;
       startTime: Date;
+      dueTime: Date | null;
       endTime?: Date | null | undefined; 
     } = {
       idUser: session.user?.id,
@@ -36,6 +37,7 @@ export async function POST(request: Request) {
       description,
       frequency: Number(frequency),
       startTime: new Date(startTime),
+      dueTime: new Date(startTime),
       endTime: endTime ? new Date(endTime) : null 
     };
 
