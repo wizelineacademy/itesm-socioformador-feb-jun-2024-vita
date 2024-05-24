@@ -1,4 +1,4 @@
-import { GoalMetric } from "@/context/autoevaluation";
+import { GoalMetric } from "@/data/datatypes/autoeval";
 import { db } from "@/db/drizzle";
 import { goalEvaluation } from "@/db/schema/schema";
 import { authOptions } from "@/lib/auth/authOptions";
