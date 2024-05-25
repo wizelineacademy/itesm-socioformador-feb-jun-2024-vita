@@ -3,7 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 
 
-const HomePage: React.FC = () => {
+const About: React.FC = () => {
   const handleClick = () => {
     console.log('Button clicked!');
   };
@@ -34,4 +34,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;
+export default About;

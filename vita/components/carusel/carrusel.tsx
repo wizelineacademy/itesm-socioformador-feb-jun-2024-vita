@@ -1,7 +1,8 @@
 "use client"
 import React from 'react';
 import AdaptableCarousel from "./carrusel_element"
-import { Carousel, CarouselContent, CarouselItem } from '@/components/carusel/carousel';
+import { Carousel, CarouselContent, CarouselItem } from './carousel';
+
 
 const carouselItem1= {
       header: 'Inteligencia Artificial',
