@@ -51,7 +51,7 @@ const HealthData = () => {
         if(!data){ 
           return;
         } else {
-          router.replace("/home")
+          router.replace("/plan")
         }
 
       } catch(error){
@@ -75,7 +75,7 @@ const HealthData = () => {
           icon: 'success',
           confirmButtonText: 'OK'
       });
-      router.push("/home");
+      router.push("/plan");
       router.refresh();
     } catch(error){
       console.error(error);
