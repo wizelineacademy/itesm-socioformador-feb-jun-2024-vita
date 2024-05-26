@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import { useRouter } from "next/navigation";
 
 interface Plan {
   name: string;
