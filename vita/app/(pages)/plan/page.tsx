@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 
 interface Plan {
   name: string;
@@ -28,7 +29,7 @@ const plans: Plan[] = [
       "100 rutinas de ejercicio y 300 recetas de comida al mes.",
       "Metas de ejercicio, nutrición y sueño.",
       "300 detecciones de comida al mes.",
-      "Chatbot de salud en  la aplicación web.",
+      "Chatbot de salud en la aplicación web.",
       "Recordatorios automáticos.",
       "Blog de salud generado por inteligencia artificial.",
       "Red Social para compartir progreso y apoyar a otros.",
@@ -71,18 +72,20 @@ const PricingPage: NextPage = () => {
 };
 
 const PlanCard: React.FC<{ plan: Plan }> = ({ plan }) => {
+  const router = useRouter();
   const [selected, setSelected] = useState(false);
 
   const handleSelectPlan = () => {
     setSelected(!selected);
-    console.log(`Plan seleccionado: ${plan.name}`);
+
+    router.push(`/home/?selectedPlan=${plan.name}`);
   };
 
   return (
     <div className="border rounded-md p-4 shadow-md transition duration-300 ease-in-out transform hover:scale-105 bg-gray-800 flex flex-col justify-between h-full text-white">
       <div>
         <h2 className="text-xl font-semibold mb-2 text-white">{plan.name}</h2>
-        <p className="text-gray-400 -600 mb-4">${plan.price}/mes</p>
+        <p className="text-gray-400 mb-4">${plan.price}/mes</p>
         <ul className="list-disc pl-5 mb-4 text-white">
           {plan.features.map((feature, index) => (
             <li key={index} className="mb-2">{feature}</li>
@@ -91,10 +94,10 @@ const PlanCard: React.FC<{ plan: Plan }> = ({ plan }) => {
       </div>
       <div className="mt-auto">
         <button
-          className={`bg-${selected ? 'green' : 'blue'}-500 text-white py-2 px-4 rounded-md focus:outline-none focus:ring focus:ring-${selected ? 'green' : 'blue'}-400 hover:bg-${selected ? 'green' : 'blue'}-600 transform hover:scale-105 transition duration-300 w-full`}
+          className={`bg-blue-500 text-white py-2 px-4 rounded-md focus:outline-none focus:ring focus:ring-${selected ? 'green' : 'blue'}-400 hover:bg-${selected ? 'green' : 'blue'}-600 transform hover:scale-105 transition duration-300 w-full`}
           onClick={handleSelectPlan}
         >
-          {selected ? 'Deseleccionar' : 'Seleccionar'}
+          Seleccionar
         </button>
       </div>
     </div>
@@ -102,3 +105,5 @@ const PlanCard: React.FC<{ plan: Plan }> = ({ plan }) => {
 };
 
 export default PricingPage;
+
+

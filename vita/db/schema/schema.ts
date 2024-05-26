@@ -14,15 +14,19 @@ export const prismaMigrations = pgTable("_prisma_migrations", {
 	appliedStepsCount: integer("applied_steps_count").default(0).notNull(),
 });
 
+
 export const user = pgTable("User", {
-	idUser: serial("id_user").primaryKey().notNull(),
-	name: varchar("name", { length: 100 }).notNull(),
-	email: varchar("email", { length: 50 }).notNull().unique(),
-	password: varchar("password", { length: 64 }),
-	phoneNumber: varchar("phone_number", { length: 12 }).unique(),
-	profilePhoto: text('profile_photo'),
-	createdAt: timestamp("created_at", { mode: "string", withTimezone: true }).defaultNow().notNull()
+    idUser: serial("id_user").primaryKey().notNull(),
+    name: varchar("name", { length: 100 }).notNull(),
+    email: varchar("email", { length: 50 }).notNull().unique(),
+    password: varchar("password", { length: 64 }),
+    phoneNumber: varchar("phone_number", { length: 12 }).unique(),
+    profilePhoto: text('profile_photo'),
+    membership: text('membership'),
+    membershipTime: timestamp("membership_time", {mode: "date"}),
+    createdAt: timestamp("created_at", { mode: "string", withTimezone: true }).defaultNow().notNull()
 });
+
 
 export const posts = pgTable('Post', {
 	idPost: serial('id_posts').primaryKey().notNull(),
