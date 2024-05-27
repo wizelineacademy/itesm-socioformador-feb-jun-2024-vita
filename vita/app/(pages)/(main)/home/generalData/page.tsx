@@ -3,30 +3,9 @@
 import Swal from 'sweetalert2';
 import React, { useState, useEffect} from "react";
 import axios from  "axios"
-import { formatDays } from '@/lib/DaysFormat/days';
+import { formatDays, formatDaysUTC } from '@/lib/DaysFormat/days';
 import { EditHealthData, HealthData } from '@/data/datatypes/healthdata';
-
-
-
 const GeneralData = () => {
-    
-
-    const formatBirthDate2 = (dateString: string): string => {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        let month = (date.getMonth() + 1).toString();
-        let day = date.getDate().toString();
-    
-        // Asegúrate de que el mes y el día tengan dos dígitos
-        if (month.length === 1) {
-            month = "0" + month;
-        }
-        if (day.length === 1) {
-            day = "0" + day;
-        }
-    
-        return `${year}-${month}-${day}`;
-    };
     
     const [userData, setUserData] = useState<HealthData | null>(null);
     const [editMode, setEditMode] = useState(false);
@@ -72,7 +51,6 @@ const GeneralData = () => {
         }
     };
 
-
     const getData = async () => {
         try {
             const response = await axios.get("/api/healthdata");
@@ -91,7 +69,6 @@ const GeneralData = () => {
         }
     }; 
 
-   
     // Función para guardar los cambios editados
     const handleSaveChanges = async () => {
         try {
@@ -258,7 +235,7 @@ const GeneralData = () => {
                                 <input
                                     type="date"
                                     name="birthDate"
-                                    value={formatBirthDate2(editedData?.birthDate || "")}
+                                    value={formatDaysUTC(editedData?.birthDate || "")}
                                     onChange={handleInputChange}
                                     className="text-2xl py-2 px-6 rounded-full bg-input-home w-60"
                                     required 

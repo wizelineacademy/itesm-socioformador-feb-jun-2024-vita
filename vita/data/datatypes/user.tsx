@@ -6,7 +6,19 @@ export interface UserData {
     phoneNumber:  string | null;  
   }
 
+  export interface UserAdmin {
+    idUser: number;
+    name: string;
+    email: string;
+    password: string | null; 
+    phoneNumber:  string | null;  
+    membership: string;
+    type: string;
+  }
+
+
  
+  
  export  interface UserPost {
     idUser: number;
     name: string;

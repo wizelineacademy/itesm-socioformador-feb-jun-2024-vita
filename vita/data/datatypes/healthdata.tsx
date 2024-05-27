@@ -18,3 +18,14 @@ export interface EditHealthData {
     muscularMass: number;
     birthDate: string;
 }
+
+export interface HealthData {
+    idUserDetail: number;
+    idUser: number;
+    sex: string;
+    weight: number;
+    height: number;
+    birthDate: string;
+    bodyFat: number;
+    muscularMass: number;
+  }

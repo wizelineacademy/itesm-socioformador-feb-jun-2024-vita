@@ -8,6 +8,7 @@
     "drizzle-kit": "drizzle-kit",
     "drizzle:apply-migration": "tsx db/migrate.ts",
     "drizzle:generate-migration": "drizzle-kit generate:pg",
+    "drizzle:seed": "tsx db/seed.ts",
     "lint": "next lint",
     "sst-dev": "NO_BUN=true sst dev next dev",
     "start": "next start",

@@ -47,3 +47,10 @@ export const addSecondsToDate = (date: Date | null, seconds: number) => {
   const newMilliseconds = currentMilliseconds + milliseconds;
   return new Date(newMilliseconds);
 }
+
+export const getMonthName = (): string => {
+  const currentDate = new Date();
+  const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+  return monthNames[currentDate.getMonth()];
+};
