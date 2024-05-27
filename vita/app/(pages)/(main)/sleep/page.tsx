@@ -7,9 +7,11 @@ import Link from 'next/link';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { GiNightSleep } from "react-icons/gi";
+import axios from "axios";
 
 
 const Sleep = () => {
+
   const suggestions = [
     "Mantén un horario de sueño constante.",
         "Practica un ritual de relajación antes de dormir.",
@@ -23,22 +25,28 @@ const Sleep = () => {
         "Apaga los dispositivos electrónicos al menos 30 minutos antes de ir a la cama."
   ];
 
+  const [randomSuggestion, setRandomSuggestion] = useState("");
+  const [sleepHours, setSleepHours] = useState(0);
+
   const generateRandomSuggestion = () => {
     const randomIndex = Math.floor(Math.random() * suggestions.length);
     return suggestions[randomIndex];
   };
 
-  const [randomSuggestion, setRandomSuggestion] = useState("");
-  const [sleepHours, setSleepHours] = useState(7);
-
-  const handleGenerateSuggestion = () => {
-    const newRandomSuggestion = generateRandomSuggestion();
-    setRandomSuggestion(newRandomSuggestion);
-  };
+  const getLastRecord = async () => {
+    try {
+      const res = await axios.get("/api/records/sleep/last");
+      const data = res.data;
+      setSleepHours(data.value);
+    } catch(error){
+      console.log(error);
+      setSleepHours(-1);
+    }
+  }
 
   useEffect(() => {
     setRandomSuggestion(generateRandomSuggestion());
-    
+    getLastRecord();
   }, []);
 
   return (
@@ -56,23 +64,23 @@ const Sleep = () => {
 
             <div className="bg-sleep-mid flex flex-row md:flex-col px-8 py-6 md:py-8 items-center justify-center md:w-80 lg:w-[340px] 
             sm:w-[330px] w-[240px] mt-4 rounded-3xl  ">
-              <div className="relative w-40 h-40 flex items-center justify-center">
-                <CircularProgressbar
-                  value={(sleepHours / 8) * 100} 
-                  styles={buildStyles({
-                    textSize: '16px',
-                    pathColor: '#8EFCA6', // Color del camino de progreso
-                    textColor: '#ffffff',
-                    trailColor: 'transparent', // Hacer el color de abajo del fondo
-                  })}
-                />
-                <div
-                  className="absolute text-white text-center text-[28px]"
-                >
-                  <div>{sleepHours.toFixed(0)}</div>
-                  <div className="text-[28px]">horas</div>
+                <div className="relative w-40 h-40 flex items-center justify-center">
+                  <CircularProgressbar
+                    value={sleepHours >= 0 ? (sleepHours / 8) * 100 : 0}  
+                    styles={buildStyles({
+                      textSize: '16px',
+                      pathColor: '#8EFCA6', // Color del camino de progreso
+                      textColor: '#ffffff',
+                      trailColor: 'transparent', // Hacer el color de abajo del fondo
+                    })}
+                  />
+                  <div
+                    className="absolute text-white text-center text-[28px]"
+                  >
+                    <div>{sleepHours >= 0 ? sleepHours.toFixed(0) : 0}</div>
+                    <div className="text-[28px]">horas</div>
+                  </div>
                 </div>
-              </div>
             </div>
 
             <div className="flex flex-col justify-center items-center px-8 py-6 md:py-6 bg-sleep-high 
