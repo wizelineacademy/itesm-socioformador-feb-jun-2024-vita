@@ -8,32 +8,25 @@ import { FaHeart, FaComments, FaCircle, FaAngleRight,FaSuitcase , FaDumbbell , F
 import Link from 'next/link';
 import axios from  "axios"
 import Swal from 'sweetalert2';
-
-interface HealthData {
-  idUserDetail: number;
-  idUser: number;
-  sex: string;
-  weight: number;
-  height: number;
-  birthDate: string;
-  bodyFat: number;
-  muscularMass: number;
-}
+import { UserAdmin } from "@/data/datatypes/user";
+import { HealthData } from "@/data/datatypes/healthdata";
+import { useRouter } from 'next/navigation';
 
 const Home = () => {
-
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(true);
   const [isOpen2, setIsOpen2] = useState(true); 
   const [userData, setUserData] = useState<HealthData | null>(null);
+  const [user, setUser] = useState<UserAdmin[]| null>(null);
 
   const getData = async () => {
     try {
         const response = await axios.get("/api/healthdata");
-        const fetchedData = response.data;
-
+        const fetchedData = response.data[0];
+        
         setUserData(fetchedData);
-      
-   } catch (error) {
+
+    } catch (error) {
         Swal.fire({
             title: 'Error',
             text: "Ocurrió un error al recuperar los datos",
@@ -41,17 +34,43 @@ const Home = () => {
             confirmButtonText: 'OK'
         });
     }
-  }; 
- 
-    useEffect(() => {     
-      getData();
-    }, []);
+}; 
 
+const handleChallengeLink = () => {
+  
+  if ( user && user[0].type === "admin") {
+    router.push('/home/createChallenge');
+  } else {
+    router.push('/home/getChallenge');
+  }
+};
+
+const getDataUser = async () => {
+  try {
+      const response = await axios.get("/api/membership");
+      const fetchedData = response.data;
+      setUser(fetchedData);
+    
+  
+  } catch (error) {
+      Swal.fire({
+          title: 'Error',
+          text: "Ocurrió un error al recuperar los datos",
+          icon: 'error',
+          confirmButtonText: 'OK'
+      });
+  }
+}; 
+
+    useEffect(() => {
+        
+        getData();
+        getDataUser();
+    }, []);
 
   const toggleContent = () => {
     setIsOpen(!isOpen);
   };
-
 
   // Función para manejar el cambio de estado en pantallas pequeñas
   const handleToggle2 = () => {
@@ -96,7 +115,6 @@ const Home = () => {
        
       </div>
       
-
       <div className="flex flex-col lg:flex-row   items-center justify-center">
         
         <div id="Izquierda" className="flex flex-col" > 
@@ -229,18 +247,22 @@ const Home = () => {
                   <FaAngleRight  size={28}    />
                 </div>
 
-              
             </div>
           </div>
-
-          <div id="Perfil" className="bg-color-home6 h-16 w-56 ml-4 mt-4 rounded-full flex items-center justify-between px-4
-           transition-colors duration-300 ease-in-out hover:bg-color-home5 hover:cursor-pointer">
-            <span className="text-white font-bold text-lg ml-3">
-              Vincular con aplicaciones
-            </span>
-            <FaAngleRight  size={48}  color="#fff"  className="ml-4 mb-2"  />
-            
-          </div>
+          
+              <div id="Challenge" 
+              className="bg-color-home6 h-16 w-56 ml-4 mt-4 rounded-full flex items-center
+               justify-between px-4
+              transition-colors duration-300 ease-in-out hover:bg-color-home5 hover:cursor-pointer"
+              onClick={handleChallengeLink}>
+                <span className="text-white font-bold text-lg ml-3">
+                  Retos y Logros
+                </span>
+                <FaAngleRight  size={48}  color="#fff"  className="ml-4 mb-2"  />
+              </div>
+      
+          
+          
         </div>
 
       </div>

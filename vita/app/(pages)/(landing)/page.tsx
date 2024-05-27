@@ -1,12 +1,11 @@
 
-
-import Button from "@/components/buttons/Button";
-import About from '@/components/landing/Landing_About'
-import Unete from '@/components/landing/unete'
-import Footer from '@/components/Footer'
-import CarruseLanding from '@/components/carusel/carrusel'
-import Home from '@/components/Home'
-import Navbar from "@/components/navbar/Navbar";
+import React from 'react';
+import Home from '../../../components/Home';
+import Navbar from '../../../components/navbar/Navbar';
+import CarruseLanding from '../../../components/carusel/carrusel';
+import Unete from '../../../components/landing/unete';
+import Footer from '../../../components/Footer';
+import About from '../../../components/landing/Landing_About';
 
 
 const Landing = () => {

@@ -61,7 +61,6 @@ const Decoration: React.FC<DecorationProps> = ({ pathname }) => {
   const rootRoute = pathname.split('/')[1]; 
 
   useEffect(() => {
-   
     const route = routes[`/${rootRoute}`];
     if (route) {
       setImages(route);
@@ -71,11 +70,13 @@ const Decoration: React.FC<DecorationProps> = ({ pathname }) => {
     }
   }, [pathname, rootRoute]);
 
+  // Condición para ocultar imágenes en la ruta "/social"
+  const hideImages = pathname === "/social" || pathname.startsWith("/social");
+
   return (
     <> 
-    
       {loading && <Loading />}
-      {!loading && (
+      {!loading && !hideImages && (
         <>
           <div className="hidden md:block absolute right-0">
             <Image src={images.image} alt="Imagen 1" width={180} height={160} />

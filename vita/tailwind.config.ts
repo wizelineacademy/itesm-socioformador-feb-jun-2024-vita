@@ -77,7 +77,6 @@ const config = {
         'speech-button':'#925FD4',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
-
         "purple-1": "#7857FF",
         "purple-2": "#1D1928",
         "pink-1": "#FF0073",

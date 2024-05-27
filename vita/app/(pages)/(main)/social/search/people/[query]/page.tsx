@@ -1,8 +1,7 @@
 "use client";
 
 import Loader from "@/components/Loader";
-import PostCard from "@/components/post/PostCard";
-import UserCard from "@/components/post/userCard";
+import UserCard from "@/components/post/UserCard";
 import { UserPost} from "@/data/datatypes/user";
 import axios from "axios";
 import Link from "next/link";

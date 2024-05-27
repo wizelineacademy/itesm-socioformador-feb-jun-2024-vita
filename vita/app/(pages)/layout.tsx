@@ -3,7 +3,8 @@ import type { Metadata } from "next";
 
 import "../globals.css";
 import { Inter } from "next/font/google";
-import NextAuthProvider from "@/context/authprovider";
+import NextAuthProvider from "../../context/authprovider";
+
 
 const interFont = Inter({
   display: "swap",

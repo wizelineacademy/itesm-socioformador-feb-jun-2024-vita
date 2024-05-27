@@ -1,5 +1,5 @@
 import { pgTable, varchar, timestamp, text, 
-	integer,  serial, doublePrecision, date } from "drizzle-orm/pg-core"
+	integer,  serial, doublePrecision, date , unique } from "drizzle-orm/pg-core"
 
 //tables
 
@@ -14,15 +14,18 @@ export const prismaMigrations = pgTable("_prisma_migrations", {
 	appliedStepsCount: integer("applied_steps_count").default(0).notNull(),
 });
 
+
 export const user = pgTable("User", {
-	idUser: serial("id_user").primaryKey().notNull(),
-	name: varchar("name", { length: 100 }).notNull(),
-	email: varchar("email", { length: 50 }).notNull().unique(),
-	password: varchar("password", { length: 64 }),
-	phoneNumber: varchar("phone_number", { length: 12 }).unique(),
-	username: varchar('username', { length: 100 }),
-	profilePhoto: text('profile_photo'),
-	createdAt: timestamp("created_at", { mode: "string", withTimezone: true }).defaultNow().notNull()
+    idUser: serial("id_user").primaryKey().notNull(),
+    name: varchar("name", { length: 100 }).notNull(),
+    email: varchar("email", { length: 50 }).notNull().unique(),
+    password: varchar("password", { length: 64 }),
+    phoneNumber: varchar("phone_number", { length: 12 }).unique(),
+    profilePhoto: text('profile_photo'),
+    membership: text('membership'),
+    membershipTime: timestamp("membership_time", {mode: "date"}),
+	type: text('type'),
+    createdAt: timestamp("created_at", { mode: "string", withTimezone: true }).defaultNow().notNull()
 });
 
 export const posts = pgTable('Post', {
@@ -59,12 +62,15 @@ export const following = pgTable("Following", {
 	postId: integer('post_id').references(() => posts.idPost, { onDelete: "cascade", onUpdate: "cascade" }),
   });
 
-  export const savedPosts = pgTable("SavedPosts", {
-	idSavedPosts: serial("id_saved_posts").primaryKey().notNull(),
-    userId: integer("user_id").references(() => user.idUser, { onDelete: "cascade", onUpdate: "cascade" }),
-    postId: integer("post_id").references(() => posts.idPost, { onDelete: "cascade", onUpdate: "cascade" }),
-});
- 
+  
+  export const comments = pgTable('Comments', {
+	idComment: serial('id_comment').primaryKey().notNull(),
+	postId: integer('post_id').references(() => posts.idPost).notNull(),
+	userId: integer('user_id').references(() => user.idUser).notNull(),
+	content: text('content').notNull(),
+	createdAt: timestamp('created_at', { mode: 'string', withTimezone: true }).defaultNow().notNull(),
+  });
+
 export const portionsNutrition = pgTable("PortionsNutrition", {
 	idNutritonPortion: serial("id_nutriton_portion").primaryKey().notNull(),
 	idUser: integer("id_user").notNull().unique().references(() => user.idUser, { onDelete: "cascade", onUpdate: "cascade" } ),
@@ -88,7 +94,6 @@ export const userDetail = pgTable("UserDetail", {
 	birthDate: date("birth_date", {mode: "date"}).notNull(),
 	muscularMass: doublePrecision("muscular_mass").notNull(),
 });
-
 
 export const Reminders = pgTable("Reminders", {
 	idReminders: serial("id_reminders").primaryKey().notNull(),
@@ -182,3 +187,38 @@ export const record = pgTable("Records", {
 	value: doublePrecision("value"),
 	date: timestamp("date", {mode: "date"}).notNull().defaultNow()
 })
+
+export const monthlyChallenge = pgTable("MonthlyChallenge", {
+	idChallenge: serial("id_challenge").primaryKey().notNull(),
+	name: varchar("name", { length: 100 }).notNull(),
+	description: text("description").notNull(),
+	startDate: date("start_date").notNull(),
+	endDate: date("end_date").notNull(),
+	createdAt: timestamp("created_at", { mode: "string", withTimezone: true }).defaultNow().notNull()
+  });
+
+  export const badges = pgTable("Badges", {
+	idBadge: serial("id_badge").primaryKey().notNull(),
+	name: varchar("name", { length: 50 }).notNull(),
+	description: text("description").notNull(),
+  });
+
+  export const userPoints = pgTable("UserPoints", {
+	idUserPoint: serial("id_user_point").primaryKey().notNull(),
+	idUser: integer("id_user").notNull().references(() => user.idUser, { onDelete: "cascade", onUpdate: "cascade" }),
+	points: integer("points").notNull().default(0),
+	updatedAt: timestamp("updated_at", { mode: "string", withTimezone: true }).defaultNow().notNull()
+  });
+
+
+  export const userBadges = pgTable('UserBadges', {
+	idUserBadges: serial("id_user_badges").primaryKey().notNull(),
+	userId: integer('user_id')
+		.references(() => user.idUser, { onDelete: "cascade", onUpdate: "cascade" }),
+	badgeId: integer('badge_id')
+		.references(() => badges.idBadge, { onDelete: "cascade", onUpdate: "cascade" }),
+}, (table) => {
+	return {
+		unqUserBadge: unique('unique_user_badge').on(table.userId, table.badgeId),
+	};
+});
