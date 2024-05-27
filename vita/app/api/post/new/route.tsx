@@ -6,6 +6,7 @@ import { posts } from "@/db/schema/schema";
 import { v4 as uuidv4 } from "uuid";
 import { writeFile } from "fs/promises";
 import path from "path";
+import { addUserPointsAndBadges } from "../../badgeUser/route";
 
 export async function POST(request: Request) {
   const currentWorkingDirectory = process.cwd();
@@ -41,6 +42,11 @@ export async function POST(request: Request) {
       postPhoto: postPhotoUrl,
       tag: tag
     });
+
+    // Insertamoslos datos del logro
+    const pointsToAdd = 5;
+    const badgeId = 5;
+    await addUserPointsAndBadges(session.user?.id, pointsToAdd, badgeId);
 
     return NextResponse.json(newPost, { status: 200 });
   } catch (error) {

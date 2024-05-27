@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { monthlyChallenge } from '@/db/schema/schema';
+import { monthlyChallenge, badges } from '@/db/schema/schema';
 import { db } from '@/db/drizzle';
 import { eq, and  } from 'drizzle-orm';
 
@@ -34,6 +34,10 @@ export async function POST(request: Request) {
       startDate: startDateString, // Formato YYYY-MM-DD
       endDate: endDateString, // Formato YYYY-MM-DD
       createdAt: new Date().toISOString()
+    });
+    const newBadge = await db.insert(badges).values({
+      name,
+      description,
     });
 
     return NextResponse.json({ message: "Reto creado exitosamente", data: newChallenge }, { status: 201 });
