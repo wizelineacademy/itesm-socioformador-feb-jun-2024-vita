@@ -1,5 +1,5 @@
 import { pgTable, varchar, timestamp, text, 
-	integer,  serial, doublePrecision, date } from "drizzle-orm/pg-core"
+	integer,  serial, doublePrecision, date , unique } from "drizzle-orm/pg-core"
 
 //tables
 
@@ -201,7 +201,6 @@ export const monthlyChallenge = pgTable("MonthlyChallenge", {
 	idBadge: serial("id_badge").primaryKey().notNull(),
 	name: varchar("name", { length: 50 }).notNull(),
 	description: text("description").notNull(),
-	imageUrl: text("image_url").notNull()
   });
 
   export const userPoints = pgTable("UserPoints", {
@@ -210,3 +209,16 @@ export const monthlyChallenge = pgTable("MonthlyChallenge", {
 	points: integer("points").notNull().default(0),
 	updatedAt: timestamp("updated_at", { mode: "string", withTimezone: true }).defaultNow().notNull()
   });
+
+
+  export const userBadges = pgTable('UserBadges', {
+	idUserBadges: serial("id_user_badges").primaryKey().notNull(),
+	userId: integer('user_id')
+		.references(() => user.idUser, { onDelete: "cascade", onUpdate: "cascade" }),
+	badgeId: integer('badge_id')
+		.references(() => badges.idBadge, { onDelete: "cascade", onUpdate: "cascade" }),
+}, (table) => {
+	return {
+		unqUserBadge: unique('unique_user_badge').on(table.userId, table.badgeId),
+	};
+});
