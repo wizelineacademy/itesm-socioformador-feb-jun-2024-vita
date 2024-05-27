@@ -38,7 +38,6 @@ const GetChallenge = () => {
     <div className="flex flex-col px-5 py-4 text-4xl font-bold lg:justify-start md:justify-start justify-center">
       <span className="flex items-center mb-4"> 
         <h1 className="mr-2 text-home-title">Reto de {getMonthName()}</h1>
-        <FaBell size={36} color="white"/>
       </span> 
       {challenge ? (
         <div className="mt-6">
