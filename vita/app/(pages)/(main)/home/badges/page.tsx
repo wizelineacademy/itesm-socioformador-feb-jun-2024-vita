@@ -75,7 +75,7 @@ const BadgeComponent = () => {
             const isObtained = obtainedBadge !== undefined;
             return (
               <div key={index} className={`flex flex-col items-center p-4 rounded-lg 
-               ${isObtained ? 'bg-gray-700 text-yellow-500' : 'hover:bg-gray-700 bg-gradient-to-b from-transparent to-gray-800 text-gray-200'}`}>
+               ${isObtained ? 'bg-gray-700 text-yellow-500' : 'hover:bg-gray-700 bg-gradient-to-b from-transparent to-gray-800 text-gray-600 hover:text-white'}`}>
                 <div className="text-6xl mb-2 ">
                   {index % 3 === 0 && <FaBell />}
                   {index % 3 === 1 && <FaMedal />}

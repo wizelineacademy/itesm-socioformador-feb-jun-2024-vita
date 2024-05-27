@@ -38,10 +38,10 @@ const Home = () => {
 const handleChallengeLink = () => {
 
   
-  if ( user[0].type === "admin") {
-    router.push('/home/badges');
+  if (  user[0].type === "admin") {
+    router.push('/home/createChallenge');
   } else {
-    router.push('/home/badges');
+    router.push('/home/challenge');
   }
 };
 
