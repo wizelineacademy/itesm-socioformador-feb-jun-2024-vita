@@ -41,9 +41,10 @@ export async function POST(request: Request) {
       dueTime: new Date(startTime),
       endTime: endTime ? new Date(endTime) : null 
     };
+    
+    const res = await db.insert(Reminders).values(insertValues); 
 
     // Insertamoslos datos del logro
-    const res = await db.insert(Reminders).values(insertValues); 
     const pointsToAdd = 10;
     const badgeId = 1;
     await addUserPointsAndBadges(session.user?.id, pointsToAdd, badgeId);

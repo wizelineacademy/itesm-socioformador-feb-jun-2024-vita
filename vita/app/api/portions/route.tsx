@@ -5,6 +5,7 @@ import { authOptions } from "@/lib/auth/authOptions";
 import { db } from "@/db/drizzle";
 import { portionsNutrition } from "@/db/schema/schema";
 import { eq } from "drizzle-orm";
+import { addUserPointsAndBadges } from "../badgeUser/route";
 
 
 export async function GET(request: Request) {
@@ -74,7 +75,9 @@ export async function POST(request: Request) {
         fat: Number(fat)
       })
     }
-
+    const pointsToAdd = 5;
+    const badgeId = 4;
+    await addUserPointsAndBadges(session.user?.id, pointsToAdd, badgeId);
     return NextResponse.json(res, {status: 200});
   } catch (error) {
     console.log(error)

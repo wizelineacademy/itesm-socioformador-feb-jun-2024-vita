@@ -71,7 +71,7 @@ const BadgeComponent = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 w-full md:w-3/4">
         {badges ? (
           badges.map((badge, index) => {
-            const obtainedBadge = userBadges && userBadges.find(userBadge => userBadge.badgeId === badge.idBadge && userBadge.userId === user[0]?.idUser);
+            const obtainedBadge = userBadges && userBadges.find(userBadge => userBadge.badgeId === badge.idBadge && user && user[0]?.idUser === userBadge.userId);
             const isObtained = obtainedBadge !== undefined;
             return (
               <div key={index} className={`flex flex-col items-center p-4 rounded-lg 
