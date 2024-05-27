@@ -22,7 +22,7 @@ export async function POST(request: Request) {
         value: record.value,
         category: record.category
       }))
-  
+       
       const res = await db.insert(record).values(insertValues); 
   
       return NextResponse.json(res, { status: 200 });
