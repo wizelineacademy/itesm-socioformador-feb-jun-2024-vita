@@ -162,6 +162,13 @@
       "when": 1716689003487,
       "tag": "0022_membership",
       "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "5",
+      "when": 1716762642372,
+      "tag": "0023_badges",
+      "breakpoints": true
     }
   ]
 }

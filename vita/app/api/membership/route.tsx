@@ -17,7 +17,7 @@ export async function GET(request: Request ) {
     const res = await db.select()
     .from(user)
     .where(eq(session.user?.id, user.idUser)) 
-
+    
     return NextResponse.json(res, { status: 200 });
   } catch (error) {
     console.error(error);

@@ -24,9 +24,9 @@ export const user = pgTable("User", {
     profilePhoto: text('profile_photo'),
     membership: text('membership'),
     membershipTime: timestamp("membership_time", {mode: "date"}),
+	type: text('type'),
     createdAt: timestamp("created_at", { mode: "string", withTimezone: true }).defaultNow().notNull()
 });
-
 
 export const posts = pgTable('Post', {
 	idPost: serial('id_posts').primaryKey().notNull(),
@@ -71,7 +71,6 @@ export const following = pgTable("Following", {
 	createdAt: timestamp('created_at', { mode: 'string', withTimezone: true }).defaultNow().notNull(),
   });
 
- 
 export const portionsNutrition = pgTable("PortionsNutrition", {
 	idNutritonPortion: serial("id_nutriton_portion").primaryKey().notNull(),
 	idUser: integer("id_user").notNull().unique().references(() => user.idUser, { onDelete: "cascade", onUpdate: "cascade" } ),
@@ -95,7 +94,6 @@ export const userDetail = pgTable("UserDetail", {
 	birthDate: date("birth_date", {mode: "date"}).notNull(),
 	muscularMass: doublePrecision("muscular_mass").notNull(),
 });
-
 
 export const Reminders = pgTable("Reminders", {
 	idReminders: serial("id_reminders").primaryKey().notNull(),
@@ -190,3 +188,25 @@ export const record = pgTable("Records", {
 	date: timestamp("date", {mode: "date"}).notNull().defaultNow()
 })
 
+export const monthlyChallenge = pgTable("MonthlyChallenge", {
+	idChallenge: serial("id_challenge").primaryKey().notNull(),
+	name: varchar("name", { length: 100 }).notNull(),
+	description: text("description").notNull(),
+	startDate: date("start_date").notNull(),
+	endDate: date("end_date").notNull(),
+	createdAt: timestamp("created_at", { mode: "string", withTimezone: true }).defaultNow().notNull()
+  });
+
+  export const badges = pgTable("Badges", {
+	idBadge: serial("id_badge").primaryKey().notNull(),
+	name: varchar("name", { length: 50 }).notNull(),
+	description: text("description").notNull(),
+	imageUrl: text("image_url").notNull()
+  });
+
+  export const userPoints = pgTable("UserPoints", {
+	idUserPoint: serial("id_user_point").primaryKey().notNull(),
+	idUser: integer("id_user").notNull().references(() => user.idUser, { onDelete: "cascade", onUpdate: "cascade" }),
+	points: integer("points").notNull().default(0),
+	updatedAt: timestamp("updated_at", { mode: "string", withTimezone: true }).defaultNow().notNull()
+  });
