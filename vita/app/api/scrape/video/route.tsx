@@ -1,4 +1,3 @@
-import axios from "axios";
 import puppeteer from 'puppeteer';
 
 import { NextRequest, NextResponse } from "next/server";

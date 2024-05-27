@@ -13,6 +13,9 @@ export interface Record {
     category: string
 }
 
+export type ValueRecord = Pick<Record, "name" | "value">
+
+
 export interface Autoevaluation {
     goalMetrics: GoalMetric[]
     featureMetrics: Metric[]

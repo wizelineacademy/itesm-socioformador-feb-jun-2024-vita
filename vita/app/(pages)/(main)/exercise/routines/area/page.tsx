@@ -80,7 +80,8 @@ const AreaRoutine = () => {
             }); 
             return "";
         }
-    
+
+
         let prompt = `Quiero entrenar: `
         selected.forEach((el, index) => {
             if(index != selected.length){
@@ -106,6 +107,14 @@ const AreaRoutine = () => {
             if(message === ""){
                 return;
             }
+
+            const selected = selections.filter(selection => selection)
+
+            await axios.post("/api/records", selected.map(area => ({
+                name: "routine_area" + area,
+                value: 1,
+                category: "exercise"
+            })))
     
             Swal.fire({
                 title: 'Cargando',

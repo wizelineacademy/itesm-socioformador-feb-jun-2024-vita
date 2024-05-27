@@ -17,7 +17,8 @@ const Home = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [isOpen2, setIsOpen2] = useState(true); 
   const [userData, setUserData] = useState<HealthData | null>(null);
-  const [user, setUser] = useState<UserAdmin| null>(null);
+  const [user, setUser] = useState<UserAdmin[]| null>(null);
+
   const getData = async () => {
     try {
         const response = await axios.get("/api/healthdata");
@@ -36,9 +37,8 @@ const Home = () => {
 }; 
 
 const handleChallengeLink = () => {
-
   
-  if ( user[0].type === "admin") {
+  if ( user && user[0].type === "admin") {
     router.push('/home/createChallenge');
   } else {
     router.push('/home/getChallenge');
@@ -117,7 +117,7 @@ const getDataUser = async () => {
       
       <div className="flex flex-col lg:flex-row   items-center justify-center">
         
-        <div id="Izquierda" className="flex flex-col " > 
+        <div id="Izquierda" className="flex flex-col" > 
 
           <div className="hidden md:block bg-color-home2 h-[250px] w-[225px] mb-4 mt-4 pb-4 rounded-3xl">
             <h2 className="text-white font-bold text-2xl ml-4 mt-4">Recomendación del Día</h2>
@@ -132,11 +132,11 @@ const getDataUser = async () => {
             </div>
           </div>
 
-          <div id="Preguntame" className="bg-color-home5 h-16 w-56 mt-4 rounded-full flex items-center justify-between px-4 
+          <Link href="/home/blog" id="Preguntame" className="bg-color-home5 h-16 w-56 mt-4 rounded-full flex items-center justify-left gap-x-5 px-4 
           transition-colors duration-300 ease-in-out hover:bg-color-home6 hover:cursor-pointer">
             <FaComments size={24}color='white' className="ml-4 mb-2"  />
-            <span className="text-white font-bold text-2xl">Pregúntame</span>
-          </div>
+            <span className="text-white font-bold text-2xl">Blog</span>
+          </Link>
           <Link href="/home/medicalprofile"> 
             <div id="Perfil" className="bg-color-home5 h-16 w-56  mt-4 rounded-full flex items-center
              justify-between px-4transition-colors duration-300 ease-in-out hover:bg-color-home6
@@ -201,7 +201,7 @@ const getDataUser = async () => {
           
         <div id="Derecha" className="flex flex-col lg:mr-6" >
 
-          <div id="Dashboard" className=" flex flex-row bg-color-home7 h-[120px] w-[232px] rounded-3xl justify-between mt-4
+          <Link href="/home/dashboard" id="Dashboard" className=" flex flex-row bg-color-home7 h-[120px] w-[232px] rounded-3xl justify-between mt-4
            transition-colors duration-300 ease-in-out hover:bg-color-home2 hover:cursor-pointer" >
             <h2 className="text-color-home6 font-bold text-2xl pl-4 mt-2 w-[120px] ">
               Mi Dashboard de Salud
@@ -214,7 +214,7 @@ const getDataUser = async () => {
                 size={32}
               />
             </div>
-          </div>
+          </Link>
 
           <div className=" flex flex-col items-center justify-center bg-color-home7 rounded-3xl mt-4 pb-2">
             <div className="flex flex-row items-center">
