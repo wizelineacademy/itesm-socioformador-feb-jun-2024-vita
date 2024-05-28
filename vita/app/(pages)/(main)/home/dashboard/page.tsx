@@ -5,6 +5,7 @@ import { FaHeart, FaComments, FaCircle, FaAngleRight,FaSuitcase , FaDumbbell , F
 import axios from  "axios"
 import { BarChartPlot } from "@/components/charts/BarChartPlot";
 import { ValueRecord } from "@/data/datatypes/autoeval";
+import PieChartPlot, { PieChartRecord } from "@/components/charts/PieChartPlot";
 
 const SleepDashboard = () => {
 
@@ -12,13 +13,21 @@ const SleepDashboard = () => {
   const [sleepProgress, setSleepProgress] = useState<ValueRecord[]>([]);
 
   const fetchSleepHours = async () => {
-    const res = await axios.get("/api/records/sleep");
-    setSleepHours(res.data)
+    try {
+      const res = await axios.get("/api/records/sleep");
+      setSleepHours(res.data)
+    } catch(error){
+      console.log(error)
+    }
   }
 
   const fetchSleepProgress = async () => {
-    const res = await axios.get("/api/goal_evaluations/sleep");
-    setSleepProgress(res.data)
+    try {
+      const res = await axios.get("/api/goal_evaluations/sleep");
+      setSleepProgress(res.data)
+    } catch(error){
+      console.log(error)
+    }
   }
 
   useEffect(() => {
@@ -58,6 +67,136 @@ const SleepDashboard = () => {
     </div>
     
   )
+}
+
+const ExerciseDashboard = () => {
+  const [exerciseTypes, setExerciseTypes] = useState<PieChartRecord[]>([]);
+  const [exerciseAreas, setExerciseAreas] = useState<PieChartRecord[]>([]);
+  const [exerciseProgress, setExerciseProgress] = useState<ValueRecord[]>([]);
+  const [numRoutines, setNumRoutines] = useState<number>(0);
+
+  const fetchExerciseAreas = async () => {
+    try {
+      const res = await axios.get("/api/feature_usage/exercise/area");
+      setExerciseAreas(res.data)
+    } catch(error){
+      console.log(error)
+    }
+  }
+
+  const fetchExerciseTypes = async () => {
+    try {
+      const res = await axios.get("/api/feature_usage/exercise/type");
+      setExerciseTypes(res.data);
+    } catch(error){
+      console.log(error);
+    }
+  }
+
+  const fetchExerciseProgress = async () => {
+    try {
+      const res = await axios.get("/api/goal_evaluations/exercise");
+      setExerciseProgress(res.data)
+    } catch(error){
+      console.log(error)
+    }
+  }
+
+  const fetchNumberOfRoutines = async () => {
+    const res = await axios.get("/api/feature_usage/exercise/days");
+    setNumRoutines(res.data.amount)
+  }
+
+  useEffect(() => {
+    fetchExerciseProgress();
+    fetchExerciseAreas();
+    fetchExerciseTypes();
+    fetchNumberOfRoutines();
+  }, [])
+
+  return (
+    <div className="w-full pb-10">
+
+      <div className="w-full pt-5 lg:max-w-[1000px]">
+        <h4 className={`font-bold text-lg rounded-xl py-2 lg:px-5 text-mid-green`}>
+          Routinas generadas en el mes
+        </h4>      
+        <p className="rounded-full px-5 lg:ml-5 py-3 font-bold bg-mid-green text-white text-xl w-32">{numRoutines}</p>
+      </div>
+
+      <div className="w-full py-10 lg:max-w-[1000px] h-[300px] md:h-[400px]">
+        <h4 className={`font-bold text-lg rounded-xl py-2 lg:px-5 text-mid-green`}>
+          Progreso en meta
+        </h4>      
+        <BarChartPlot 
+          xLabel="Mes" 
+          yLabel="Calificación"
+          tags={["Mes", "Calificación"]} 
+          data={exerciseProgress} 
+          barColor="fill-mid-green" 
+          infoColor="text-mid-green"
+        />
+      </div>
+
+      <div className="w-full py-10 lg:max-w-[1000px] h-[500px]">
+        <h4 className={`font-bold text-lg rounded-xl pt-2 lg:px-5 text-mid-green`}>
+          Áreas más entrenadas en el último mes
+        </h4>  
+        <PieChartPlot
+          data={exerciseAreas}
+          colors={['#278E7C', '#00C49F', '#194A48', '#072E07', '#256533', '#195225']}
+        />
+      </div>
+
+      <div className="w-full py-10 lg:max-w-[1000px] h-[500px]">T
+        <h4 className={`font-bold text-lg rounded-xl pt-2 lg:px-5 text-mid-green`}>
+          Ejercicios más realizados en el último mes
+        </h4>  
+        <PieChartPlot
+          data={exerciseTypes}
+          colors={['#278E7C', '#00C49F', '#194A48', '#072E07', '#256533', '#195225']}
+        />
+      </div>
+
+      
+    </div>
+  )
+}
+
+const NutritionDashboard = () => {
+
+  const [nutritionProgress, setNutritionProgress] = useState<ValueRecord[]>([]);
+  
+  const fetchNutritionProgress = async () => {
+    try {
+      const res = await axios.get("/api/goal_evaluations/nutrition");
+      setNutritionProgress(res.data)
+    } catch(error){
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchNutritionProgress()
+  })
+
+  return(
+    <div className="w-full pb-10">
+      <div className="w-full py-10 lg:max-w-[1000px] h-[300px] md:h-[400px]">
+        <h4 className={`font-bold text-lg rounded-xl py-2 lg:px-5 text-decoration-nutrition-colordark`}>
+          Progreso en meta
+        </h4>      
+        <BarChartPlot 
+          xLabel="Mes" 
+          yLabel="Calificación"
+          tags={["Mes", "Calificación"]} 
+          data={nutritionProgress} 
+          barColor="fill-decoration-nutrition-colordark" 
+          infoColor="text-decoration-nutrition-colordark"
+        />
+      </div>
+    </div>
+  )   
 }
 
 const Dashboard = () => {
@@ -102,6 +241,14 @@ const Dashboard = () => {
 
       {selection === 0 &&
         <SleepDashboard/>
+      }
+
+      {selection === 1 &&
+        <ExerciseDashboard/>
+      }
+
+      {selection === 2 &&
+        <NutritionDashboard/>
       }
 
     </div>
