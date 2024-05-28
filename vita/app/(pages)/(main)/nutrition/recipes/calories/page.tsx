@@ -78,6 +78,13 @@ const RecipesCalories = () => {
             if(message === ""){
                 return;
             }
+
+            //add record
+            const usageRecords = [{
+                name: "recipes_calories",
+                detail: `${calories}`
+            }];
+            await axios.post("/api/feature_usage", { usageRecords });
     
             swal.fire({
                 title: 'Cargando',

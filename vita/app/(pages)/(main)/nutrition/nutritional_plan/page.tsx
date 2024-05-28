@@ -48,6 +48,13 @@ const NutritionalPlan = () => {
           return;
       }
 
+      //add record
+      const usageRecords = [{
+        name: "recipes_plan",
+        detail: `Generadas a partir de mis porciones`
+      }];
+      await axios.post("/api/feature_usage", { usageRecords });
+
       Swal.fire({
           title: 'Cargando',
           text: 'Generando las recetas...',

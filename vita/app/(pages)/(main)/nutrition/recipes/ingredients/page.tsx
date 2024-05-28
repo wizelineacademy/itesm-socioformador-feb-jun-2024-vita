@@ -153,6 +153,13 @@ const RecipesIngredients = () => {
             return;
         }
 
+        //add record
+        const usageRecords = [{
+            name: "recipes_ingredients",
+            detail: `${selectedIngredients.length > 0 ? `Incluir: ${selectedIngredients[0]}` : `Excluir: ${excludedIngredients[0]}`}`
+        }];
+        await axios.post("/api/feature_usage", { usageRecords });
+
         swal.fire({
             title: 'Cargando',
             text: 'Generando las recetas...',

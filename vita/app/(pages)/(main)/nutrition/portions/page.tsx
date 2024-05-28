@@ -176,7 +176,9 @@ const Nutrition: FC = () => {
             const response = await axios.get("/api/healthdata");
             const data = response.data;
             setGender(data.sex);
-            setOptions(calories_portions[data.sex === "M" ? "M" : "F"]["increase"])
+            const portions = calories_portions[data.sex === "M" ? "M" : "F"]["increase"]
+            setOptions(portions)
+            setCaloriesSelection(Object.keys(options)[0])
 
         } catch(error){
             Swal.fire({
@@ -254,6 +256,7 @@ const Nutrition: FC = () => {
                             <p className="mb-2 font-semibold text-white md:mb-3 md:max-w-40 lg:max-w-none">Cantidad de calorías</p>
                             <div className="flex items-center">
                                 <select
+                                    value={caloriesSelection}
                                     onChange={(e) => {
                                         setCaloriesSelection(e.target.value)
                                     }}
