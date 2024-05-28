@@ -1,7 +1,7 @@
 import { db } from "@/db/drizzle";
 import { record } from "@/db/schema/schema";
 import { authOptions } from "@/lib/auth/authOptions";
-import { avg, desc, eq, sql } from "drizzle-orm";
+import { and, avg, desc, eq, sql } from "drizzle-orm";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
@@ -20,7 +20,11 @@ export async function GET(request: Request) {
         value: avg(record.value)
       })
       .from(record)
-      .where(eq(record.name, "sleep_hours"))
+      .where(
+        and(
+          eq(record.idUser, session.user?.id),
+          eq(record.name, "sleep_hours"))
+        )
       .groupBy(sql`DATE(${record.date})`)
       .orderBy(desc(sql`DATE(${record.date})`))
       .limit(7)
