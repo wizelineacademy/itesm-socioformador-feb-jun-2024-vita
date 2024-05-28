@@ -6,6 +6,7 @@ import axios from  "axios"
 import { BarChartPlot } from "@/components/charts/BarChartPlot";
 import { ValueRecord } from "@/data/datatypes/autoeval";
 import PieChartPlot, { PieChartRecord } from "@/components/charts/PieChartPlot";
+import { Portion } from "@/data/datatypes/portion";
 
 const SleepDashboard = () => {
 
@@ -103,8 +104,12 @@ const ExerciseDashboard = () => {
   }
 
   const fetchNumberOfRoutines = async () => {
-    const res = await axios.get("/api/feature_usage/exercise/days");
-    setNumRoutines(res.data.amount)
+    try {
+      const res = await axios.get("/api/feature_usage/exercise/days");
+      setNumRoutines(res.data.amount)
+    } catch(error){
+      console.log(error)
+    }
   }
 
   useEffect(() => {
@@ -166,6 +171,8 @@ const ExerciseDashboard = () => {
 const NutritionDashboard = () => {
 
   const [nutritionProgress, setNutritionProgress] = useState<ValueRecord[]>([]);
+  const [numRecipes, setNumRecipes] = useState<number>(0);
+  const [portions, setPortions] = useState<PieChartRecord[]>([]);
   
   const fetchNutritionProgress = async () => {
     try {
@@ -176,12 +183,48 @@ const NutritionDashboard = () => {
     }
   }
 
+  const fetchNumberOfRecipes = async () => {
+    try {
+      const res = await axios.get("/api/feature_usage/nutrition/days");
+      setNumRecipes(res.data.amount)
+    } catch(error){
+      console.log(error)
+    }
+  }
+
+  const fetchPortions = async () => {
+    try {
+      const res = await axios.get<Portion>("/api/portions")
+      const portionsRaw = res.data;
+      delete portionsRaw.idUser;
+      delete portionsRaw.idNutritonPortion;
+      const portionsNew = Object.keys(portionsRaw).map(key => ({
+        type: key,
+        count: portionsRaw[key] as number
+      }))
+
+      setPortions(portionsNew)
+    } catch(error){
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     fetchNutritionProgress()
-  })
+    fetchNumberOfRecipes()
+    fetchPortions()
+  }, [])
 
   return(
     <div className="w-full pb-10">
+
+      <div className="w-full pt-5 lg:max-w-[1000px]">
+        <h4 className={`font-bold text-lg rounded-xl py-2 lg:px-5 text-decoration-nutrition-colordark`}>
+          Recetas generadas en el mes
+        </h4>      
+        <p className="rounded-full px-5 lg:ml-5 py-3 font-bold bg-decoration-nutrition-colordark text-white text-xl w-32">{numRecipes}</p>
+      </div>
+
       <div className="w-full py-10 lg:max-w-[1000px] h-[300px] md:h-[400px]">
         <h4 className={`font-bold text-lg rounded-xl py-2 lg:px-5 text-decoration-nutrition-colordark`}>
           Progreso en meta
@@ -193,6 +236,17 @@ const NutritionDashboard = () => {
           data={nutritionProgress} 
           barColor="fill-decoration-nutrition-colordark" 
           infoColor="text-decoration-nutrition-colordark"
+        />
+      </div>
+
+
+      <div className="w-full py-10 lg:max-w-[1000px] h-[500px]">
+        <h4 className={`font-bold text-lg rounded-xl pt-2 lg:px-5 text-decoration-nutrition-colordark`}>
+          Mis porciones
+        </h4>  
+        <PieChartPlot
+          data={portions}
+          colors={['#9D2F7E', '#CD5BAD', '#741B5B', '#df9fcd', '#521240', '#DA56B575', '#F84AC7', "#bb499bc3"]}
         />
       </div>
     </div>
