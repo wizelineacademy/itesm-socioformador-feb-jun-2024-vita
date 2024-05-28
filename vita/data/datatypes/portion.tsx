@@ -1,4 +1,8 @@
-export interface Portion {
+interface Indexable {
+    [key: string]: number;
+}
+
+export interface Portion extends Indexable {
     fruits: number,
     vegetables: number,
     legumes: number,

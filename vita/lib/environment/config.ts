@@ -3,7 +3,6 @@ import { Resource } from "sst";
 
 dotenv.config();
 
-
 const config = process.env.NODE_ENV === "production" ? {
     nodeEnv: process.env.NODE_ENV!,
     openApiKey: Resource.OpenApiKey.value,
@@ -16,6 +15,7 @@ const config = process.env.NODE_ENV === "production" ? {
     nextAuthUrl: process.env.NEXTAUTH_URL!,
     nextAuthSecret: process.env.NEXTAUTH_SECRET!,
     nextPublicSecret: process.env.NEXT_PUBLIC_SECRET!,
+    geminiApiKey: process.env.GEMINI_API_KEY
 } : {
     nodeEnv: process.env.NODE_ENV!,
     databaseUrl: process.env.DATABASE_URL!,
@@ -30,6 +30,7 @@ const config = process.env.NODE_ENV === "production" ? {
     databaseName: process.env.DATABASE_NAME!,
     webhookVerifyToken: process.env.WEBHOOK_VERIFY_TOKEN,
     graphApiToken: process.env.GRAPH_API_TOKEN,
+    geminiApiKey: process.env.GEMINI_API_KEY
 };
 
 

@@ -46,6 +46,13 @@ const Chat = () => {
         messages: newMessages
       });
 
+      //add record    
+      const usageRecords = [{
+        name: "chat_message",
+        detail: "web"
+      }];
+      await axios.post("/api/feature_usage", { usageRecords });
+
       setMessages([...newMessages, response.data]);
       form.reset();
       resetTranscript();
