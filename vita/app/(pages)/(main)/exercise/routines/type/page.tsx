@@ -73,9 +73,19 @@ const TypeRoutine = () => {
         setIcons(ics);
     }, [])
 
+    const findSelectedIndices = ():number[] => {
+        const indices:number[] = []
+        selections.forEach((selection, index) => {
+            if(selection){
+                indices.push(index)
+            }
+        })
+        return indices;
+    }
+
     const generatePrompt = () => {
 
-        const selected = selections.filter(selection => selection)
+        const selected = findSelectedIndices();
 
         if(selected.length === 0){
             Swal.fire({
@@ -101,9 +111,9 @@ const TypeRoutine = () => {
         let prompt = `Quiero realizar los siguientes ejercicios: `
         selected.forEach((el, index) => {
             if(index != selected.length){
-                prompt += `${el}, `
+                prompt += `${types[el]}, `
             } else {
-                prompt += `${el}.`
+                prompt += `${types[el]}.`
             }
         })
     
@@ -123,6 +133,13 @@ const TypeRoutine = () => {
             if(message === ""){
                 return;
             }
+
+            const selected = findSelectedIndices();
+            const usageRecords = selected.map((area) => ({
+                name: "routine_type",
+                detail: types[area]
+            }))
+            await axios.post("/api/feature_usage", { usageRecords })
     
             Swal.fire({
                 title: 'Cargando',
