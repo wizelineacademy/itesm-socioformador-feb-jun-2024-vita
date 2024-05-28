@@ -1,5 +1,5 @@
 import { db } from "@/db/drizzle";
-import { Goals, goalEvaluation } from "@/db/schema/schema";
+import { record } from "@/db/schema/schema";
 import { authOptions } from "@/lib/auth/authOptions";
 import { getDateNDaysAgo } from "@/lib/dateOps/dateOps";
 import { and, avg, desc, eq, gte, sql } from "drizzle-orm";
@@ -23,7 +23,7 @@ const months:Record<string, string> = {
 
 export async function GET(
     request: Request,
-    { params }: { params: { category:string } }
+    { params }: { params: { name:string } }
 ) {
     try {
 
@@ -32,24 +32,23 @@ export async function GET(
       if (!session) {
         return NextResponse.json("Unauthorized", { status: 401 });
       }
-
+  
       //get data from the last 12 months
       const res = await db.select({
-        name: sql`EXTRACT(MONTH FROM ${goalEvaluation.updated_at})`,
-        value: avg(goalEvaluation.grade)
+        name: sql`EXTRACT(MONTH FROM ${record.date})`,
+        value: avg(record.value)
       })
-      .from(goalEvaluation)
-      .innerJoin(Goals, eq(Goals.idGoal, goalEvaluation.idGoal))
+      .from(record)
       .where(
         and(
-          eq(goalEvaluation.idUser, session.user?.id),
-          eq(goalEvaluation.name, "goal_progress"),
-          eq(Goals.category, params.category),
-          gte(goalEvaluation.updated_at, getDateNDaysAgo(365))
+          eq(record.idUser, session.user?.id),
+          eq(record.name, params.name),
+          gte(record.date, getDateNDaysAgo(365))
+
         )
       )
-      .groupBy(sql`EXTRACT(MONTH FROM ${goalEvaluation.updated_at})`)
-      .orderBy(desc(sql`EXTRACT(MONTH FROM ${goalEvaluation.updated_at})`))
+      .groupBy(sql`EXTRACT(MONTH FROM ${record.date})`)
+      .orderBy(desc(sql`EXTRACT(MONTH FROM ${record.date})`))
       .limit(12)
 
       //ordered data by month
