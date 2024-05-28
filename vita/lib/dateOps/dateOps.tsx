@@ -5,6 +5,14 @@ export const formatDate = (date:Date):string => {
     return `${year}-${month}-${day}`
 }
 
+export const getYear = (date: Date): string => {
+    return date.getFullYear().toString();
+}
+
+export const getMonth = (date: Date): string => {
+    return String(date.getMonth() + 1).padStart(2, "0");
+}
+
 export const getTodayDate = ():string => {
     const currentDate = new Date();
     return formatDate(currentDate)
@@ -15,6 +23,11 @@ export const getYesterdayDate = ():string => {
     const yesterdayDate = new Date(currentDate);
     yesterdayDate.setDate(currentDate.getDate() - 1);
     return formatDate(yesterdayDate);
+}
+
+export const getDateNDaysAgo = (n: number):Date => {
+    const now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate() - n);
 }
 
 export const generateDate = (day:string, time:string):Date => {

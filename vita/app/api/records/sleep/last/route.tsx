@@ -2,7 +2,7 @@ import { db } from "@/db/drizzle";
 import { record } from "@/db/schema/schema";
 import { authOptions } from "@/lib/auth/authOptions";
 import { getDifferenceInHours } from "@/lib/dateOps/dateOps";
-import { desc, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
@@ -17,7 +17,12 @@ export async function GET(request: Request) {
   
       const res = await db.select()
       .from(record)
-      .where(eq(record.name, "sleep_hours"))
+      .where(
+        and(
+          eq(record.name, "sleep_hours"),
+          eq(record.idUser, session.user?.id)
+        )
+      )
       .orderBy(desc(record.date))
       .limit(1)
 

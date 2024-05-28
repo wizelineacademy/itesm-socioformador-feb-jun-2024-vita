@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 import { IconType } from 'react-icons';
 
-import { FaCheck, FaDumbbell, FaRunning } from 'react-icons/fa';
+import { FaDumbbell, FaRunning } from 'react-icons/fa';
 import { FaHeartPulse } from 'react-icons/fa6';
 import { MdOutlineSportsGymnastics } from "react-icons/md";
 
@@ -43,7 +43,6 @@ const AreaRoutine = () => {
   
     const router = useRouter();
 
-
     useEffect(() => {
         const ics: IconType[] = []
 
@@ -57,9 +56,19 @@ const AreaRoutine = () => {
         setIcons(ics);
     }, [])
 
+    const findSelectedIndices = ():number[] => {
+        const indices:number[] = []
+        selections.forEach((selection, index) => {
+            if(selection){
+                indices.push(index)
+            }
+        })
+        return indices;
+    }
+
     const generatePrompt = () => {
 
-        const selected = selections.filter(selection => selection)
+        const selected = findSelectedIndices();
 
         if(selected.length === 0){
             Swal.fire({
@@ -81,13 +90,12 @@ const AreaRoutine = () => {
             return "";
         }
 
-
         let prompt = `Quiero entrenar: `
         selected.forEach((el, index) => {
             if(index != selected.length){
-                prompt += `${el}, `
+                prompt += `${areas[el]}, `
             } else {
-                prompt += `${el}.`
+                prompt += `${areas[el]}.`
             }
         })
     
@@ -108,13 +116,13 @@ const AreaRoutine = () => {
                 return;
             }
 
-            const selected = selections.filter(selection => selection)
+            const selected = findSelectedIndices();
+            const usageRecords = selected.map((area) => ({
+                name: "routine_area",
+                detail: areas[area]
+            }))
 
-            await axios.post("/api/records", selected.map(area => ({
-                name: "routine_area" + area,
-                value: 1,
-                category: "exercise"
-            })))
+            await axios.post("/api/feature_usage", { usageRecords })
     
             Swal.fire({
                 title: 'Cargando',

@@ -176,6 +176,13 @@
       "when": 1716824188638,
       "tag": "0024_userBadge",
       "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "5",
+      "when": 1716852756201,
+      "tag": "0025_featureUsage",
+      "breakpoints": true
     }
   ]
 }

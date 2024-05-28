@@ -187,6 +187,14 @@ export const record = pgTable("Records", {
 	date: timestamp("date", {mode: "date"}).notNull().defaultNow()
 })
 
+export const featureUsage = pgTable("FeatureUsage", {
+	idFeatureUsage: serial("id_feature_usage").primaryKey().notNull(),
+	idUser: integer("id_user").notNull().references(() => user.idUser, { onDelete: "cascade", onUpdate: "cascade" } ),
+	name: varchar("name", {length: 50}).notNull(),
+	detail: varchar("detail", {length: 50}).notNull(),
+	date: timestamp("date", {mode: "date"}).notNull().defaultNow()
+})
+
 export const monthlyChallenge = pgTable("MonthlyChallenge", {
 	idChallenge: serial("id_challenge").primaryKey().notNull(),
 	name: varchar("name", { length: 100 }).notNull(),
@@ -208,7 +216,6 @@ export const monthlyChallenge = pgTable("MonthlyChallenge", {
 	points: integer("points").notNull().default(0),
 	updatedAt: timestamp("updated_at", { mode: "string", withTimezone: true }).defaultNow().notNull()
   });
-
 
   export const userBadges = pgTable('UserBadges', {
 	idUserBadges: serial("id_user_badges").primaryKey().notNull(),

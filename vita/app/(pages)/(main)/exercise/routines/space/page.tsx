@@ -54,6 +54,12 @@ const TypeRoutine = () => {
             if(message === ""){
                 return;
             }
+
+            const usageRecords = [{
+                name: "routine_space",
+                detail: space
+            }]
+            await axios.post("/api/feature_usage", { usageRecords })
     
             Swal.fire({
                 title: 'Cargando',

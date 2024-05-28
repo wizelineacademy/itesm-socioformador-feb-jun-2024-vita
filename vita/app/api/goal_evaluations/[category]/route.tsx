@@ -1,7 +1,7 @@
 import { db } from "@/db/drizzle";
-import { goalEvaluation } from "@/db/schema/schema";
+import { Goals, goalEvaluation } from "@/db/schema/schema";
 import { authOptions } from "@/lib/auth/authOptions";
-import { avg, desc, eq, sql } from "drizzle-orm";
+import { and, avg, desc, eq, sql } from "drizzle-orm";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
@@ -20,7 +20,10 @@ const months:Record<string, string> = {
     "12": "Diciembre"
 }
 
-export async function GET(request: Request) {
+export async function GET(
+    request: Request,
+    { params }: { params: { category:string } }
+) {
     try {
 
       const session = await getServerSession(authOptions);
@@ -35,7 +38,14 @@ export async function GET(request: Request) {
         value: avg(goalEvaluation.grade)
       })
       .from(goalEvaluation)
-      .where(eq(goalEvaluation.name, "goal_progress"))
+      .innerJoin(Goals, eq(Goals.idGoal, goalEvaluation.idGoal))
+      .where(
+        and(
+          eq(goalEvaluation.idUser, session.user?.id),
+          eq(goalEvaluation.name, "goal_progress"),
+          eq(Goals.category, params.category)
+        )
+      )
       .groupBy(sql`EXTRACT(MONTH FROM ${goalEvaluation.updated_at})`)
       .orderBy(desc(sql`EXTRACT(MONTH FROM ${goalEvaluation.updated_at})`))
       .limit(12)
