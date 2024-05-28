@@ -30,7 +30,6 @@ export const confirmAndDelete = async (
         });
       }
     } catch (error) {
-      alert(error);
       Swal.fire({
         title: 'Error',
         text: `Ocurrió un error al eliminar el ${itemType}`,
