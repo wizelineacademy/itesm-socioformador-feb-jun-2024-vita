@@ -7,6 +7,7 @@ import { BarChartPlot } from "@/components/charts/BarChartPlot";
 import { ValueRecord } from "@/data/datatypes/autoeval";
 import PieChartPlot, { PieChartRecord } from "@/components/charts/PieChartPlot";
 import { Portion } from "@/data/datatypes/portion";
+import { LineChartPlot } from "@/components/charts/LineChartPlot";
 
 const SleepDashboard = () => {
 
@@ -153,7 +154,7 @@ const ExerciseDashboard = () => {
         />
       </div>
 
-      <div className="w-full py-10 lg:max-w-[1000px] h-[500px]">T
+      <div className="w-full py-10 lg:max-w-[1000px] h-[500px]">
         <h4 className={`font-bold text-lg rounded-xl pt-2 lg:px-5 text-mid-green`}>
           Ejercicios más realizados en el último mes
         </h4>  
@@ -173,7 +174,10 @@ const NutritionDashboard = () => {
   const [nutritionProgress, setNutritionProgress] = useState<ValueRecord[]>([]);
   const [numRecipes, setNumRecipes] = useState<number>(0);
   const [portions, setPortions] = useState<PieChartRecord[]>([]);
-  
+  const [weightRecords, setWeightRecords] = useState<ValueRecord[]>([])
+  const [muscularRecords, setMuscularRecords] = useState<ValueRecord[]>([])
+  const [fatRecords, setFatRecords] = useState<ValueRecord[]>([])
+
   const fetchNutritionProgress = async () => {
     try {
       const res = await axios.get("/api/goal_evaluations/nutrition");
@@ -192,14 +196,57 @@ const NutritionDashboard = () => {
     }
   }
 
-  const fetchPortions = async () => {
+  const fetchWeightRecords = async () => {
     try {
+      const res = await axios.get("/api/records/name/peso");
+      setWeightRecords(res.data)
+    } catch(error){
+      console.log(error)
+    }
+  }
+
+  const fetchMuscularRecords = async () => {
+    try {
+      const res = await axios.get("/api/records/name/masa_muscular");
+      setMuscularRecords(res.data)
+    } catch(error){
+      console.log(error)
+    }
+  }
+
+  const fetchFatRecords = async () => {
+    try {
+      const res = await axios.get("/api/records/name/porcentaje_grasa");
+      setFatRecords(res.data)
+    } catch(error){
+      console.log(error)
+    }
+  }
+
+  const fetchPortions = async () => {
+    
+    try {
+
+      //dictionary for translation
+      const trans:Record<string, string> = {
+        "fruits": "Frutas",
+        "vegetables": "Verduras",
+        "milk": "Leche",
+        "legumes": "Leguminosas",
+        "cereals": "Cereales",
+        "meat": "Carne",
+        "sugar": "Azúcares",
+        "fat": "Grasas"
+      }
+
       const res = await axios.get<Portion>("/api/portions")
       const portionsRaw = res.data;
       delete portionsRaw.idUser;
       delete portionsRaw.idNutritonPortion;
+      
+      //convert to the pie chart data format
       const portionsNew = Object.keys(portionsRaw).map(key => ({
-        type: key,
+        type: trans[key],
         count: portionsRaw[key] as number
       }))
 
@@ -213,6 +260,9 @@ const NutritionDashboard = () => {
     fetchNutritionProgress()
     fetchNumberOfRecipes()
     fetchPortions()
+    fetchWeightRecords()
+    fetchMuscularRecords()
+    fetchFatRecords()
   }, [])
 
   return(
@@ -229,26 +279,68 @@ const NutritionDashboard = () => {
         <h4 className={`font-bold text-lg rounded-xl py-2 lg:px-5 text-decoration-nutrition-colordark`}>
           Progreso en meta
         </h4>      
-        <BarChartPlot 
-          xLabel="Mes" 
-          yLabel="Calificación"
-          tags={["Mes", "Calificación"]} 
-          data={nutritionProgress} 
-          barColor="fill-decoration-nutrition-colordark" 
-          infoColor="text-decoration-nutrition-colordark"
-        />
+          <BarChartPlot 
+            xLabel="Mes" 
+            yLabel="Calificación"
+            tags={["Mes", "Calificación"]} 
+            data={nutritionProgress} 
+            barColor="fill-decoration-nutrition-colordark" 
+            infoColor="text-decoration-nutrition-colordark"
+          />
       </div>
-
 
       <div className="w-full py-10 lg:max-w-[1000px] h-[500px]">
         <h4 className={`font-bold text-lg rounded-xl pt-2 lg:px-5 text-decoration-nutrition-colordark`}>
           Mis porciones
         </h4>  
-        <PieChartPlot
-          data={portions}
-          colors={['#9D2F7E', '#CD5BAD', '#741B5B', '#df9fcd', '#521240', '#DA56B575', '#F84AC7', "#bb499bc3"]}
-        />
+          <PieChartPlot
+            data={portions}
+            colors={['#9D2F7E', '#CD5BAD', '#741B5B', '#df9fcd', '#521240', '#DA56B575', '#F84AC7', "#bb499bc3"]}
+          />
       </div>
+
+      <div className="w-full pt-10 lg:max-w-[1000px] h-[300px] lg:h-[400px]">
+        <h4 className={`font-bold text-lg rounded-xl py-2 lg:px-5 text-decoration-nutrition-colordark`}>
+          Cambio en peso
+        </h4>      
+          <LineChartPlot
+            xLabel="Mes" 
+            yLabel="Peso (kg)"
+            tags={["Mes", "Peso"]} 
+            data={weightRecords} 
+            lineColor="#9D2F7E" 
+            infoColor="text-decoration-nutrition-colordark"
+          />
+      </div>
+
+      <div className="w-full sm:pt-10 lg:max-w-[1000px] h-[300px] lg:h-[400px]">
+        <h4 className={`font-bold text-lg rounded-xl py-2 lg:px-5 text-decoration-nutrition-colordark`}>
+          Cambio en masa muscular
+        </h4>      
+          <LineChartPlot
+            xLabel="Mes" 
+            yLabel="Peso (kg)"
+            tags={["Mes", "Peso"]} 
+            data={muscularRecords} 
+            lineColor="#9D2F7E" 
+            infoColor="text-decoration-nutrition-colordark"
+          />
+      </div>
+
+      <div className="w-full sm:pt-10 lg:max-w-[1000px] h-[300px] lg:h-[400px]">
+        <h4 className={`font-bold text-lg rounded-xl py-2 lg:px-5 text-decoration-nutrition-colordark`}>
+          Cambio en porcentaje de grasa
+        </h4>      
+          <LineChartPlot
+            xLabel="Mes" 
+            yLabel="Peso (kg)"
+            tags={["Mes", "Peso"]} 
+            data={fatRecords} 
+            lineColor="#9D2F7E" 
+            infoColor="text-decoration-nutrition-colordark"
+          />
+      </div>
+
     </div>
   )   
 }
