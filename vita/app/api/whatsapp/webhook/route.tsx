@@ -94,7 +94,14 @@ export async function POST(request: Request) {
                     }
                 }
             );
-        
+
+            //add record    
+            const usageRecords = [{
+                name: "chat_message",
+                detail: "whatsapp"
+            }];
+            await axios.post("/api/feature_usage", { usageRecords });
+                
         }
 
     return NextResponse.json("OK", {status: 200})
