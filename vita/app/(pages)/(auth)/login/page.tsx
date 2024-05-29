@@ -1,4 +1,3 @@
-
 'use client';
 import { signIn} from 'next-auth/react';
 import React, { useState } from "react";
@@ -126,6 +125,11 @@ const Login = () => {
                   errors={errors}
                   required
                 />
+                   <div className="mb-7">
+                    <Link href="/forgot-password" className="text-white underline">
+                      ¿Olvidaste tu contraseña?
+                    </Link>
+                  </div>
             </div>
 
             {errors.password && typeof errors.password.message === 'string' && (
