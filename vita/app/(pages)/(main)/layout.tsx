@@ -2,7 +2,7 @@
 
 import {Inter} from "next/font/google";
 
-import SidebarInfo from "@/components/sidebar/SidebarInfo";
+import SidebarInfo from "@/components/sidebar/SidebarInfo"; 
 import MobileSidebar from "@/components/sidebar/MobileSidebar";
 import Decoration from "@/components/Decoration";
 import { usePathname } from "next/navigation"; 
