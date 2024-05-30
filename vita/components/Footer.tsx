@@ -1,13 +1,15 @@
 "use client"
 import React from 'react';
 import Image from 'next/image';
-import Button from "@/components/buttons/Button";
 import Link from 'next/link';
 
-
-
 const Footer: React.FC = () => {
-
+/**
+ * @description Pie de pagina donde se ponen los autores
+ * @author Bernardo de la Sierra
+ * @version 1.0.1 
+ * @returns Nada
+ */
   return (
     <div className='bg-black bg-opacity-40 h-1/5 flex justify-around items-center flex-wrap'>
           <div className='flex flex-col gap-3'>

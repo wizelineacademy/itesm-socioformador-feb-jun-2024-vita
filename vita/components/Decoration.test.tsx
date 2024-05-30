@@ -3,6 +3,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Decoration from './Decoration';
+import { describe, expect, it } from 'vitest';
 // Bernardo de la Sierra Rábago
 describe('Decoration component', () => {
   it('renders the correct images for the /home route', () => {
