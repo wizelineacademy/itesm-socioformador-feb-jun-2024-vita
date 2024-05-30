@@ -6,6 +6,7 @@ import { challengeSubmissions } from "@/db/schema/schema";
 import { writeFile } from "fs/promises";
 import path from "path";
 import { getMonthlyChallenge } from "../challenges/route";
+import { eq, and  } from 'drizzle-orm';
 
 export async function POST(request: Request) {
   const currentWorkingDirectory = process.cwd();
@@ -37,17 +38,70 @@ export async function POST(request: Request) {
     if (!challenge || typeof challenge.idChallenge !== 'number') {
       return NextResponse.json("No current challenge found", { status: 400 });
     }
+    const existingSubmission = await db.select()
+      .from(challengeSubmissions)
+      .where(
+        and(
+          eq(challengeSubmissions.idUser, session.user.id),
+          eq(challengeSubmissions.idChallenge, challenge.idChallenge)
+        )
+      );
+      
+
+    if (existingSubmission) {
+      return NextResponse.json("You have already submitted for this challenge", { status: 400 });
+    }
 
     const challengeReponse = await db.insert(challengeSubmissions).values({
       idUser: session.user.id,
       idChallenge: challenge.idChallenge,
       imageUrl: imageUrlUrl,
       description: description,
-    })
+    });
 
     return NextResponse.json(challengeReponse, { status: 200 });
   } catch (error) {
     console.error(error);
     return NextResponse.json("Error posting user detail", { status: 400 });
+  }
+}
+
+
+
+export async function GET(request: Request) {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session || !session.user || typeof session.user.id !== 'number') {
+      return NextResponse.json("Unauthorized", { status: 401 });
+    }
+
+    const idUser = session.user.id;
+
+    const challenge = await getMonthlyChallenge();
+
+    if (!challenge || typeof challenge.idChallenge !== 'number') {
+      return NextResponse.json("No current challenge found", { status: 400 });
+    }
+
+    const idChallenge = challenge.idChallenge;
+
+    const submission = await db.select()
+    .from(challengeSubmissions)
+    .where(
+      and(
+        eq(challengeSubmissions.idUser, session.user.id),
+        eq(challengeSubmissions.idChallenge, challenge.idChallenge)
+      )
+    );
+
+    if (!submission) {
+      return NextResponse.json("Submission not found", { status: 404 });
+    }
+
+    return NextResponse.json(submission, { status: 200 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json("Error fetching submission", { status: 500 });
   }
 }
