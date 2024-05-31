@@ -152,7 +152,7 @@ const AreaRoutine = () => {
 
       router.push('/exercise/routines/list')
       Swal.close()
-    } catch (error: any) {
+    } catch (error) {
       Swal.close()
       Swal.fire({
         title: 'Error',

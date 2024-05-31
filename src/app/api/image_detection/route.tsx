@@ -79,7 +79,11 @@ export async function POST(request: Request) {
   const { imagePart } = body
 
   try {
-    const genAI = new GoogleGenerativeAI(config.geminiApiKey!)
+    if (!config.geminiApiKey) {
+      throw Error('Gemini API Key must be provided')
+    }
+
+    const genAI = new GoogleGenerativeAI(config.geminiApiKey)
     const model = genAI.getGenerativeModel({ model: 'gemini-pro-vision' })
 
     const result = await model.generateContent([prompt, imagePart])

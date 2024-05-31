@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios'
 import FaceScale from '@/src/components/scales/FaceScale'
 import ButtonEvaluation from '@/src/components/buttons/ButtonEvaluation.'
@@ -82,13 +82,13 @@ const FeatureEvaluationPage = () => {
           throw Error('Incomplete data')
         }
 
-        const goalsRes = await axios.post('/api/goal_evaluations', {
+        await axios.post('/api/goal_evaluations', {
           evaluations: evaluationData.goalMetrics,
         })
-        const featsRes = await axios.post('/api/feature_evaluations', {
+        await axios.post('/api/feature_evaluations', {
           evaluations: evaluationData.featureMetrics,
         })
-        const recordsRes = await axios.post('/api/records', {
+        await axios.post('/api/records', {
           records: evaluationData.records,
         })
 

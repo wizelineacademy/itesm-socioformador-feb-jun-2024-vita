@@ -16,7 +16,7 @@ const SelectableCard: React.FC<SelectableCardProps> = ({
   toggle,
 }) => {
   return (
-    <div
+    <button
       onClick={() => {
         toggle()
       }}
@@ -30,7 +30,7 @@ const SelectableCard: React.FC<SelectableCardProps> = ({
           {selected && <FaCheck className='h-6 w-6' />}
         </div>
       </div>
-    </div>
+    </button>
   )
 }
 

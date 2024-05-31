@@ -8,13 +8,11 @@ import PostCard from '@/src/components/cards/Post'
 
 const GeneralData = () => {
   const [posts, setPosts] = useState<Post[]>([])
-  const [isLoading, setIsLoading] = useState(false)
   const [finished, setFinished] = useState(false)
-  const [error, setError] = useState<any>(null)
+  const [error, setError] = useState(null)
   const [page, setPage] = useState(0)
 
   const fetchPosts = async () => {
-    setIsLoading(true)
     setError(null)
     try {
       const res = await axios.get<Post[]>(`/api/posts?limit=6&offset=${page}`)
@@ -32,8 +30,6 @@ const GeneralData = () => {
     } catch (error) {
       setError(error)
       console.log(error)
-    } finally {
-      setIsLoading(false)
     }
   }
 

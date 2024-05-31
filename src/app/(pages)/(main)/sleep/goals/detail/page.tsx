@@ -5,10 +5,10 @@ import MainButton from '@/src/components/buttons/MainButton'
 import FaceScale from '@/src/components/scales/FaceScale'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Swal from 'sweetalert2'
 
-const SleepGoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
+const SleepGoalsDetailPage = () => {
   const [quality, setQuality] = useState<number>(0)
   const [previous, setPrevious] = useState<number>(0)
   const [next, setNext] = useState<number>(0)

@@ -35,7 +35,7 @@ const ExerciseSelection = () => {
       </h3>
       <div className='mb-10 mt-5 flex w-full flex-col justify-around md:flex-row md:flex-wrap md:items-center md:justify-center lg:mx-auto lg:w-1/2 lg:gap-x-3 lg:gap-y-5'>
         {data.map((el) => (
-          <div
+          <button
             key={el.name}
             onClick={() => {
               router.push(el.link)
@@ -50,7 +50,7 @@ const ExerciseSelection = () => {
               height={60}
               className='h-12 w-12 pr-2 md:h-14 md:w-14 lg:h-20 lg:w-20'
             />
-          </div>
+          </button>
         ))}
       </div>
     </div>

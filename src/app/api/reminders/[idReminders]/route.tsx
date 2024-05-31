@@ -1,6 +1,4 @@
 import { NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/src/lib/auth/authOptions'
 import { eq } from 'drizzle-orm'
 import { db } from '@/src/db/drizzle'
 import { Reminders } from '@/src/db/schema/schema' // Importamos el modelo de la tabla Reminders
@@ -88,7 +86,7 @@ export async function DELETE(
       return NextResponse.json('ID parameter is missing', { status: 400 })
     }
 
-    const res = await db
+    await db
       .delete(Reminders)
       .where(eq(Reminders.idReminders, Number(idReminders)))
 

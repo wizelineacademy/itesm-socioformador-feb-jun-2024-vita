@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server'
 import { OpenAI } from 'openai'
 import { ChatCompletionMessageParam } from 'openai/resources/index.mjs'
 import config from '@/src/lib/environment/config'
-import { db } from '@/src/db/drizzle'
 
 const openai = new OpenAI({
   apiKey: config.openApiKey,

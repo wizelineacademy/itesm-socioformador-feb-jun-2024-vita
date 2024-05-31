@@ -23,7 +23,7 @@ const RecipeSelection = () => {
         cantidad de calorías.
       </h3>
       <div className='mb-10 mt-5 flex flex-col justify-around md:flex-row'>
-        <div
+        <button
           onClick={navigateToIngredients}
           className='mx-auto mt-5 flex w-5/6 items-center justify-between rounded-3xl bg-custom-lightpurple px-5 py-2 font-medium text-white hover:cursor-pointer hover:bg-custom-extralightpurple md:h-60 md:w-2/5 md:flex-col-reverse md:justify-around lg:w-2/6'
         >
@@ -35,8 +35,8 @@ const RecipeSelection = () => {
             height={60}
             className='h-12 w-12 pr-2 md:h-32 md:w-32 lg:h-36 lg:w-36'
           />
-        </div>
-        <div
+        </button>
+        <button
           onClick={navigateToCalories}
           className='mx-auto mt-5 flex w-5/6 items-center justify-between rounded-3xl bg-custom-lightpurple px-5 py-2 font-medium text-white hover:cursor-pointer hover:bg-custom-extralightpurple md:h-60 md:w-2/5 md:flex-col-reverse md:justify-around lg:w-2/6'
         >
@@ -48,7 +48,7 @@ const RecipeSelection = () => {
             height={60}
             className='h-12 w-12 pr-2 md:h-32 md:w-32 lg:h-36 lg:w-36'
           />
-        </div>
+        </button>
       </div>
     </div>
   )

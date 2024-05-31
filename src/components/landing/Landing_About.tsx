@@ -1,12 +1,7 @@
 'use client'
 import React from 'react'
-import Image from 'next/image'
 
 const About: React.FC = () => {
-  const handleClick = () => {
-    console.log('Button clicked!')
-  }
-
   return (
     <div className='font-notosans flex h-screen flex-col justify-center align-middle text-white'>
       <div id='Flex-Container'>

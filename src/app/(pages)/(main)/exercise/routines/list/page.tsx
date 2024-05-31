@@ -36,7 +36,7 @@ const ExercisesList = () => {
         {exercises &&
           exercises.map((exercises) => (
             <PlanItemLink
-              onClick={(e) => {
+              onClick={() => {
                 navigateToExercise(exercises.name)
               }}
               key={exercises.name}

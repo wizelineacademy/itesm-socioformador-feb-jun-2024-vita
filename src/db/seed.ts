@@ -1,7 +1,6 @@
 import { drizzle } from 'drizzle-orm/node-postgres'
 import { Pool } from 'pg'
 import { badges } from './schema/schema'
-import * as dotenv from 'dotenv'
 import config from '@/src/lib/environment/config'
 
 const main = async () => {

@@ -45,8 +45,8 @@ describe('Decoration component', () => {
   })
 
   it('renders loading component while images are loading', () => {
-    const { container } = render(<Decoration pathname='/home' />)
+    render(<Decoration pathname='/home' />)
 
-    expect(container.querySelector('div')).toBeInTheDocument() // Assuming Loading component renders a div
+    expect(screen.getByRole('div')).toBeInTheDocument() // Assuming Loading component renders a div
   })
 })

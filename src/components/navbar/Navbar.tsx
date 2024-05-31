@@ -1,8 +1,6 @@
 import Container from '../Container'
 import NavItem from './NavItem'
 
-import Link from 'next/link'
-
 const Navbar = ({}) => {
   return (
     <div className='fixed z-10 w-screen bg-slate-950 bg-opacity-30 shadow-sm'>

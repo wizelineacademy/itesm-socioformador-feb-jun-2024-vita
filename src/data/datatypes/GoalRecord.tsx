@@ -1,4 +1,4 @@
-interface GoalRecord {
+export interface GoalRecord {
   id: number
   question: string
   variable: string

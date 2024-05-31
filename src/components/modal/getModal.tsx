@@ -5,7 +5,6 @@ interface ModalContent {
 
 interface GetModalProps {
   modalOpen: boolean
-  closeModal: () => void
   modalTitle: string
   modalContent: ModalContent[]
   onCloseButtonClick: () => void
@@ -13,7 +12,6 @@ interface GetModalProps {
 
 export const GetModal: React.FC<GetModalProps> = ({
   modalOpen,
-  closeModal,
   modalTitle,
   modalContent,
   onCloseButtonClick,

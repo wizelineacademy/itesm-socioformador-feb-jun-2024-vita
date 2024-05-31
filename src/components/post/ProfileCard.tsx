@@ -1,5 +1,4 @@
 'use client'
-import { NextResponse } from 'next/server'
 import Image from 'next/image'
 import Link from 'next/link'
 import { UserPost } from '@/src/data/datatypes/user'
@@ -14,11 +13,7 @@ interface UserCardProps {
   activeTab: string
 }
 
-const ProfileCard: React.FC<UserCardProps> = ({
-  userData,
-  creator,
-  activeTab,
-}) => {
+const ProfileCard: React.FC<UserCardProps> = ({ userData, activeTab }) => {
   const profilePhoto = userData[0].profilePhoto ?? '/assets/noAvatar.png'
   const [postCount, setPostCount] = useState<number>(0)
   const [followersCount, setFollowersCount] = useState<number>(0)

@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import { FaBell } from 'react-icons/fa'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/navigation'
@@ -17,7 +16,7 @@ const CreateChallenge = () => {
     e.preventDefault()
 
     try {
-      const response = await axios.post('/api/challenges', {
+      await axios.post('/api/challenges', {
         name,
         description,
         month: parseInt(month as string, 10),
@@ -32,7 +31,7 @@ const CreateChallenge = () => {
       })
       router.push('/home/')
       router.refresh()
-    } catch (error: any) {
+    } catch (error) {
       // Aquí se especifica el tipo de la variable 'error'
       if (error.response && error.response.status === 409) {
         // Si el servidor devuelve un código de estado 409 (Conflict), significa que ya existe un reto para el mes y año seleccionados

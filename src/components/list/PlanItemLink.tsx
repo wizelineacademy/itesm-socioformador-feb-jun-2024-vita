@@ -17,7 +17,7 @@ const PlanItemLink: React.FC<PlanItemProps> = ({
   hoverColor = 'bg-custom-extralightpurple',
 }) => {
   return (
-    <li
+    <button
       onClick={onClick}
       data-value={content}
       className={`text-md mx-auto mt-5 flex w-5/6 flex-col items-start justify-between gap-y-2 rounded-3xl px-6 py-6 text-center font-medium text-white ${color} hover:cursor-pointer hover:${hoverColor} sm:flex-row sm:items-center sm:py-7 md:max-w-[1200px] md:rounded-full lg:py-6 lg:text-lg`}
@@ -29,7 +29,7 @@ const PlanItemLink: React.FC<PlanItemProps> = ({
         </p>
         <ArrowRight className='hidden lg:inline-block lg:h-9 lg:w-9' />
       </div>
-    </li>
+    </button>
   )
 }
 

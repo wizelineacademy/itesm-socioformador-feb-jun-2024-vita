@@ -25,8 +25,12 @@ const ExerciseEvalPage = () => {
     const selectedGoal = exerciseGoals.find((goal) => {
       return goal.title === name
     })
+    if (!selectedGoal) {
+      throw Error('No goal selected')
+    }
+
     setGoalId(selectedGoal?.id ?? 0)
-    setHasDetail(isNumericGoal(selectedGoal!))
+    setHasDetail(isNumericGoal(selectedGoal))
   }
 
   //verify if all questions have been asnswered

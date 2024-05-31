@@ -292,7 +292,7 @@ const Home = () => {
             </div>
           </div>
 
-          <div
+          <button
             id='Challenge'
             className='ml-4 mt-4 flex h-16 w-56 items-center justify-between rounded-full bg-color-home6 px-4 transition-colors duration-300 ease-in-out hover:cursor-pointer hover:bg-color-home5'
             onClick={handleChallengeLink}
@@ -301,7 +301,7 @@ const Home = () => {
               Retos y Logros
             </span>
             <FaAngleRight size={48} color='#fff' className='mb-2 ml-4' />
-          </div>
+          </button>
         </div>
       </div>
     </div>

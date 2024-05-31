@@ -60,7 +60,7 @@ const HealthData = () => {
     setIsLoading(true)
 
     try {
-      const response = await axios.post('/api/healthdata', data)
+      await axios.post('/api/healthdata', data)
 
       Swal.fire({
         title: 'Éxito',

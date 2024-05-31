@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { NutritionalInfo } from '@/src/data/datatypes/nutritionalInfo'
 import axios from 'axios'
+import Image from 'next/image'
 
 function FoodAnalysisPage() {
   const [nutritionalInfos, setNutritionalInfos] = useState<
@@ -140,7 +141,7 @@ function FoodAnalysisPage() {
       {loading && <p className='text-4xl font-bold text-white'>Cargando...</p>}
       {imageUrl && (
         <div className='mt-4'>
-          <img
+          <Image
             src={imageUrl}
             alt='Uploaded'
             className='h-auto max-w-full sm:h-[300px] sm:w-[500px]'

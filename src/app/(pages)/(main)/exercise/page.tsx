@@ -29,12 +29,6 @@ const Exercise = () => {
   // State to hold the current random suggestion
   const [randomSuggestion, setRandomSuggestion] = useState<string>('')
 
-  // Function to generate a new random suggestion
-  const handleGenerateSuggestion = () => {
-    const newRandomSuggestion = generateRandomSuggestion()
-    setRandomSuggestion(newRandomSuggestion)
-  }
-
   // useEffect hook to generate a random suggestion when the component mounts
   useEffect(() => {
     setRandomSuggestion(generateRandomSuggestion())

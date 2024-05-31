@@ -1,10 +1,14 @@
 import Swal from 'sweetalert2'
-import axios from 'axios'
+
+interface Response {
+  status: number
+  data: any
+}
 
 export const confirmAndDelete = async (
   id: string,
   itemType: string,
-  deleteCallback: (id: string) => Promise<any>,
+  deleteCallback: (id: string) => Promise<Response>,
 ) => {
   // Mostrar mensaje de confirmación
   const confirmationResult = await Swal.fire({
@@ -20,7 +24,7 @@ export const confirmAndDelete = async (
   // Si el usuario confirma la eliminación
   if (confirmationResult.isConfirmed) {
     try {
-      const response = await deleteCallback(id)
+      const response: Response = await deleteCallback(id)
       if (response.status === 200) {
         Swal.fire({
           title: 'Éxito',
@@ -41,12 +45,12 @@ export const confirmAndDelete = async (
 }
 
 export const handleEditItem = async (
-  item: any, // Puedes especificar el tipo de tu objeto aquí
+  item: unknown, // Puedes especificar el tipo de tu objeto aquí
   itemType: string,
-  editCallback: (item: any) => Promise<any>,
+  editCallback: (item: unknown) => Promise<Response>,
   closeCallback: () => void,
   getDataCallback: () => void,
-  setEditingItem: (item: any | null) => void,
+  setEditingItem: (item: unknown | null) => void,
 ) => {
   try {
     if (item) {
@@ -73,7 +77,7 @@ export const handleEditItem = async (
   }
 }
 
-export const handleInput = <T extends {}>(
+export const handleInput = <T extends object>(
   event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   setter: React.Dispatch<React.SetStateAction<T>>,
 ) => {
@@ -85,10 +89,10 @@ export const handleInput = <T extends {}>(
 }
 
 export const handleAddItem = async (
-  newItem: any, // Puedes especificar el tipo de tu objeto aquí
+  newItem: unknown, // Puedes especificar el tipo de tu objeto aquí
   itemType: string,
-  editedDataProfile: any, // Asumo que es un objeto con la información del perfil editado
-  addItemCallback: (data: any) => Promise<void>, // Función para agregar el nuevo elemento
+  editedDataProfile: unknown, // Asumo que es un objeto con la información del perfil editado
+  addItemCallback: (data: unknown) => Promise<unknown>, // Función para agregar el nuevo elemento
   resetCallback: () => void, // Función para reiniciar los valores del nuevo elemento
   closeCallback: () => void, // Función para cerrar el modal después de agregar el elemento
   getDataCallback: () => void, // Función para obtener los datos actualizados

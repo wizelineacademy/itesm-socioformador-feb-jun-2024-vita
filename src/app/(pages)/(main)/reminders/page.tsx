@@ -84,7 +84,7 @@ const Reminders = () => {
         {reminders &&
           reminders.map((reminder) => (
             <PlanItemLink
-              onClick={(e) => {
+              onClick={() => {
                 navigateToReminder(reminder.idReminders)
               }}
               key={reminder.name}

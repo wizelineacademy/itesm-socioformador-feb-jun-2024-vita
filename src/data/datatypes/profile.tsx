@@ -1,4 +1,3 @@
-import { disability } from '@/src/db/schema/schema'
 export interface ProfileData {
   idMedicalProfile: number
   idUser: number
@@ -30,7 +29,7 @@ export interface AllergiesData {
 export interface GetAllergiesData {
   length: number
   map(
-    arg0: (allergy: any, index: any) => import('react').JSX.Element,
+    arg0: (allergy, index) => import('react').JSX.Element,
   ): import('react').ReactNode
   name: string
   reaction: string
@@ -51,7 +50,7 @@ export interface DisabilityData {
 export interface GetDisabilityData {
   length: number
   map(
-    arg0: (disability: any, index: any) => import('react').JSX.Element,
+    arg0: (disability, index) => import('react').JSX.Element,
   ): import('react').ReactNode
   name: string
   idMedicalProfile: number
@@ -70,7 +69,7 @@ export interface ChronicalData {
 export interface GetChronicalData {
   length: number
   map(
-    arg0: (chronical: any, index: any) => import('react').JSX.Element,
+    arg0: (chronical, index) => import('react').JSX.Element,
   ): import('react').ReactNode
   name: string
   idMedicalProfile: number
@@ -92,7 +91,7 @@ export interface MedicinesData {
 export interface GetMedicinesData {
   length: number
   map(
-    arg0: (medicine: any, index: any) => import('react').JSX.Element,
+    arg0: (medicine, index) => import('react').JSX.Element,
   ): import('react').ReactNode
   name: string
   idMedicalProfile: number

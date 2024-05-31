@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { FaBed, FaRunning, FaBullseye } from 'react-icons/fa'
+import { FaBed, FaBullseye } from 'react-icons/fa'
 import Image from 'next/image'
 import Link from 'next/link'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'

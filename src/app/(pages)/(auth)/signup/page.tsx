@@ -14,11 +14,11 @@ import { RegisterSchema } from '@/src/validations/RegisterSchema'
 import Information from '@/src/components/information/Information'
 import Input from '@/src/components/Inputs/Input'
 import { signIn } from 'next-auth/react'
+import Swal from 'sweetalert2'
 
 const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
-  const swal = require('sweetalert2')
 
   useEffect(() => {
     const checkSession = async () => {
@@ -55,7 +55,7 @@ const SignUp = () => {
     axios
       .post('/api/auth/register', data)
       .then(() => {
-        swal.fire({
+        Swal.fire({
           title: 'Se ha registrado',
           text: 'El registro ha sido exitoso.',
           icon: 'success',
@@ -68,7 +68,7 @@ const SignUp = () => {
           redirect: false,
         })
       })
-      .then((res) => {
+      .then(() => {
         router.push('/healthdata')
       })
       .catch((error) => {
@@ -77,7 +77,7 @@ const SignUp = () => {
             ? 'El correo ya se encuentra registrado.'
             : 'Ha ocurrido un error durante el registro.'
 
-        swal.fire({
+        Swal.fire({
           title: 'Error',
           text: errorMessage,
           icon: 'error',

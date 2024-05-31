@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
@@ -91,9 +93,9 @@ export const authOptions: NextAuthOptions = {
             .where(eq(user.email, profile?.email ?? ''))
             .limit(1)
 
-          if (existingUser.length === 0) {
+          if (existingUser.length === 0 && profile?.email) {
             const res = await db.insert(user).values({
-              email: profile?.email!,
+              email: profile?.email,
               name: profile?.name ?? '',
             })
           }

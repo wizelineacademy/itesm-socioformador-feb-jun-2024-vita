@@ -9,7 +9,7 @@ const EditPost = ({ params }: { params: { id: string } }) => {
   const id = params.id
 
   const [loading, setLoading] = useState(true)
-  const [postData, setPostData] = useState<any>({
+  const [postData, setPostData] = useState({
     creatorId: undefined,
     caption: undefined,
     tag: undefined,

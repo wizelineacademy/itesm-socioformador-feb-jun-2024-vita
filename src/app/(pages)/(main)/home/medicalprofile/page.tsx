@@ -259,10 +259,15 @@ const Profile = () => {
 
             return
           } else {
-            setEditedDataProfile((prevData) => ({
-              ...prevData!,
-              email: userData?.email || '',
-            }))
+            setEditedDataProfile((prevData) => {
+              if (!prevData) {
+                return null
+              }
+              return {
+                ...prevData,
+                email: userData?.email || '',
+              }
+            })
             return
           }
         }
@@ -1166,21 +1171,20 @@ const Profile = () => {
         )}
 
         {!editMode && (
-          <p
+          <button
             className='ml-2 text-lg font-bold text-red-600 hover:cursor-pointer hover:underline'
             onClick={() => {
               showDeleteAccountModal()
             }}
           >
             Desactivar cuenta
-          </p>
+          </button>
         )}
       </form>
 
       {/* get modal */}
       <GetModal
         modalOpen={modalOpen && selectedAllergy != null}
-        closeModal={closeModal}
         modalTitle='Alergia'
         modalContent={[
           {
@@ -1197,7 +1201,6 @@ const Profile = () => {
 
       <GetModal
         modalOpen={modalOpen2 && selectedDisability != null}
-        closeModal={closeModalDisability}
         modalTitle='Discapacidad'
         modalContent={[
           {
@@ -1210,7 +1213,6 @@ const Profile = () => {
 
       <GetModal
         modalOpen={modalOpen3 && selectedChronical != null}
-        closeModal={closeModalChronical}
         modalTitle='Enfermedad crónica'
         modalContent={[
           {
@@ -1223,7 +1225,6 @@ const Profile = () => {
 
       <GetModal
         modalOpen={modalOpen4 && selectedMedicines != null}
-        closeModal={closeModalMedicines}
         modalTitle='Medicina'
         modalContent={[
           {

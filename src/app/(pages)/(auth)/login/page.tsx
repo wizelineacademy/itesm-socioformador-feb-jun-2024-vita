@@ -1,6 +1,6 @@
 'use client'
 import { signIn } from 'next-auth/react'
-import React, from 'react'
+import React from 'react'
 import Information from '@/src/components/information/Information'
 import Button from '@/src/components/buttons/Button'
 import { FcGoogle } from 'react-icons/fc'
@@ -63,7 +63,7 @@ const Login = () => {
         router.push('/home')
         router.refresh()
       }
-    } catch (error: any) {
+    } catch (error) {
       Swal.fire({
         title: 'Error',
         text: error,

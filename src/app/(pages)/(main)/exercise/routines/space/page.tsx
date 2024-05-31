@@ -3,7 +3,7 @@
 import ExercisesContext from '@/src/context/exercises'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { IconType } from 'react-icons'
 
 import { FaDumbbell, FaHome, FaTree } from 'react-icons/fa'
@@ -83,7 +83,7 @@ const TypeRoutine = () => {
 
       router.push('/exercise/routines/list')
       Swal.close()
-    } catch (error: any) {
+    } catch (error) {
       console.log(error)
       Swal.close()
       Swal.fire({
@@ -106,7 +106,7 @@ const TypeRoutine = () => {
 
       <div className='mb-10 mt-5 flex w-full flex-col justify-around md:flex-row md:flex-wrap md:items-stretch md:justify-center lg:mx-auto lg:w-2/3 lg:gap-x-8 lg:gap-y-3'>
         {spaces.map((space, index) => (
-          <div
+          <button
             key={space}
             onClick={async () => {
               await generateExercises(space)
@@ -119,7 +119,7 @@ const TypeRoutine = () => {
             <p className='mr-2 text-lg font-semibold md:text-xl lg:ml-2'>
               {space}
             </p>
-          </div>
+          </button>
         ))}
       </div>
     </div>

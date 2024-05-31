@@ -6,7 +6,7 @@ import axios from 'axios'
 import { Video } from '@/src/data/datatypes/video'
 
 const RecipesDetail = () => {
-  const { state, setState } = useContext(RecipesContext)
+  const { state } = useContext(RecipesContext)
 
   const [recipe, setRecipe] = useState<Recipe>({
     name: 'Estofado de filete de res y vegetales',

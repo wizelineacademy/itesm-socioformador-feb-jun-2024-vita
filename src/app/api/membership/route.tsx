@@ -5,7 +5,7 @@ import { eq } from 'drizzle-orm'
 import { user } from '@/src/db/schema/schema'
 import { db } from '@/src/db/drizzle'
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions)
 

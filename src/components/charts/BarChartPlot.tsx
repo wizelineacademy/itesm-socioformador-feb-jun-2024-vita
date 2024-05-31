@@ -5,7 +5,6 @@ import {
   YAxis,
   Bar,
   Tooltip,
-  Legend,
   ResponsiveContainer,
   TooltipProps,
 } from 'recharts'
