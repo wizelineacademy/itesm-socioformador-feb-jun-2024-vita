@@ -5,13 +5,10 @@ import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import React from "react";
 import Swal from 'sweetalert2';
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
-interface ChallengeFormProps {
-  onSuccess: () => void;
-}
-
-const ChallengeForm: React.FC<ChallengeFormProps> = ({ onSuccess }) => {
-
+const ChallengeForm = () => {
+  const router = useRouter();
   const { register, handleSubmit, watch, formState: { errors } } = useForm({
     defaultValues: {
       description: "",
@@ -27,17 +24,17 @@ const ChallengeForm: React.FC<ChallengeFormProps> = ({ onSuccess }) => {
       if (data.imageUrl && data.imageUrl[0]) {
         challengeForm.append("imageUrl", data.imageUrl[0]);
       }
-
       await axios.post("/api/monthlyChallenge", challengeForm);
+
+      router.refresh(); 
+      router.push("/home/challenge")
 
       Swal.fire({
         title: 'Éxito',
-        text: 'Se ha subido la respuesta con éxito',
+        text: 'Se ha subido la respuesta con éxito acuerdate de evaluar 5 compañeros más para ganar más puntos',
         icon: 'success',
         confirmButtonText: 'OK'
       });
-
-      onSuccess();
 
     } catch (err) {
       console.log(err);

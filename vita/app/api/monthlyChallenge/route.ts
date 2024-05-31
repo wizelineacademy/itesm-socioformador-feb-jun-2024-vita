@@ -38,6 +38,7 @@ export async function POST(request: Request) {
     if (!challenge || typeof challenge.idChallenge !== 'number') {
       return NextResponse.json("No current challenge found", { status: 400 });
     }
+    
     const existingSubmission = await db.select()
       .from(challengeSubmissions)
       .where(
@@ -47,8 +48,8 @@ export async function POST(request: Request) {
         )
       );
       
-
-    if (existingSubmission) {
+  
+    if (existingSubmission.length > 0) {
       return NextResponse.json("You have already submitted for this challenge", { status: 400 });
     }
 
@@ -59,6 +60,7 @@ export async function POST(request: Request) {
       description: description,
     });
 
+    console.log(challengeReponse , "Respuesta")
     return NextResponse.json(challengeReponse, { status: 200 });
   } catch (error) {
     console.error(error);
@@ -80,11 +82,11 @@ export async function GET(request: Request) {
 
     const challenge = await getMonthlyChallenge();
 
+
     if (!challenge || typeof challenge.idChallenge !== 'number') {
       return NextResponse.json("No current challenge found", { status: 400 });
     }
 
-    const idChallenge = challenge.idChallenge;
 
     const submission = await db.select()
     .from(challengeSubmissions)

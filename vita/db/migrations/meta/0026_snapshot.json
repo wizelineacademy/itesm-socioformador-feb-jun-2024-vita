@@ -1,5 +1,5 @@
 {
-  "id": "b8db6a90-4b16-4cb5-8bdb-47d9da03435d",
+  "id": "27da8afa-b7e2-4bda-9564-e8ef2c3b118c",
   "prevId": "aa2510ea-26f4-4b35-af0b-470dfa2ea798",
   "version": "5",
   "dialect": "pg",
@@ -234,6 +234,12 @@
           "primaryKey": true,
           "notNull": true
         },
+        "id_challenge": {
+          "name": "id_challenge",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
         "name": {
           "name": "name",
           "type": "varchar(50)",
@@ -248,7 +254,21 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "Badges_id_challenge_MonthlyChallenge_id_challenge_fk": {
+          "name": "Badges_id_challenge_MonthlyChallenge_id_challenge_fk",
+          "tableFrom": "Badges",
+          "tableTo": "MonthlyChallenge",
+          "columnsFrom": [
+            "id_challenge"
+          ],
+          "columnsTo": [
+            "id_challenge"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
@@ -284,7 +304,8 @@
           "name": "score",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": 0
         },
         "evaluated_at": {
           "name": "evaluated_at",
@@ -382,6 +403,13 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "passed": {
+          "name": "passed",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
         },
         "submitted_at": {
           "name": "submitted_at",
@@ -1528,75 +1556,6 @@
           ]
         }
       }
-    },
-    "UserChallengeResults": {
-      "name": "UserChallengeResults",
-      "schema": "",
-      "columns": {
-        "id_user_challenge_result": {
-          "name": "id_user_challenge_result",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "challenge_id": {
-          "name": "challenge_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "passed": {
-          "name": "passed",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "evaluated_at": {
-          "name": "evaluated_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "UserChallengeResults_user_id_User_id_user_fk": {
-          "name": "UserChallengeResults_user_id_User_id_user_fk",
-          "tableFrom": "UserChallengeResults",
-          "tableTo": "User",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id_user"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "cascade"
-        },
-        "UserChallengeResults_challenge_id_MonthlyChallenge_id_challenge_fk": {
-          "name": "UserChallengeResults_challenge_id_MonthlyChallenge_id_challenge_fk",
-          "tableFrom": "UserChallengeResults",
-          "tableTo": "MonthlyChallenge",
-          "columnsFrom": [
-            "challenge_id"
-          ],
-          "columnsTo": [
-            "id_challenge"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "cascade"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
     },
     "UserDetail": {
       "name": "UserDetail",

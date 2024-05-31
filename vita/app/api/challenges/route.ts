@@ -35,11 +35,24 @@ export async function POST(request: Request) {
       endDate: endDateString, // Formato YYYY-MM-DD
       createdAt: new Date().toISOString()
     });
-    const newBadge = await db.insert(badges).values({
-      name,
-      description,
-    });
+    
 
+    // Obtener el idChallenge recién insertado
+    const insertedChallenge = await db.select()
+    .from(monthlyChallenge)
+    .where(eq(monthlyChallenge.startDate, startDateString)) 
+    .limit(1);
+
+    if (insertedChallenge.length === 0) {
+    throw new Error('No se pudo obtener el idChallenge recién insertado');
+    }
+
+  const idChallenge = insertedChallenge[0].idChallenge;
+
+  // Luego puedes utilizar idChallenge en tu función checkOrCreateBadge
+  await checkOrCreateBadge(name, description, idChallenge);
+
+    
     return NextResponse.json({ message: "Reto creado exitosamente", data: newChallenge }, { status: 201 });
   } catch (error) {
     console.error('Error al crear el reto:', error);
@@ -82,5 +95,24 @@ export async function GET() {
     return NextResponse.json(challenge);
   } catch (error) {
     return NextResponse.json("Error fetching monthly challenge", { status: 500 });
+  }
+}
+
+async function checkOrCreateBadge(name: string, description: string, idChallenge: number): Promise<void> {
+  try {
+    // Verifica si ya existe un badge con el idChallenge proporcionado
+    const existingBadge = await db.select().from(badges)
+    .where( eq(badges.idChallenge, idChallenge));
+
+    if (existingBadge.length === 0) {
+      // Si no existe un badge con el idChallenge, lo crea
+      await db.insert(badges).values({ idChallenge: idChallenge, name, description })
+      console.log(`Badge creado para idChallenge ${idChallenge}`);
+    } else {
+      console.log(`Ya existe un badge para idChallenge ${idChallenge}`);
+    }
+  } catch (error) {
+    console.error('Error al verificar o crear el badge:', error);
+    throw new Error('Error al verificar o crear el badge');
   }
 }

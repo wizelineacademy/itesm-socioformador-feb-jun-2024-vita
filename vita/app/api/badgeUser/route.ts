@@ -75,3 +75,34 @@ export async function addUserPointsAndBadges(userId: number, pointsToAdd: number
       return { success: false, message: 'Error adding user points and badges' };
   }
 }
+
+
+
+export async function addUserPoints(userId: number, pointsToAdd: number) {
+  try {
+      
+        
+      const userPointsEntry = await db.select()
+      .from(userPoints)
+      .where(eq(userPoints.idUser, Number(userId)));
+
+      if (userPointsEntry.length === 0) {
+      // Si el usuario no tiene una entrada en la tabla UserPoints, creamos una nueva
+          await db.insert(userPoints).values({
+              idUser: userId,
+              points: pointsToAdd
+          });
+      } else {
+      // Si el usuario ya tiene una entrada, actualizamos los puntos sumándolos con los puntos a añadir
+          const currentPoints = userPointsEntry[0].points;
+          const newPoints = currentPoints + pointsToAdd;
+          await db.update(userPoints).set({ points: newPoints }).where(eq(userPoints.idUser, Number(userId)));
+      }
+
+
+      return { success: true, message: 'User points  added successfully' };
+  } catch (error) {
+      console.error('Error adding user points:', error);
+      return { success: false, message: 'Error adding user points' };
+  }
+}
