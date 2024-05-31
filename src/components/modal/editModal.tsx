@@ -1,19 +1,19 @@
-import React from 'react';
+import React from 'react'
 
 interface Field {
-  name: string;
-  type?: string;
-  placeholder?: string;
-  required?: boolean;
+  name: string
+  type?: string
+  placeholder?: string
+  required?: boolean
 }
 
 interface Props {
-  editingData: any;
-  editMode: boolean;
-  handleEdit: () => void;
-  closeModal: () => void;
-  fields: Field[];
-  setEditingData: React.Dispatch<React.SetStateAction<any>>;
+  editingData: any
+  editMode: boolean
+  handleEdit: () => void
+  closeModal: () => void
+  fields: Field[]
+  setEditingData: React.Dispatch<React.SetStateAction<any>>
 }
 
 const EditModal: React.FC<Props> = ({
@@ -22,38 +22,43 @@ const EditModal: React.FC<Props> = ({
   handleEdit,
   closeModal,
   fields,
-  setEditingData
+  setEditingData,
 }) => {
   return (
-    editingData && editMode && (
-      <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-        <div className="bg-white p-8 rounded-lg">
-          <h2 className="text-2xl font-bold mb-4">Editar</h2>
-          {fields.map(field => (
-            <div key={field.name} className="mb-4">
+    editingData &&
+    editMode && (
+      <div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50'>
+        <div className='rounded-lg bg-white p-8'>
+          <h2 className='mb-4 text-2xl font-bold'>Editar</h2>
+          {fields.map((field) => (
+            <div key={field.name} className='mb-4'>
               <input
                 type={field.type || 'text'}
                 name={field.name}
                 value={editingData[field.name]}
-                onChange={(e) => setEditingData({ ...editingData, [field.name]: e.target.value })}
-                className="w-full border border-gray-300 rounded-md p-2"
+                onChange={(e) =>
+                  setEditingData({
+                    ...editingData,
+                    [field.name]: e.target.value,
+                  })
+                }
+                className='w-full rounded-md border border-gray-300 p-2'
                 placeholder={field.placeholder || `Ingrese ${field.name}`}
                 required={field.required || false}
               />
             </div>
           ))}
           {/* Botones para guardar los cambios o cancelar */}
-          <div className="flex justify-end">
-            
+          <div className='flex justify-end'>
             <button
               onClick={closeModal}
-              className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2"
+              className='mr-2 rounded bg-gray-300 px-4 py-2 font-bold text-gray-800 hover:bg-gray-400'
             >
               Cancelar
             </button>
             <button
               onClick={handleEdit}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
+              className='rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700'
             >
               Guardar
             </button>
@@ -61,7 +66,7 @@ const EditModal: React.FC<Props> = ({
         </div>
       </div>
     )
-  );
-};
+  )
+}
 
-export default EditModal;
+export default EditModal

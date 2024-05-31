@@ -1,7 +1,7 @@
-import { NutritionalInfo } from "@/src/data/datatypes/nutritionalInfo";
-import config from "@/src/lib/environment/config";
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import { NextResponse } from "next/server";
+import { NutritionalInfo } from '@/src/data/datatypes/nutritionalInfo'
+import config from '@/src/lib/environment/config'
+import { GoogleGenerativeAI } from '@google/generative-ai'
+import { NextResponse } from 'next/server'
 
 const prompt = `
     Desarrolla un sistema de alta precisión que genere información nutricional aproximada por ingrediente en formato JSON a partir de una imagen de comida, utilizando fuentes confiables de información nutricional mediante acceso programático.
@@ -72,32 +72,27 @@ const prompt = `
       supuestos. No regreses un objeto con una propiedad NutritionalInfo, regresa el arrego simplemente.
   **Si la imagen no contiene comida, como juguetes, electrodomésticos
   u objetos de oficina, establezca 'name' en 'Invalido'.**
-  `;
-
-
-
+  `
 
 export async function POST(request: Request) {
-    
-    const body = await request.json();
-    const { imagePart } = body;
+  const body = await request.json()
+  const { imagePart } = body
 
-    try {
+  try {
+    const genAI = new GoogleGenerativeAI(config.geminiApiKey!)
+    const model = genAI.getGenerativeModel({ model: 'gemini-pro-vision' })
 
-        const genAI = new GoogleGenerativeAI(config.geminiApiKey!);
-        const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
+    const result = await model.generateContent([prompt, imagePart])
+    const response = result.response
+    let text = response.text()
+    text = text.replaceAll('`', '')
+    text = text.replaceAll('json', '')
+    text = text.replaceAll('JSON', '')
+    const nutritionalInfos: NutritionalInfo[] = JSON.parse(text)
 
-        const result = await model.generateContent([prompt, imagePart]);
-        const response = result.response;
-        let text = response.text();
-        text = text.replaceAll("`", "")
-        text = text.replaceAll("json", "")
-        text = text.replaceAll("JSON", "")
-        const nutritionalInfos: NutritionalInfo[] = JSON.parse(text);
-
-        return NextResponse.json(nutritionalInfos, {status: 200})
-    } catch (error) {
-        console.error(error);
-        return NextResponse.json("Error detecting image", {status: 400})
-    }
+    return NextResponse.json(nutritionalInfos, { status: 200 })
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json('Error detecting image', { status: 400 })
+  }
 }

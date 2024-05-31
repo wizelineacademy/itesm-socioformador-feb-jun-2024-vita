@@ -1,51 +1,49 @@
-'use client';
+'use client'
 
-import React from "react";
-import { FaTrophy, FaMedal, FaUsers } from 'react-icons/fa';
-import Link from 'next/link';
+import React from 'react'
+import { FaTrophy, FaMedal, FaUsers } from 'react-icons/fa'
+import Link from 'next/link'
 
 const Challenge = () => {
   return (
     <>
-      <div className="flex px-5 py-4 text-5xl font-bold justify-center lg:justify-start md:justify-start">
-        <h1 className="mr-2 text-home-title">Retos</h1>
-        <FaTrophy size={36} className="text-home-title" />
+      <div className='flex justify-center px-5 py-4 text-5xl font-bold md:justify-start lg:justify-start'>
+        <h1 className='mr-2 text-home-title'>Retos</h1>
+        <FaTrophy size={36} className='text-home-title' />
       </div>
-      <div className="lg:mt-20 flex flex-col lg:flex-row items-center justify-center gap-6">
-        <div className="flex flex-col items-center">
-          <Link href="/home/getChallenge">
-            <div className="bg-[#1D154A] flex flex-col md:flex-row items-center justify-center md:w-80 lg:w-[340px] sm:w-[330px] w-[240px] p-6 md:p-8 mt-4 rounded-3xl transition-colors duration-300 ease-in-out hover:bg-color-home5 cursor-pointer">
-              <p className="text-white font-bold text-2xl lg:text-3xl mb-4 md:mb-0 md:mr-6">
+      <div className='flex flex-col items-center justify-center gap-6 lg:mt-20 lg:flex-row'>
+        <div className='flex flex-col items-center'>
+          <Link href='/home/getChallenge'>
+            <div className='mt-4 flex w-[240px] cursor-pointer flex-col items-center justify-center rounded-3xl bg-[#1D154A] p-6 transition-colors duration-300 ease-in-out hover:bg-color-home5 sm:w-[330px] md:w-80 md:flex-row md:p-8 lg:w-[340px]'>
+              <p className='mb-4 text-2xl font-bold text-white md:mb-0 md:mr-6 lg:text-3xl'>
                 Ver reto y ranking
               </p>
-              <FaMedal size={80} className="text-white hidden md:block" />
+              <FaMedal size={80} className='hidden text-white md:block' />
             </div>
           </Link>
-          <Link href="/home/badges">
-            <div className="bg-color-home5 flex items-center justify-center md:flex-row 
-            flex-col md:w-80 lg:w-[340px] sm:w-[330px] w-[240px] p-6 md:p-12 mt-4 
-            rounded-3xl transition-colors duration-300 ease-in-out hover:bg-[#1D154A] cursor-pointer">
-              <h3 className="text-white font-bold text-2xl lg:text-3xl md:mr-6">
+          <Link href='/home/badges'>
+            <div className='mt-4 flex w-[240px] cursor-pointer flex-col items-center justify-center rounded-3xl bg-color-home5 p-6 transition-colors duration-300 ease-in-out hover:bg-[#1D154A] sm:w-[330px] md:w-80 md:flex-row md:p-12 lg:w-[340px]'>
+              <h3 className='text-2xl font-bold text-white md:mr-6 lg:text-3xl'>
                 Logros
               </h3>
-              <FaTrophy size={80} className="text-white hidden md:block" />
+              <FaTrophy size={80} className='hidden text-white md:block' />
             </div>
           </Link>
         </div>
-        
-        <Link href="/home/responseChallenge/">
-        <div className="flex flex-col items-center">
-          <div className="bg-color-home6 flex flex-col items-center justify-center md:w-80 lg:w-[340px] sm:w-[330px] w-[240px] p-6 mt-4 rounded-3xl transition-colors duration-300 ease-in-out hover:bg-color-home5 cursor-pointer">
-            <h3 className="text-white font-bold text-2xl lg:text-3xl mb-4">
-              Evaluación entre pares
-            </h3>
-            <FaUsers size={60} className="text-white" />
+
+        <Link href='/home/responseChallenge/'>
+          <div className='flex flex-col items-center'>
+            <div className='mt-4 flex w-[240px] cursor-pointer flex-col items-center justify-center rounded-3xl bg-color-home6 p-6 transition-colors duration-300 ease-in-out hover:bg-color-home5 sm:w-[330px] md:w-80 lg:w-[340px]'>
+              <h3 className='mb-4 text-2xl font-bold text-white lg:text-3xl'>
+                Evaluación entre pares
+              </h3>
+              <FaUsers size={60} className='text-white' />
+            </div>
           </div>
-        </div>
         </Link>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Challenge;
+export default Challenge
