@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth/authOptions";
 import { eq } from "drizzle-orm";
 import { db } from "@/db/drizzle";
 import { Reminders } from "@/db/schema/schema"; // Importamos el modelo de la tabla Reminders
+import { addUserPointsAndBadges } from "../badgeUser/route";
 
 export async function POST(request: Request) {
   try {
@@ -40,9 +41,13 @@ export async function POST(request: Request) {
       dueTime: new Date(startTime),
       endTime: endTime ? new Date(endTime) : null 
     };
+    
+    const res = await db.insert(Reminders).values(insertValues); 
 
-    // Insertamos el nuevo recordatorio en la base de datos
-    const res = await db.insert(Reminders).values(insertValues); // Cambiamos values(insertValues) a values([insertValues])
+    // Insertamoslos datos del logro
+    const pointsToAdd = 10;
+    const badgeId = 1;
+    await addUserPointsAndBadges(session.user?.id, pointsToAdd, badgeId);
 
     return NextResponse.json(res, { status: 200 });
   } catch (error) {
@@ -63,8 +68,6 @@ export async function GET(request: Request) {
     const res = await db.select()
       .from(Reminders)
       .where(eq(Reminders.idUser, session.user?.id));
-
-
 
     return NextResponse.json(res, { status: 200 });
   } catch (error) {

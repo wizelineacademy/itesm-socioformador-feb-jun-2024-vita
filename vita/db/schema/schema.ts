@@ -14,7 +14,6 @@ export const prismaMigrations = pgTable("_prisma_migrations", {
 	appliedStepsCount: integer("applied_steps_count").default(0).notNull(),
 });
 
-
 export const user = pgTable("User", {
     idUser: serial("id_user").primaryKey().notNull(),
     name: varchar("name", { length: 100 }).notNull(),

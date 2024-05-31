@@ -75,6 +75,10 @@ export async function POST(request: Request) {
       endDate: endDateString, // Formato YYYY-MM-DD
       createdAt: new Date().toISOString()
     });
+    const newBadge = await db.insert(badges).values({
+      name,
+      description,
+    });
 
     await sendMessageWp({ name, description });
 

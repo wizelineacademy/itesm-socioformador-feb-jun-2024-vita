@@ -4,12 +4,7 @@ import Link from 'next/link';
 import Button from '../buttons/Button';
 
 
-
-
 const HomePage: React.FC = () => {
-  const handleClick = () => {
-    console.log('Button clicked!');
-  };
 
   return (
     <div className='flex flex-col justify-center align-middle text-white font-notosans h-screen'>

@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth/authOptions";
 import { eq, and } from "drizzle-orm";
 import { following, followers } from "@/db/schema/schema";
 import { db } from "@/db/drizzle";
+import { addUserPointsAndBadges } from "@/app/api/badgeUser/route";
 
 export async function POST(request: Request, { params }: { params: { id: string } }) {
   try {
@@ -45,6 +46,14 @@ export async function POST(request: Request, { params }: { params: { id: string 
         userId: followedId ,
         followerId: followerId,
       });
+      const existingFollow = await db.select()
+      .from(following)
+      .where((eq(following.userId, session.user?.id)))
+      if(existingFollow.length > 4){
+        const pointsToAdd = 20;
+        const badgeId = 2;
+        await addUserPointsAndBadges(session.user?.id, pointsToAdd, badgeId);
+      }
       return NextResponse.json({ message: "User followed successfully" }, { status: 200 });
     }
   } catch (error) {

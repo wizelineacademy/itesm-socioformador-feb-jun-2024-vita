@@ -66,7 +66,6 @@ const CreateChallenge = () => {
     <div className="flex flex-col px-5 py-4 text-4xl font-bold lg:justify-start md:justify-start justify-center">
       <span className="flex flex-row"> 
         <h1 className="mr-2 text-home-title">Crear Reto Mensual</h1>
-        <FaBell size={36} color="white"/>
       </span> 
       <form onSubmit={handleSubmit} className="mt-6">
         <div className="mt-4 flex flex-col">
