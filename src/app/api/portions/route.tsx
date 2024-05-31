@@ -7,7 +7,7 @@ import { portionsNutrition } from '@/src/db/schema/schema'
 import { eq } from 'drizzle-orm'
 import { addUserPointsAndBadges } from '../badgeUser/route'
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions)
 

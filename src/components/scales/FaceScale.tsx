@@ -1,4 +1,4 @@
-import React, { SetStateAction, Dispatch } from 'react'
+import React from 'react'
 import { FaFaceFrown, FaFaceMeh, FaFaceSmile } from 'react-icons/fa6'
 
 interface FaceScaleProps {

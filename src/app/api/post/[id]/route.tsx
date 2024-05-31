@@ -2,9 +2,6 @@ import { NextResponse } from 'next/server'
 import { eq } from 'drizzle-orm'
 import { db } from '@/src/db/drizzle'
 import { posts } from '@/src/db/schema/schema'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/src/lib/auth/authOptions'
-import { v4 as uuidv4 } from 'uuid'
 import { writeFile } from 'fs/promises'
 import path from 'path'
 
@@ -47,7 +44,7 @@ export async function PUT(
     console.log('Cambio de foto', postPhotoString)
     // Actualizar solo caption y tag si no se proporciona una nueva foto
     if (!postPhotoFile || postPhotoString === '/') {
-      const res = await db
+      await db
         .update(posts)
         .set({
           caption: caption,
@@ -72,7 +69,7 @@ export async function PUT(
     await writeFile(postPhotoPath, buffer)
     const postPhotoUrl = `/uploads/${postPhotoName}`
 
-    const res = await db
+    await db
       .update(posts)
       .set({
         caption: caption,
@@ -99,9 +96,7 @@ export async function DELETE(
       return NextResponse.json('ID parameter is missing', { status: 400 })
     }
 
-    const deleteResult = await db
-      .delete(posts)
-      .where(eq(posts.idPost, Number(id)))
+    await db.delete(posts).where(eq(posts.idPost, Number(id)))
 
     return NextResponse.json('Post deleted successfully', { status: 200 })
   } catch (error) {

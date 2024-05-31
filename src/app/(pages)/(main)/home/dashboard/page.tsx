@@ -1,15 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import {
-  FaHeart,
-  FaComments,
-  FaCircle,
-  FaAngleRight,
-  FaSuitcase,
-  FaDumbbell,
-  FaPercent,
-} from 'react-icons/fa'
+import { FaHeart } from 'react-icons/fa'
 import axios from 'axios'
 import { BarChartPlot } from '@/src/components/charts/BarChartPlot'
 import { ValueRecord } from '@/src/data/datatypes/autoeval'
@@ -423,7 +415,7 @@ const Dashboard = () => {
 
       <div className='flex flex-col gap-x-5 gap-y-2 lg:flex-row'>
         {sections.map((section, idx) => (
-          <h3
+          <button
             key={section.title}
             className={`rounded-xl py-2 text-xl font-bold hover:cursor-pointer hover:bg-home-title hover:px-5 hover:text-white lg:px-5 ${selection === idx && 'bg-home-title px-5 text-white'}`}
             onClick={() => {
@@ -431,7 +423,7 @@ const Dashboard = () => {
             }}
           >
             {section.title}
-          </h3>
+          </button>
         ))}
       </div>
 

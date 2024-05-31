@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { eq, and } from 'drizzle-orm'
+import { eq } from 'drizzle-orm'
 import { db } from '@/src/db/drizzle'
 import { user, followers } from '@/src/db/schema/schema'
 

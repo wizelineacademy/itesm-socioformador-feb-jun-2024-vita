@@ -1,4 +1,4 @@
-import React, { ReactNode, SetStateAction } from 'react'
+import React, { SetStateAction } from 'react'
 import { FaSearch } from 'react-icons/fa'
 
 interface SearchBarButtonProps {

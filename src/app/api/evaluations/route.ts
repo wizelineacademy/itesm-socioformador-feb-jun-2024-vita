@@ -7,12 +7,12 @@ import {
   challengeEvaluations,
   badges,
 } from '@/src/db/schema/schema'
-import { eq, and, not, isNull } from 'drizzle-orm'
+import { eq, and, not } from 'drizzle-orm'
 import { notInArray, sql } from 'drizzle-orm/sql'
 import { getMonthlyChallenge } from '../challenges/route'
 import { addUserPoints, addUserPointsAndBadges } from '../badgeUser/route'
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions)
 

@@ -89,6 +89,7 @@
     "@types/react": "^18.2.69",
     "@types/react-dom": "^18",
     "@types/react-modal": "^3.16.3",
+    "@types/react-speech-recognition": "^3.9.5",
     "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^7.11.0",
     "@typescript-eslint/parser": "^7.11.0",

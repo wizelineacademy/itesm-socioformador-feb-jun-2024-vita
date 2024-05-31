@@ -1,12 +1,6 @@
 import postgres from 'postgres'
-import {
-  drizzle as LocalDrizzle,
-  type PostgresJsDatabase,
-} from 'drizzle-orm/postgres-js'
-import {
-  drizzle as AWSDrizzle,
-  type AwsDataApiPgDatabase,
-} from 'drizzle-orm/aws-data-api/pg'
+import { drizzle as LocalDrizzle } from 'drizzle-orm/postgres-js'
+import { drizzle as AWSDrizzle } from 'drizzle-orm/aws-data-api/pg'
 import { RDSDataClient } from '@aws-sdk/client-rds-data'
 import { Resource } from 'sst'
 import { migrate as LocalMigrate } from 'drizzle-orm/postgres-js/migrator'

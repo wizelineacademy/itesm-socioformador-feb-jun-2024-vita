@@ -6,7 +6,7 @@ import { db } from '@/src/db/drizzle'
 import { user } from '@/src/db/schema/schema'
 import { medicalProfile } from '@/src/db/schema/schema'
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions)
 
@@ -64,7 +64,7 @@ export async function PUT(request: Request) {
       )
     }
 
-    const res = await db
+    await db
       .update(user)
       .set({
         name: name,
@@ -73,7 +73,7 @@ export async function PUT(request: Request) {
       })
       .where(eq(user.idUser, session.user?.id))
 
-    const res2 = await db
+    await db
       .update(medicalProfile)
       .set({
         emergencyName: emergencyName,

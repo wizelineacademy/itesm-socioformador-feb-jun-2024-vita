@@ -1,6 +1,4 @@
 import { NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/src/lib/auth/authOptions'
 import { eq } from 'drizzle-orm'
 import { posts, user } from '@/src/db/schema/schema'
 import { db } from '@/src/db/drizzle'

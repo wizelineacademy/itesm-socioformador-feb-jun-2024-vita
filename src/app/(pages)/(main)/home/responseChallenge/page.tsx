@@ -2,6 +2,7 @@
 import ChallengeForm from '@/src/components/challenges/ChallengeForm'
 import { ChallengeSubmission } from '@/src/data/datatypes/challenge'
 import axios from 'axios'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
@@ -49,7 +50,7 @@ const ResponseChallenge = () => {
   const handleSubmitEvaluation = async (submissionId: number) => {
     try {
       // Enviar la evaluación al servidor con Axios
-      const response = await axios.post('/api/evaluations', {
+      await axios.post('/api/evaluations', {
         score,
         idUser: submissionId,
         idChallenge: userDataSub[0].idChallenge,
@@ -99,15 +100,15 @@ const ResponseChallenge = () => {
                 key={submission.idUser}
                 className='mb-6 w-full max-w-lg overflow-hidden rounded-lg bg-white p-6 shadow-md'
               >
-                <img
+                <Image
                   src={submission.imageUrl}
                   alt='Challenge Image'
                   className='h-64 w-full rounded-lg object-cover'
                 />
                 <div className='p-6'>
-                  <label className='mb-2 text-center text-2xl font-semibold text-gray-700'>
+                  <p className='mb-2 text-center text-2xl font-semibold text-gray-700'>
                     Descripción:
-                  </label>
+                  </p>
                   <p className='w-[80%]s mb-4 text-center text-xl'>
                     {submission.description}
                   </p>

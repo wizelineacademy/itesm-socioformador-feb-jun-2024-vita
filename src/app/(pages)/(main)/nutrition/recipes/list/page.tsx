@@ -35,7 +35,7 @@ const RecipesList = () => {
         {recipes &&
           recipes.map((recipe) => (
             <ListItemLink
-              onClick={(e) => {
+              onClick={() => {
                 navigateToRecipe(recipe.name)
               }}
               key={recipe.name}

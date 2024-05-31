@@ -44,7 +44,7 @@ const createS3Url = async () => {
   return url
 }
 
-export async function POST(request: Request) {
+export async function POST() {
   try {
     if (!config.openApiKey) {
       return new NextResponse('OpenAI API Key not configured', { status: 400 })

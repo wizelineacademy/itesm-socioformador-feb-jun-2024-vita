@@ -7,7 +7,6 @@ import {
   YAxis,
   Line,
   Tooltip,
-  Legend,
   ResponsiveContainer,
   TooltipProps,
   LineChart,

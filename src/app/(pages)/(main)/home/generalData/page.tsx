@@ -8,7 +8,6 @@ const GeneralData = () => {
   const [userData, setUserData] = useState<HealthData | null>(null)
   const [editMode, setEditMode] = useState(false)
   const [editedData, setEditedData] = useState<EditHealthData | null>(null)
-  const [minBirthDate, setMinBirthDate] = useState('') // Fecha mínima permitida
 
   // Obtener la fecha actual
   const currentDate = new Date()
@@ -18,11 +17,9 @@ const GeneralData = () => {
     currentDate.getMonth(),
     currentDate.getDate(),
   )
-  const minDateStr = minDate.toISOString().split('T')[0]
 
   useEffect(() => {
     // Guardar la fecha mínima permitida en el estado
-    setMinBirthDate(minDateStr)
     getData()
   }, [])
 

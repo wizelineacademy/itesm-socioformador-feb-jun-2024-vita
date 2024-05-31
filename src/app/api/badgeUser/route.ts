@@ -3,7 +3,7 @@ import { userBadges, userPoints } from '@/src/db/schema/schema'
 import { db } from '@/src/db/drizzle'
 import { eq, and } from 'drizzle-orm'
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const res = await db.select().from(userBadges)
 

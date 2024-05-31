@@ -163,7 +163,7 @@ const Nutrition: FC = () => {
 
   const postPortions = async () => {
     try {
-      const response = await axios.post('/api/portions', {
+      await axios.post('/api/portions', {
         fruits: values[0],
         vegetables: values[1],
         legumes: values[2],
@@ -337,7 +337,7 @@ const Nutrition: FC = () => {
                 </div>
               </div>
               <button
-                onClick={(e) => {
+                onClick={() => {
                   const newValues = [...values]
                   const portions = options[Number(caloriesSelection)]
                   for (let i = 0; i < labels.length; i++) {

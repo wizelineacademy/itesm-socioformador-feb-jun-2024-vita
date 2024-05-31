@@ -1,5 +1,4 @@
 'use client'
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { useContext, useState } from 'react'
 import axios from 'axios'
 import swal from 'sweetalert2'
@@ -391,7 +390,7 @@ const RecipesIngredients = () => {
 
       router.push('/nutrition/recipes/list')
       swal.close()
-    } catch (error: any) {
+    } catch (error) {
       console.log(error)
       swal.close()
       swal.fire({

@@ -5,7 +5,6 @@ import UserCard from '@/src/components/post/UserCard'
 import { UserPost } from '@/src/data/datatypes/user'
 import axios from 'axios'
 import Link from 'next/link'
-import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 const SearchUser = ({ params }: { params: { query: string } }) => {

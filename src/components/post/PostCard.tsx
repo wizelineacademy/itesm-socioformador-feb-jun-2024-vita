@@ -179,7 +179,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, creator, onPostDelete }) => {
         {post.caption}
       </p>
 
-      <div className='relative cursor-pointer' onClick={openModal}>
+      <button className='relative cursor-pointer' onClick={openModal}>
         <Image
           src={post.postPhoto}
           alt='post photo'
@@ -187,7 +187,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, creator, onPostDelete }) => {
           height={300}
           className='h-64 w-full rounded-lg object-cover'
         />
-      </div>
+      </button>
 
       {isModalOpen && (
         <div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75'>
@@ -249,7 +249,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, creator, onPostDelete }) => {
                 key={comment.idComment}
                 className='flex items-start space-x-4'
               >
-                <img
+                <Image
                   src={comment.profilePhoto ?? '/assets/noAvatar.png'}
                   alt='User Avatar'
                   className='h-10 w-10 rounded-full'

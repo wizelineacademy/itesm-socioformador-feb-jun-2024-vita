@@ -28,9 +28,15 @@ const GoalsDetailPage = ({ params }: { params: { idGoal: string } }) => {
     })
     setGoal(selected)
 
+    if (!selected) {
+      console.log('No selection')
+      return
+    }
+
     if (!selected?.variable) {
       setExtra(false)
-      createGoal(selected!)
+
+      createGoal(selected)
     } else {
       setExtra(true)
       if (selected.data) {

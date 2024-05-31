@@ -9,26 +9,6 @@ import {
   TooltipProps,
 } from 'recharts'
 
-// Example data
-const data = [
-  { type: 'Category A', count: 400 },
-  { type: 'Category B', count: 300 },
-  { type: 'Category C', count: 300 },
-  { type: 'Category D', count: 200 },
-  { type: 'Category E', count: 278 },
-  { type: 'Category F', count: 189 },
-]
-
-// Define colors for each category
-const COLORS = [
-  '#0088FE',
-  '#00C49F',
-  '#FFBB28',
-  '#FF8042',
-  '#FF4563',
-  '#A28DFF',
-]
-
 export interface PieChartRecord {
   type: string
   count: number

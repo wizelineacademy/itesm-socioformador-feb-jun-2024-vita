@@ -68,7 +68,7 @@ async function updateDueTimeReminders(idsReminders: number[]) {
   return updateResults
 }
 
-export async function POST(request: Request) {
+export async function POST() {
   try {
     const reminders = await getOverdueReminders()
 

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { FaBell } from 'react-icons/fa'
 import axios from 'axios'
 import Swal from 'sweetalert2'
@@ -71,7 +71,7 @@ const CrudReminders = () => {
         }
       }
 
-      const response = await axios.post('/api/reminders', {
+      await axios.post('/api/reminders', {
         ...formData,
         frequency: frequencyInSeconds,
         startTime,

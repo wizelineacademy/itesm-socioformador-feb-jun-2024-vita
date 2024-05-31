@@ -6,10 +6,7 @@ import { getServerSession } from 'next-auth'
 import { NextResponse } from 'next/server'
 
 //Post sleep goal
-export async function POST(
-  request: Request,
-  { params }: { params: { category: string } },
-) {
+export async function POST(request: Request) {
   try {
     const body = await request.json()
     const session = await getServerSession(authOptions)

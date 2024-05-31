@@ -6,7 +6,6 @@ import FaceScale from '@/src/components/scales/FaceScale'
 import ButtonEvaluation from '@/src/components/buttons/ButtonEvaluation.'
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/navigation'
-import { nutritionGoals } from '@/src/data/nutrition_goals'
 import AutoevaluationContext from '@/src/context/autoevaluation'
 
 const SleepSelfEvaluationPage = () => {

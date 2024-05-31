@@ -95,7 +95,7 @@ const NutritionalPlan = () => {
       setRecipes(orderRecipes(recipes))
 
       Swal.close()
-    } catch (error: any) {
+    } catch (error) {
       console.log(error)
       Swal.close()
       Swal.fire({
@@ -172,7 +172,7 @@ const NutritionalPlan = () => {
           {recipes &&
             recipes.map((recipe) => (
               <PlanItemLink
-                onClick={(e) => {
+                onClick={() => {
                   navigateToRecipe(recipe.name)
                 }}
                 key={recipe.name}

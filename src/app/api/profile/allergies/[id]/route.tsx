@@ -36,9 +36,7 @@ export async function DELETE(
       return NextResponse.json('ID parameter is missing', { status: 400 })
     }
     console.log(id)
-    const res = await db
-      .delete(allergies)
-      .where(eq(allergies.idAllergies, Number(id)))
+    await db.delete(allergies).where(eq(allergies.idAllergies, Number(id)))
 
     return NextResponse.json('Allergie deleted successfully', { status: 200 })
   } catch (error) {

@@ -60,7 +60,7 @@ const Chat = () => {
       setMessages([...newMessages, response.data])
       form.reset()
       resetTranscript()
-    } catch (error: any) {
+    } catch (error) {
       console.log(error)
     } finally {
       setIsLoading(false)

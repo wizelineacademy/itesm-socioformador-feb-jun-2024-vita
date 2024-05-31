@@ -3,7 +3,7 @@ import { AddPhotoAlternateOutlined } from '@mui/icons-material'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form'
-import React, { useState } from 'react'
+import React from 'react'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 
@@ -37,7 +37,7 @@ const CreatePost = () => {
         postForm.append('postPhoto', data.postPhoto[0])
       }
 
-      const response = await axios.post('/api/post/new', postForm)
+      await axios.post('/api/post/new', postForm)
 
       Swal.fire({
         title: 'Éxito',

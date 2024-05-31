@@ -119,7 +119,7 @@ const RecipesCalories = () => {
 
       router.push('/nutrition/recipes/list')
       swal.close()
-    } catch (error: any) {
+    } catch (error) {
       console.log(error)
       swal.close()
       swal.fire({
