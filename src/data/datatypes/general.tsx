@@ -1,9 +1,9 @@
 export interface Identifiable {
-    id: number
+  id: number
 }
 
 export interface Nameable {
-    title: string
+  title: string
 }
 
 export interface IdNameable extends Identifiable, Nameable {}

@@ -1,15 +1,15 @@
-import { NextResponse } from "next/server";
-import {OpenAI} from "openai";
-import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
-import config from "@/src/lib/environment/config";
+import { NextResponse } from 'next/server'
+import { OpenAI } from 'openai'
+import { ChatCompletionMessageParam } from 'openai/resources/index.mjs'
+import config from '@/src/lib/environment/config'
 
 const openai = new OpenAI({
-    apiKey: config.openApiKey
+  apiKey: config.openApiKey,
 })
 
 const instructionMessage: ChatCompletionMessageParam = {
-    role: "system",
-    content: `
+  role: 'system',
+  content: `
     Dame una rutina de ejercicios para realizar en un solo entrenamiento, dame al menos 5 ejercicios. Te indicaré dónde voy a realizar el ejercicio y adapta la rutina a los aparatos e instrumentos o falta de ellos de acuerdo al espacio.
     El JSON será una lista de objetos ejercicio. Después del último elemento de las listas de impact_areas y precautions no pongas coma. Cada ejercicio debe contener los siguientes campos:
     - name: nombre del ejercicio en string
@@ -37,31 +37,31 @@ const instructionMessage: ChatCompletionMessageParam = {
             "precautions": ["Mantén el cuerpo alineado desde la cabeza hasta los pies", "Evita arquear la espalda"]
         }
     ]
-    `
+    `,
 }
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const body = await request.json()
 
-    const { message } = body;
+    const { message } = body
 
-    if(!message){
-        return new NextResponse("message is required", {status: 400})
+    if (!message) {
+      return new NextResponse('message is required', { status: 400 })
     }
 
-    if(!config.openApiKey){
-        return new NextResponse("OpenAI API Key not configured", {status: 400})
+    if (!config.openApiKey) {
+      return new NextResponse('OpenAI API Key not configured', { status: 400 })
     }
 
     const response = await openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
-        messages: [instructionMessage, message]
+      model: 'gpt-3.5-turbo',
+      messages: [instructionMessage, message],
     })
 
     return NextResponse.json(response.choices[0].message)
   } catch (error) {
     console.log(error)
-    return NextResponse.json("Error generating exercises", {status: 500})
+    return NextResponse.json('Error generating exercises', { status: 500 })
   }
 }

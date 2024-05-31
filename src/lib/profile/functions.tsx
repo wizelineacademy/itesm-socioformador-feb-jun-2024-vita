@@ -1,10 +1,10 @@
-import Swal from 'sweetalert2';
-import axios from 'axios';
+import Swal from 'sweetalert2'
+import axios from 'axios'
 
 export const confirmAndDelete = async (
   id: string,
   itemType: string,
-  deleteCallback: (id: string) => Promise<any>
+  deleteCallback: (id: string) => Promise<any>,
 ) => {
   // Mostrar mensaje de confirmación
   const confirmationResult = await Swal.fire({
@@ -14,31 +14,31 @@ export const confirmAndDelete = async (
     showCancelButton: true,
     confirmButtonText: 'Eliminar',
     cancelButtonText: 'Cancelar',
-    reverseButtons: true
-  });
+    reverseButtons: true,
+  })
 
   // Si el usuario confirma la eliminación
   if (confirmationResult.isConfirmed) {
     try {
-      const response = await deleteCallback(id);
+      const response = await deleteCallback(id)
       if (response.status === 200) {
         Swal.fire({
           title: 'Éxito',
           text: `El ${itemType} ha sido eliminado exitosamente`,
           icon: 'success',
-          confirmButtonText: 'OK'
-        });
+          confirmButtonText: 'OK',
+        })
       }
     } catch (error) {
       Swal.fire({
         title: 'Error',
         text: `Ocurrió un error al eliminar el ${itemType}`,
         icon: 'error',
-        confirmButtonText: 'OK'
-      });
+        confirmButtonText: 'OK',
+      })
     }
   }
-};
+}
 
 export const handleEditItem = async (
   item: any, // Puedes especificar el tipo de tu objeto aquí
@@ -46,21 +46,21 @@ export const handleEditItem = async (
   editCallback: (item: any) => Promise<any>,
   closeCallback: () => void,
   getDataCallback: () => void,
-  setEditingItem: (item: any | null) => void
+  setEditingItem: (item: any | null) => void,
 ) => {
   try {
     if (item) {
-      const response = await editCallback(item);
+      const response = await editCallback(item)
       if (response.status === 200) {
         Swal.fire({
           title: 'Éxito',
           text: `Se han guardado los cambios en ${itemType} con éxito`,
           icon: 'success',
-          confirmButtonText: 'OK'
-        });
-        closeCallback();
-        getDataCallback();
-        setEditingItem(null);
+          confirmButtonText: 'OK',
+        })
+        closeCallback()
+        getDataCallback()
+        setEditingItem(null)
       }
     }
   } catch (error) {
@@ -68,21 +68,21 @@ export const handleEditItem = async (
       title: 'Error',
       text: `Ocurrió un error al guardar los cambios en ${itemType}`,
       icon: 'error',
-      confirmButtonText: 'OK'
-    });
+      confirmButtonText: 'OK',
+    })
   }
-};
+}
 
 export const handleInput = <T extends {}>(
   event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  setter: React.Dispatch<React.SetStateAction<T>>
+  setter: React.Dispatch<React.SetStateAction<T>>,
 ) => {
-  const { name, value } = event.target;
+  const { name, value } = event.target
   setter((prevState: T) => ({
     ...prevState,
-    [name]: value
-  }));
-};
+    [name]: value,
+  }))
+}
 
 export const handleAddItem = async (
   newItem: any, // Puedes especificar el tipo de tu objeto aquí
@@ -91,36 +91,35 @@ export const handleAddItem = async (
   addItemCallback: (data: any) => Promise<void>, // Función para agregar el nuevo elemento
   resetCallback: () => void, // Función para reiniciar los valores del nuevo elemento
   closeCallback: () => void, // Función para cerrar el modal después de agregar el elemento
-  getDataCallback: () => void // Función para obtener los datos actualizados
+  getDataCallback: () => void, // Función para obtener los datos actualizados
 ) => {
   try {
     if (editedDataProfile && newItem) {
-      const { idMedicalProfile } = editedDataProfile;
+      const { idMedicalProfile } = editedDataProfile
       const itemData = {
         ...newItem,
-        idMedicalProfile: idMedicalProfile
-      };
+        idMedicalProfile: idMedicalProfile,
+      }
 
-      await addItemCallback(itemData);
-      
+      await addItemCallback(itemData)
+
       Swal.fire({
         title: 'Éxito',
         text: `Se ha agregado ${itemType} con éxito`,
         icon: 'success',
-        confirmButtonText: 'OK'
-      });
+        confirmButtonText: 'OK',
+      })
 
-      resetCallback();
-      closeCallback();
-      getDataCallback();
+      resetCallback()
+      closeCallback()
+      getDataCallback()
     }
   } catch (error) {
     Swal.fire({
       title: 'Error',
       text: `Ocurrió un error al agregar ${itemType}`,
       icon: 'error',
-      confirmButtonText: 'OK'
-    });
-    
+      confirmButtonText: 'OK',
+    })
   }
-};
+}

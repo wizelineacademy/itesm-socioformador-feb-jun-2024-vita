@@ -1,15 +1,15 @@
-import { NextResponse } from "next/server";
-import {OpenAI} from "openai";
-import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
-import config from "@/src/lib/environment/config";
+import { NextResponse } from 'next/server'
+import { OpenAI } from 'openai'
+import { ChatCompletionMessageParam } from 'openai/resources/index.mjs'
+import config from '@/src/lib/environment/config'
 
 const openai = new OpenAI({
-    apiKey: config.openApiKey
+  apiKey: config.openApiKey,
 })
 
 const instructionMessage: ChatCompletionMessageParam = {
-    role: "system",
-    content: `
+  role: 'system',
+  content: `
     Dame un plan nutricional para un día. Te indicaré las porciones que deseo consumir en el día de frutas, verduras, leguminosas, leche, carne, cereales, azúcares, grasas y quiero que me regreses 4 recetas.
     Una para el desyuno, una para la comida, un snack y una para la cena. Contempla que las porciones que te indique deberán estar distribuidas entre las recetas del día.
     Sé creativo, dame recetas distintas, no me des solo licuados, smoothies, ensalada, hummus y salmón.
@@ -49,31 +49,31 @@ const instructionMessage: ChatCompletionMessageParam = {
         "mealtime": "Cena"
       }
     ]
-   `
+   `,
 }
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const body = await request.json()
 
-    const { message } = body;
+    const { message } = body
 
-    if(!message){
-        return new NextResponse("message is required", {status: 400})
+    if (!message) {
+      return new NextResponse('message is required', { status: 400 })
     }
 
-    if(!config.openApiKey){
-        return new NextResponse("OpenAI API Key not configured", {status: 400})
+    if (!config.openApiKey) {
+      return new NextResponse('OpenAI API Key not configured', { status: 400 })
     }
 
     const response = await openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
-        messages: [instructionMessage, message]
+      model: 'gpt-3.5-turbo',
+      messages: [instructionMessage, message],
     })
 
     return NextResponse.json(response.choices[0].message)
   } catch (error) {
     console.log(error)
-    return NextResponse.json("Error generating recipes", {status: 500})
+    return NextResponse.json('Error generating recipes', { status: 500 })
   }
 }

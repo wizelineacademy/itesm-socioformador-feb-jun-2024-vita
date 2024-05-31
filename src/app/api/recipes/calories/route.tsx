@@ -1,16 +1,15 @@
-import { NextResponse } from "next/server";
-import {OpenAI} from "openai";
-import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
-import config from "@/src/lib/environment/config";
-
+import { NextResponse } from 'next/server'
+import { OpenAI } from 'openai'
+import { ChatCompletionMessageParam } from 'openai/resources/index.mjs'
+import config from '@/src/lib/environment/config'
 
 const openai = new OpenAI({
-    apiKey: config.openApiKey
+  apiKey: config.openApiKey,
 })
 
 const instructionMessage: ChatCompletionMessageParam = {
-    role: "system",
-    content: `
+  role: 'system',
+  content: `
     Dame algunas ideas de recetas saludables. Te indicaré la cantidad de calorias que deseo consumir y cómo quiero que esté divida mi alimentación en proporciones de lípidos, carbohidratos y proteínas.
     El JSON será una lista de objetos receta. Después del último elemento de las listas de ingredients y steps no pongas coma. Cada receta debe contener los siguientes campos:    
     - name: nombre de la receta en string
@@ -46,31 +45,31 @@ const instructionMessage: ChatCompletionMessageParam = {
         "time": "30 minutos"
       }
     ]
-   `
+   `,
 }
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const body = await request.json()
 
-    const { message } = body;
+    const { message } = body
 
-    if(!message){
-        return new NextResponse("message is required", {status: 400})
+    if (!message) {
+      return new NextResponse('message is required', { status: 400 })
     }
 
-    if(!config.openApiKey){
-        return new NextResponse("OpenAI API Key not configured", {status: 400})
+    if (!config.openApiKey) {
+      return new NextResponse('OpenAI API Key not configured', { status: 400 })
     }
 
     const response = await openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
-        messages: [instructionMessage, message]
+      model: 'gpt-3.5-turbo',
+      messages: [instructionMessage, message],
     })
 
     return NextResponse.json(response.choices[0].message)
   } catch (error) {
     console.log(error)
-    return NextResponse.json("Error generating recipes", {status: 500})
+    return NextResponse.json('Error generating recipes', { status: 500 })
   }
 }

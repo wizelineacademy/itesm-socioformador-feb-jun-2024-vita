@@ -1,46 +1,42 @@
-"use client"
-import React from 'react';
-import Link from 'next/link';
-import Button from '../buttons/Button';
-
+'use client'
+import React from 'react'
+import Link from 'next/link'
+import Button from '../buttons/Button'
 
 const HomePage: React.FC = () => {
-
   return (
-    <div className='flex flex-col justify-center align-middle text-white font-notosans h-screen'>
-            <div id='About_Container' className='flex justify-center items-center flex-col gap-12 '>
-                <h1 className="text-5xl font-bold sm:text-6xl md:text-6xl lg:7xl sm:mt-3.5 md:mt-1.5">
-                  Únete a  
-                  <span className='text-red-300 text-5xl font-bold  sm:text-6xl md:text-6xl lg:7xl sm:mt-3.5 md:mt-1.5 ml-2'>
-                     VITA
-                  </span> 
-                  <div className="h-0.5 w-84 bg-rose-300 mt-2"></div>
-                </h1>
-                
+    <div className='font-notosans flex h-screen flex-col justify-center align-middle text-white'>
+      <div
+        id='About_Container'
+        className='flex flex-col items-center justify-center gap-12'
+      >
+        <h1 className='lg:7xl text-5xl font-bold sm:mt-3.5 sm:text-6xl md:mt-1.5 md:text-6xl'>
+          Únete a
+          <span className='lg:7xl ml-2 text-5xl font-bold text-red-300 sm:mt-3.5 sm:text-6xl md:mt-1.5 md:text-6xl'>
+            VITA
+          </span>
+          <div className='w-84 mt-2 h-0.5 bg-rose-300'></div>
+        </h1>
 
-                <h2 className=' text-4xl md:text-4xl mb-5 text-center leading-loose font-light 	w-[400px] md:w-[450px]'>
-                   Y disfruta de todos los  
-                   <span className='text-red-300 text-5xl font-bold mb-5 sm:text-6xl md:text-6xl 
-                   lg:7xl sm:mt-3.5 md:mt-1.5'> beneficios
-                   </span>
-                </h2>
-                <Link href='/signup'>
-                  <Button 
-                          borderColor="border-custom-red"
-                          label= "Regístrate" 
-                          outline
-                          big
-                          onClick={() => {}}
-                        
-                      />  
-                </Link>
-               
-            </div>
-        
-
-      
+        <h2 className='mb-5 w-[400px] text-center text-4xl font-light leading-loose md:w-[450px] md:text-4xl'>
+          Y disfruta de todos los
+          <span className='lg:7xl mb-5 text-5xl font-bold text-red-300 sm:mt-3.5 sm:text-6xl md:mt-1.5 md:text-6xl'>
+            {' '}
+            beneficios
+          </span>
+        </h2>
+        <Link href='/signup'>
+          <Button
+            borderColor='border-custom-red'
+            label='Regístrate'
+            outline
+            big
+            onClick={() => {}}
+          />
+        </Link>
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage

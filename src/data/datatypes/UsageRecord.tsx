@@ -1,5 +1,4 @@
-
 export interface UsageRecord {
-    name: string,
-    detail: string,
+  name: string
+  detail: string
 }

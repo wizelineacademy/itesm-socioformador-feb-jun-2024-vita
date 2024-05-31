@@ -1,28 +1,25 @@
-import { NextResponse } from "next/server";
-import { db } from "@/src/db/drizzle";
-import { disability } from "@/src/db/schema/schema";
+import { NextResponse } from 'next/server'
+import { db } from '@/src/db/drizzle'
+import { disability } from '@/src/db/schema/schema'
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    
-    const {
-      idMedicalProfile, name
-    } = body;
+    const body = await request.json()
+
+    const { idMedicalProfile, name } = body
 
     // Initialize insertValues with the correct values
     const insertValues = {
       idMedicalProfile: Number(idMedicalProfile),
       name: name,
-    };
+    }
 
     // Insert values into the database
-    const res = await db.insert(disability).values(insertValues);
+    const res = await db.insert(disability).values(insertValues)
 
-    return NextResponse.json(res, { status: 200 });
+    return NextResponse.json(res, { status: 200 })
   } catch (error) {
-    console.error(error);
-    return NextResponse.json("Error posting disabilties", { status: 400 });
+    console.error(error)
+    return NextResponse.json('Error posting disabilties', { status: 400 })
   }
 }
-

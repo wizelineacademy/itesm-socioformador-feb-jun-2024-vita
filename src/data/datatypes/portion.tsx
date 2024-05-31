@@ -1,29 +1,28 @@
 interface Indexable {
-    [key: string]: number;
+  [key: string]: number
 }
 
 export interface Portion extends Indexable {
-    fruits: number,
-    vegetables: number,
-    legumes: number,
-    meat: number,
-    milk: number,
-    cereals: number,
-    sugar: number,
-    fat: number
+  fruits: number
+  vegetables: number
+  legumes: number
+  meat: number
+  milk: number
+  cereals: number
+  sugar: number
+  fat: number
 }
 
 export interface CaloriesPortion {
-    [key: number]: Portion
+  [key: number]: Portion
 }
 
 export interface PlanPortions {
-    increase: CaloriesPortion,
-    decrease: CaloriesPortion
+  increase: CaloriesPortion
+  decrease: CaloriesPortion
 }
 
 export interface GenderPortions {
-    "M": PlanPortions,
-    "F": PlanPortions
+  M: PlanPortions
+  F: PlanPortions
 }
-
