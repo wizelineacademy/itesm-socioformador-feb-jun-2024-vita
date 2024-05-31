@@ -3,9 +3,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { getMonthName } from "@/lib/DaysFormat/days";
+import Link from "next/link";
 
 const GetChallenge = () => {
   const [challenge, setChallenge] = useState<{
+    idChallenge: number;
     name: string;
     description: string;
     startDate: string;
@@ -64,9 +66,17 @@ const GetChallenge = () => {
   return (
     <div className="flex flex-col px-5 py-4 text-4xl font-bold 
     lg:justify-start md:justify-start justify-center ">
-      <div className="mb-4 text-start">
-        <h1 className="text-5xl text-home-title ">Reto de {getMonthName()}</h1>
-      </div>
+      <span className="flex flex-row mb-4 text-start"> 
+        <h1 className="text-5xl text-home-title">Reto de {getMonthName()} </h1>
+      </span> 
+      <Link href="/home/responseChallenge/">
+        <div className="lg:justify-start md:justify-start justify-center 
+        text-white text-2xl  bg-home-title 
+         mt-4 px-4 py-2 w-[380px] rounded-3xl
+         transition-colors duration-300 ease-in-out hover:bg-[#1D154A] cursor-pointer">
+          Hacer el reto/Evaluar a otros
+        </div>
+      </Link>
       
       {challenge ? ( 
         <div className="bg-white p-8 rounded-lg shadow-lg mt-6 w-full md:w-3/4  mx-auto ">

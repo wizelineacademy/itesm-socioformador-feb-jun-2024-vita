@@ -151,7 +151,8 @@ const CrudReminders = () => {
                     id="Comentarios" 
                     required 
                     placeholder="Describe el recordatorio..." 
-                    className="mt-4 w-[85%] h-[100px] px-4 py-2 rounded-3xl bg-reminders-input text-white  resize-none"
+                    className="mt-4 w-[85%] h-[100px] px-4 py-2 rounded-3xl bg-reminders-input
+                     text-white  resize-none"
                     name="description"
                     value={formData.description}
                     onChange={handleChange}

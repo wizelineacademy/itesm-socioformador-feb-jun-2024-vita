@@ -22,7 +22,9 @@ const Challenge = () => {
             </div>
           </Link>
           <Link href="/home/badges">
-            <div className="bg-color-home5 flex items-center justify-center md:flex-row flex-col md:w-80 lg:w-[340px] sm:w-[330px] w-[240px] p-6 md:p-12 mt-4 rounded-3xl transition-colors duration-300 ease-in-out hover:bg-[#1D154A] cursor-pointer">
+            <div className="bg-color-home5 flex items-center justify-center md:flex-row 
+            flex-col md:w-80 lg:w-[340px] sm:w-[330px] w-[240px] p-6 md:p-12 mt-4 
+            rounded-3xl transition-colors duration-300 ease-in-out hover:bg-[#1D154A] cursor-pointer">
               <h3 className="text-white font-bold text-2xl lg:text-3xl md:mr-6">
                 Logros
               </h3>
@@ -30,6 +32,8 @@ const Challenge = () => {
             </div>
           </Link>
         </div>
+        
+        <Link href="/home/responseChallenge/">
         <div className="flex flex-col items-center">
           <div className="bg-color-home6 flex flex-col items-center justify-center md:w-80 lg:w-[340px] sm:w-[330px] w-[240px] p-6 mt-4 rounded-3xl transition-colors duration-300 ease-in-out hover:bg-color-home5 cursor-pointer">
             <h3 className="text-white font-bold text-2xl lg:text-3xl mb-4">
@@ -38,6 +42,7 @@ const Challenge = () => {
             <FaUsers size={60} className="text-white" />
           </div>
         </div>
+        </Link>
       </div>
     </>
   );

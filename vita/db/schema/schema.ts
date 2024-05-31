@@ -1,8 +1,7 @@
 import { pgTable, varchar, timestamp, text, 
-	integer,  serial, doublePrecision, date , unique } from "drizzle-orm/pg-core"
+	integer,  serial, doublePrecision, date , unique, boolean } from "drizzle-orm/pg-core"
 
 //tables
-
 export const prismaMigrations = pgTable("_prisma_migrations", {
 	id: varchar("id", { length: 36 }).primaryKey().notNull(),
 	checksum: varchar("checksum", { length: 64 }).notNull(),
@@ -205,10 +204,11 @@ export const monthlyChallenge = pgTable("MonthlyChallenge", {
   });
 
   export const badges = pgTable("Badges", {
-	idBadge: serial("id_badge").primaryKey().notNull(),
-	name: varchar("name", { length: 50 }).notNull(),
-	description: text("description").notNull(),
-  });
+    idBadge: serial("id_badge").primaryKey().notNull(),
+    idChallenge: integer("id_challenge").references(() => monthlyChallenge.idChallenge, { onDelete: "cascade", onUpdate: "cascade" }),
+    name: varchar("name", { length: 50 }).notNull(),
+    description: text("description").notNull(),
+});
 
   export const userPoints = pgTable("UserPoints", {
 	idUserPoint: serial("id_user_point").primaryKey().notNull(),
@@ -227,4 +227,28 @@ export const monthlyChallenge = pgTable("MonthlyChallenge", {
 	return {
 		unqUserBadge: unique('unique_user_badge').on(table.userId, table.badgeId),
 	};
+});
+
+export const challengeEvaluations = pgTable('ChallengeEvaluations', {
+    idEvaluation: serial('id_evaluation').primaryKey().notNull(),
+    idUser: integer('id_user').references(() => user.idUser, { onDelete: "cascade", onUpdate: "cascade" }).notNull(),
+    idChallenge: integer('id_challenge').references(() => monthlyChallenge.idChallenge, { onDelete: "cascade", onUpdate: "cascade" }).notNull(),
+    evaluatorId: integer('evaluator_id').references(() => user.idUser, { onDelete: "cascade", onUpdate: "cascade" }).notNull(),
+    score: integer('score').notNull().default(0),
+    evaluatedAt: timestamp('evaluated_at', { mode: 'string', withTimezone: true }).defaultNow().notNull(),
+}, (table) => {
+    return {
+        unqEvaluation: unique('unique_evaluation').on( table.idUser, table.idChallenge, table.evaluatorId),
+    };
+});
+
+
+export const challengeSubmissions = pgTable('ChallengeSubmissions', {
+    idSubmission: serial('id_submission').primaryKey().notNull(),
+    idUser: integer('id_user').references(() => user.idUser, { onDelete: "cascade", onUpdate: "cascade" }).notNull(),
+    idChallenge: integer('id_challenge').references(() => monthlyChallenge.idChallenge, { onDelete: "cascade", onUpdate: "cascade" }).notNull(),
+    imageUrl: text('image_url').notNull(),
+    description: text('description').notNull(),
+	passed: boolean('passed').default(false),
+    submittedAt: timestamp('submitted_at', { mode: 'string', withTimezone: true }).defaultNow().notNull(),
 });

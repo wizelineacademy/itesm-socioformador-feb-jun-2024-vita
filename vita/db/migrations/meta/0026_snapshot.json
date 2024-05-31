@@ -1,0 +1,1753 @@
+{
+  "id": "27da8afa-b7e2-4bda-9564-e8ef2c3b118c",
+  "prevId": "aa2510ea-26f4-4b35-af0b-470dfa2ea798",
+  "version": "5",
+  "dialect": "pg",
+  "tables": {
+    "Article": {
+      "name": "Article",
+      "schema": "",
+      "columns": {
+        "id_article": {
+          "name": "id_article",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image_url": {
+          "name": "image_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Goals": {
+      "name": "Goals",
+      "schema": "",
+      "columns": {
+        "id_goal": {
+          "name": "id_goal",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_user": {
+          "name": "id_user",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category": {
+          "name": "category",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "variable": {
+          "name": "variable",
+          "type": "varchar(30)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_value": {
+          "name": "current_value",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "desired_value": {
+          "name": "desired_value",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Goals_id_user_User_id_user_fk": {
+          "name": "Goals_id_user_User_id_user_fk",
+          "tableFrom": "Goals",
+          "tableTo": "User",
+          "columnsFrom": [
+            "id_user"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Reminders": {
+      "name": "Reminders",
+      "schema": "",
+      "columns": {
+        "id_reminders": {
+          "name": "id_reminders",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_user": {
+          "name": "id_user",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "frequency": {
+          "name": "frequency",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "start_time": {
+          "name": "start_time",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "due_time": {
+          "name": "due_time",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "end_time": {
+          "name": "end_time",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Reminders_id_user_User_id_user_fk": {
+          "name": "Reminders_id_user_User_id_user_fk",
+          "tableFrom": "Reminders",
+          "tableTo": "User",
+          "columnsFrom": [
+            "id_user"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Allergies": {
+      "name": "Allergies",
+      "schema": "",
+      "columns": {
+        "id_allergies": {
+          "name": "id_allergies",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_medical_profile": {
+          "name": "id_medical_profile",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reaction": {
+          "name": "reaction",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Allergies_id_medical_profile_MedicalProfile_id_medical_profile_fk": {
+          "name": "Allergies_id_medical_profile_MedicalProfile_id_medical_profile_fk",
+          "tableFrom": "Allergies",
+          "tableTo": "MedicalProfile",
+          "columnsFrom": [
+            "id_medical_profile"
+          ],
+          "columnsTo": [
+            "id_medical_profile"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Badges": {
+      "name": "Badges",
+      "schema": "",
+      "columns": {
+        "id_badge": {
+          "name": "id_badge",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_challenge": {
+          "name": "id_challenge",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Badges_id_challenge_MonthlyChallenge_id_challenge_fk": {
+          "name": "Badges_id_challenge_MonthlyChallenge_id_challenge_fk",
+          "tableFrom": "Badges",
+          "tableTo": "MonthlyChallenge",
+          "columnsFrom": [
+            "id_challenge"
+          ],
+          "columnsTo": [
+            "id_challenge"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "ChallengeEvaluations": {
+      "name": "ChallengeEvaluations",
+      "schema": "",
+      "columns": {
+        "id_evaluation": {
+          "name": "id_evaluation",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_user": {
+          "name": "id_user",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_challenge": {
+          "name": "id_challenge",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "evaluator_id": {
+          "name": "evaluator_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "score": {
+          "name": "score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "evaluated_at": {
+          "name": "evaluated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "ChallengeEvaluations_id_user_User_id_user_fk": {
+          "name": "ChallengeEvaluations_id_user_User_id_user_fk",
+          "tableFrom": "ChallengeEvaluations",
+          "tableTo": "User",
+          "columnsFrom": [
+            "id_user"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "ChallengeEvaluations_id_challenge_MonthlyChallenge_id_challenge_fk": {
+          "name": "ChallengeEvaluations_id_challenge_MonthlyChallenge_id_challenge_fk",
+          "tableFrom": "ChallengeEvaluations",
+          "tableTo": "MonthlyChallenge",
+          "columnsFrom": [
+            "id_challenge"
+          ],
+          "columnsTo": [
+            "id_challenge"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "ChallengeEvaluations_evaluator_id_User_id_user_fk": {
+          "name": "ChallengeEvaluations_evaluator_id_User_id_user_fk",
+          "tableFrom": "ChallengeEvaluations",
+          "tableTo": "User",
+          "columnsFrom": [
+            "evaluator_id"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "unique_evaluation": {
+          "name": "unique_evaluation",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id_user",
+            "id_challenge",
+            "evaluator_id"
+          ]
+        }
+      }
+    },
+    "ChallengeSubmissions": {
+      "name": "ChallengeSubmissions",
+      "schema": "",
+      "columns": {
+        "id_submission": {
+          "name": "id_submission",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_user": {
+          "name": "id_user",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_challenge": {
+          "name": "id_challenge",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "image_url": {
+          "name": "image_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "passed": {
+          "name": "passed",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "submitted_at": {
+          "name": "submitted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "ChallengeSubmissions_id_user_User_id_user_fk": {
+          "name": "ChallengeSubmissions_id_user_User_id_user_fk",
+          "tableFrom": "ChallengeSubmissions",
+          "tableTo": "User",
+          "columnsFrom": [
+            "id_user"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "ChallengeSubmissions_id_challenge_MonthlyChallenge_id_challenge_fk": {
+          "name": "ChallengeSubmissions_id_challenge_MonthlyChallenge_id_challenge_fk",
+          "tableFrom": "ChallengeSubmissions",
+          "tableTo": "MonthlyChallenge",
+          "columnsFrom": [
+            "id_challenge"
+          ],
+          "columnsTo": [
+            "id_challenge"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "ChronicalDesease": {
+      "name": "ChronicalDesease",
+      "schema": "",
+      "columns": {
+        "id_chronical_desease": {
+          "name": "id_chronical_desease",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_medical_profile": {
+          "name": "id_medical_profile",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "ChronicalDesease_id_medical_profile_MedicalProfile_id_medical_profile_fk": {
+          "name": "ChronicalDesease_id_medical_profile_MedicalProfile_id_medical_profile_fk",
+          "tableFrom": "ChronicalDesease",
+          "tableTo": "MedicalProfile",
+          "columnsFrom": [
+            "id_medical_profile"
+          ],
+          "columnsTo": [
+            "id_medical_profile"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Comments": {
+      "name": "Comments",
+      "schema": "",
+      "columns": {
+        "id_comment": {
+          "name": "id_comment",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "post_id": {
+          "name": "post_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Comments_post_id_Post_id_posts_fk": {
+          "name": "Comments_post_id_Post_id_posts_fk",
+          "tableFrom": "Comments",
+          "tableTo": "Post",
+          "columnsFrom": [
+            "post_id"
+          ],
+          "columnsTo": [
+            "id_posts"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "Comments_user_id_User_id_user_fk": {
+          "name": "Comments_user_id_User_id_user_fk",
+          "tableFrom": "Comments",
+          "tableTo": "User",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Disability": {
+      "name": "Disability",
+      "schema": "",
+      "columns": {
+        "id_disability": {
+          "name": "id_disability",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_medical_profile": {
+          "name": "id_medical_profile",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Disability_id_medical_profile_MedicalProfile_id_medical_profile_fk": {
+          "name": "Disability_id_medical_profile_MedicalProfile_id_medical_profile_fk",
+          "tableFrom": "Disability",
+          "tableTo": "MedicalProfile",
+          "columnsFrom": [
+            "id_medical_profile"
+          ],
+          "columnsTo": [
+            "id_medical_profile"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "FeatureEvaluation": {
+      "name": "FeatureEvaluation",
+      "schema": "",
+      "columns": {
+        "id_feature_evaluation": {
+          "name": "id_feature_evaluation",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_user": {
+          "name": "id_user",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "grade": {
+          "name": "grade",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "FeatureEvaluation_id_user_User_id_user_fk": {
+          "name": "FeatureEvaluation_id_user_User_id_user_fk",
+          "tableFrom": "FeatureEvaluation",
+          "tableTo": "User",
+          "columnsFrom": [
+            "id_user"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "FeatureUsage": {
+      "name": "FeatureUsage",
+      "schema": "",
+      "columns": {
+        "id_feature_usage": {
+          "name": "id_feature_usage",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_user": {
+          "name": "id_user",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "detail": {
+          "name": "detail",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date": {
+          "name": "date",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "FeatureUsage_id_user_User_id_user_fk": {
+          "name": "FeatureUsage_id_user_User_id_user_fk",
+          "tableFrom": "FeatureUsage",
+          "tableTo": "User",
+          "columnsFrom": [
+            "id_user"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Followers": {
+      "name": "Followers",
+      "schema": "",
+      "columns": {
+        "id_followers": {
+          "name": "id_followers",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "follower_id": {
+          "name": "follower_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Followers_user_id_User_id_user_fk": {
+          "name": "Followers_user_id_User_id_user_fk",
+          "tableFrom": "Followers",
+          "tableTo": "User",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "Followers_follower_id_User_id_user_fk": {
+          "name": "Followers_follower_id_User_id_user_fk",
+          "tableFrom": "Followers",
+          "tableTo": "User",
+          "columnsFrom": [
+            "follower_id"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Following": {
+      "name": "Following",
+      "schema": "",
+      "columns": {
+        "id_following": {
+          "name": "id_following",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "following_id": {
+          "name": "following_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Following_user_id_User_id_user_fk": {
+          "name": "Following_user_id_User_id_user_fk",
+          "tableFrom": "Following",
+          "tableTo": "User",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "Following_following_id_User_id_user_fk": {
+          "name": "Following_following_id_User_id_user_fk",
+          "tableFrom": "Following",
+          "tableTo": "User",
+          "columnsFrom": [
+            "following_id"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "GoalEvaluation": {
+      "name": "GoalEvaluation",
+      "schema": "",
+      "columns": {
+        "id_goal_evaluation": {
+          "name": "id_goal_evaluation",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_user": {
+          "name": "id_user",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_goal": {
+          "name": "id_goal",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "grade": {
+          "name": "grade",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "GoalEvaluation_id_user_User_id_user_fk": {
+          "name": "GoalEvaluation_id_user_User_id_user_fk",
+          "tableFrom": "GoalEvaluation",
+          "tableTo": "User",
+          "columnsFrom": [
+            "id_user"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "GoalEvaluation_id_goal_Goals_id_goal_fk": {
+          "name": "GoalEvaluation_id_goal_Goals_id_goal_fk",
+          "tableFrom": "GoalEvaluation",
+          "tableTo": "Goals",
+          "columnsFrom": [
+            "id_goal"
+          ],
+          "columnsTo": [
+            "id_goal"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "MedicalProfile": {
+      "name": "MedicalProfile",
+      "schema": "",
+      "columns": {
+        "id_medical_profile": {
+          "name": "id_medical_profile",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_user": {
+          "name": "id_user",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "emergency_name": {
+          "name": "emergency_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "emergency_phone": {
+          "name": "emergency_phone",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "policyUser": {
+          "name": "policyUser",
+          "type": "varchar(30)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "insurance_company": {
+          "name": "insurance_company",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bloodType": {
+          "name": "bloodType",
+          "type": "varchar(30)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "MedicalProfile_id_user_User_id_user_fk": {
+          "name": "MedicalProfile_id_user_User_id_user_fk",
+          "tableFrom": "MedicalProfile",
+          "tableTo": "User",
+          "columnsFrom": [
+            "id_user"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "MedicalProfile_id_user_unique": {
+          "name": "MedicalProfile_id_user_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id_user"
+          ]
+        }
+      }
+    },
+    "Medicines": {
+      "name": "Medicines",
+      "schema": "",
+      "columns": {
+        "id_medicines": {
+          "name": "id_medicines",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_medical_profile": {
+          "name": "id_medical_profile",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "route_admin": {
+          "name": "route_admin",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dose": {
+          "name": "dose",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "duration": {
+          "name": "duration",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Medicines_id_medical_profile_MedicalProfile_id_medical_profile_fk": {
+          "name": "Medicines_id_medical_profile_MedicalProfile_id_medical_profile_fk",
+          "tableFrom": "Medicines",
+          "tableTo": "MedicalProfile",
+          "columnsFrom": [
+            "id_medical_profile"
+          ],
+          "columnsTo": [
+            "id_medical_profile"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "MonthlyChallenge": {
+      "name": "MonthlyChallenge",
+      "schema": "",
+      "columns": {
+        "id_challenge": {
+          "name": "id_challenge",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "start_date": {
+          "name": "start_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "end_date": {
+          "name": "end_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "PortionsNutrition": {
+      "name": "PortionsNutrition",
+      "schema": "",
+      "columns": {
+        "id_nutriton_portion": {
+          "name": "id_nutriton_portion",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_user": {
+          "name": "id_user",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fruits": {
+          "name": "fruits",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "vegetables": {
+          "name": "vegetables",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "milk": {
+          "name": "milk",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "legumes": {
+          "name": "legumes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cereals": {
+          "name": "cereals",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "meat": {
+          "name": "meat",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sugar": {
+          "name": "sugar",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fat": {
+          "name": "fat",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "PortionsNutrition_id_user_User_id_user_fk": {
+          "name": "PortionsNutrition_id_user_User_id_user_fk",
+          "tableFrom": "PortionsNutrition",
+          "tableTo": "User",
+          "columnsFrom": [
+            "id_user"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "PortionsNutrition_id_user_unique": {
+          "name": "PortionsNutrition_id_user_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id_user"
+          ]
+        }
+      }
+    },
+    "PostLikes": {
+      "name": "PostLikes",
+      "schema": "",
+      "columns": {
+        "id_like": {
+          "name": "id_like",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "post_id": {
+          "name": "post_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "PostLikes_post_id_Post_id_posts_fk": {
+          "name": "PostLikes_post_id_Post_id_posts_fk",
+          "tableFrom": "PostLikes",
+          "tableTo": "Post",
+          "columnsFrom": [
+            "post_id"
+          ],
+          "columnsTo": [
+            "id_posts"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "PostLikes_user_id_User_id_user_fk": {
+          "name": "PostLikes_user_id_User_id_user_fk",
+          "tableFrom": "PostLikes",
+          "tableTo": "User",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Post": {
+      "name": "Post",
+      "schema": "",
+      "columns": {
+        "id_posts": {
+          "name": "id_posts",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "creator_id": {
+          "name": "creator_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "caption": {
+          "name": "caption",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "post_photo": {
+          "name": "post_photo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tag": {
+          "name": "tag",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Post_creator_id_User_id_user_fk": {
+          "name": "Post_creator_id_User_id_user_fk",
+          "tableFrom": "Post",
+          "tableTo": "User",
+          "columnsFrom": [
+            "creator_id"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "_prisma_migrations": {
+      "name": "_prisma_migrations",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(36)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "checksum": {
+          "name": "checksum",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "finished_at": {
+          "name": "finished_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "migration_name": {
+          "name": "migration_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "logs": {
+          "name": "logs",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rolled_back_at": {
+          "name": "rolled_back_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "started_at": {
+          "name": "started_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "applied_steps_count": {
+          "name": "applied_steps_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Records": {
+      "name": "Records",
+      "schema": "",
+      "columns": {
+        "id_record": {
+          "name": "id_record",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_user": {
+          "name": "id_user",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category": {
+          "name": "category",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "value": {
+          "name": "value",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "date": {
+          "name": "date",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Records_id_user_User_id_user_fk": {
+          "name": "Records_id_user_User_id_user_fk",
+          "tableFrom": "Records",
+          "tableTo": "User",
+          "columnsFrom": [
+            "id_user"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "User": {
+      "name": "User",
+      "schema": "",
+      "columns": {
+        "id_user": {
+          "name": "id_user",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password": {
+          "name": "password",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "phone_number": {
+          "name": "phone_number",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "profile_photo": {
+          "name": "profile_photo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "membership": {
+          "name": "membership",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "membership_time": {
+          "name": "membership_time",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "User_email_unique": {
+          "name": "User_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        },
+        "User_phone_number_unique": {
+          "name": "User_phone_number_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "phone_number"
+          ]
+        }
+      }
+    },
+    "UserBadges": {
+      "name": "UserBadges",
+      "schema": "",
+      "columns": {
+        "id_user_badges": {
+          "name": "id_user_badges",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "badge_id": {
+          "name": "badge_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "UserBadges_user_id_User_id_user_fk": {
+          "name": "UserBadges_user_id_User_id_user_fk",
+          "tableFrom": "UserBadges",
+          "tableTo": "User",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "UserBadges_badge_id_Badges_id_badge_fk": {
+          "name": "UserBadges_badge_id_Badges_id_badge_fk",
+          "tableFrom": "UserBadges",
+          "tableTo": "Badges",
+          "columnsFrom": [
+            "badge_id"
+          ],
+          "columnsTo": [
+            "id_badge"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "unique_user_badge": {
+          "name": "unique_user_badge",
+          "nullsNotDistinct": false,
+          "columns": [
+            "user_id",
+            "badge_id"
+          ]
+        }
+      }
+    },
+    "UserDetail": {
+      "name": "UserDetail",
+      "schema": "",
+      "columns": {
+        "id_user_detail": {
+          "name": "id_user_detail",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_user": {
+          "name": "id_user",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sex": {
+          "name": "sex",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "weight": {
+          "name": "weight",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "height": {
+          "name": "height",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "body_fat": {
+          "name": "body_fat",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "birth_date": {
+          "name": "birth_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "muscular_mass": {
+          "name": "muscular_mass",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "UserDetail_id_user_User_id_user_fk": {
+          "name": "UserDetail_id_user_User_id_user_fk",
+          "tableFrom": "UserDetail",
+          "tableTo": "User",
+          "columnsFrom": [
+            "id_user"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "UserDetail_id_user_unique": {
+          "name": "UserDetail_id_user_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id_user"
+          ]
+        }
+      }
+    },
+    "UserPoints": {
+      "name": "UserPoints",
+      "schema": "",
+      "columns": {
+        "id_user_point": {
+          "name": "id_user_point",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_user": {
+          "name": "id_user",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "points": {
+          "name": "points",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "UserPoints_id_user_User_id_user_fk": {
+          "name": "UserPoints_id_user_User_id_user_fk",
+          "tableFrom": "UserPoints",
+          "tableTo": "User",
+          "columnsFrom": [
+            "id_user"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "UserPosts": {
+      "name": "UserPosts",
+      "schema": "",
+      "columns": {
+        "id_user_posts": {
+          "name": "id_user_posts",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "post_id": {
+          "name": "post_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "UserPosts_user_id_User_id_user_fk": {
+          "name": "UserPosts_user_id_User_id_user_fk",
+          "tableFrom": "UserPosts",
+          "tableTo": "User",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id_user"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "UserPosts_post_id_Post_id_posts_fk": {
+          "name": "UserPosts_post_id_Post_id_posts_fk",
+          "tableFrom": "UserPosts",
+          "tableTo": "Post",
+          "columnsFrom": [
+            "post_id"
+          ],
+          "columnsTo": [
+            "id_posts"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
