@@ -5,7 +5,7 @@ interface AddModalProps {
   editMode: boolean
   closeModal: () => void
   handleAddItem: () => void
-  item: unknown // Puedes ajustar el tipo de 'item' según tus necesidades
+  item: any // Puedes ajustar el tipo de 'item' según tus necesidades
   handleItemChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   title: string
   fields: { name: string; placeholder: string }[]

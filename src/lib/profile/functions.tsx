@@ -45,12 +45,12 @@ export const confirmAndDelete = async (
 }
 
 export const handleEditItem = async (
-  item: unknown, // Puedes especificar el tipo de tu objeto aquí
+  item: any, // Puedes especificar el tipo de tu objeto aquí
   itemType: string,
-  editCallback: (item: unknown) => Promise<Response>,
+  editCallback: (item: any) => Promise<Response>,
   closeCallback: () => void,
   getDataCallback: () => void,
-  setEditingItem: (item: unknown | null) => void,
+  setEditingItem: (item: any | null) => void,
 ) => {
   try {
     if (item) {
@@ -89,10 +89,10 @@ export const handleInput = <T extends object>(
 }
 
 export const handleAddItem = async (
-  newItem: unknown, // Puedes especificar el tipo de tu objeto aquí
+  newItem: any, // Puedes especificar el tipo de tu objeto aquí
   itemType: string,
-  editedDataProfile: unknown, // Asumo que es un objeto con la información del perfil editado
-  addItemCallback: (data: unknown) => Promise<unknown>, // Función para agregar el nuevo elemento
+  editedDataProfile: any, // Asumo que es un objeto con la información del perfil editado
+  addItemCallback: (data: any) => Promise<any>, // Función para agregar el nuevo elemento
   resetCallback: () => void, // Función para reiniciar los valores del nuevo elemento
   closeCallback: () => void, // Función para cerrar el modal después de agregar el elemento
   getDataCallback: () => void, // Función para obtener los datos actualizados
