@@ -1,7 +1,47 @@
-import { NextResponse } from 'next/server';
-import { monthlyChallenge, badges } from '@/db/schema/schema';
-import { db } from '@/db/drizzle';
-import { eq, and  } from 'drizzle-orm';
+import { db } from "@/db/drizzle";
+import { monthlyChallenge, user } from "@/db/schema/schema";
+import config from "@/lib/environment/config";
+import axios from "axios";
+import { and, eq, isNotNull } from "drizzle-orm";
+import { NextResponse } from "next/server";
+
+const getUsersWithNumber = async () => {
+    const users = await db.select()
+    .from(user)
+    .where(isNotNull(user.phoneNumber))
+    return users;
+}
+
+const sendMessageWp = async (challenge: { name: string, description: string }) => {
+    try {
+
+        const users = await getUsersWithNumber();
+
+        if(!challenge){
+            return NextResponse.json("A challenge is required", { status: 200 });
+        }
+
+        const promises = users.map(user => 
+            axios.post(
+              `https://graph.facebook.com/v18.0/248211301718489/messages`,
+              {
+                messaging_product: "whatsapp",
+                to: "52" + user.phoneNumber,
+                text: { body: `Hay un nuevo desafío disponible:\n${challenge.name}\n${challenge.description}`}
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${config.graphApiToken}`,
+                }
+              }
+            )
+        );
+
+        await Promise.all(promises);
+    } catch(error){
+      console.log(error);
+    }
+}
 
 export async function POST(request: Request) {
   try {
@@ -52,7 +92,10 @@ export async function POST(request: Request) {
   // Luego puedes utilizar idChallenge en tu función checkOrCreateBadge
   await checkOrCreateBadge(name, description, idChallenge);
 
-    
+
+    await sendMessageWp({ name, description });
+
+
     return NextResponse.json({ message: "Reto creado exitosamente", data: newChallenge }, { status: 201 });
   } catch (error) {
     console.error('Error al crear el reto:', error);
