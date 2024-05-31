@@ -39,20 +39,19 @@ const ResponseChallenge = () => {
                 text: "Ocurrió un error al recuperar los datos",
                 icon: 'error',
                 confirmButtonText: 'OK'
-            });
+            }); ``
         }
     };
 
     const handleSubmitEvaluation = async (submissionId: number) => {
         try {
             // Enviar la evaluación al servidor con Axios
-            alert( userDataSub[0].idUser)
             const response = await axios.post('/api/evaluations', {
                 score,
                 idUser: submissionId,
                 idChallenge: userDataSub[0].idChallenge
             });
-
+            getDataSub();
             Swal.fire({
                 title: 'Éxito',
                 text: 'Evaluación enviada exitosamente',
@@ -77,7 +76,7 @@ const ResponseChallenge = () => {
     return (
         <div className="flex flex-col px-5 py-4 text-4xl font-bold lg:justify-start md:justify-start justify-center">
             <span className="flex flex-row mb-4 text-start">
-                <h1 className="text-5xl text-home-title">{userData ? "Hacer el reto" : "Evaluar el reto"}</h1>
+                <h1 className="text-5xl text-home-title">{!userData ? "Hacer el reto" : "Evaluar el reto"}</h1>
             </span>
             <Link href="/home/getChallenge/">
                 <div className="lg:justify-start md:justify-start justify-center text-white text-2xl bg-home-title mt-4 px-4 py-2 w-[280px] rounded-3xl transition-colors duration-300 ease-in-out hover:bg-[#1D154A] cursor-pointer">

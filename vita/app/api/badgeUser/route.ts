@@ -32,7 +32,7 @@ export async function GET(request: Request ) {
  */
 export async function addUserPointsAndBadges(userId: number, pointsToAdd: number, badgeId: number) {
   try {
-      // Comprobamos si el usuario ya tiene una entrada en la tabla UserPoints
+      // Comprobamos si el usuario ya tiene una entrada en la tabla UserBadge
         const existingBadge = await db.select()
         .from(userBadges)
         .where(
