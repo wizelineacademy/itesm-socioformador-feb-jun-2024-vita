@@ -143,6 +143,8 @@ function FoodAnalysisPage() {
         <div className='mt-4'>
           <Image
             src={imageUrl}
+            width={500}
+            height={300}
             alt='Uploaded'
             className='h-auto max-w-full sm:h-[300px] sm:w-[500px]'
           />
