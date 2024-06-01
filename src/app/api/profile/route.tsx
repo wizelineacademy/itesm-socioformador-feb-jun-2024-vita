@@ -50,7 +50,7 @@ export async function PUT(request: Request) {
 
     if (!name || !email || !phoneNumber) {
       return NextResponse.json(
-        'nombre, correo, teléfono, Contacto y número de emergencia, póliza, aseguradora de póliza y tipo de sangre son obligatori',
+        'nombre, correo y teléfono son obligatorios',
         { status: 400 },
       )
     }
