@@ -3,7 +3,6 @@ import { badges } from '@/src/db/schema/schema'
 import { db } from '@/src/db/drizzle'
 
 export async function GET() {
-  //eslint-disable-line no-unused-vars
   try {
     const res = await db.select().from(badges)
 
