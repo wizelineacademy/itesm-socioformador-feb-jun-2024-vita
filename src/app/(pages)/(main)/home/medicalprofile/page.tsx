@@ -738,7 +738,6 @@ const Profile = () => {
                 value={editedDataProfile?.bloodType || ''}
                 onChange={handleInputChange}
                 className='w-[320px] rounded-full bg-input-home px-6 py-2 text-2xl'
-                required
               />
             ) : (
               <div className='w-[320px] rounded-full bg-input-home px-6 py-2 text-2xl'>
@@ -762,7 +761,6 @@ const Profile = () => {
             <div className='flex flex-col justify-around lg:flex-row'>
               <div className='flex flex-col'>
                 <p className='px-6 py-2 text-lg font-bold text-black'>
-                  {' '}
                   Nombre del contacto:
                 </p>
                 {editMode ? (
@@ -772,7 +770,6 @@ const Profile = () => {
                     value={editedDataProfile?.emergencyName || ''}
                     onChange={handleInputChange}
                     className='w-70 rounded-full bg-white px-6 py-2 text-lg font-bold text-gray-400 lg:w-[280px]'
-                    required
                   />
                 ) : (
                   <div className='w-70 rounded-full bg-white px-6 py-2 lg:w-[280px]'>
@@ -786,7 +783,6 @@ const Profile = () => {
               </div>
               <div className='flex flex-col'>
                 <p className='px-6 py-2 text-lg font-bold text-black'>
-                  {' '}
                   Teléfono del contacto:
                 </p>
                 {editMode ? (
@@ -796,7 +792,6 @@ const Profile = () => {
                     value={editedDataProfile?.emergencyPhone || ''}
                     onChange={handleInputChange}
                     className='w-70 rounded-full bg-white px-6 py-2 text-lg font-bold text-gray-400 lg:w-[280px]'
-                    required
                     min='10'
                   />
                 ) : (
@@ -816,7 +811,6 @@ const Profile = () => {
             <div className='flex flex-col justify-around lg:flex-row'>
               <div className='flex flex-col'>
                 <p className='px-6 py-2 text-lg font-bold text-black'>
-                  {' '}
                   Número del seguro:
                 </p>
                 {editMode ? (
@@ -826,7 +820,6 @@ const Profile = () => {
                     value={editedDataProfile?.policyUser || ''}
                     onChange={handleInputChange}
                     className='w-70 rounded-full bg-white px-6 py-2 text-lg font-bold text-gray-400 lg:w-[280px]'
-                    required
                   />
                 ) : (
                   <div className='w-70 rounded-full bg-white px-6 py-2 lg:w-[280px]'>
@@ -849,7 +842,6 @@ const Profile = () => {
                     value={editedDataProfile?.insuranceCompany || ''}
                     onChange={handleInputChange}
                     className='w-70 rounded-full bg-white px-6 py-2 text-lg font-bold text-gray-400 lg:w-[280px]'
-                    required
                   />
                 ) : (
                   <div className='w-70 rounded-full bg-white px-6 py-2 lg:w-[280px]'>

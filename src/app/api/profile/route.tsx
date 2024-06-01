@@ -48,20 +48,19 @@ export async function PUT(request: Request) {
       bloodType,
     } = await request.json()
 
-    if (
-      !name ||
-      !email ||
-      !phoneNumber ||
-      !emergencyName ||
-      !emergencyPhone ||
-      !policyUser ||
-      !insuranceCompany ||
-      !bloodType
-    ) {
+    if (!name || !email || !phoneNumber) {
       return NextResponse.json(
-        'name, email, phoneNumber, emergencyName, emergencyPhone, policyUser, insuranceCompany and  bloodType are required',
+        'nombre, correo, teléfono, Contacto y número de emergencia, póliza, aseguradora de póliza y tipo de sangre son obligatori',
         { status: 400 },
       )
+    }
+
+    const medicalProfileData = {
+      emergencyName: emergencyName ?? null,
+      emergencyPhone: emergencyPhone ?? null,
+      policyUser: policyUser ?? null,
+      insuranceCompany: insuranceCompany ?? null,
+      bloodType: bloodType ?? null,
     }
 
     await db
@@ -75,13 +74,7 @@ export async function PUT(request: Request) {
 
     await db
       .update(medicalProfile)
-      .set({
-        emergencyName: emergencyName,
-        emergencyPhone: emergencyPhone,
-        policyUser: policyUser,
-        insuranceCompany: insuranceCompany,
-        bloodType: bloodType,
-      })
+      .set(medicalProfileData)
       .where(eq(medicalProfile.idUser, session.user?.id))
 
     return NextResponse.json('Profile was edited successfully', { status: 200 })
