@@ -8,16 +8,11 @@ import Swal from 'sweetalert2'
 import axios from 'axios'
 
 const CreatePost = () => {
-  const postData: {
-    creatorId: string
-    caption: string
-    tag: string
-    postPhoto: string | File[] | null
-  } = {
+  const postData = {
     creatorId: '',
     caption: '',
     tag: '',
-    postPhoto: null,
+    postPhoto: null as FileList | null,
   }
 
   const {
@@ -38,7 +33,7 @@ const CreatePost = () => {
       postForm.append('caption', data.caption)
       postForm.append('tag', data.tag)
 
-      if (data.postPhoto && data.postPhoto[0]) {
+      if (data.postPhoto && data.postPhoto.length > 0) {
         postForm.append('postPhoto', data.postPhoto[0])
       }
 
@@ -63,6 +58,8 @@ const CreatePost = () => {
     }
   }
 
+  const postPhoto = watch('postPhoto')
+
   return (
     <>
       <div className='pt-6'>
@@ -74,44 +71,37 @@ const CreatePost = () => {
             htmlFor='photo'
             className='flex cursor-pointer items-center gap-4 text-light-1'
           >
-            {watch('postPhoto') && typeof watch('postPhoto') === 'string' && (
-              <Image
-                src={
-                  (watch('postPhoto') as string) || 'assets/default-image.jpg'
-                }
-                alt='post'
-                width={250}
-                height={200}
-                className='rounded-lg object-cover'
-              />
-            )}
-
-            {watch('postPhoto') && Array.isArray(watch('postPhoto')) && (
-              <Image
-                src={URL.createObjectURL((watch('postPhoto') as File[])[0])}
-                alt='post'
-                width={250}
-                height={200}
-                className='rounded-lg object-cover'
-              />
-            )}
-
-            {!watch('postPhoto') && (
+            {postPhoto ? (
+              typeof postPhoto === 'string' ? (
+                <Image
+                  src={postPhoto || 'assets/default-image.jpg'}
+                  alt='post'
+                  width={250}
+                  height={200}
+                  className='rounded-lg object-cover'
+                />
+              ) : (
+                postPhoto.length > 0 && (
+                  <Image
+                    src={URL.createObjectURL(postPhoto[0] as File)}
+                    alt='post'
+                    width={250}
+                    height={200}
+                    className='rounded-lg object-cover'
+                  />
+                )
+              )
+            ) : (
               <AddPhotoAlternateOutlined
                 sx={{ fontSize: '100px', color: 'white' }}
               />
             )}
-
             <p> Agregar una Foto </p>
           </label>
           <input
             {...register('postPhoto', {
-              validate: (value: string | unknown[] | undefined | null) => {
-                if (
-                  !value ||
-                  (Array.isArray(value) && value.length === 0) ||
-                  value === undefined
-                ) {
+              validate: (value: FileList | null) => {
+                if (!value || value.length === 0) {
                   return 'La fotografía es requerida!'
                 }
                 return true

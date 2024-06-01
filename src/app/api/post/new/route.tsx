@@ -28,7 +28,6 @@ export async function POST(request: Request) {
 
     const buffer = Buffer.from(await postPhotoFile.arrayBuffer())
     const postPhotoName = `${postPhotoFile.name}`
-    //const postPhotoName = `${uuidv4()}-${postPhotoFile.name}`;
     const postPhotoPath = path.join(
       currentWorkingDirectory,
       'public',
