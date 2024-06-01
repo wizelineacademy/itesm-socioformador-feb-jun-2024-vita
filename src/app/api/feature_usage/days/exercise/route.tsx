@@ -14,6 +14,8 @@ export async function GET() {
       return NextResponse.json('Unauthorized', { status: 401 })
     }
 
+    console.log(getDateNDaysAgo(30))
+
     //get the number of routines generated in the last 30 days
     const res = await db
       .selectDistinct({
@@ -27,6 +29,8 @@ export async function GET() {
           gte(featureUsage.date, getDateNDaysAgo(30)),
         ),
       )
+
+    console.log(res)
 
     return NextResponse.json({ amount: res.length }, { status: 200 })
   } catch (error) {

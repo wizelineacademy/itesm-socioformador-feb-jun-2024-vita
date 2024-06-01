@@ -34,7 +34,7 @@ const Home = () => {
   const getData = async () => {
     try {
       const response = await axios.get('/api/healthdata')
-      const fetchedData = response.data[0]
+      const fetchedData = response.data
 
       setUserData(fetchedData)
     } catch (error) {

@@ -1,5 +1,5 @@
 import { db } from '@/src/db/drizzle'
-import { user } from '@/src/db/schema/schema'
+import { featureUsage, user } from '@/src/db/schema/schema'
 import config from '@/src/lib/environment/config'
 import axios from 'axios'
 import { eq } from 'drizzle-orm'
@@ -21,6 +21,14 @@ const instructionMessage: ChatCompletionMessageParam = {
     médico dedicado a ese tema" y cabe resaltar que no puedes contestar temas de historia,fisica
     artes, ciencias, leyes cientificas  u otras áreas.
     `,
+}
+
+const storeUsage = async (idUser: number) => {
+  await db.insert(featureUsage).values({
+    idUser: idUser,
+    name: 'chat_message',
+    detail: 'whatsapp',
+  })
 }
 
 export async function POST(request: Request) {
@@ -56,6 +64,8 @@ export async function POST(request: Request) {
         return NextResponse.json('Invalid number', { status: 401 })
       }
 
+      await storeUsage(phoneUser[0].idUser)
+
       //send request to OPENAI
       const response = await openai.chat.completions.create({
         model: 'gpt-3.5-turbo',
@@ -67,6 +77,8 @@ export async function POST(request: Request) {
           },
         ],
       })
+
+      //add record
 
       // send a reply message to Whatsapp
       await axios.post(
@@ -85,30 +97,6 @@ export async function POST(request: Request) {
           },
         },
       )
-
-      // mark incoming message as read
-      await axios.post(
-        `https://graph.facebook.com/v18.0/${business_phone_number_id}/messages`,
-        {
-          messaging_product: 'whatsapp',
-          status: 'read',
-          message_id: message.id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${config.graphApiToken}`,
-          },
-        },
-      )
-
-      //add record
-      const usageRecords = [
-        {
-          name: 'chat_message',
-          detail: 'whatsapp',
-        },
-      ]
-      await axios.post('/api/feature_usage', { usageRecords })
     }
 
     return NextResponse.json('OK', { status: 200 })
