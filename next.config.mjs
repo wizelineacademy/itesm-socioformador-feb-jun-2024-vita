@@ -14,7 +14,13 @@ const nextConfig = {
             }
           ],
     },
-    reactStrictMode: false
+    reactStrictMode: false,
+    experimental: {
+      serverComponentsExternalPackages: [
+        'puppeteer-core',
+        '@sparticuz/chromium'
+      ]
+    }
 };
 
 export default nextConfig;

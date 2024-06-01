@@ -1,20 +1,27 @@
-import puppeteer from 'puppeteer'
+import puppeteer from 'puppeteer-core'
+import chromium from '@sparticuz/chromium'
 
 import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
   let browser
 
   try {
-    const searchParams = request.nextUrl.searchParams
-    const query = searchParams.get('query')
+    const body = await request.json()
+    const { query } = body
 
     if (!query) {
       return NextResponse.json('A query is required', { status: 400 })
     }
 
     //make request to youtube to get videos data
-    browser = await puppeteer.launch()
+    browser = await puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
+      ignoreHTTPSErrors: true,
+    })
     const page = await browser.newPage()
     const url = `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`
     await page.goto(url)

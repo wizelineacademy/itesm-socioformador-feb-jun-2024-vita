@@ -41,9 +41,9 @@ const RecipesDetail = () => {
 
   const searchVideo = async (name: string) => {
     try {
-      const response = await axios.get(
-        `/api/scrape/video?query=${encodeURIComponent(name)}`,
-      )
+      const response = await axios.post('/api/scrape/video', {
+        query: name,
+      })
       const data = response.data
       setVideo(data)
       setLoadingVideo(false)

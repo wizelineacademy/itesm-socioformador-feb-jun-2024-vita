@@ -110,7 +110,7 @@ const ExerciseDashboard = () => {
 
   const fetchNumberOfRoutines = async () => {
     try {
-      const res = await axios.get('/api/feature_usage/exercise/days')
+      const res = await axios.get('/api/feature_usage/days/exercise')
       setNumRoutines(res.data.amount)
     } catch (error) {
       console.log(error)
@@ -213,7 +213,7 @@ const NutritionDashboard = () => {
 
   const fetchNumberOfRecipes = async () => {
     try {
-      const res = await axios.get('/api/feature_usage/nutrition/days')
+      const res = await axios.get('/api/feature_usage/days/nutrition')
       setNumRecipes(res.data.amount)
     } catch (error) {
       console.log(error)
