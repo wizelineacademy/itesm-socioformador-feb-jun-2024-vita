@@ -5,12 +5,10 @@ import axios from 'axios'
 import Loader from '@/src/components/Loader'
 import Swal from 'sweetalert2'
 import { Badge, UserBadge } from '@/src/data/datatypes/badge'
-import { UserAdmin } from '@/src/data/datatypes/user'
 
 const BadgeComponent = () => {
   const [badges, setBadges] = useState<Badge[] | null>(null)
-  const [userBadges, setUserBadges] = useState<UserBadge[] | null>(null)
-  const [user, setUser] = useState<UserAdmin[] | null>(null)
+  const [userBadges, setUserBadges] = useState<number[]>([])
 
   const getData = async () => {
     try {
@@ -27,26 +25,12 @@ const BadgeComponent = () => {
     }
   }
 
-  const getDataBadge = async () => {
+  const getUserBadges = async () => {
     try {
-      const response = await axios.get('/api/badgeUser')
+      const response = await axios.get<UserBadge[]>('/api/badgeUser')
       const fetchedData = response.data
-      setUserBadges(fetchedData)
-    } catch (error) {
-      Swal.fire({
-        title: 'Error',
-        text: 'Ocurrió un error al recuperar los datos',
-        icon: 'error',
-        confirmButtonText: 'OK',
-      })
-    }
-  }
-
-  const getUser = async () => {
-    try {
-      const response = await axios.get('/api/membership')
-      const fetchedData = response.data
-      setUser(fetchedData)
+      const ids = fetchedData.map((badge) => badge.badgeId)
+      setUserBadges(ids)
     } catch (error) {
       Swal.fire({
         title: 'Error',
@@ -59,8 +43,7 @@ const BadgeComponent = () => {
 
   useEffect(() => {
     getData()
-    getDataBadge()
-    getUser()
+    getUserBadges()
   }, [])
 
   return (
@@ -71,19 +54,10 @@ const BadgeComponent = () => {
       <div className='grid w-full grid-cols-1 gap-4 md:w-3/4 md:grid-cols-3 lg:grid-cols-3'>
         {badges ? (
           badges.map((badge, index) => {
-            const obtainedBadge =
-              userBadges &&
-              userBadges.find(
-                (userBadge) =>
-                  userBadge.badgeId === badge.idBadge &&
-                  user &&
-                  user[0]?.idUser === userBadge.userId,
-              )
-            const isObtained = obtainedBadge !== undefined
             return (
               <div
                 key={index}
-                className={`flex flex-col items-center rounded-lg p-4 ${isObtained ? 'bg-gray-700 text-yellow-500' : 'bg-gradient-to-b from-transparent to-gray-800 text-gray-600 hover:bg-gray-700 hover:text-white'}`}
+                className={`flex flex-col items-center rounded-lg p-4 ${userBadges?.includes(badge.idBadge) ? 'bg-gray-700 text-yellow-500' : 'bg-gradient-to-b from-transparent to-gray-800 text-gray-600 hover:bg-gray-700 hover:text-white'}`}
               >
                 <div className='mb-2 text-6xl'>
                   {index % 3 === 0 && <FaBell />}
