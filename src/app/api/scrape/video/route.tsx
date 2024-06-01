@@ -24,6 +24,7 @@ export async function POST(request: NextRequest) {
     })
     const page = await browser.newPage()
     const url = `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`
+    console.log(url)
     await page.goto(url)
 
     const video = await page.evaluate(() => {
