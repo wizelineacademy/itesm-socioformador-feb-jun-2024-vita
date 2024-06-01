@@ -7,13 +7,13 @@ import { getServerSession } from 'next-auth'
 import { NextResponse } from 'next/server'
 
 export async function GET() {
+  const session = await getServerSession(authOptions)
+
+  if (!session) {
+    return NextResponse.json('Unauthorized', { status: 401 })
+  }
+
   try {
-    const session = await getServerSession(authOptions)
-
-    if (!session) {
-      return NextResponse.json('Unauthorized', { status: 401 })
-    }
-
     //get the number of routines generated in the last 30 days
     const res = await db
       .selectDistinct({
@@ -23,8 +23,8 @@ export async function GET() {
       .where(
         and(
           eq(featureUsage.idUser, session.user?.id),
+          gte(featureUsage.date, new Date(getDateNDaysAgo(30))),
           like(featureUsage.name, 'recipes%'),
-          gte(featureUsage.date, getDateNDaysAgo(30)),
         ),
       )
 
