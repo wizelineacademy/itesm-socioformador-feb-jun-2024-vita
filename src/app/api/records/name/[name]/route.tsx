@@ -43,7 +43,7 @@ export async function GET(
         and(
           eq(record.idUser, session.user?.id),
           eq(record.name, params.name),
-          gte(record.date, getDateNDaysAgo(365)),
+          gte(record.date, new Date(getDateNDaysAgo(365))),
         ),
       )
       .groupBy(sql`EXTRACT(MONTH FROM ${record.date})`)

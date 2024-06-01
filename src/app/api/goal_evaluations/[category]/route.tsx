@@ -45,7 +45,7 @@ export async function GET(
           eq(goalEvaluation.idUser, session.user?.id),
           eq(goalEvaluation.name, 'goal_progress'),
           eq(Goals.category, params.category),
-          gte(goalEvaluation.updated_at, getDateNDaysAgo(365)),
+          gte(goalEvaluation.updated_at, new Date(getDateNDaysAgo(365))),
         ),
       )
       .groupBy(sql`EXTRACT(MONTH FROM ${goalEvaluation.updated_at})`)

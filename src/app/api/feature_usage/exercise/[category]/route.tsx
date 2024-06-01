@@ -28,7 +28,7 @@ export async function GET(
         and(
           eq(featureUsage.idUser, session.user?.id),
           eq(featureUsage.name, `routine_${params.category}`),
-          gte(featureUsage.date, getDateNDaysAgo(30)),
+          gte(featureUsage.date, new Date(getDateNDaysAgo(30))),
         ),
       )
       .groupBy(featureUsage.detail)
