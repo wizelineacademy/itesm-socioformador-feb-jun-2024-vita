@@ -26,35 +26,28 @@ export interface AllergiesData {
   reaction: string
 }
 
-export interface GetAllergiesData {
-  length: number
-  map(
-    arg0: (allergy, index) => import('react').JSX.Element,
-  ): import('react').ReactNode
-  name: string
-  reaction: string
-  idMedicalProfile: number
-  idAllergies: number
-}
-
 export interface EditAllergiesData {
   idAllergies: number
   name: string
   reaction: string
 }
 
-export interface DisabilityData {
-  name: string
-}
-
-export interface GetDisabilityData {
+export interface GetAllergiesData {
   length: number
   map(
-    arg0: (disability, index) => import('react').JSX.Element,
+    arg0: (
+      allergy: EditAllergiesData,
+      index: number,
+    ) => import('react').JSX.Element,
   ): import('react').ReactNode
   name: string
+  reaction: string
   idMedicalProfile: number
-  idDisability: number
+  idAllergies: number
+}
+
+export interface DisabilityData {
+  name: string
 }
 
 export interface EditDisabilityData {
@@ -62,23 +55,39 @@ export interface EditDisabilityData {
   name: string
 }
 
+export interface GetDisabilityData {
+  length: number
+  map(
+    arg0: (
+      disability: EditDisabilityData,
+      index: number,
+    ) => import('react').JSX.Element,
+  ): import('react').ReactNode
+  name: string
+  idMedicalProfile: number
+  idDisability: number
+}
+
 export interface ChronicalData {
+  name: string
+}
+
+export interface EditChronicalData {
+  idChronicalDesease: number
   name: string
 }
 
 export interface GetChronicalData {
   length: number
   map(
-    arg0: (chronical, index) => import('react').JSX.Element,
+    arg0: (
+      chronical: EditChronicalData,
+      index: number,
+    ) => import('react').JSX.Element,
   ): import('react').ReactNode
   name: string
   idMedicalProfile: number
   idChronicalDesease: number
-}
-
-export interface EditChronicalData {
-  idChronicalDesease: number
-  name: string
 }
 
 export interface MedicinesData {
@@ -88,22 +97,25 @@ export interface MedicinesData {
   duration: string
 }
 
-export interface GetMedicinesData {
-  length: number
-  map(
-    arg0: (medicine, index) => import('react').JSX.Element,
-  ): import('react').ReactNode
-  name: string
-  idMedicalProfile: number
+export interface EditMedicinesData {
   idMedicines: number
+  name: string
   routeAdmin: string
   dose: string
   duration: string
 }
 
-export interface EditMedicinesData {
-  idMedicines: number
+export interface GetMedicinesData {
+  length: number
+  map(
+    arg0: (
+      medicine: EditMedicinesData,
+      index: number,
+    ) => import('react').JSX.Element,
+  ): import('react').ReactNode
   name: string
+  idMedicalProfile: number
+  idMedicines: number
   routeAdmin: string
   dose: string
   duration: string

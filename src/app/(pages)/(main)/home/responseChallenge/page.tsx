@@ -49,6 +49,10 @@ const ResponseChallenge = () => {
 
   const handleSubmitEvaluation = async (submissionId: number) => {
     try {
+      if (!userDataSub) {
+        throw Error('No data sub')
+      }
+
       // Enviar la evaluación al servidor con Axios
       await axios.post('/api/evaluations', {
         score,
@@ -128,7 +132,7 @@ const ResponseChallenge = () => {
                       <option value='' disabled className='mb-2 text-gray-500'>
                         Calificación
                       </option>
-                      {[...Array(10).keys()].map((i) => (
+                      {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
                         <option key={i + 1} value={i + 1}>
                           {i + 1}
                         </option>

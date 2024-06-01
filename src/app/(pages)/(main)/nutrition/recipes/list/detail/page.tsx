@@ -4,6 +4,7 @@ import { Clock } from 'lucide-react'
 import RecipesContext from '@/src/context/ingredients'
 import axios from 'axios'
 import { Video } from '@/src/data/datatypes/video'
+import { Recipe } from '@/src/data/datatypes/recipe'
 
 const RecipesDetail = () => {
   const { state } = useContext(RecipesContext)

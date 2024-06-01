@@ -1,3 +1,4 @@
+import { GoalRecord } from './datatypes/GoalRecord'
 import { NumericGoal, Goal, CategoricGoal } from './datatypes/goal'
 
 export const exerciseAreas = [

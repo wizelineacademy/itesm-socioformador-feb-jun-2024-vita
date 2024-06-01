@@ -4,7 +4,7 @@ import { authOptions } from '@/src/lib/auth/authOptions'
 import { eq } from 'drizzle-orm'
 import { db } from '@/src/db/drizzle'
 import { Reminders } from '@/src/db/schema/schema' // Importamos el modelo de la tabla Reminders
-import { addUserPointsAndBadges } from '../badgeUser/route'
+import { addUserPointsAndBadges } from '@/src/db/functions/badges'
 
 export async function POST(request: Request) {
   try {

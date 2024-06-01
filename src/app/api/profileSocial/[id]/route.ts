@@ -19,7 +19,11 @@ export async function GET(
       .from(user)
       .where(eq(user.idUser, Number(id)))
 
-    return NextResponse.json(res, { status: 200 })
+    if (res.length === 0) {
+      throw Error('Not found')
+    }
+
+    return NextResponse.json(res[0], { status: 200 })
   } catch (error) {
     console.log(error)
     return NextResponse.json('Error get user ', { status: 400 })

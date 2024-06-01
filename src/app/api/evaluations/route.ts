@@ -9,8 +9,11 @@ import {
 } from '@/src/db/schema/schema'
 import { eq, and, not } from 'drizzle-orm'
 import { notInArray, sql } from 'drizzle-orm/sql'
-import { getMonthlyChallenge } from '../challenges/route'
-import { addUserPoints, addUserPointsAndBadges } from '../badgeUser/route'
+import { getMonthlyChallenge } from '@/src/db/functions/challenges'
+import {
+  addUserPoints,
+  addUserPointsAndBadges,
+} from '@/src/db/functions/badges'
 
 export async function GET() {
   try {

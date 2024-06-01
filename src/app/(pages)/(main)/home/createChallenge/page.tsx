@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/navigation'
 
@@ -33,7 +33,11 @@ const CreateChallenge = () => {
       router.refresh()
     } catch (error) {
       // Aquí se especifica el tipo de la variable 'error'
-      if (error.response && error.response.status === 409) {
+      if (
+        error instanceof AxiosError &&
+        error.response &&
+        error.response.status === 409
+      ) {
         // Si el servidor devuelve un código de estado 409 (Conflict), significa que ya existe un reto para el mes y año seleccionados
         Swal.fire({
           title: 'Error',

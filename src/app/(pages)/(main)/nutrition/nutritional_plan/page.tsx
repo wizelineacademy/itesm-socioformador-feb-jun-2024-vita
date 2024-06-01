@@ -7,6 +7,7 @@ import PlanItemLink from '@/src/components/list/PlanItemLink'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { Portion } from '@/src/data/datatypes/portion'
+import { Recipe } from '@/src/data/datatypes/recipe'
 
 /**
  * @author: Bernardo de la Sierra

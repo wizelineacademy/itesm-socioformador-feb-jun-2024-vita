@@ -75,23 +75,13 @@ const Posting: React.FC<PostingProps> = ({ post, apiEndpoint }) => {
           className='flex cursor-pointer items-center gap-4 text-light-1'
         >
           {watch('postPhoto') ? (
-            typeof watch('postPhoto') === 'string' ? (
-              <Image
-                src={watch('postPhoto') || 'assets/default-image.jpg'}
-                alt='post'
-                width={250}
-                height={200}
-                className='rounded-lg object-cover'
-              />
-            ) : (
-              <Image
-                src={URL.createObjectURL(watch('postPhoto')[0])}
-                alt='post'
-                width={250}
-                height={200}
-                className='rounded-lg object-cover'
-              />
-            )
+            <Image
+              src={watch('postPhoto') || 'assets/default-image.jpg'}
+              alt='post'
+              width={250}
+              height={200}
+              className='rounded-lg object-cover'
+            />
           ) : (
             <AddPhotoAlternateOutlined
               sx={{ fontSize: '100px', color: 'white' }}

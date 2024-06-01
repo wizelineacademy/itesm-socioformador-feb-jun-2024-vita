@@ -5,8 +5,8 @@ import { db } from '@/src/db/drizzle'
 import { challengeSubmissions } from '@/src/db/schema/schema'
 import { writeFile } from 'fs/promises'
 import path from 'path'
-import { getMonthlyChallenge } from '../challenges/route'
 import { eq, and } from 'drizzle-orm'
+import { getMonthlyChallenge } from '@/src/db/functions/challenges'
 
 export async function POST(request: Request) {
   const currentWorkingDirectory = process.cwd()

@@ -2,6 +2,7 @@
 import Loader from '@/src/components/Loader'
 import PostCard from '@/src/components/post/PostCard'
 import ProfileCard from '@/src/components/post/ProfileCard'
+import { Post } from '@/src/data/datatypes/posts'
 import { UserPost } from '@/src/data/datatypes/user' // Importa los tipos correctos
 import axios from 'axios'
 import { useEffect, useState } from 'react'

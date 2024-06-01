@@ -1,4 +1,5 @@
 import { ReactNode, createContext, useState } from 'react'
+import { Recipe } from '../data/datatypes/recipe'
 
 interface RecipesContextType {
   state: {

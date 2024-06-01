@@ -19,7 +19,7 @@ const config =
         nextAuthUrl: process.env.NEXTAUTH_URL!,
         nextAuthSecret: process.env.NEXTAUTH_SECRET!,
         nextPublicSecret: process.env.NEXT_PUBLIC_SECRET!,
-        geminiApiKey: process.env.GEMINI_API_KEY,
+        geminiApiKey: Resource.GeminiApiKey.value,
       }
     : {
         nodeEnv: process.env.NODE_ENV!,

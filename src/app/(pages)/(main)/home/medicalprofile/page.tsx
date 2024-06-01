@@ -63,7 +63,7 @@ const Profile = () => {
     openAllergyModal()
   }
 
-  const DeleteAllergies = async (idAllergy: string) => {
+  const DeleteAllergies = async (idAllergy: number) => {
     await confirmAndDelete(idAllergy, 'alergia', async (id) => {
       return await axios.delete(`/api/profile/allergies/${id}`)
     })
@@ -314,7 +314,7 @@ const Profile = () => {
     openDisabilityModal()
   }
 
-  const DeleteDisability = async (idDisability: string) => {
+  const DeleteDisability = async (idDisability: number) => {
     await confirmAndDelete(idDisability, 'discapacidad', async (id) => {
       return await axios.delete(`/api/profile/disabilities/${id}`)
     })
@@ -412,7 +412,7 @@ const Profile = () => {
     openChronicalModal()
   }
 
-  const DeleteChronical = async (idChronicalDesease: string) => {
+  const DeleteChronical = async (idChronicalDesease: number) => {
     await confirmAndDelete(
       idChronicalDesease,
       'enfermedad crónica',
@@ -515,7 +515,7 @@ const Profile = () => {
     openMedicinesModal()
   }
 
-  const DeleteMedicines = async (idMedicines: string) => {
+  const DeleteMedicines = async (idMedicines: number) => {
     await confirmAndDelete(idMedicines, 'Medicina', async (id) => {
       return await axios.delete(`/api/profile/medicines/${id}`)
     })

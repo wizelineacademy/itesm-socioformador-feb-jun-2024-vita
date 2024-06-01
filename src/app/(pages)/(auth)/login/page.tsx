@@ -66,7 +66,7 @@ const Login = () => {
     } catch (error) {
       Swal.fire({
         title: 'Error',
-        text: error,
+        text: error as string,
         icon: 'error',
         confirmButtonText: 'OK',
       })

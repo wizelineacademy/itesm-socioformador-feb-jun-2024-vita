@@ -4,7 +4,7 @@ import React from 'react'
 interface PlanItemProps {
   content: string
   tag: string
-  onClick: React.MouseEventHandler<HTMLLIElement>
+  onClick: React.MouseEventHandler<HTMLButtonElement>
   color?: string
   hoverColor?: string
 }

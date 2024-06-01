@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation'
 import { useContext, useEffect, useState } from 'react'
 import ListItemLink from '@/src/components/list/ListItemLink'
 import RecipesContext from '@/src/context/ingredients'
+import { Recipe } from '@/src/data/datatypes/recipe'
 
 const RecipesList = () => {
   const { state, setState } = useContext(RecipesContext)

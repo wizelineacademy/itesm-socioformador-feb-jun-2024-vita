@@ -1,21 +1,23 @@
 'use client'
 
-import { Post } from '@/src/data/datatypes/posts'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import PostCard from '@/src/components/cards/Post'
+import { SelectArticle } from '@/src/db/schema/schema'
 
 const GeneralData = () => {
-  const [posts, setPosts] = useState<Post[]>([])
+  const [posts, setPosts] = useState<SelectArticle[]>([])
   const [finished, setFinished] = useState(false)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<string>('')
   const [page, setPage] = useState(0)
 
   const fetchPosts = async () => {
-    setError(null)
+    setError('')
     try {
-      const res = await axios.get<Post[]>(`/api/posts?limit=6&offset=${page}`)
+      const res = await axios.get<SelectArticle[]>(
+        `/api/posts?limit=6&offset=${page}`,
+      )
       if (res.data.length === 0) {
         setFinished(true)
         return
@@ -28,7 +30,7 @@ const GeneralData = () => {
         setPage((prevPage) => prevPage + 1)
       }
     } catch (error) {
-      setError(error)
+      setError(error as string)
       console.log(error)
     }
   }
@@ -62,15 +64,15 @@ const GeneralData = () => {
               <PostCard
                 key={post.name}
                 name={post.name}
-                description={post.description}
-                imageUrl={post.imageUrl}
+                description={post.description ?? ''}
+                imageUrl={post.imageUrl ?? ''}
               />
             ))}
         </InfiniteScroll>
       </div>
       {error && (
         <p className='mb-5 w-full text-center text-lg font-bold'>
-          Error: {error.message}
+          Error: {error}
         </p>
       )}
     </div>

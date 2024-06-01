@@ -18,7 +18,7 @@ export async function migrate() {
         secretArn: Resource.MyDatabase.secretArn,
         resourceArn: Resource.MyDatabase.clusterArn,
       })
-      await AWSMigrate(db, { migrationsFolder: 'db/migrations/' })
+      await AWSMigrate(db, { migrationsFolder: 'src/db/migrations/' })
     } else {
       const client = postgres(config.databaseUrl, { max: 1 })
       db = LocalDrizzle(client)

@@ -11,6 +11,7 @@ import {
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import { CommentSocial } from '@/src/data/datatypes/comment'
+import { Post } from '@/src/data/datatypes/posts'
 
 // Define the props interface
 interface PostCardProps {
@@ -179,17 +180,19 @@ const PostCard: React.FC<PostCardProps> = ({ post, creator, onPostDelete }) => {
         {post.caption}
       </p>
 
-      <button className='relative cursor-pointer' onClick={openModal}>
-        <Image
-          src={post.postPhoto}
-          alt='post photo'
-          width={300}
-          height={300}
-          className='h-64 w-full rounded-lg object-cover'
-        />
-      </button>
+      {post.postPhoto && (
+        <button className='relative cursor-pointer' onClick={openModal}>
+          <Image
+            src={post.postPhoto}
+            alt='post photo'
+            width={300}
+            height={300}
+            className='h-64 w-full rounded-lg object-cover'
+          />
+        </button>
+      )}
 
-      {isModalOpen && (
+      {post.postPhoto && isModalOpen && (
         <div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75'>
           <div className='relative flex max-h-full w-full max-w-xs items-center justify-center rounded-lg bg-dark-1 p-8'>
             <button

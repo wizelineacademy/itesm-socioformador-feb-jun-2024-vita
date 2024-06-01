@@ -10,10 +10,10 @@ const EditPost = ({ params }: { params: { id: string } }) => {
 
   const [loading, setLoading] = useState(true)
   const [postData, setPostData] = useState({
-    creatorId: undefined,
-    caption: undefined,
-    tag: undefined,
-    postPhoto: undefined,
+    creatorId: '',
+    caption: '',
+    tag: '',
+    postPhoto: '',
   })
 
   const getPost = async () => {

@@ -6,9 +6,9 @@ interface Response {
 }
 
 export const confirmAndDelete = async (
-  id: string,
+  id: number,
   itemType: string,
-  deleteCallback: (id: string) => Promise<Response>,
+  deleteCallback: (id: number) => Promise<Response>,
 ) => {
   // Mostrar mensaje de confirmación
   const confirmationResult = await Swal.fire({

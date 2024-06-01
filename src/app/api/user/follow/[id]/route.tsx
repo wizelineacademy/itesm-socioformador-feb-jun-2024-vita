@@ -4,7 +4,7 @@ import { authOptions } from '@/src/lib/auth/authOptions'
 import { eq, and } from 'drizzle-orm'
 import { following, followers } from '@/src/db/schema/schema'
 import { db } from '@/src/db/drizzle'
-import { addUserPointsAndBadges } from '@/src/app/api/badgeUser/route'
+import { addUserPointsAndBadges } from '@/src/db/functions/badges'
 
 export async function POST(
   request: Request,

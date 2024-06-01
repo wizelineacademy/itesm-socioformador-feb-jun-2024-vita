@@ -18,6 +18,7 @@ export default $config({
     const googleSecret = new sst.Secret("GoogleSecret");
     const WebhookVerifyToken = new sst.Secret("WebhookVerifyToken");
     const GraphApiToken = new sst.Secret("GraphApiToken");
+    const GeminiApiKey = new sst.Secret("GeminiApiKey")
 
     const database = new sst.aws.Postgres("MyDatabase", {
       scaling: {
@@ -31,13 +32,13 @@ export default $config({
     });
 
     const blogCron = new sst.aws.Cron("MyCronJob", {
-      job: "cron_functions/blog.handler",
+      job: "src/cron_functions/blog.handler",
       schedule: "cron(0 6 * * ? *)"
     })
 
     const remindersCron = new sst.aws.Cron("RemindersJob", {
-      job: "cron_functions/reminders.handler",
-      schedule: "cron(0 * * * *)"
+      job: "src/cron_functions/reminders.handler",
+      schedule: "rate(30 minutes)"
     })
 
     new sst.aws.Nextjs("MyWeb", {
@@ -53,6 +54,7 @@ export default $config({
         googleSecret,
         WebhookVerifyToken,
         GraphApiToken,
+        GeminiApiKey
       ],
       environment: {
         NEXTAUTH_URL: process.env.NEXTAUTH_URL!,

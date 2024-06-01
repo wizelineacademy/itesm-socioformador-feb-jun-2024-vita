@@ -3,6 +3,7 @@
 import { LbMsrInput } from '@/src/components/Inputs/LbMsrInput'
 import MainButton from '@/src/components/buttons/MainButton'
 import AutoevaluationContext from '@/src/context/autoevaluation'
+import { GoalRecord } from '@/src/data/datatypes/GoalRecord'
 import { NumericGoal } from '@/src/data/datatypes/goal'
 import { nutritionGoals, nutritionQuestions } from '@/src/data/nutrition_goals'
 import axios from 'axios'

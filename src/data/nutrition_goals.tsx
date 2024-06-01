@@ -1,3 +1,4 @@
+import { GoalRecord } from './datatypes/GoalRecord'
 import { NumericGoal } from './datatypes/goal'
 
 export const nutritionGoals: NumericGoal[] = [

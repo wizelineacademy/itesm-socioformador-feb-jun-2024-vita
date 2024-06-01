@@ -3,7 +3,7 @@ import React from 'react'
 
 interface ListItemProps {
   text: string
-  onClick: React.MouseEventHandler<HTMLLIElement>
+  onClick: React.MouseEventHandler<HTMLButtonElement>
 }
 
 const ListItemLink: React.FC<ListItemProps> = ({ text, onClick }) => {

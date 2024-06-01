@@ -5,7 +5,7 @@ import { db } from '@/src/db/drizzle'
 import { posts } from '@/src/db/schema/schema'
 import { writeFile } from 'fs/promises'
 import path from 'path'
-import { addUserPointsAndBadges } from '../../badgeUser/route'
+import { addUserPointsAndBadges } from '@/src/db/functions/badges'
 
 export async function POST(request: Request) {
   const currentWorkingDirectory = process.cwd()

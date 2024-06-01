@@ -8,7 +8,12 @@ import Swal from 'sweetalert2'
 import axios from 'axios'
 
 const CreatePost = () => {
-  const postData = {
+  const postData: {
+    creatorId: string
+    caption: string
+    tag: string
+    postPhoto: string | File[] | null
+  } = {
     creatorId: '',
     caption: '',
     tag: '',
@@ -69,34 +74,39 @@ const CreatePost = () => {
             htmlFor='photo'
             className='flex cursor-pointer items-center gap-4 text-light-1'
           >
-            {watch('postPhoto') ? (
-              typeof watch('postPhoto') === 'string' ? (
-                <Image
-                  src={watch('postPhoto') || 'assets/default-image.jpg'}
-                  alt='post'
-                  width={250}
-                  height={200}
-                  className='rounded-lg object-cover'
-                />
-              ) : (
-                <Image
-                  src={URL.createObjectURL(watch('postPhoto')[0])}
-                  alt='post'
-                  width={250}
-                  height={200}
-                  className='rounded-lg object-cover'
-                />
-              )
-            ) : (
+            {watch('postPhoto') && typeof watch('postPhoto') === 'string' && (
+              <Image
+                src={
+                  (watch('postPhoto') as string) || 'assets/default-image.jpg'
+                }
+                alt='post'
+                width={250}
+                height={200}
+                className='rounded-lg object-cover'
+              />
+            )}
+
+            {watch('postPhoto') && Array.isArray(watch('postPhoto')) && (
+              <Image
+                src={URL.createObjectURL((watch('postPhoto') as File[])[0])}
+                alt='post'
+                width={250}
+                height={200}
+                className='rounded-lg object-cover'
+              />
+            )}
+
+            {!watch('postPhoto') && (
               <AddPhotoAlternateOutlined
                 sx={{ fontSize: '100px', color: 'white' }}
               />
             )}
+
             <p> Agregar una Foto </p>
           </label>
           <input
             {...register('postPhoto', {
-              validate: (value) => {
+              validate: (value: string | unknown[] | undefined | null) => {
                 if (
                   !value ||
                   (Array.isArray(value) && value.length === 0) ||

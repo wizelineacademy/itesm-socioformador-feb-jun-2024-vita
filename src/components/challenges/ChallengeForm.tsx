@@ -9,16 +9,22 @@ import { useRouter } from 'next/navigation'
 
 const ChallengeForm = () => {
   const router = useRouter()
+
+  const postData: {
+    description: string
+    imageUrl: string | File[] | null
+  } = {
+    description: '',
+    imageUrl: null,
+  }
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      description: '',
-      imageUrl: null,
-    },
+    defaultValues: postData,
   })
 
   const handlePublish: SubmitHandler<FieldValues> = async (data) => {
@@ -63,7 +69,7 @@ const ChallengeForm = () => {
         {watch('imageUrl') ? (
           typeof watch('imageUrl') === 'string' ? (
             <Image
-              src={watch('imageUrl') || 'assets/default-image.jpg'}
+              src={(watch('imageUrl') as string) || 'assets/default-image.jpg'}
               alt='post'
               width={250}
               height={200}
@@ -71,7 +77,7 @@ const ChallengeForm = () => {
             />
           ) : (
             <Image
-              src={URL.createObjectURL(watch('imageUrl')[0])}
+              src={URL.createObjectURL((watch('imageUrl') as File[])[0])}
               alt='post'
               width={250}
               height={200}

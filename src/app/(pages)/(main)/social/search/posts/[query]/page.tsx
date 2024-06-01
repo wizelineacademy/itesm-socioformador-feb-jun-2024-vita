@@ -2,6 +2,7 @@
 
 import Loader from '@/src/components/Loader'
 import PostCard from '@/src/components/post/PostCard'
+import { Post } from '@/src/data/datatypes/posts'
 import { UserPost } from '@/src/data/datatypes/user'
 import axios from 'axios'
 import Link from 'next/link'

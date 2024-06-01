@@ -5,7 +5,7 @@ import { authOptions } from '@/src/lib/auth/authOptions'
 import { db } from '@/src/db/drizzle'
 import { portionsNutrition } from '@/src/db/schema/schema'
 import { eq } from 'drizzle-orm'
-import { addUserPointsAndBadges } from '../badgeUser/route'
+import { addUserPointsAndBadges } from '@/src/db/functions/badges'
 
 export async function GET() {
   try {

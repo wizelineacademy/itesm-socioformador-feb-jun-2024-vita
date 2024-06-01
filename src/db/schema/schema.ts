@@ -10,6 +10,7 @@ import {
   unique,
   boolean,
 } from 'drizzle-orm/pg-core'
+import { type InferSelectModel } from 'drizzle-orm'
 
 //tables
 export const prismaMigrations = pgTable('_prisma_migrations', {
@@ -191,6 +192,8 @@ export const Articles = pgTable('Article', {
   description: text('description'),
   imageUrl: text('image_url'),
 })
+
+export type SelectArticle = InferSelectModel<typeof Articles>
 
 export const medicalProfile = pgTable('MedicalProfile', {
   idMedicalProfile: serial('id_medical_profile').primaryKey().notNull(),

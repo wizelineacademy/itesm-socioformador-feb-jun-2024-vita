@@ -1,8 +1,9 @@
 import { db } from '@/src/db/drizzle'
-import { monthlyChallenge, user } from '@/src/db/schema/schema'
+import { getMonthlyChallenge } from '@/src/db/functions/challenges'
+import { badges, monthlyChallenge, user } from '@/src/db/schema/schema'
 import config from '@/src/lib/environment/config'
 import axios from 'axios'
-import { and, eq, isNotNull } from 'drizzle-orm'
+import { eq, isNotNull } from 'drizzle-orm'
 import { NextResponse } from 'next/server'
 
 const getUsersWithNumber = async () => {
@@ -106,37 +107,6 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error('Error al crear el reto:', error)
     return NextResponse.json('Error al crear el reto', { status: 500 })
-  }
-}
-
-export async function getMonthlyChallenge() {
-  try {
-    const currentDate = new Date()
-    const currentMonth = currentDate.getMonth() + 1
-    const currentYear = currentDate.getFullYear()
-
-    const startDate = new Date(currentYear, currentMonth - 1, 1)
-    const endDate = new Date(currentYear, currentMonth, 0)
-    const existingChallenge = await db
-      .select()
-      .from(monthlyChallenge)
-      .where(
-        and(
-          eq(monthlyChallenge.startDate, startDate.toISOString().split('T')[0]),
-          eq(monthlyChallenge.endDate, endDate.toISOString().split('T')[0]),
-        ),
-      )
-
-    if (existingChallenge.length > 0) {
-      const { idChallenge, name, description, startDate, endDate } =
-        existingChallenge[0]
-      return { idChallenge, name, description, startDate, endDate }
-    } else {
-      return null
-    }
-  } catch (error) {
-    console.error('Error al obtener el reto del mes actual:', error)
-    throw error
   }
 }
 
