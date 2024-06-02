@@ -39,6 +39,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Run linters
+        run: npm run lint:fix
+
+      - name: Run tests
+        run: npm run test:ci
+
       - name: Install SST
         run: |
           wget https://github.com/sst/ion/releases/download/v0.0.399/sst-linux-amd64.deb
