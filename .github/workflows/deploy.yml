@@ -10,10 +10,6 @@ env:
   NEXTAUTH_URL: https://d8vd0r6uuds8z.cloudfront.net
   NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.run_number }}
-  cancel-in-progress: false
-
 jobs:
   deploy:
     name: deploy
