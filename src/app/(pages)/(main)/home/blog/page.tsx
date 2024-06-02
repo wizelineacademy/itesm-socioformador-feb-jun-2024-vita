@@ -16,7 +16,7 @@ const GeneralData = () => {
     setError('')
     try {
       const res = await axios.get<SelectArticle[]>(
-        `/api/posts?limit=6&offset=${page}`,
+        `/api/blog?limit=6&offset=${page}`,
       )
       if (res.data.length === 0) {
         setFinished(true)

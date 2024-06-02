@@ -1,5 +1,4 @@
-// components/form/Posting.tsx
-
+'use client'
 import React from 'react'
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form'
 import { AddPhotoAlternateOutlined } from '@mui/icons-material'
@@ -32,7 +31,6 @@ const Posting: React.FC<PostingProps> = ({ post, apiEndpoint }) => {
   const handlePublish: SubmitHandler<FieldValues> = async (data) => {
     try {
       const postForm = new FormData()
-      postForm.append('creatorId', data.creatorId)
       postForm.append('caption', data.caption)
       postForm.append('tag', data.tag)
 
@@ -47,7 +45,7 @@ const Posting: React.FC<PostingProps> = ({ post, apiEndpoint }) => {
 
       Swal.fire({
         title: 'Éxito',
-        text: 'Se han guardado las datos con éxito',
+        text: 'Se han guardado los datos con éxito',
         icon: 'success',
         confirmButtonText: 'OK',
       })
@@ -75,13 +73,25 @@ const Posting: React.FC<PostingProps> = ({ post, apiEndpoint }) => {
           className='flex cursor-pointer items-center gap-4 text-light-1'
         >
           {watch('postPhoto') ? (
-            <Image
-              src={watch('postPhoto') || 'assets/default-image.jpg'}
-              alt='post'
-              width={250}
-              height={200}
-              className='rounded-lg object-cover'
-            />
+            typeof watch('postPhoto') === 'string' ? (
+              <Image
+                src={watch('postPhoto') || 'assets/default-image.jpg'}
+                alt='post'
+                width={250}
+                height={200}
+                className='rounded-lg object-cover'
+              />
+            ) : (
+              <Image
+                src={URL.createObjectURL(
+                  (watch('postPhoto') as unknown as FileList)[0] as File,
+                )}
+                alt='post'
+                width={250}
+                height={200}
+                className='rounded-lg object-cover'
+              />
+            )
           ) : (
             <AddPhotoAlternateOutlined
               sx={{ fontSize: '100px', color: 'white' }}

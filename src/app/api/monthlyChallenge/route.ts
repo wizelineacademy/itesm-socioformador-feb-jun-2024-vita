@@ -7,10 +7,10 @@ import { writeFile } from 'fs/promises'
 import path from 'path'
 import { eq, and } from 'drizzle-orm'
 import { getMonthlyChallenge } from '@/src/db/functions/challenges'
+import { createS3Url } from '@/src/lib/s3/buckets'
+import config from '@/src/lib/environment/config'
 
 export async function POST(request: Request) {
-  const currentWorkingDirectory = process.cwd()
-
   try {
     const formData = await request.formData()
     const session = await getServerSession(authOptions)
@@ -26,18 +26,35 @@ export async function POST(request: Request) {
       return NextResponse.json('Post photo is required', { status: 400 })
     }
 
-    const buffer = Buffer.from(await imageUrlFile.arrayBuffer())
-    const imageUrlName = `${imageUrlFile.name}`
-    const imageUrlPath = path.join(
-      currentWorkingDirectory,
-      'public',
-      'uploads',
-      imageUrlName,
-    )
+    let photoUrl
 
-    await writeFile(imageUrlPath, buffer)
+    if (config.nodeEnv === 'production') {
+      //upload image to S3
+      const image = await fetch(await createS3Url(), {
+        body: imageUrlFile,
+        method: 'PUT',
+        headers: {
+          'Content-Type': imageUrlFile.type ?? 'json',
+          'Content-Length': imageUrlFile.size.toString(),
+        },
+      })
+      photoUrl = image.url.split('?')[0]
+    } else {
+      //upload image to local directory
+      const currentWorkingDirectory = process.cwd()
+      const buffer = Buffer.from(await imageUrlFile.arrayBuffer())
+      const postPhotoName = `${imageUrlFile.name}`
+      const postPhotoPath = path.join(
+        currentWorkingDirectory,
+        'public',
+        'uploads',
+        postPhotoName,
+      )
 
-    const imageUrlUrl = `/uploads/${imageUrlName}`
+      await writeFile(postPhotoPath, buffer)
+      photoUrl = `/uploads/${postPhotoName}`
+    }
+
     const challenge = await getMonthlyChallenge()
 
     if (!challenge || typeof challenge.idChallenge !== 'number') {
@@ -64,7 +81,7 @@ export async function POST(request: Request) {
     const challengeReponse = await db.insert(challengeSubmissions).values({
       idUser: session.user.id,
       idChallenge: challenge.idChallenge,
-      imageUrl: imageUrlUrl,
+      imageUrl: photoUrl,
       description: description,
     })
 

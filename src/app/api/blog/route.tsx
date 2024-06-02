@@ -7,10 +7,8 @@ import { OpenAI } from 'openai'
 import { ChatCompletionMessageParam } from 'openai/resources/index.mjs'
 import config from '@/src/lib/environment/config'
 import { desc } from 'drizzle-orm'
-import { Resource } from 'sst'
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 import axios from 'axios'
+import { createS3Url } from '@/src/lib/s3/buckets'
 
 const openai = new OpenAI({
   apiKey: config.openApiKey,
@@ -33,15 +31,6 @@ const instructionMessage: ChatCompletionMessageParam = {
         "imagePrompt": "Una persona durmiendo plácidamente en una habitación acogedora y oscura, rodeada de almohadas suaves y una manta cálida."
     }
    `,
-}
-
-const createS3Url = async () => {
-  const command = new PutObjectCommand({
-    Key: crypto.randomUUID(),
-    Bucket: Resource.MyBucket.name,
-  })
-  const url = await getSignedUrl(new S3Client({}), command)
-  return url
 }
 
 export async function POST() {

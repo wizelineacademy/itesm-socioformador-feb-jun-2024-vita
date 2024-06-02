@@ -102,7 +102,7 @@ const ProfileCard: React.FC<UserCardProps> = ({ userData, activeTab }) => {
                 ? 'bg-purple-1 p-2 text-light-1'
                 : 'bg-dark-2 p-2 text-light-1'
             }`}
-            href={`social/profile/${userData.idUser}/${tab.link}/`}
+            href={`/social/profile/${userData.idUser}/${tab.link}`}
           >
             {tab.name}
           </Link>

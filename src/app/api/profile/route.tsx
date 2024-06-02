@@ -49,10 +49,9 @@ export async function PUT(request: Request) {
     } = await request.json()
 
     if (!name || !email || !phoneNumber) {
-      return NextResponse.json(
-        'nombre, correo y teléfono son obligatorios',
-        { status: 400 },
-      )
+      return NextResponse.json('nombre, correo y teléfono son obligatorios', {
+        status: 400,
+      })
     }
 
     const medicalProfileData = {
