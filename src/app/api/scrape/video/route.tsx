@@ -24,8 +24,7 @@ export async function POST(request: NextRequest) {
     })
     const page = await browser.newPage()
     const url = `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`
-    console.log(url)
-    await page.goto(url)
+    await page.goto(url, { waitUntil: 'networkidle2' })
 
     const video = await page.evaluate(() => {
       const firstVideoElement = document.querySelector(
@@ -48,11 +47,11 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(video, { status: 200 })
   } catch (error) {
+    console.log(error)
+
     if (browser) {
       await browser.close()
     }
-
-    console.log(error)
     return NextResponse.json('Error retrieving videos', { status: 400 })
   }
 }
