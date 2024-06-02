@@ -1,0 +1,52 @@
+name: Deploy to SST
+
+on:
+  push:
+    branches: main
+    paths-ignore:
+      - '**.md'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.run_number }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write # This is required for requesting the JWT
+      contents: read # This is required for actions/checkout
+
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install SST
+        run: |
+          wget https://github.com/sst/ion/releases/download/v0.0.193/sst-linux-amd64.deb
+          sudo dpkg -i sst-linux-amd64.deb
+          sst version
+
+      - uses: oven-sh/setup-bun@v1
+
+      - name: deploy
+        run: |
+          bun install
+          sst deploy --stage=juliomeza2510 --verbose
