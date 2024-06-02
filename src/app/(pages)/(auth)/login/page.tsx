@@ -138,7 +138,7 @@ const Login = () => {
               icon={FcGoogle}
               onClick={() =>
                 signIn('google', {
-                  callbackUrl: '/home',
+                  callbackUrl: '/healthdata',
                 })
               }
             />
@@ -150,7 +150,7 @@ const Login = () => {
               icon={FaFacebook}
               onClick={() =>
                 signIn('facebook', {
-                  callbackUrl: '/home',
+                  callbackUrl: '/healthdata',
                 })
               }
             />
