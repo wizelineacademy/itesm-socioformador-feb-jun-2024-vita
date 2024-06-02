@@ -18,10 +18,10 @@ export const createS3Url = async () => {
 export const deleteS3Image = async (imageUrl: string) => {
   // Extract the key from the URL
   const url = new URL(imageUrl)
-  const key = url.pathname.substring(1) // Remove the leading slash
+  const key = url.pathname.substring(1)
 
   const command = new DeleteObjectCommand({
-    Bucket: 'your-bucket-name', // Replace with your actual bucket name
+    Bucket: Resource.MyBucket.name,
     Key: key,
   })
 
