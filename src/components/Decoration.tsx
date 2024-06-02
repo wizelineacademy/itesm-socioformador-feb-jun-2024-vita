@@ -42,7 +42,7 @@ const routes: Record<string, { image: string; image2: string }> = {
 /**
  * Loading component to display while images are loading
  */
-const Loading = () => <div></div>
+const Loading = () => <div data-testid='loading'></div>
 
 /**
  * Decoration component responsible for displaying images based on route
