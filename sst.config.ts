@@ -44,8 +44,6 @@ export default $config({
       link: [
         bucket,
         database,
-        blogCron,
-        remindersCron,
         openApiKey,
         facebookId,
         facebookSecret,
