@@ -35,14 +35,6 @@ jobs:
           role-session-name: GitHubActions
           role-duration-seconds: 1800
 
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install dependencies
-        run: npm install
-
       - name: Install SST
         run: |
           wget https://github.com/sst/ion/releases/download/v0.0.193/sst-linux-amd64.deb
