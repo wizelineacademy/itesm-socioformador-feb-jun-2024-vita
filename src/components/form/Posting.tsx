@@ -97,7 +97,7 @@ const Posting: React.FC<PostingProps> = ({ post, apiEndpoint }) => {
                 (Array.isArray(value) && value.length === 0) ||
                 value === undefined
               ) {
-                return 'La fotografía es requerida!'
+                return '¡La fotografía es requerida!'
               }
               return true
             },

@@ -6,10 +6,10 @@ import { posts } from '@/src/db/schema/schema'
 import { writeFile } from 'fs/promises'
 import path from 'path'
 import { addUserPointsAndBadges } from '@/src/db/functions/badges'
+import config from '@/src/lib/environment/config'
+import { createS3Url } from '@/src/lib/s3/buckets'
 
 export async function POST(request: Request) {
-  const currentWorkingDirectory = process.cwd()
-
   try {
     const formData = await request.formData()
     const session = await getServerSession(authOptions)
@@ -26,18 +26,34 @@ export async function POST(request: Request) {
       return NextResponse.json('Post photo is required', { status: 400 })
     }
 
-    const buffer = Buffer.from(await postPhotoFile.arrayBuffer())
-    const postPhotoName = `${postPhotoFile.name}`
-    const postPhotoPath = path.join(
-      currentWorkingDirectory,
-      'public',
-      'uploads',
-      postPhotoName,
-    )
+    let postPhotoUrl
 
-    await writeFile(postPhotoPath, buffer)
+    if (config.nodeEnv === 'production') {
+      //upload image to S3
+      const image = await fetch(await createS3Url(), {
+        body: postPhotoFile,
+        method: 'PUT',
+        headers: {
+          'Content-Type': postPhotoFile.type ?? 'json',
+          'Content-Length': postPhotoFile.size.toString(),
+        },
+      })
+      postPhotoUrl = image.url.split('?')[0]
+    } else {
+      //upload image to local directory
+      const currentWorkingDirectory = process.cwd()
+      const buffer = Buffer.from(await postPhotoFile.arrayBuffer())
+      const postPhotoName = `${postPhotoFile.name}`
+      const postPhotoPath = path.join(
+        currentWorkingDirectory,
+        'public',
+        'uploads',
+        postPhotoName,
+      )
 
-    const postPhotoUrl = `/uploads/${postPhotoName}`
+      await writeFile(postPhotoPath, buffer)
+      postPhotoUrl = `/uploads/${postPhotoName}`
+    }
 
     const newPost = await db.insert(posts).values({
       creatorId: session.user?.id,
@@ -46,7 +62,7 @@ export async function POST(request: Request) {
       tag: tag,
     })
 
-    // Insertamoslos datos del logro
+    // Insertamos los datos del logro
     const pointsToAdd = 5
     const badgeId = 5
     await addUserPointsAndBadges(session.user?.id, pointsToAdd, badgeId)

@@ -4,6 +4,8 @@ import { db } from '@/src/db/drizzle'
 import { posts } from '@/src/db/schema/schema'
 import { writeFile } from 'fs/promises'
 import path from 'path'
+import { createS3Url, deleteS3Image } from '@/src/lib/s3/buckets'
+import config from '@/src/lib/environment/config'
 
 export async function GET(
   request: Request,
@@ -32,7 +34,6 @@ export async function PUT(
   request: Request,
   { params }: { params: { id: string } },
 ) {
-  const currentWorkingDirectory = process.cwd()
   try {
     const { id } = params
     const formData = await request.formData()
@@ -41,7 +42,12 @@ export async function PUT(
     const tag = formData.get('tag') as string
     const postPhotoFile = formData.get('postPhoto') as File
     const postPhotoString = formData.get('postPhoto') as string
-    console.log('Cambio de foto', postPhotoString)
+
+    const existingPost = await db
+      .select()
+      .from(posts)
+      .where(eq(posts.idPost, Number(id)))
+
     // Actualizar solo caption y tag si no se proporciona una nueva foto
     if (!postPhotoFile || postPhotoString === '/') {
       await db
@@ -57,17 +63,41 @@ export async function PUT(
       })
     }
 
-    // Si se proporciona una nueva foto, actualizar foto, caption y tag
-    const buffer = Buffer.from(await postPhotoFile.arrayBuffer())
-    const postPhotoName = `${postPhotoFile.name}`
-    const postPhotoPath = path.join(
-      currentWorkingDirectory,
-      'public',
-      'uploads',
-      postPhotoName,
-    )
-    await writeFile(postPhotoPath, buffer)
-    const postPhotoUrl = `/uploads/${postPhotoName}`
+    let postPhotoUrl
+
+    if (config.nodeEnv === 'production') {
+      //delete previous image
+      if (existingPost[0].postPhoto) {
+        const res = await deleteS3Image(existingPost[0].postPhoto)
+        if (!res.success) {
+          throw Error('Could not delete image')
+        }
+      }
+
+      //upload image to S3
+      const image = await fetch(await createS3Url(), {
+        body: postPhotoFile,
+        method: 'PUT',
+        headers: {
+          'Content-Type': postPhotoFile.type ?? 'json',
+          'Content-Length': postPhotoFile.size.toString(),
+        },
+      })
+      postPhotoUrl = image.url.split('?')[0]
+    } else {
+      //upload image to local directory
+      const currentWorkingDirectory = process.cwd()
+      const buffer = Buffer.from(await postPhotoFile.arrayBuffer())
+      const postPhotoName = `${postPhotoFile.name}`
+      const postPhotoPath = path.join(
+        currentWorkingDirectory,
+        'public',
+        'uploads',
+        postPhotoName,
+      )
+      await writeFile(postPhotoPath, buffer)
+      postPhotoUrl = `/uploads/${postPhotoName}`
+    }
 
     await db
       .update(posts)
