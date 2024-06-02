@@ -45,8 +45,8 @@ describe('Decoration component', () => {
   })
 
   it('renders loading component while images are loading', () => {
-    render(<Decoration pathname='/home' />)
+    render(<Decoration pathname='/inexistent' />)
 
-    expect(screen.getByRole('div')).toBeInTheDocument() // Assuming Loading component renders a div
+    expect(screen.getByTestId('loading')).toBeInTheDocument() // Assuming Loading component renders a div
   })
 })
