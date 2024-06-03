@@ -1,3 +1,5 @@
+import axios from 'axios'
+import { signOut } from 'next-auth/react'
 import Swal from 'sweetalert2'
 
 interface Response {
@@ -126,4 +128,69 @@ export const handleAddItem = async (
       confirmButtonText: 'OK',
     })
   }
+}
+
+export const showDeleteAccountModal = () => {
+  Swal.fire({
+    title: 'Desactivar cuenta',
+    text: '¿Estás seguro de que quieres desactivar tu cuenta VITA?',
+    icon: 'warning',
+    iconColor: 'crimson',
+    footer: 'Tu información no podrá ser recuperada tras desactivar la cuenta',
+    showCancelButton: true,
+    cancelButtonText: 'Cancelar',
+    confirmButtonText: 'Eliminar',
+    confirmButtonColor: 'crimson',
+    customClass: {
+      confirmButton: 'order-2',
+      cancelButton: 'order-1 right-gap',
+    },
+  }).then((result) => {
+    if (result.isConfirmed) {
+      showPasswordDeleteModal()
+    }
+  })
+}
+
+const deleteAccount = async (password: string) => {
+  try {
+    await axios.post('/api/delete_account', {
+      password,
+    })
+    Swal.fire({
+      title: 'Cuenta eliminada',
+      text: 'Se ha eliminado la cuenta',
+      icon: 'success',
+    }).then(() => {
+      signOut({ callbackUrl: '/' })
+    })
+  } catch {
+    Swal.fire({
+      title: 'Error',
+      text: 'Ocurrió un error',
+      icon: 'error',
+    })
+  }
+}
+
+const showPasswordDeleteModal = () => {
+  Swal.fire({
+    text: 'Ingresa tu contraseña para desactivar tu cuenta',
+    input: 'password',
+    showCancelButton: true,
+    cancelButtonText: 'Cancelar',
+    confirmButtonText: 'Eliminar',
+    confirmButtonColor: 'crimson',
+    customClass: {
+      confirmButton: 'order-2',
+      cancelButton: 'order-1 right-gap',
+    },
+    preConfirm: async (password) => {
+      try {
+        await deleteAccount(password)
+      } catch (error) {
+        Swal.showValidationMessage(`Ocurrió un error`)
+      }
+    },
+  })
 }

@@ -210,7 +210,6 @@ const Home = () => {
                     <div className='flex flex-row justify-between text-home-title'>
                       <FaDumbbell size={30} />
                       <p className='ml-2 flex flex-row text-2xl'>
-                        {' '}
                         {userData && userData.muscularMass}{' '}
                         <span className='pl-2'> kg</span>
                       </p>
