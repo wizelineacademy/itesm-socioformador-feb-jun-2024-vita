@@ -46,7 +46,7 @@ const HealthData = () => {
         if (!data) {
           return
         } else {
-          router.replace('/plan')
+          router.replace('/home')
         }
       } catch (error) {
         console.log(error)

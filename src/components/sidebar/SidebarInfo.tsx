@@ -84,7 +84,7 @@ const SidebarInfo = () => {
           <Link
             onClick={() => {
               if (route.label === 'Cerrar sesión') {
-                signOut()
+                signOut({ callbackUrl: '/' })
               }
             }}
             href={route.href}

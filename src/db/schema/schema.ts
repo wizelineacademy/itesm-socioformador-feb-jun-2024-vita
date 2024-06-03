@@ -138,6 +138,8 @@ export const portionsNutrition = pgTable('PortionsNutrition', {
   fat: integer('fat').notNull(),
 })
 
+export type SelectPortions = InferSelectModel<typeof portionsNutrition>
+
 export const userDetail = pgTable('UserDetail', {
   idUserDetail: serial('id_user_detail').primaryKey().notNull(),
   idUser: integer('id_user')

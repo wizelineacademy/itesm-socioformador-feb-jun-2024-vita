@@ -1,8 +1,11 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import axios from 'axios'
+import { SelectPortions } from '@/src/db/schema/schema'
+import Swal from 'sweetalert2'
 
 /**
  * @author: Bernardo de la Sierra
@@ -10,41 +13,53 @@ import Link from 'next/link'
  * Component representing the Nutrition Home page
  */
 const Nutrition = () => {
-  // Array containing objects with number and corresponding image source
-  const numeros = [
-    {
-      number: 1,
-      imageSrc: '/icons/Grape.svg',
-    },
-    {
-      number: 2,
-      imageSrc: '/icons/Carrot.svg',
-    },
-    {
-      number: 3,
-      imageSrc: '/icons/Soy.svg',
-    },
-    {
-      number: 4,
-      imageSrc: '/icons/Meat.svg',
-    },
-    {
-      number: 5,
-      imageSrc: '/icons/Milk.svg',
-    },
-    {
-      number: 6,
-      imageSrc: '/icons/Porridge.svg',
-    },
-    {
-      number: 7,
-      imageSrc: '/icons/Sugar.svg',
-    },
-    {
-      number: 8,
-      imageSrc: '/icons/Avocado.svg',
-    },
+  const [portions, setPortions] = useState<number[]>([0, 0, 0, 0, 0, 0, 0, 0])
+
+  const icons = [
+    '/icons/Grape.svg',
+    '/icons/Carrot.svg',
+    '/icons/Soy.svg',
+    '/icons/Meat.svg',
+    '/icons/Milk.svg',
+    '/icons/Porridge.svg',
+    '/icons/Sugar.svg',
+    '/icons/Avocado.svg',
   ]
+
+  const getPortions = async () => {
+    try {
+      const response = await axios.get<SelectPortions>('/api/portions')
+      const data = response.data
+
+      if (!data) {
+        return
+      }
+
+      const numPortions = [
+        data.fruits,
+        data.vegetables,
+        data.legumes,
+        data.meat,
+        data.milk,
+        data.cereals,
+        data.sugar,
+        data.fat,
+      ]
+
+      setPortions(numPortions)
+    } catch (error) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Ocurrió un error al recuperar las porciones',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      })
+    }
+  }
+
+  useEffect(() => {
+    getPortions()
+  })
 
   return (
     <div className='mb-4'>
@@ -62,16 +77,16 @@ const Nutrition = () => {
       {/* Displaying portion numbers and corresponding images */}
       <div className='flex flex-col items-center justify-center md:justify-start lg:justify-start'>
         <div className='ml-4 flex w-[160px] flex-wrap rounded-3xl bg-custom-lightpurple px-5 sm:w-[330px] md:w-[360px] lg:w-[500px]'>
-          {numeros.map((numero, index) => (
+          {portions.map((portion, index) => (
             <div
               key={index}
               className='mx-4 my-2 flex flex-col items-center py-2 sm:mx-6 md:mx-2 lg:mx-4'
             >
               <h3 className='text-2xl text-white md:text-3xl lg:text-3xl'>
-                {numero.number}
+                {portion}
               </h3>
               <Image
-                src={numero.imageSrc}
+                src={icons[index]}
                 alt={`Imagen ${index}`}
                 width={24}
                 height={24}
