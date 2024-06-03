@@ -120,3 +120,13 @@ export interface GetMedicinesData {
   dose: string
   duration: string
 }
+
+export type DataItem =
+  | GetAllergiesData
+  | EditAllergiesData
+  | GetDisabilityData
+  | EditDisabilityData
+  | GetChronicalData
+  | EditChronicalData
+  | EditMedicinesData
+  | GetMedicinesData
