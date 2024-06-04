@@ -6,6 +6,7 @@ import { tabs } from '@/src/constants'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import React from 'react'
+import { PersonAddAlt, PersonRemove } from '@mui/icons-material'
 
 interface UserCardProps {
   userData: UserPost
@@ -13,11 +14,16 @@ interface UserCardProps {
   activeTab: string
 }
 
-const ProfileCard: React.FC<UserCardProps> = ({ userData, activeTab }) => {
+const ProfileCard: React.FC<UserCardProps> = ({
+  userData,
+  activeTab,
+  creator,
+}) => {
   const profilePhoto = userData.profilePhoto ?? '/assets/noAvatar.png'
   const [postCount, setPostCount] = useState<number>(0)
   const [followersCount, setFollowersCount] = useState<number>(0)
   const [followingCount, setFollowingCount] = useState<number>(0)
+  const [isFollowing, setIsFollowing] = useState(false)
 
   useEffect(() => {
     getPostCount()
@@ -25,6 +31,18 @@ const ProfileCard: React.FC<UserCardProps> = ({ userData, activeTab }) => {
     getFollowersCount()
   }, [])
 
+  useEffect(() => {
+    const fetchFollowStatus = async () => {
+      try {
+        const response = await axios.get(`/api/user/follow/${userData.idUser}`)
+        setIsFollowing(response.data.isFollowing)
+      } catch (error) {
+        console.error('Error fetching follow status:', error)
+      }
+    }
+
+    fetchFollowStatus()
+  }, [userData.idUser])
   const getPostCount = async () => {
     try {
       const response = await axios.get(
@@ -51,6 +69,20 @@ const ProfileCard: React.FC<UserCardProps> = ({ userData, activeTab }) => {
       setFollowersCount(response.data.length)
     } catch (error) {
       console.error('Failed to fetch followers count:', error)
+    }
+  }
+
+  const handleFollow = async () => {
+    try {
+      // Realizar la solicitud de seguimiento
+      const response = await axios.post(`/api/user/follow/${userData.idUser}`)
+      if (response.data.message === 'User followed successfully') {
+        setIsFollowing(true)
+      } else if (response.data.message === 'User unfollowed successfully') {
+        setIsFollowing(false)
+      }
+    } catch (error) {
+      console.error('Error toggling follow status:', error)
     }
   }
 
@@ -91,6 +123,18 @@ const ProfileCard: React.FC<UserCardProps> = ({ userData, activeTab }) => {
             </div>
           </div>
         </div>
+        {userData.idUser !== creator[0]?.idUser &&
+          (isFollowing ? (
+            <PersonRemove
+              sx={{ color: '#7857FF', cursor: 'pointer', fontSize: '40px' }}
+              onClick={() => handleFollow()}
+            />
+          ) : (
+            <PersonAddAlt
+              sx={{ color: '#7857FF', cursor: 'pointer', fontSize: '40px' }}
+              onClick={() => handleFollow()}
+            />
+          ))}
       </div>
 
       <div className='flex gap-6'>
