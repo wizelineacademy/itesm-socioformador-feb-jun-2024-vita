@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server'
 import { db } from '@/src/db/drizzle'
 import { posts, user } from '@/src/db/schema/schema'
-import { like, or, eq } from 'drizzle-orm'
+import { or, eq } from 'drizzle-orm'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/src/lib/auth/authOptions'
+import { sql } from 'drizzle-orm/sql'
 
 export async function GET(
   request: Request,
@@ -21,7 +22,8 @@ export async function GET(
       return NextResponse.json('Search parameter is missing', { status: 400 })
     }
 
-    const queryPattern = `%${query}%`
+    const queryPattern = `%${query.toLowerCase()}%`
+
     const res = await db
       .select({
         idPost: posts.idPost,
@@ -36,7 +38,10 @@ export async function GET(
       .from(posts)
       .innerJoin(user, eq(posts.creatorId, user.idUser))
       .where(
-        or(like(posts.caption, queryPattern), like(posts.tag, queryPattern)),
+        or(
+          sql`${sql`LOWER(${posts.caption})`} LIKE ${queryPattern}`,
+          sql`${sql`LOWER(${posts.tag})`} LIKE ${queryPattern}`,
+        ),
       )
 
     if (res.length === 0) {
