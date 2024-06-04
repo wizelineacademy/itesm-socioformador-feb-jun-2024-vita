@@ -153,7 +153,7 @@ const Home = () => {
               className='px-4transition-colors mt-4 flex h-16 w-56 items-center justify-between rounded-full bg-color-home5 duration-300 ease-in-out hover:cursor-pointer hover:bg-color-home6'
             >
               <span className='ml-4 text-2xl font-bold text-white'>Perfil</span>
-              <FaCircle size={32} color='white' className='mb-2 mr-4' />
+              <FaCircle size={32} color='white' className='mr-4' />
             </div>
           </Link>
         </div>
@@ -270,24 +270,30 @@ const Home = () => {
             <div
               className={`${!isOpen2 ? 'block' : 'hidden'} items-center justify-center lg:mt-4 lg:flex lg:flex-col`}
             >
-              <div className='mt-2 flex w-[190px] flex-row justify-between rounded-2xl bg-white p-1 transition-colors duration-300 ease-in-out hover:cursor-pointer hover:bg-color-home3'>
-                <h2 className='pl-2 text-lg font-bold text-color-home6'>
-                  Nutrición
-                </h2>
-                <FaAngleRight size={28} />
-              </div>
-              <div className='mt-4 flex w-[190px] flex-row justify-between rounded-2xl bg-white p-1 transition-colors duration-300 ease-in-out hover:cursor-pointer hover:bg-color-home3'>
-                <h2 className='pl-2 text-lg font-bold text-color-home6'>
-                  Ejercicio
-                </h2>
-                <FaAngleRight size={28} />
-              </div>
-              <div className='mt-4 flex w-[190px] flex-row justify-between rounded-2xl bg-white p-1 transition-colors duration-300 ease-in-out hover:cursor-pointer hover:bg-color-home3'>
-                <h2 className='pl-2 text-lg font-bold text-color-home6'>
-                  Sueño
-                </h2>
-                <FaAngleRight size={28} />
-              </div>
+              <Link href='/nutrition/self_evaluation/'>
+                <div className='mt-2 flex w-[190px] flex-row justify-between rounded-2xl bg-white p-1 transition-colors duration-300 ease-in-out hover:cursor-pointer hover:bg-color-home3'>
+                  <h2 className='pl-2 text-lg font-bold text-color-home6'>
+                    Nutrición
+                  </h2>
+                  <FaAngleRight size={28} />
+                </div>
+              </Link>
+              <Link href='/exercise/self_evaluation/'>
+                <div className='mt-4 flex w-[190px] flex-row justify-between rounded-2xl bg-white p-1 transition-colors duration-300 ease-in-out hover:cursor-pointer hover:bg-color-home3'>
+                  <h2 className='pl-2 text-lg font-bold text-color-home6'>
+                    Ejercicio
+                  </h2>
+                  <FaAngleRight size={28} />
+                </div>
+              </Link>
+              <Link href='/sleep/self_evaluation/'>
+                <div className='mt-4 flex w-[190px] flex-row justify-between rounded-2xl bg-white p-1 transition-colors duration-300 ease-in-out hover:cursor-pointer hover:bg-color-home3'>
+                  <h2 className='pl-2 text-lg font-bold text-color-home6'>
+                    Sueño
+                  </h2>
+                  <FaAngleRight size={28} />
+                </div>
+              </Link>
             </div>
           </div>
 

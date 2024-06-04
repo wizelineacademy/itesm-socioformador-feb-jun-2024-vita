@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { db } from '@/src/db/drizzle'
 import { user } from '@/src/db/schema/schema'
-import { like } from 'drizzle-orm'
+import { sql } from 'drizzle-orm/sql'
 
 export async function GET(
   request: Request,
@@ -14,12 +14,12 @@ export async function GET(
       return NextResponse.json('Search parameter is missing', { status: 400 })
     }
 
-    const queryPattern = `%${query}%`
+    const queryPattern = `%${query.toLowerCase()}%`
 
     const res = await db
       .select()
       .from(user)
-      .where(like(user.name, queryPattern))
+      .where(sql`LOWER(${user.name}) LIKE ${queryPattern}`)
 
     return NextResponse.json(res, { status: 200 })
   } catch (error) {

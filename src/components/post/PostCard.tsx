@@ -256,6 +256,8 @@ const PostCard: React.FC<PostCardProps> = ({ post, creator, onPostDelete }) => {
                   src={comment.profilePhoto ?? '/assets/noAvatar.png'}
                   alt='User Avatar'
                   className='h-10 w-10 rounded-full'
+                  width={50}
+                  height={50}
                 />
                 <div>
                   <p className='pb-2 font-semibold text-light-1'>

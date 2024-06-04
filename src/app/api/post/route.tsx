@@ -4,6 +4,7 @@ import { authOptions } from '@/src/lib/auth/authOptions'
 import { eq } from 'drizzle-orm'
 import { posts, user } from '@/src/db/schema/schema'
 import { db } from '@/src/db/drizzle'
+import { sql } from 'drizzle-orm/sql'
 
 export async function GET() {
   try {
@@ -26,6 +27,8 @@ export async function GET() {
       })
       .from(posts)
       .innerJoin(user, eq(posts.creatorId, user.idUser))
+      .orderBy(sql`RANDOM()`)
+      .limit(10)
 
     return NextResponse.json(res, { status: 200 })
   } catch (error) {
