@@ -22,7 +22,15 @@
     }
   },
 
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/auth/route.tss", "migrate.mtss", "src/app/api/reminders/[idReminders]"],
-  "exclude": ["node_modules","sst.config.ts","sst.config.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/api/auth/route.tss",
+    "migrate.mtss",
+    "src/app/api/reminders/[idReminders]"
+  ],
+  "exclude": ["node_modules", "sst.config.ts", "sst.config.ts"],
   "types": ["vitest/globals"]
 }

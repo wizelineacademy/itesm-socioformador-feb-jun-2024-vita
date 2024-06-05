@@ -5,6 +5,7 @@ import { FaBell } from 'react-icons/fa'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/navigation'
+import './remindersStyle.css'
 
 const CrudReminders = () => {
   const router = useRouter()
@@ -98,36 +99,6 @@ const CrudReminders = () => {
 
   return (
     <>
-      <style>{`
-                /* Estilo para todos los navegadores */
-                input[type="date"]::-webkit-calendar-picker-indicator {
-                    filter: invert(1); /* Safari y Chrome */
-                }
-                input[type="date"]::-webkit-inner-spin-button,
-                input[type="date"]::-webkit-clear-button {
-                    filter: invert(1); /* Safari */
-                }
-                input[type="date"]::-webkit-calendar-picker-indicator:after {
-                    filter: invert(0); /* Safari */
-                }
-                input[type="date"]::-ms-clear {
-                    filter: invert(1); /* IE */
-                }
-                /* Estilo para todos los navegadores */
-                input[type="time"]::-webkit-calendar-picker-indicator {
-                    filter: invert(1); /* Safari y Chrome */
-                }
-                input[type="time"]::-webkit-inner-spin-button,
-                input[type="time"]::-webkit-clear-button {
-                    filter: invert(1); /* Safari */
-                }
-                input[type="time"]::-webkit-calendar-picker-indicator:after {
-                    filter: invert(0); /* Safari */
-                }
-                input[type="time"]::-ms-clear {
-                    filter: invert(1); /* IE */
-                }
-            `}</style>
       <div className='flex flex-row justify-center px-5 py-4 text-4xl font-bold md:justify-start lg:justify-start'>
         <h1 className='mr-2 w-[200px] text-white'>Crea un recordatorio</h1>
         <FaBell size={36} color='white' />
