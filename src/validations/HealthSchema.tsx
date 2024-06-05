@@ -50,24 +50,4 @@ export const HealthSchema = z.object({
         message: 'Debes tener al menos 15 años para registrarte',
       },
     ),
-  bodyFat: z.coerce
-    .number({
-      invalid_type_error: 'El valor de la grasa corporal debe ser un número',
-    })
-    .gt(0, {
-      message: 'Debes ingresar una grasa corporal mayor a 0%',
-    })
-    .lte(60, {
-      message: 'Debes ingresar una grasa corporal menor o igual a 60%',
-    }),
-  muscularMass: z.coerce
-    .number({
-      invalid_type_error: 'El valor de la masa muscular debe ser un número',
-    })
-    .gt(0, {
-      message: 'Debes ingresar una masa muscular mayor a 0 kg',
-    })
-    .lte(80, {
-      message: 'Debes ingresar una masa muscular menor o igual a 80 kg',
-    }),
 })

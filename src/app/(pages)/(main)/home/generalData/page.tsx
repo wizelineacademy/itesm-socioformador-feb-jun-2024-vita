@@ -183,7 +183,9 @@ const GeneralData = () => {
                 ) : (
                   <span className='flex flex-row'>
                     <div className='w-60 rounded-full bg-input-home px-6 py-2 text-2xl'>
-                      {userData && userData.bodyFat}
+                      {userData && userData.bodyFat
+                        ? userData.bodyFat
+                        : 'Sin información'}
                     </div>
                     <p className='ml-4 font-bold'>%</p>
                   </span>
@@ -267,7 +269,9 @@ const GeneralData = () => {
                 ) : (
                   <span className='flex flex-row'>
                     <div className='w-60 rounded-full bg-input-home px-6 py-2 text-2xl'>
-                      {userData && userData.muscularMass}
+                      {userData && userData.muscularMass
+                        ? userData.muscularMass
+                        : 'Sin información'}
                     </div>
                   </span>
                 )}
