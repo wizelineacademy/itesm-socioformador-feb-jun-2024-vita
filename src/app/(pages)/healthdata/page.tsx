@@ -197,23 +197,10 @@ const HealthData = () => {
               </div>
             </div>
 
-            {errors.bodyFat && typeof errors.bodyFat.message === 'string' && (
-              <span className='mb-5 block text-custom-red'>
-                {errors.bodyFat.message}
-              </span>
-            )}
-
-            {errors.muscularMass &&
-              typeof errors.muscularMass.message === 'string' && (
-                <span className='mb-5 block text-custom-red'>
-                  {errors.muscularMass.message}
-                </span>
-              )}
-
             <div className='pb-4'>
               <Input
                 id='phoneNumber'
-                label='Teléfono'
+                label='Teléfono*'
                 disabled={isLoading}
                 register={register}
                 errors={errors}

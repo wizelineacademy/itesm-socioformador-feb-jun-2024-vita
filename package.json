@@ -44,6 +44,7 @@
     "cheerio": "^1.0.0-rc.12",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "cypress-split": "^1.23.7",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.31.0",
     "embla-carousel-react": "^8.1.3",

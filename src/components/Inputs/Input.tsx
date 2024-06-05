@@ -1,6 +1,7 @@
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form'
 import { useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import '../../inputStyles.css'
 
 interface InputProps {
   id: string
@@ -45,7 +46,6 @@ const Input: React.FC<InputProps> = ({
   errors,
   big,
 }) => {
-  const isDateInput = type === 'date'
   const isPasswordInput = type === 'password'
 
   // Inicializa showPassword dependiendo del tipo de campo
@@ -102,25 +102,6 @@ const Input: React.FC<InputProps> = ({
         >
           {showPassword ? <FaEye size={24} /> : <FaEyeSlash size={24} />}
         </button>
-      )}
-      {/* Estilo para cambiar el color del icono del calendario en un input de tipo date */}
-      {isDateInput && (
-        <style>{`
-          /* Estilo para todos los navegadores */
-          input[type="date"]::-webkit-calendar-picker-indicator {
-            filter: invert(1); /* Safari y Chrome */
-          }
-          input[type="date"]::-webkit-inner-spin-button,
-          input[type="date"]::-webkit-clear-button {
-            filter: invert(1); /* Safari */
-          }
-          input[type="date"]::-webkit-calendar-picker-indicator:after {
-            filter: invert(0); /* Safari */
-          }
-          input[type="date"]::-ms-clear {
-            filter: invert(1); /* IE */
-          }
-        `}</style>
       )}
     </div>
   )
