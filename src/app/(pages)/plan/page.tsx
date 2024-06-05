@@ -1,12 +1,12 @@
 'use client'
-import { useState } from 'react'
 import { NextPage } from 'next'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 interface Plan {
   name: string
   price: number
   features: string[]
+  link: string
 }
 
 const plans: Plan[] = [
@@ -15,44 +15,38 @@ const plans: Plan[] = [
     price: 199,
     features: [
       '31 rutinas de ejercicio y 300 recetas de comida al mes.',
-      'Metas de ejercicio, nutrición y sueño.',
       '90 detecciones de comida al mes.',
+      'Metas de ejercicio, nutrición y sueño.',
       'Blog de salud generado por inteligencia artificial',
       'Red Social para compartir progreso y apoyar a otros.',
       'Perfil Médico',
     ],
+    link: 'https://buy.stripe.com/test_5kA4jc54DcqW2zKbII',
   },
   {
     name: 'Bienestar Plus',
     price: 299,
     features: [
       '100 rutinas de ejercicio y 300 recetas de comida al mes.',
-      'Metas de ejercicio, nutrición y sueño.',
       '300 detecciones de comida al mes.',
-      'Chatbot de salud en la aplicación web.',
-      'Recordatorios automáticos.',
-      'Blog de salud generado por inteligencia artificial.',
-      'Red Social para compartir progreso y apoyar a otros.',
-      'Perfil Médico.',
-      'Puntos y logros.',
+      'Todos los beneficios del plan básico',
+      'Chatbot de salud en la app.',
+      'Recordatorios automáticos en Whatsapp.',
+      'Retos mensuales e insignias por logros.',
     ],
+    link: 'https://buy.stripe.com/test_00g8zs68HbmSb6gdQR',
   },
   {
     name: 'Bienestar Total',
     price: 699,
     features: [
       '300 rutinas de ejercicio y 300 recetas de comida al mes.',
-      'Metas de ejercicio, nutrición y sueño.',
       '1200 detecciones de comida al mes.',
-      'Chatbot de Salud en WhatsApp y la aplicación web.',
-      'Recordatorios automáticos.',
-      'Blog de salud generado por inteligencia artificial.',
-      'Red Social para compartir progreso y apoyar a otros.',
-      'Perfil Médico.',
-      'Mapa de expertos en salud.',
-      'Reconocimiento de voz para chats de WhatsApp y la aplicación web.',
-      'Puntos y logros.',
+      'Todos los beneficios del plan plus.',
+      'Chatbot por Whatsapp.',
+      'Acceso prioritario a las nuevas funciones en desarrollo.',
     ],
+    link: 'https://buy.stripe.com/test_dR68zsbt1fD8eisdQS',
   },
 ]
 
@@ -74,15 +68,6 @@ const PricingPage: NextPage = () => {
 }
 
 const PlanCard: React.FC<{ plan: Plan }> = ({ plan }) => {
-  const router = useRouter()
-  const [selected, setSelected] = useState(false)
-
-  const handleSelectPlan = () => {
-    setSelected(!selected)
-
-    router.push(`/home/?selectedPlan=${plan.name}`)
-  }
-
   return (
     <div className='flex h-full transform flex-col justify-between rounded-md border bg-gray-800 p-4 text-white shadow-md transition duration-300 ease-in-out hover:scale-105'>
       <div>
@@ -95,14 +80,17 @@ const PlanCard: React.FC<{ plan: Plan }> = ({ plan }) => {
             </li>
           ))}
         </ul>
+        {plan.name === 'Bienestar Plus' && (
+          <h2 className='mb-5 text-lg font-bold'>Pruébalo gratis por 7 días</h2>
+        )}
       </div>
       <div className='mt-auto'>
-        <button
-          className={`rounded-md bg-blue-500 px-4 py-2 text-white focus:outline-none focus:ring focus:ring-${selected ? 'green' : 'blue'}-400 hover:bg-${selected ? 'green' : 'blue'}-600 w-full transform transition duration-300 hover:scale-105`}
-          onClick={handleSelectPlan}
+        <Link
+          className={`w-full transform rounded-md bg-blue-500 px-4 py-2 text-white transition duration-300 hover:scale-105 hover:bg-green-600 focus:outline-none focus:ring focus:ring-green-400`}
+          href={plan.link}
         >
           Seleccionar
-        </button>
+        </Link>
       </div>
     </div>
   )
