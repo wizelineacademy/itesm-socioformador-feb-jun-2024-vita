@@ -14,7 +14,7 @@ const About: React.FC = () => {
             <div className='mt-2 h-0.5 w-60 bg-rose-300 md:w-80'></div>
           </h1>
 
-          <h2 className='mb-5 w-[350px] text-center text-2xl font-light leading-loose md:w-[450px] md:text-4xl'>
+          <h2 className='mb-5 w-full px-4 text-center text-2xl font-light leading-loose sm:w-[350px] md:w-[500px] md:text-4xl'>
             <span className='text-7xl font-bold text-red-300'>VITA </span>
             es una aplicación para monitorear tu salud a todo momento y recibir
             asesoramiento a través de inteligencia artificial y expertos en la
