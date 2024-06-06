@@ -45,6 +45,14 @@ declare module "sst" {
       type: "sst.sst.Secret"
       value: string
     }
+    StripeSecretKey: {
+      type: "sst.sst.Secret"
+      value: string
+    }
+    StripeWebhookSecret: {
+      type: "sst.sst.Secret"
+      value: string
+    }
     WebhookVerifyToken: {
       type: "sst.sst.Secret"
       value: string
