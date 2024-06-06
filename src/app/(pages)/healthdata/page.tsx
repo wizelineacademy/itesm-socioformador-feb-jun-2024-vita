@@ -42,7 +42,7 @@ const HealthData = () => {
       try {
         const response = await axios.get('/api/healthdata')
         const data = response.data
-
+        console.log(data)
         if (!data) {
           return
         } else {

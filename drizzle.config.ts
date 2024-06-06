@@ -1,7 +1,7 @@
-import type { Config } from "drizzle-kit";
+import type { Config } from 'drizzle-kit'
 
 export default {
-  driver: 'pg',
+  dialect: 'postgresql',
   out: './src/db/migrations',
-  schema: './src/db/schema/schema.ts'
-} satisfies Config;
+  schema: './src/db/schema/schema.ts',
+} satisfies Config
