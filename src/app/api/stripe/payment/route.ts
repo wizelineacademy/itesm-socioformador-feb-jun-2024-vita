@@ -1,4 +1,5 @@
 import { authOptions } from '@/src/lib/auth/authOptions'
+import config from '@/src/lib/environment/config'
 import { stripe } from '@/src/lib/stripe/stripe'
 import { getServerSession } from 'next-auth'
 import { NextResponse } from 'next/server'
@@ -10,8 +11,8 @@ export async function POST(req: Request) {
   const { priceId, allowTrial } = body
 
   const stripeConfig: Stripe.Checkout.SessionCreateParams = {
-    success_url: 'http://localhost:3000/home',
-    cancel_url: 'http://localhost:3000',
+    success_url: config.nextAuthUrl + '/home',
+    cancel_url: config.nextAuthUrl,
     payment_method_types: ['card'],
     mode: 'subscription',
     billing_address_collection: 'auto',

@@ -1,10 +1,8 @@
 {
-  "id": "51570c75-f225-4cfb-95cb-228a00f0d951",
-  "prevId": "4cd8769a-86fb-4a54-9005-afc475b5034c",
-  "version": "5",
-  "dialect": "pg",
+  "version": "7",
+  "dialect": "postgresql",
   "tables": {
-    "Article": {
+    "public.Article": {
       "name": "Article",
       "schema": "",
       "columns": {
@@ -38,7 +36,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "Goals": {
+    "public.Goals": {
       "name": "Goals",
       "schema": "",
       "columns": {
@@ -90,21 +88,21 @@
         "Goals_id_user_User_id_user_fk": {
           "name": "Goals_id_user_User_id_user_fk",
           "tableFrom": "Goals",
-          "tableTo": "User",
           "columnsFrom": [
             "id_user"
           ],
+          "tableTo": "User",
           "columnsTo": [
             "id_user"
           ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
+          "onUpdate": "cascade",
+          "onDelete": "restrict"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "Reminders": {
+    "public.Reminders": {
       "name": "Reminders",
       "schema": "",
       "columns": {
@@ -156,21 +154,21 @@
         "Reminders_id_user_User_id_user_fk": {
           "name": "Reminders_id_user_User_id_user_fk",
           "tableFrom": "Reminders",
-          "tableTo": "User",
           "columnsFrom": [
             "id_user"
           ],
+          "tableTo": "User",
           "columnsTo": [
             "id_user"
           ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
+          "onUpdate": "cascade",
+          "onDelete": "restrict"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "Allergies": {
+    "public.Allergies": {
       "name": "Allergies",
       "schema": "",
       "columns": {
@@ -204,29 +202,29 @@
         "Allergies_id_medical_profile_MedicalProfile_id_medical_profile_fk": {
           "name": "Allergies_id_medical_profile_MedicalProfile_id_medical_profile_fk",
           "tableFrom": "Allergies",
-          "tableTo": "MedicalProfile",
           "columnsFrom": [
             "id_medical_profile"
           ],
+          "tableTo": "MedicalProfile",
           "columnsTo": [
             "id_medical_profile"
           ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
+          "onUpdate": "cascade",
+          "onDelete": "restrict"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "Allergies_id_medical_profile_unique": {
           "name": "Allergies_id_medical_profile_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "id_medical_profile"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "ChronicalDesease": {
+    "public.ChronicalDesease": {
       "name": "ChronicalDesease",
       "schema": "",
       "columns": {
@@ -254,29 +252,29 @@
         "ChronicalDesease_id_medical_profile_MedicalProfile_id_medical_profile_fk": {
           "name": "ChronicalDesease_id_medical_profile_MedicalProfile_id_medical_profile_fk",
           "tableFrom": "ChronicalDesease",
-          "tableTo": "MedicalProfile",
           "columnsFrom": [
             "id_medical_profile"
           ],
+          "tableTo": "MedicalProfile",
           "columnsTo": [
             "id_medical_profile"
           ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
+          "onUpdate": "cascade",
+          "onDelete": "restrict"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "ChronicalDesease_id_medical_profile_unique": {
           "name": "ChronicalDesease_id_medical_profile_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "id_medical_profile"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "Disability": {
+    "public.Disability": {
       "name": "Disability",
       "schema": "",
       "columns": {
@@ -304,29 +302,29 @@
         "Disability_id_medical_profile_MedicalProfile_id_medical_profile_fk": {
           "name": "Disability_id_medical_profile_MedicalProfile_id_medical_profile_fk",
           "tableFrom": "Disability",
-          "tableTo": "MedicalProfile",
           "columnsFrom": [
             "id_medical_profile"
           ],
+          "tableTo": "MedicalProfile",
           "columnsTo": [
             "id_medical_profile"
           ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
+          "onUpdate": "cascade",
+          "onDelete": "restrict"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "Disability_id_medical_profile_unique": {
           "name": "Disability_id_medical_profile_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "id_medical_profile"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "MedicalProfile": {
+    "public.MedicalProfile": {
       "name": "MedicalProfile",
       "schema": "",
       "columns": {
@@ -378,29 +376,29 @@
         "MedicalProfile_id_user_User_id_user_fk": {
           "name": "MedicalProfile_id_user_User_id_user_fk",
           "tableFrom": "MedicalProfile",
-          "tableTo": "User",
           "columnsFrom": [
             "id_user"
           ],
+          "tableTo": "User",
           "columnsTo": [
             "id_user"
           ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
+          "onUpdate": "cascade",
+          "onDelete": "restrict"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "MedicalProfile_id_user_unique": {
           "name": "MedicalProfile_id_user_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "id_user"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "Medicines": {
+    "public.Medicines": {
       "name": "Medicines",
       "schema": "",
       "columns": {
@@ -446,29 +444,29 @@
         "Medicines_id_medical_profile_MedicalProfile_id_medical_profile_fk": {
           "name": "Medicines_id_medical_profile_MedicalProfile_id_medical_profile_fk",
           "tableFrom": "Medicines",
-          "tableTo": "MedicalProfile",
           "columnsFrom": [
             "id_medical_profile"
           ],
+          "tableTo": "MedicalProfile",
           "columnsTo": [
             "id_medical_profile"
           ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
+          "onUpdate": "cascade",
+          "onDelete": "restrict"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "Medicines_id_medical_profile_unique": {
           "name": "Medicines_id_medical_profile_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "id_medical_profile"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "PortionsNutrition": {
+    "public.PortionsNutrition": {
       "name": "PortionsNutrition",
       "schema": "",
       "columns": {
@@ -538,29 +536,29 @@
         "PortionsNutrition_id_user_User_id_user_fk": {
           "name": "PortionsNutrition_id_user_User_id_user_fk",
           "tableFrom": "PortionsNutrition",
-          "tableTo": "User",
           "columnsFrom": [
             "id_user"
           ],
+          "tableTo": "User",
           "columnsTo": [
             "id_user"
           ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
+          "onUpdate": "cascade",
+          "onDelete": "restrict"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "PortionsNutrition_id_user_unique": {
           "name": "PortionsNutrition_id_user_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "id_user"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "_prisma_migrations": {
+    "public._prisma_migrations": {
       "name": "_prisma_migrations",
       "schema": "",
       "columns": {
@@ -620,7 +618,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "User": {
+    "public.User": {
       "name": "User",
       "schema": "",
       "columns": {
@@ -661,21 +659,21 @@
       "uniqueConstraints": {
         "User_email_unique": {
           "name": "User_email_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "email"
-          ]
+          ],
+          "nullsNotDistinct": false
         },
         "User_phone_number_unique": {
           "name": "User_phone_number_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "phone_number"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "UserDetail": {
+    "public.UserDetail": {
       "name": "UserDetail",
       "schema": "",
       "columns": {
@@ -733,25 +731,25 @@
         "UserDetail_id_user_User_id_user_fk": {
           "name": "UserDetail_id_user_User_id_user_fk",
           "tableFrom": "UserDetail",
-          "tableTo": "User",
           "columnsFrom": [
             "id_user"
           ],
+          "tableTo": "User",
           "columnsTo": [
             "id_user"
           ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
+          "onUpdate": "cascade",
+          "onDelete": "restrict"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "UserDetail_id_user_unique": {
           "name": "UserDetail_id_user_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "id_user"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     }
@@ -759,8 +757,10 @@
   "enums": {},
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "51570c75-f225-4cfb-95cb-228a00f0d951",
+  "prevId": "4cd8769a-86fb-4a54-9005-afc475b5034c"
 }

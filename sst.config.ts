@@ -33,13 +33,19 @@ export default $config({
     })
 
     const blogCron = new sst.aws.Cron('MyCronJob', {
-      job: 'src/cron_functions/blog.handler',
       schedule: 'cron(0 6 * * ? *)',
+      job: {
+        handler: 'src/cron_functions/blog.handler',
+        timeout: '60 seconds'
+      }
     })
 
     const remindersCron = new sst.aws.Cron('RemindersJob', {
-      job: 'src/cron_functions/reminders.handler',
       schedule: 'rate(30 minutes)',
+      job: {
+        handler: 'src/cron_functions/reminders.handler',
+        timeout: '60 seconds'
+      }
     })
 
     new sst.aws.Nextjs('MyWeb', {

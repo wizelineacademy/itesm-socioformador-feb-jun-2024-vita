@@ -6,13 +6,13 @@ import { userPoints, user } from '@/src/db/schema/schema'
 import { eq, desc } from 'drizzle-orm'
 
 export async function GET() {
+  const session = await getServerSession(authOptions)
+
+  if (!session) {
+    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
+  }
+
   try {
-    const session = await getServerSession(authOptions)
-
-    if (!session) {
-      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
-    }
-
     const res = await db
       .select({
         idUser: user.idUser,

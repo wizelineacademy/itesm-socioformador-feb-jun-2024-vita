@@ -6,13 +6,13 @@ import { getServerSession } from 'next-auth'
 import { NextResponse } from 'next/server'
 
 export async function GET() {
+  const session = await getServerSession(authOptions)
+
+  if (!session) {
+    return NextResponse.json('Unauthorized', { status: 401 })
+  }
+
   try {
-    const session = await getServerSession(authOptions)
-
-    if (!session) {
-      return NextResponse.json('Unauthorized', { status: 401 })
-    }
-
     //get data from the last 7 days
     const res = await db
       .select({
