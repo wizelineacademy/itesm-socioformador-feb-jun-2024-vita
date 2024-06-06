@@ -18,7 +18,7 @@ const HomePage: React.FC = () => {
           <div className='w-84 mt-2 h-0.5 bg-rose-300'></div>
         </h1>
 
-        <h2 className='mb-5 w-[400px] text-center text-4xl font-light leading-loose md:w-[450px] md:text-4xl'>
+        <h2 className='mb-5 w-full text-center text-4xl font-light leading-loose sm:w-[400px] md:w-[450px] md:text-4xl'>
           Y disfruta de todos los
           <span className='lg:7xl mb-5 text-5xl font-bold text-red-300 sm:mt-3.5 sm:text-6xl md:mt-1.5 md:text-6xl'>
             {' '}
