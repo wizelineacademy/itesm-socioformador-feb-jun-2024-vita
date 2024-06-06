@@ -126,7 +126,7 @@ const CrudReminders = () => {
             onChange={handleChange}
           ></textarea>
           <h2 className='mt-4 text-3xl text-white'>Frecuencia</h2>
-          <div className='flex flex-row justify-between'>
+          <div className='flex flex-col justify-between md:flex-row'>
             <div className='mt-4 flex flex-col'>
               <h2 className='mb-4 text-2xl text-white'>Número de horas</h2>
               <input
@@ -156,7 +156,7 @@ const CrudReminders = () => {
               />
             </div>
           </div>
-          <div className='flex flex-row justify-between'>
+          <div className='flex flex-col justify-between md:flex-row'>
             <h2 className='mt-4 text-3xl text-white'>Inicio</h2>
             <div className='flex w-1/2 flex-row'>
               <h2 className='mr-6 mt-4 text-3xl text-white'>Fin</h2>
@@ -174,7 +174,7 @@ const CrudReminders = () => {
           </div>
 
           <div className='flex flex-col justify-between lg:flex-row'>
-            <div className='flex flex-row justify-between lg:gap-16'>
+            <div className='flex flex-col justify-between md:flex-row lg:gap-16'>
               <div className='mt-4 flex flex-col'>
                 <h2 className='mb-4 text-2xl text-white'>Fecha de Inicio</h2>
                 <input
@@ -201,7 +201,7 @@ const CrudReminders = () => {
               </div>
             </div>
             {selectedOption === 'D' && (
-              <div className='flex flex-row justify-between lg:gap-16'>
+              <div className='flex flex-col justify-between md:flex-row'>
                 <div className='mt-4 flex flex-col'>
                   <h2 className='mb-4 text-2xl text-white'>Fecha Fin</h2>
                   <input

@@ -104,29 +104,33 @@ const Nutrition = () => {
                 <h3 className='pl-2 pt-1 text-xl font-bold text-white md:w-[240px] lg:w-[240px] lg:text-3xl'>
                   Buscar opciones de comidas personalizadas
                 </h3>
-                <Image
-                  src='/icons/Filter.svg'
-                  alt='Imagen 2'
-                  width={45}
-                  height={45}
-                  className='pr-2'
-                />
+                <span className='hidden md:flex'>
+                  <Image
+                    src='/icons/Filter.svg'
+                    alt='Imagen 2'
+                    width={45}
+                    height={45}
+                    className='pr-2'
+                  />
+                </span>
               </div>
             </Link>
 
             {/* Custom option 2 */}
             <Link href='/nutrition/goals'>
-              <div className='w-[330px]px-4 mt-4 flex cursor-pointer justify-between rounded-full bg-custom-purple3 py-2 transition-colors duration-300 ease-in-out hover:bg-custom-purple4 md:rounded-2xl md:py-4 lg:mt-[75px] lg:w-[320px] lg:rounded-2xl lg:py-4'>
-                <h3 className='w-[280px] pl-2 pt-1 text-3xl font-bold text-white md:w-[140px] lg:w-[140px] lg:text-2xl'>
+              <div className='mt-4 flex w-[240px] cursor-pointer justify-between rounded-full bg-custom-purple3 px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-custom-purple4 md:rounded-2xl md:py-4 lg:mt-[75px] lg:w-[320px] lg:rounded-2xl lg:py-4'>
+                <h3 className='w-[240px] pl-2 pt-1 text-xl font-bold text-white md:w-[140px] lg:w-[140px] lg:text-2xl'>
                   Mi meta de nutrición
                 </h3>
-                <Image
-                  src='/icons/Healthy.svg'
-                  alt='Imagen 2'
-                  width={45}
-                  height={45}
-                  className='pr-2'
-                />
+                <span className='hidden md:flex'>
+                  <Image
+                    src='/icons/Healthy.svg'
+                    alt='Imagen 2'
+                    width={45}
+                    height={45}
+                    className='pr-2'
+                  />
+                </span>
               </div>
             </Link>
           </div>

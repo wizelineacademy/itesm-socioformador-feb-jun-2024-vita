@@ -71,7 +71,6 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
       // Determinar el valor inicial de selectedOption
       const initialSelectedOption = fetchedData.endTime === null ? 'I' : 'D'
       setSelectedOption(initialSelectedOption)
-      // Asignamos los datos recibidos a userData
 
       setUserData({
         ...fetchedData,
@@ -210,36 +209,6 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
 
   return (
     <>
-      <style>{`
-                /* Estilo para todos los navegadores */
-                input[type="date"]::-webkit-calendar-picker-indicator {
-                    filter: invert(1); /* Safari y Chrome */
-                }
-                input[type="date"]::-webkit-inner-spin-button,
-                input[type="date"]::-webkit-clear-button {
-                    filter: invert(1); /* Safari */
-                }
-                input[type="date"]::-webkit-calendar-picker-indicator:after {
-                    filter: invert(0); /* Safari */
-                }
-                input[type="date"]::-ms-clear {
-                    filter: invert(1); /* IE */
-                }
-                /* Estilo para todos los navegadores */
-                input[type="time"]::-webkit-calendar-picker-indicator {
-                    filter: invert(1); /* Safari y Chrome */
-                }
-                input[type="time"]::-webkit-inner-spin-button,
-                input[type="time"]::-webkit-clear-button {
-                    filter: invert(1); /* Safari */
-                }
-                input[type="time"]::-webkit-calendar-picker-indicator:after {
-                    filter: invert(0); /* Safari */
-                }
-                input[type="time"]::-ms-clear {
-                    filter: invert(1); /* IE */
-                }
-            `}</style>
       <div className='flex flex-row justify-center px-5 py-4 text-4xl font-bold md:justify-start lg:justify-start'>
         <h1 className='mr-6 w-[200px] text-white'>Recordatorio</h1>
         <FaBell size={36} color='white' />
@@ -283,7 +252,7 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
             </div>
           )}
           <h2 className='mt-4 text-3xl text-white'>Frecuencia</h2>
-          <div className='flex flex-row justify-between'>
+          <div className='flex flex-col justify-between md:flex-row'>
             <div className='mt-4 flex flex-col'>
               <h2 className='mb-4 text-2xl text-white'>Número de horas</h2>
               {editMode ? (
@@ -323,7 +292,7 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
               )}
             </div>
           </div>
-          <div className='flex flex-row justify-between'>
+          <div className='flex flex-col justify-between md:flex-row'>
             <h2 className='mt-4 text-3xl text-white'>Inicio</h2>
             <div className='flex w-1/2 flex-row'>
               <h2 className='mr-6 mt-4 text-3xl text-white'>Fin</h2>
@@ -346,7 +315,7 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
           </div>
 
           <div className='flex flex-col justify-between lg:flex-row'>
-            <div className='flex flex-row justify-between lg:gap-16'>
+            <div className='flex flex-col justify-between md:flex-row lg:gap-16'>
               <div className='mt-4 flex flex-col'>
                 <h2 className='mb-4 text-2xl text-white'>Fecha de Inicio</h2>
                 {editMode ? (

@@ -53,13 +53,12 @@ export async function POST(request: Request) {
 
     // Now, proceed with updating or creating userDetail
     const { sex, weight, height, bodyFat, muscularMass, birthDate } = body
-
+    console.log('aca ando')
     const detail = await db
       .select()
       .from(userDetail)
       .where(eq(userDetail.idUser, session.user?.id))
       .limit(1)
-
     let res
 
     if (detail.length > 0) {
@@ -86,6 +85,7 @@ export async function POST(request: Request) {
         muscularMass: Number(muscularMass),
         birthDate: new Date(birthDate),
       })
+      console.log(res)
 
       // If phoneNumber is provided, update it in the User table
       if (phoneNumber) {
