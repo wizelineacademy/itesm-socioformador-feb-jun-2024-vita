@@ -89,7 +89,7 @@ const ProfileCard: React.FC<UserCardProps> = ({
   return (
     <div className='flex flex-col gap-9'>
       <div className='flex items-start justify-between'>
-        <div className='flex items-start gap-2 md:gap-4'>
+        <div className='flex items-start gap-1 md:gap-4'>
           <Image
             src={profilePhoto}
             alt='profile photo'
@@ -128,12 +128,12 @@ const ProfileCard: React.FC<UserCardProps> = ({
         {userData.idUser !== creator[0]?.idUser &&
           (isFollowing ? (
             <PersonRemove
-              sx={{ color: '#7857FF', cursor: 'pointer', fontSize: '40px' }}
+              sx={{ color: '#7857FF', cursor: 'pointer', fontSize: '30px' }}
               onClick={() => handleFollow()}
             />
           ) : (
             <PersonAddAlt
-              sx={{ color: '#7857FF', cursor: 'pointer', fontSize: '40px' }}
+              sx={{ color: '#7857FF', cursor: 'pointer', fontSize: '30px' }}
               onClick={() => handleFollow()}
             />
           ))}
