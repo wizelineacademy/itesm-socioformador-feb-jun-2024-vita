@@ -26,10 +26,21 @@ import { useRouter } from 'next/navigation'
 
 const Home = () => {
   const router = useRouter()
+
+  // Define an array of suggestions
+  const suggestions = [
+    '¡Come más frutas y verduras!',
+    '¡Sal a dar un paseo!',
+    '¡Toma más agua!',
+    '¡Hoy practica Mindfullness por 10 minutos!',
+    '¡Recuerda dormir 7-8 horas diarias!',
+  ]
+
   const [isOpen, setIsOpen] = useState(true)
   const [isOpen2, setIsOpen2] = useState(true)
   const [userData, setUserData] = useState<HealthData | null>(null)
   const [user, setUser] = useState<UserAdmin[] | null>(null)
+  const [randomSuggestion, setRandomSuggestion] = useState(suggestions[0])
 
   const getData = async () => {
     try {
@@ -84,25 +95,11 @@ const Home = () => {
     setIsOpen2(!isOpen2)
   }
 
-  // Define an array of suggestions
-  const suggestions = [
-    '¡Come más frutas y verduras!',
-    '¡Sal a dar un paseo!',
-    '¡Toma más agua!',
-    '¡Hoy practica Mindfullness por 10 minutos!',
-    '¡Recuerda dormir 7-8 horas diarias!',
-  ]
-
   // Function to generate a random suggestion
   const generateRandomSuggestion = () => {
     const randomIndex = Math.floor(Math.random() * suggestions.length)
     return suggestions[randomIndex]
   }
-
-  // State to hold the current random suggestion
-  const [randomSuggestion, setRandomSuggestion] = useState(
-    generateRandomSuggestion(),
-  )
 
   // Function to generate a new random suggestion
   const handleGenerateSuggestion = () => {
@@ -129,7 +126,9 @@ const Home = () => {
               Recomendación del Día
             </h2>
             <div className='mx-4 mt-4 flex h-[120px] w-[185px] items-center justify-between rounded-3xl bg-color-home3 px-5'>
-              <p className='text-lg text-[#1D154A]'>{randomSuggestion}</p>
+              <p className='text-lg text-[#1D154A]'>
+                {randomSuggestion && randomSuggestion}
+              </p>
               <button
                 onClick={handleGenerateSuggestion}
                 className='cursor-pointer border-none bg-transparent'
@@ -161,11 +160,11 @@ const Home = () => {
         <div id='Centro' className='flex flex-col'>
           <Link href='/home/generalData'>
             <div
-              className={`mx-4 mt-4 w-[190px] rounded-3xl bg-color-home6 transition-colors duration-300 ease-in-out hover:bg-color-home5`}
+              className={`mx-4 mt-4 w-56 rounded-3xl bg-color-home6 transition-colors duration-300 ease-in-out hover:bg-color-home5`}
             >
               <div className='flex flex-col items-center justify-center'>
                 <span className='flex flex-row'>
-                  <h2 className='ml-4 mt-4 w-[120px] text-2xl font-bold text-white'>
+                  <h2 className='w-34 ml-4 mt-4 text-2xl font-bold text-white'>
                     Mis datos de salud
                   </h2>
                   <div className='mt-4 lg:hidden'>
@@ -236,15 +235,26 @@ const Home = () => {
           <Link
             href='/home/dashboard'
             id='Dashboard'
-            className='mt-4 flex h-[120px] w-[232px] flex-row justify-between rounded-3xl bg-color-home7 transition-colors duration-300 ease-in-out hover:cursor-pointer hover:bg-color-home2'
+            className='z-10 mt-4 flex h-12 w-[232px] flex-row justify-between rounded-3xl bg-color-home7 transition-colors duration-300 ease-in-out hover:cursor-pointer hover:bg-color-home2'
           >
             <h2 className='mt-2 w-[120px] pl-4 text-2xl font-bold text-color-home6'>
-              Mi Dashboard de Salud
+              Dashboard
             </h2>
-            <div className='mr-8 mt-4 flex flex-col'>
-              <FaAngleRight size={48} color='#144154' />
+            <div className='mr-2 mt-3 flex flex-col'>
+              <FaAngleRight size={24} color='#144154' />
+            </div>
+          </Link>
 
-              <FaCircle color='white' size={32} />
+          <Link
+            href='/home/subscription'
+            id='Dashboard'
+            className='z-10 mt-4 flex h-12 w-[232px] flex-row justify-between rounded-3xl bg-color-home6 transition-colors duration-300 ease-in-out hover:cursor-pointer hover:bg-color-home2'
+          >
+            <h2 className='mt-2 w-[200px] pl-4 text-2xl font-bold text-white'>
+              Mi suscripción
+            </h2>
+            <div className='mr-2 mt-3 flex flex-col'>
+              <FaAngleRight size={24} color='#fff' />
             </div>
           </Link>
 
@@ -299,13 +309,13 @@ const Home = () => {
 
           <button
             id='Challenge'
-            className='ml-4 mt-4 flex h-16 w-56 items-center justify-between rounded-full bg-color-home6 px-4 transition-colors duration-300 ease-in-out hover:cursor-pointer hover:bg-color-home5'
+            className='mt-4 flex h-16 w-60 items-center justify-between rounded-full bg-color-home6 px-4 transition-colors duration-300 ease-in-out hover:cursor-pointer hover:bg-color-home5'
             onClick={handleChallengeLink}
           >
             <span className='ml-3 text-lg font-bold text-white'>
               Retos y Logros
             </span>
-            <FaAngleRight size={48} color='#fff' className='mb-2 ml-4' />
+            <FaAngleRight size={28} color='#fff' className='mb-2 ml-4' />
           </button>
         </div>
       </div>
