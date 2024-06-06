@@ -1,12 +1,14 @@
 'use client'
+import axios from 'axios'
 import { NextPage } from 'next'
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 interface Plan {
   name: string
   price: number
   features: string[]
-  link: string
+  priceId: string
+  allowTrial: boolean
 }
 
 const plans: Plan[] = [
@@ -21,7 +23,8 @@ const plans: Plan[] = [
       'Red Social para compartir progreso y apoyar a otros.',
       'Perfil Médico',
     ],
-    link: 'https://buy.stripe.com/test_5kA4jc54DcqW2zKbII',
+    priceId: 'price_1PODCEA5dyQt5UTQT1A5yBVQ',
+    allowTrial: false,
   },
   {
     name: 'Bienestar Plus',
@@ -34,7 +37,8 @@ const plans: Plan[] = [
       'Recordatorios automáticos en Whatsapp.',
       'Retos mensuales e insignias por logros.',
     ],
-    link: 'https://buy.stripe.com/test_00g8zs68HbmSb6gdQR',
+    priceId: 'price_1PODQFA5dyQt5UTQ9ejvVNjG',
+    allowTrial: true,
   },
   {
     name: 'Bienestar Total',
@@ -46,7 +50,8 @@ const plans: Plan[] = [
       'Chatbot por Whatsapp.',
       'Acceso prioritario a las nuevas funciones en desarrollo.',
     ],
-    link: 'https://buy.stripe.com/test_dR68zsbt1fD8eisdQS',
+    priceId: 'price_1PODRUA5dyQt5UTQqsDYIfuQ',
+    allowTrial: false,
   },
 ]
 
@@ -68,6 +73,21 @@ const PricingPage: NextPage = () => {
 }
 
 const PlanCard: React.FC<{ plan: Plan }> = ({ plan }) => {
+  const router = useRouter()
+
+  const processPayment = async () => {
+    try {
+      const res = await axios.post('/api/stripe/payment', {
+        priceId: plan.priceId,
+        allowTrial: plan.allowTrial,
+      })
+      const data = res.data
+      router.push(data.url)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className='flex h-full transform flex-col justify-between rounded-md border bg-gray-800 p-4 text-white shadow-md transition duration-300 ease-in-out hover:scale-105'>
       <div>
@@ -85,12 +105,12 @@ const PlanCard: React.FC<{ plan: Plan }> = ({ plan }) => {
         )}
       </div>
       <div className='mt-auto'>
-        <Link
+        <button
           className={`w-full transform rounded-md bg-blue-500 px-4 py-2 text-white transition duration-300 hover:scale-105 hover:bg-green-600 focus:outline-none focus:ring focus:ring-green-400`}
-          href={plan.link}
+          onClick={processPayment}
         >
           Seleccionar
-        </Link>
+        </button>
       </div>
     </div>
   )

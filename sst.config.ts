@@ -18,6 +18,8 @@ export default $config({
     const WebhookVerifyToken = new sst.Secret('WebhookVerifyToken')
     const GraphApiToken = new sst.Secret('GraphApiToken')
     const GeminiApiKey = new sst.Secret('GeminiApiKey')
+    const StripeSecretKey = new sst.Secret("StripeSecretKey")
+    const StripeWebhookSecret = new sst.Secret("StripeWebhookSecret")
 
     const database = new sst.aws.Postgres('MyDatabase', {
       scaling: {
@@ -52,6 +54,8 @@ export default $config({
         WebhookVerifyToken,
         GraphApiToken,
         GeminiApiKey,
+        StripeSecretKey,
+        StripeWebhookSecret
       ],
       environment: {
         NEXTAUTH_URL: process.env.NEXTAUTH_URL!,

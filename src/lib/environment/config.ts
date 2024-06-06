@@ -20,6 +20,8 @@ const config =
         nextAuthSecret: process.env.NEXTAUTH_SECRET!,
         nextPublicSecret: process.env.NEXT_PUBLIC_SECRET!,
         geminiApiKey: Resource.GeminiApiKey.value,
+        stripeSecretKey: Resource.StripeSecretKey.value,
+        stripeWebhookSecret: Resource.StripeWebhookSecret.value,
       }
     : {
         nodeEnv: process.env.NODE_ENV!,
@@ -36,6 +38,8 @@ const config =
         webhookVerifyToken: process.env.WEBHOOK_VERIFY_TOKEN,
         graphApiToken: process.env.GRAPH_API_TOKEN,
         geminiApiKey: process.env.GEMINI_API_KEY,
+        stripeSecretKey: process.env.STRIPE_SECRET_KEY!,
+        stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET!,
       }
 
 export default config
