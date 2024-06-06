@@ -1,10 +1,8 @@
 {
-  "id": "eb7c4469-41fe-44c9-9a89-9b9ef66923aa",
-  "prevId": "75205734-1989-488a-9e88-23212bded435",
-  "version": "5",
-  "dialect": "pg",
+  "version": "7",
+  "dialect": "postgresql",
   "tables": {
-    "PortionsNutrition": {
+    "public.PortionsNutrition": {
       "name": "PortionsNutrition",
       "schema": "",
       "columns": {
@@ -74,29 +72,29 @@
         "PortionsNutrition_id_user_User_id_user_fk": {
           "name": "PortionsNutrition_id_user_User_id_user_fk",
           "tableFrom": "PortionsNutrition",
-          "tableTo": "User",
           "columnsFrom": [
             "id_user"
           ],
+          "tableTo": "User",
           "columnsTo": [
             "id_user"
           ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
+          "onUpdate": "cascade",
+          "onDelete": "restrict"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "PortionsNutrition_id_user_unique": {
           "name": "PortionsNutrition_id_user_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "id_user"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "_prisma_migrations": {
+    "public._prisma_migrations": {
       "name": "_prisma_migrations",
       "schema": "",
       "columns": {
@@ -156,7 +154,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "User": {
+    "public.User": {
       "name": "User",
       "schema": "",
       "columns": {
@@ -197,21 +195,21 @@
       "uniqueConstraints": {
         "User_email_unique": {
           "name": "User_email_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "email"
-          ]
+          ],
+          "nullsNotDistinct": false
         },
         "User_phone_number_unique": {
           "name": "User_phone_number_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "phone_number"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "UserDetail": {
+    "public.UserDetail": {
       "name": "UserDetail",
       "schema": "",
       "columns": {
@@ -269,29 +267,29 @@
         "UserDetail_id_user_User_id_user_fk": {
           "name": "UserDetail_id_user_User_id_user_fk",
           "tableFrom": "UserDetail",
-          "tableTo": "User",
           "columnsFrom": [
             "id_user"
           ],
+          "tableTo": "User",
           "columnsTo": [
             "id_user"
           ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
+          "onUpdate": "cascade",
+          "onDelete": "restrict"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "UserDetail_id_user_unique": {
           "name": "UserDetail_id_user_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "id_user"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "UserReminders": {
+    "public.UserReminders": {
       "name": "UserReminders",
       "schema": "",
       "columns": {
@@ -343,25 +341,25 @@
         "UserReminders_id_user_User_id_user_fk": {
           "name": "UserReminders_id_user_User_id_user_fk",
           "tableFrom": "UserReminders",
-          "tableTo": "User",
           "columnsFrom": [
             "id_user"
           ],
+          "tableTo": "User",
           "columnsTo": [
             "id_user"
           ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
+          "onUpdate": "cascade",
+          "onDelete": "restrict"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "UserReminders_id_user_unique": {
           "name": "UserReminders_id_user_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "id_user"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     }
@@ -369,8 +367,10 @@
   "enums": {},
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "eb7c4469-41fe-44c9-9a89-9b9ef66923aa",
+  "prevId": "75205734-1989-488a-9e88-23212bded435"
 }

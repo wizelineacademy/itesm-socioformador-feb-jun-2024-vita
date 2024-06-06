@@ -8,7 +8,7 @@ import About from '../../../components/landing/Landing_About'
 
 const Landing = () => {
   return (
-    <div className='flex flex-col gap-2.5 bg-gradient-custom'>
+    <div className='flex flex-col justify-between bg-gradient-custom'>
       <Navbar />
       <div id='Spacer' className='h-20'></div>
       <div id='Home_Page' className='sm:mb-12'>

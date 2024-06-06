@@ -1,10 +1,8 @@
 {
-  "id": "7fb4f41d-f861-46e4-91b9-65c5c4c826e0",
-  "prevId": "00000000-0000-0000-0000-000000000000",
-  "version": "5",
-  "dialect": "pg",
+  "version": "7",
+  "dialect": "postgresql",
   "tables": {
-    "PortionsNutrition": {
+    "public.PortionsNutrition": {
       "name": "PortionsNutrition",
       "schema": "",
       "columns": {
@@ -74,29 +72,29 @@
         "PortionsNutrition_id_user_User_id_user_fk": {
           "name": "PortionsNutrition_id_user_User_id_user_fk",
           "tableFrom": "PortionsNutrition",
-          "tableTo": "User",
           "columnsFrom": [
             "id_user"
           ],
+          "tableTo": "User",
           "columnsTo": [
             "id_user"
           ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
+          "onUpdate": "cascade",
+          "onDelete": "restrict"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "PortionsNutrition_id_user_unique": {
           "name": "PortionsNutrition_id_user_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "id_user"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "_prisma_migrations": {
+    "public._prisma_migrations": {
       "name": "_prisma_migrations",
       "schema": "",
       "columns": {
@@ -156,7 +154,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "User": {
+    "public.User": {
       "name": "User",
       "schema": "",
       "columns": {
@@ -197,21 +195,21 @@
       "uniqueConstraints": {
         "User_email_unique": {
           "name": "User_email_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "email"
-          ]
+          ],
+          "nullsNotDistinct": false
         },
         "User_phone_number_unique": {
           "name": "User_phone_number_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "phone_number"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "UserDetail": {
+    "public.UserDetail": {
       "name": "UserDetail",
       "schema": "",
       "columns": {
@@ -269,25 +267,25 @@
         "UserDetail_id_user_User_id_user_fk": {
           "name": "UserDetail_id_user_User_id_user_fk",
           "tableFrom": "UserDetail",
-          "tableTo": "User",
           "columnsFrom": [
             "id_user"
           ],
+          "tableTo": "User",
           "columnsTo": [
             "id_user"
           ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
+          "onUpdate": "cascade",
+          "onDelete": "restrict"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "UserDetail_id_user_unique": {
           "name": "UserDetail_id_user_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "id_user"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     }
@@ -295,8 +293,10 @@
   "enums": {},
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "7fb4f41d-f861-46e4-91b9-65c5c4c826e0",
+  "prevId": "00000000-0000-0000-0000-000000000000"
 }

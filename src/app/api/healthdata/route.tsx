@@ -59,7 +59,6 @@ export async function POST(request: Request) {
       .from(userDetail)
       .where(eq(userDetail.idUser, session.user?.id))
       .limit(1)
-
     let res
 
     if (detail.length > 0) {
@@ -77,27 +76,36 @@ export async function POST(request: Request) {
         .where(eq(userDetail.idUser, session.user?.id))
     } else {
       // Create userDetail
-      res = await db.insert(userDetail).values({
+
+      const insertData: {
+        sex: string
+        idUser: number
+        weight: number
+        height: number
+        bodyFat?: number
+        muscularMass?: number
+        birthDate: Date
+      } = {
         idUser: session.user?.id,
         sex: sex,
         weight: Number(weight),
         height: Number(height),
-        bodyFat: Number(bodyFat),
-        muscularMass: Number(muscularMass),
         birthDate: new Date(birthDate),
-      })
-
-      // If phoneNumber is provided, update it in the User table
-      if (phoneNumber) {
-        await db
-          .update(user)
-          .set({
-            phoneNumber: phoneNumber,
-          })
-          .where(eq(user.idUser, session.user?.id))
       }
 
-      const medical = await db.insert(medicalProfile).values({
+      if (bodyFat) {
+        insertData.bodyFat = Number(bodyFat)
+      }
+
+      if (muscularMass) {
+        insertData.muscularMass = Number(muscularMass)
+      }
+
+      console.log(insertData)
+
+      res = await db.insert(userDetail).values(insertData)
+
+      await db.insert(medicalProfile).values({
         idUser: session.user?.id,
         emergencyName: null,
         emergencyPhone: null,
@@ -105,7 +113,6 @@ export async function POST(request: Request) {
         insuranceCompany: null,
         bloodType: null,
       })
-      console.log(medical)
     }
     return NextResponse.json(res, { status: 200 })
   } catch (error) {

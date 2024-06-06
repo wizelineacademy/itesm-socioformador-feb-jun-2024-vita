@@ -6,13 +6,13 @@ import { user } from '@/src/db/schema/schema'
 import { db } from '@/src/db/drizzle'
 
 export async function GET() {
+  const session = await getServerSession(authOptions)
+
+  if (!session) {
+    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
+  }
+
   try {
-    const session = await getServerSession(authOptions)
-
-    if (!session) {
-      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
-    }
-
     const res = await db
       .select()
       .from(user)

@@ -1,10 +1,8 @@
 {
-  "id": "292b83da-a418-4e26-bd73-58edb69a07c3",
-  "prevId": "6ce29d5d-149b-45e2-9a82-4591e22ed3d7",
-  "version": "5",
-  "dialect": "pg",
+  "version": "7",
+  "dialect": "postgresql",
   "tables": {
-    "Goals": {
+    "public.Goals": {
       "name": "Goals",
       "schema": "",
       "columns": {
@@ -56,21 +54,21 @@
         "Goals_id_user_User_id_user_fk": {
           "name": "Goals_id_user_User_id_user_fk",
           "tableFrom": "Goals",
-          "tableTo": "User",
           "columnsFrom": [
             "id_user"
           ],
+          "tableTo": "User",
           "columnsTo": [
             "id_user"
           ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
+          "onUpdate": "cascade",
+          "onDelete": "restrict"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "Reminders": {
+    "public.Reminders": {
       "name": "Reminders",
       "schema": "",
       "columns": {
@@ -122,21 +120,21 @@
         "Reminders_id_user_User_id_user_fk": {
           "name": "Reminders_id_user_User_id_user_fk",
           "tableFrom": "Reminders",
-          "tableTo": "User",
           "columnsFrom": [
             "id_user"
           ],
+          "tableTo": "User",
           "columnsTo": [
             "id_user"
           ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
+          "onUpdate": "cascade",
+          "onDelete": "restrict"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "PortionsNutrition": {
+    "public.PortionsNutrition": {
       "name": "PortionsNutrition",
       "schema": "",
       "columns": {
@@ -206,29 +204,29 @@
         "PortionsNutrition_id_user_User_id_user_fk": {
           "name": "PortionsNutrition_id_user_User_id_user_fk",
           "tableFrom": "PortionsNutrition",
-          "tableTo": "User",
           "columnsFrom": [
             "id_user"
           ],
+          "tableTo": "User",
           "columnsTo": [
             "id_user"
           ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
+          "onUpdate": "cascade",
+          "onDelete": "restrict"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "PortionsNutrition_id_user_unique": {
           "name": "PortionsNutrition_id_user_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "id_user"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "_prisma_migrations": {
+    "public._prisma_migrations": {
       "name": "_prisma_migrations",
       "schema": "",
       "columns": {
@@ -288,7 +286,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "User": {
+    "public.User": {
       "name": "User",
       "schema": "",
       "columns": {
@@ -329,21 +327,21 @@
       "uniqueConstraints": {
         "User_email_unique": {
           "name": "User_email_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "email"
-          ]
+          ],
+          "nullsNotDistinct": false
         },
         "User_phone_number_unique": {
           "name": "User_phone_number_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "phone_number"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "UserDetail": {
+    "public.UserDetail": {
       "name": "UserDetail",
       "schema": "",
       "columns": {
@@ -401,25 +399,25 @@
         "UserDetail_id_user_User_id_user_fk": {
           "name": "UserDetail_id_user_User_id_user_fk",
           "tableFrom": "UserDetail",
-          "tableTo": "User",
           "columnsFrom": [
             "id_user"
           ],
+          "tableTo": "User",
           "columnsTo": [
             "id_user"
           ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
+          "onUpdate": "cascade",
+          "onDelete": "restrict"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "UserDetail_id_user_unique": {
           "name": "UserDetail_id_user_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "id_user"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     }
@@ -427,8 +425,10 @@
   "enums": {},
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "292b83da-a418-4e26-bd73-58edb69a07c3",
+  "prevId": "6ce29d5d-149b-45e2-9a82-4591e22ed3d7"
 }

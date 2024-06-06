@@ -152,9 +152,9 @@ export const userDetail = pgTable('UserDetail', {
   sex: varchar('sex', { length: 1 }).notNull(),
   weight: doublePrecision('weight').notNull(),
   height: doublePrecision('height').notNull(),
-  bodyFat: doublePrecision('body_fat').notNull(),
+  bodyFat: doublePrecision('body_fat'),
   birthDate: date('birth_date', { mode: 'date' }).notNull(),
-  muscularMass: doublePrecision('muscular_mass').notNull(),
+  muscularMass: doublePrecision('muscular_mass'),
 })
 
 export const Reminders = pgTable('Reminders', {
