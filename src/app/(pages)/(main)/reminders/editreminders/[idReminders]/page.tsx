@@ -430,7 +430,7 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
                     e.preventDefault()
                     DeleteReminder(idReminders)
                   }}
-                  className='mr-6 mt-2 w-60 transform cursor-pointer rounded-full bg-mid-red px-3 py-2 text-2xl text-white transition duration-300 ease-in-out hover:scale-105 hover:text-red-800'
+                  className='mr-6 mt-2 w-40 transform cursor-pointer rounded-full bg-mid-red px-3 py-2 text-2xl text-white transition duration-300 ease-in-out hover:scale-105 hover:text-red-800 md:w-60'
                 >
                   Eliminar
                 </button>
@@ -438,7 +438,7 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
               <span>
                 <button
                   onClick={() => setEditMode(true)}
-                  className='mt-2 w-60 transform cursor-pointer rounded-full bg-blue-500 py-2 text-2xl text-white transition duration-300 ease-in-out hover:scale-105 hover:bg-blue-700'
+                  className='mr-6 mt-2 w-40 transform cursor-pointer rounded-full bg-blue-500 px-3 py-2 text-2xl text-white transition duration-300 ease-in-out hover:scale-105 hover:bg-blue-700 md:w-60'
                 >
                   Editar
                 </button>
