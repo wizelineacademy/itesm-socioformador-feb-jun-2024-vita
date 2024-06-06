@@ -1,66 +1,75 @@
 'use client'
+import { Plan } from '@/src/data/datatypes/payment'
+import { plans } from '@/src/data/plans'
 import axios from 'axios'
 import { NextPage } from 'next'
 import { useRouter } from 'next/navigation'
-
-interface Plan {
-  name: string
-  price: number
-  features: string[]
-  priceId: string
-  allowTrial: boolean
-}
-
-const plans: Plan[] = [
-  {
-    name: 'Bienestar Básico',
-    price: 199,
-    features: [
-      '31 rutinas de ejercicio y 300 recetas de comida al mes.',
-      '90 detecciones de comida al mes.',
-      'Metas de ejercicio, nutrición y sueño.',
-      'Blog de salud generado por inteligencia artificial',
-      'Red Social para compartir progreso y apoyar a otros.',
-      'Perfil Médico',
-    ],
-    priceId: 'price_1PODCEA5dyQt5UTQT1A5yBVQ',
-    allowTrial: false,
-  },
-  {
-    name: 'Bienestar Plus',
-    price: 299,
-    features: [
-      '100 rutinas de ejercicio y 300 recetas de comida al mes.',
-      '300 detecciones de comida al mes.',
-      'Todos los beneficios del plan básico',
-      'Chatbot de salud en la app.',
-      'Recordatorios automáticos en Whatsapp.',
-      'Retos mensuales e insignias por logros.',
-    ],
-    priceId: 'price_1PODQFA5dyQt5UTQ9ejvVNjG',
-    allowTrial: true,
-  },
-  {
-    name: 'Bienestar Total',
-    price: 699,
-    features: [
-      '300 rutinas de ejercicio y 300 recetas de comida al mes.',
-      '1200 detecciones de comida al mes.',
-      'Todos los beneficios del plan plus.',
-      'Chatbot por Whatsapp.',
-      'Acceso prioritario a las nuevas funciones en desarrollo.',
-    ],
-    priceId: 'price_1PODRUA5dyQt5UTQqsDYIfuQ',
-    allowTrial: false,
-  },
-]
+import { useEffect, useState } from 'react'
 
 const PricingPage: NextPage = () => {
+  interface Subscription {
+    plan: string
+    status: string
+    end?: number
+  }
+
+  const [subscription, setSubscription] = useState<Subscription | null>(null)
+
+  const getSubscriptionData = async () => {
+    try {
+      const res = await axios.get('/api/subscription')
+      const data = res.data
+      if (data.message === 'No subscription') {
+        setSubscription(null)
+      } else {
+        setSubscription(data)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const formatExpirationDate = (date: number) => {
+    const dateObject = new Date(date * 1000)
+    const dateString = dateObject.toLocaleString()
+    const dateDay = dateString.split(',')[0]
+    return dateDay
+  }
+
+  useEffect(() => {
+    getSubscriptionData()
+  }, [])
+
   return (
-    <div className='flex min-h-screen w-full flex-col items-center justify-center bg-gradient-custom'>
+    <div className='flex min-h-screen w-full flex-col items-center justify-center'>
       <div className='mx-auto max-w-4xl py-8'>
-        <h1 className='mb-4 text-center text-3xl font-bold text-white'>
-          Planes de Pago
+        {!subscription && (
+          <h2 className='mb-4 text-center text-2xl font-bold text-color-home6'>
+            No tienes una suscripción activa
+          </h2>
+        )}
+        {subscription && (
+          <h2 className='mb-4 text-center text-2xl font-bold text-color-home6'>
+            Tienes una subscripción de {subscription.plan}
+          </h2>
+        )}
+        {subscription &&
+          subscription?.status === 'trialing' &&
+          subscription.end && (
+            <>
+              <h3 className='mx-4 mb-4 text-center text-lg text-black'>
+                Actualmente te encuentras en modo de prueba, contrata un plan
+                para no perder el acceso a la aplicación
+              </h3>
+              <h3 className='mx-4 mb-4 text-center text-lg text-black'>
+                Tu subscripción expira el{' '}
+                {formatExpirationDate(subscription.end)}
+              </h3>
+            </>
+          )}
+
+        <h1 className='mx-4 mb-4 text-center text-2xl font-bold text-color-home6'>
+          Contrata una subscripción a Vita
         </h1>
         <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
           {plans.map((plan, index) => (
@@ -89,10 +98,10 @@ const PlanCard: React.FC<{ plan: Plan }> = ({ plan }) => {
   }
 
   return (
-    <div className='flex h-full transform flex-col justify-between rounded-md border bg-gray-800 p-4 text-white shadow-md transition duration-300 ease-in-out hover:scale-105'>
+    <div className='flex h-full transform flex-col justify-between rounded-md border bg-color-home6 p-4 text-white shadow-md transition duration-300 ease-in-out hover:scale-105'>
       <div>
         <h2 className='mb-2 text-xl font-semibold text-white'>{plan.name}</h2>
-        <p className='mb-4 text-gray-400'>${plan.price}/mes</p>
+        <p className='mb-4 text-gray-300'>${plan.price}/mes</p>
         <ul className='mb-4 list-disc pl-5 text-white'>
           {plan.features.map((feature, index) => (
             <li key={index} className='mb-2'>

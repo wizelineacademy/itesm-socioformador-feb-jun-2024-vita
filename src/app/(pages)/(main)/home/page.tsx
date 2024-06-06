@@ -171,14 +171,7 @@ const Home = () => {
                     <button
                       onClick={toggleContent}
                       className='focus:outline-none'
-                    >
-                      <FontAwesomeIcon
-                        icon={isOpen ? faAngleDown : faAngleRight}
-                        size='2x'
-                        color='white'
-                        className='transform transition-transform duration-300'
-                      />
-                    </button>
+                    ></button>
                   </div>
                 </span>
 
