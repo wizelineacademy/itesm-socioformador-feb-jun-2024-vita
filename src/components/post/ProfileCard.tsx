@@ -89,21 +89,23 @@ const ProfileCard: React.FC<UserCardProps> = ({
   return (
     <div className='flex flex-col gap-9'>
       <div className='flex items-start justify-between'>
-        <div className='flex items-start gap-5'>
+        <div className='flex items-start gap-2 md:gap-4'>
           <Image
             src={profilePhoto}
             alt='profile photo'
-            width={100}
-            height={100}
+            width={70}
+            height={70}
             className='rounded-full md:max-lg:hidden'
           />
 
-          <div className='flex flex-col gap-3'>
+          <div className='flex flex-col md:gap-3'>
             <div className='flex items-center gap-2 max-sm:flex-col max-sm:gap-0.5'>
-              <p className='text-2xl text-light-1'>{userData.name}</p>
+              <p className='text-lg text-light-1 md:text-2xl'>
+                {userData.name}
+              </p>
             </div>
 
-            <div className='text-small-bold flex gap-7 max-sm:gap-4'>
+            <div className='flex gap-7 text-[14px] font-bold leading-[140%] max-sm:gap-2 md:text-lg'>
               <div className='flex items-center gap-2 max-sm:flex-col max-sm:gap-0.5'>
                 <p className='text-purple-1'>{postCount}</p>
                 <p className='text-light-1'>Publicaciones</p>
