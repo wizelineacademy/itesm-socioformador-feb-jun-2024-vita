@@ -69,9 +69,9 @@ const Reminders = () => {
   }
 
   return (
-    <div className='flex flex-col justify-center px-5 py-4 text-4xl font-bold md:justify-start lg:justify-start'>
+    <div className='flex flex-col justify-center px-5 py-4 font-bold md:justify-start lg:justify-start'>
       <span className='flex flex-row'>
-        <h1 className='mr-2 text-white'>Recordatorios</h1>
+        <h1 className='mr-2 text-4xl text-white'>Recordatorios</h1>
         <FaBell size={36} color='white' />
       </span>
       <Link href='/reminders/crudreminders'>
@@ -80,7 +80,7 @@ const Reminders = () => {
         </div>
       </Link>
 
-      <div className='mt-5 flex w-full flex-wrap md:mx-auto md:items-center lg:my-10 lg:w-2/3'>
+      <div className='text-md mt-5 flex w-full flex-wrap md:mx-auto md:items-center lg:my-10 lg:w-2/3'>
         {reminders &&
           reminders.map((reminder) => (
             <PlanItemLink

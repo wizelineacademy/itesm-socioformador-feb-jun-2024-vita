@@ -423,14 +423,14 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
             </div>
           </div>
           {!editMode ? (
-            <div className='mb-6 ml-2 flex lg:items-center lg:justify-center'>
+            <div className='mb-6 flex flex-col gap-y-5 md:mt-5 md:flex-row lg:items-center lg:justify-center'>
               <span>
                 <button
                   onClick={(e) => {
                     e.preventDefault()
                     DeleteReminder(idReminders)
                   }}
-                  className='mr-6 mt-2 w-40 transform cursor-pointer rounded-full bg-mid-red px-3 py-2 text-2xl text-white transition duration-300 ease-in-out hover:scale-105 hover:text-red-800 md:w-60'
+                  className='mt-2 w-full transform cursor-pointer rounded-full bg-mid-red px-2 py-2 text-2xl text-white transition duration-300 ease-in-out hover:scale-105 hover:text-red-800 sm:w-60'
                 >
                   Eliminar
                 </button>
@@ -438,7 +438,7 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
               <span>
                 <button
                   onClick={() => setEditMode(true)}
-                  className='mr-6 mt-2 w-40 transform cursor-pointer rounded-full bg-blue-500 px-3 py-2 text-2xl text-white transition duration-300 ease-in-out hover:scale-105 hover:bg-blue-700 md:w-60'
+                  className='mt-2 w-full transform cursor-pointer rounded-full bg-blue-500 py-2 text-2xl text-white transition duration-300 ease-in-out hover:scale-105 hover:bg-blue-700 sm:w-60'
                 >
                   Editar
                 </button>
@@ -446,16 +446,16 @@ const EditReminders = ({ params }: { params: { idReminders: string } }) => {
             </div>
           ) : (
             <>
-              <div className='mb-6 ml-2 flex lg:items-center lg:justify-center'>
+              <div className='mb-6 ml-2 flex flex-col gap-y-5 md:mt-5 md:flex-row lg:items-center lg:justify-center'>
                 <button
                   onClick={handleCancelEdit}
-                  className='mr-6 mt-2 w-60 transform cursor-pointer rounded-full bg-gray-300 px-3 py-2 text-2xl text-white transition duration-300 ease-in-out hover:scale-105 hover:bg-gray-400'
+                  className='mr-6 mt-2 w-full transform cursor-pointer rounded-full bg-gray-300 px-3 py-2 text-2xl text-white transition duration-300 ease-in-out hover:scale-105 hover:bg-gray-400 sm:w-60'
                 >
                   Cancelar
                 </button>
                 <button
                   type='submit'
-                  className='w-70 mt-2 transform cursor-pointer rounded-full bg-blue-500 px-3 py-2 text-2xl text-white transition duration-300 ease-in-out hover:scale-105 hover:bg-blue-700'
+                  className='mt-2 w-full transform cursor-pointer rounded-full bg-blue-500 px-3 py-2 text-2xl text-white transition duration-300 ease-in-out hover:scale-105 hover:bg-blue-700 sm:w-60'
                 >
                   Guardar Cambios
                 </button>

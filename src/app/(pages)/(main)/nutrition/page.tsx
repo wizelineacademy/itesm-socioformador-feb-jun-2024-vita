@@ -76,7 +76,7 @@ const Nutrition = () => {
 
       {/* Displaying portion numbers and corresponding images */}
       <div className='flex flex-col items-center justify-center md:justify-start lg:justify-start'>
-        <div className='ml-4 flex w-[160px] flex-wrap rounded-3xl bg-custom-lightpurple px-5 sm:w-[330px] md:w-[360px] lg:w-[500px]'>
+        <div className='flex w-[240px] flex-wrap rounded-3xl bg-custom-lightpurple px-2 sm:w-[330px] md:w-[360px] md:px-5 lg:w-[500px]'>
           {portions.map((portion, index) => (
             <div
               key={index}
@@ -101,8 +101,8 @@ const Nutrition = () => {
             {/* Custom option 1 */}
             <Link href='/nutrition/recipes'>
               <div className='flex w-[240px] cursor-pointer justify-between rounded-full bg-custom-purple3 px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-custom-purple4 sm:w-[330px] md:rounded-2xl lg:w-[340px] lg:rounded-2xl lg:px-6'>
-                <h3 className='pl-2 pt-1 text-xl font-bold text-white md:w-[240px] lg:w-[240px] lg:text-3xl'>
-                  Buscar opciones de comidas personalizadas
+                <h3 className='pl-2 pt-1 text-xl font-bold text-white md:h-[120px] md:w-[240px] lg:text-3xl'>
+                  Buscar recetas
                 </h3>
                 <span className='hidden md:flex'>
                   <Image
@@ -118,8 +118,8 @@ const Nutrition = () => {
 
             {/* Custom option 2 */}
             <Link href='/nutrition/goals'>
-              <div className='mt-4 flex w-[240px] cursor-pointer justify-between rounded-full bg-custom-purple3 px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-custom-purple4 md:rounded-2xl md:py-4 lg:mt-[75px] lg:w-[320px] lg:rounded-2xl lg:py-4'>
-                <h3 className='w-[240px] pl-2 pt-1 text-xl font-bold text-white md:w-[140px] lg:w-[140px] lg:text-2xl'>
+              <div className='mt-4 flex w-[240px] cursor-pointer justify-between rounded-full bg-custom-purple3 px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-custom-purple4 sm:w-[330px] md:rounded-2xl md:py-4 lg:mt-[75px] lg:w-[340px] lg:rounded-2xl lg:py-4'>
+                <h3 className='w-[240px] pl-2 pt-1 text-xl font-bold text-white lg:text-2xl'>
                   Mi meta de nutrición
                 </h3>
                 <span className='hidden md:flex'>

@@ -109,10 +109,10 @@ const Home = () => {
 
   return (
     <div>
-      <div className='mt-4 flex justify-start text-5xl font-bold text-white sm:justify-center sm:px-5 sm:py-4 md:justify-start lg:justify-start'>
-        <h1 className='mr-2 w-[800px] pl-2 text-home-title sm:pl-0'>
+      <div className='mt-4 flex justify-start text-4xl font-bold text-white sm:justify-center sm:px-5 sm:py-4 md:justify-start md:text-5xl lg:justify-start'>
+        <h1 className='mr-2 w-full pl-2 text-home-title sm:pl-0 md:w-[800px]'>
           Bienvenid@ a
-          <span className='ml-4 mr-24 flex flex-row justify-start text-7xl'>
+          <span className='ml-4 mr-24 flex flex-row justify-start text-5xl md:text-7xl'>
             VITA
             <FaHeart size={60} className='justify-end text-home-title' />
           </span>
@@ -164,7 +164,7 @@ const Home = () => {
             >
               <div className='flex flex-col items-center justify-center'>
                 <span className='flex flex-row'>
-                  <h2 className='w-34 ml-4 mt-4 text-2xl font-bold text-white'>
+                  <h2 className='w-34 my-4 px-2 text-center text-2xl font-bold text-white'>
                     Mis datos de salud
                   </h2>
                   <div className='mt-4 lg:hidden'>
