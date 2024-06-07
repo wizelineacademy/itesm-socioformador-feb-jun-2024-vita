@@ -1,12 +1,10 @@
 'use client'
-import { getServerSession } from 'next-auth'
-import { redirect } from 'next/navigation'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Button from '@/src/components/buttons/Button'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { useState } from 'react'
+import axios, { AxiosError } from 'axios'
 import { FcGoogle } from 'react-icons/fc'
 import { FaFacebook } from 'react-icons/fa'
 import { useRouter } from 'next/navigation'
@@ -19,21 +17,6 @@ import Swal from 'sweetalert2'
 const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
-
-  useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const session = await getServerSession()
-        if (session) {
-          redirect('/home')
-        }
-      } catch (error) {
-        console.error('Error fetching session', error)
-      }
-    }
-
-    checkSession()
-  }, [])
 
   const {
     register,
@@ -49,29 +32,30 @@ const SignUp = () => {
     },
   })
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true)
 
-    axios
-      .post('/api/auth/register', data)
-      .then(() => {
-        Swal.fire({
-          title: 'Se ha registrado',
-          text: 'El registro ha sido exitoso.',
-          icon: 'success',
-          confirmButtonText: 'OK',
-        })
+    try {
+      await axios.post('/api/auth/register', data)
 
-        signIn('credentials', {
-          email: data.email,
-          password: data.password,
-          redirect: false,
-        })
+      await Swal.fire({
+        title: 'Se ha registrado',
+        text: 'El registro ha sido exitoso.',
+        icon: 'success',
+        confirmButtonText: 'OK',
       })
-      .then(() => {
-        router.push('/healthdata')
+
+      await signIn('credentials', {
+        email: data.email,
+        password: data.password,
+        redirect: false,
       })
-      .catch((error) => {
+
+      setIsLoading(false)
+
+      router.push('/healthdata')
+    } catch (error) {
+      if (error instanceof AxiosError && error.response) {
         const errorMessage =
           error.response.status === 401
             ? 'El correo ya se encuentra registrado.'
@@ -83,10 +67,10 @@ const SignUp = () => {
           icon: 'error',
           confirmButtonText: 'OK',
         })
-      })
-      .finally(() => {
-        setIsLoading(false)
-      })
+      }
+
+      setIsLoading(false)
+    }
   }
 
   return (
