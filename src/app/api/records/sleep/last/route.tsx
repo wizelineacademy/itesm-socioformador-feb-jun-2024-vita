@@ -26,12 +26,16 @@ export async function GET() {
       .orderBy(desc(record.date))
       .limit(1)
 
+    if (!res) {
+      return NextResponse.json('No data', { status: 400 })
+    }
+
     const diffInHours = getDifferenceInHours(res[0].date, new Date())
 
     if (diffInHours < 24) {
       return NextResponse.json(res[0], { status: 200 })
     } else {
-      return NextResponse.json('No record found', { status: 400 })
+      return NextResponse.json('Invalid data', { status: 400 })
     }
   } catch (error) {
     console.error(error)

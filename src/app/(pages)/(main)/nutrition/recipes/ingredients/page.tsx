@@ -259,14 +259,18 @@ const RecipesIngredients = () => {
   ]
 
   const addIngredient = () => {
-    if (selectedIngredients.includes(addedIngredient.toLocaleLowerCase())) {
+    if (
+      selectedIngredients.includes(addedIngredient.trim().toLocaleLowerCase())
+    ) {
       swal.fire({
         title: 'Error',
         text: 'Ya ingresaste este ingrediente',
         icon: 'error',
         confirmButtonText: 'OK',
       })
-    } else if (ingredients.includes(addedIngredient.toLocaleLowerCase())) {
+    } else if (
+      ingredients.includes(addedIngredient.trim().toLocaleLowerCase())
+    ) {
       if (selectedIngredients.length >= 10) {
         swal.fire({
           title: 'Error',
@@ -285,19 +289,25 @@ const RecipesIngredients = () => {
         confirmButtonText: 'OK',
       })
     }
+
+    setAddedIngredient('')
   }
 
   const excludeIngredient = () => {
-    if (excludedIngredients.includes(excludedIngredient.toLocaleLowerCase())) {
+    if (
+      excludedIngredients.includes(
+        excludedIngredient.trim().toLocaleLowerCase(),
+      )
+    ) {
       swal.fire({
         title: 'Error',
         text: 'Ya ingresaste este ingrediente',
         icon: 'error',
         confirmButtonText: 'OK',
       })
-    } else if (ingredients.includes(excludedIngredient.toLocaleLowerCase())) {
-      setExcludedIngredients([...excludedIngredients, excludedIngredient])
-    } else {
+    } else if (
+      ingredients.includes(excludedIngredient.trim().toLocaleLowerCase())
+    ) {
       if (excludedIngredients.length >= 10) {
         swal.fire({
           title: 'Error',
@@ -306,14 +316,18 @@ const RecipesIngredients = () => {
           confirmButtonText: 'OK',
         })
       } else {
-        swal.fire({
-          title: 'Error',
-          text: 'Ingresa un ingrediente válido.',
-          icon: 'error',
-          confirmButtonText: 'OK',
-        })
+        setExcludedIngredients([...excludedIngredients, excludedIngredient])
       }
+    } else {
+      swal.fire({
+        title: 'Error',
+        text: 'Ingresa un ingrediente válido.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      })
     }
+
+    setExcludedIngredient('')
   }
 
   const generatePrompt = () => {
@@ -346,11 +360,32 @@ const RecipesIngredients = () => {
     return message
   }
 
+  const checkRemaining = async () => {
+    const res = await axios.get('/api/feature_usage/subscription/recipes')
+    const data = res.data
+
+    if (data.remaining <= 0) {
+      Swal.fire({
+        title: 'Error',
+        text: 'No te quedan recetas disponibles este mes',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      })
+    }
+
+    return data
+  }
+
   const generateRecipes = async () => {
     try {
       const message = generatePrompt()
 
       if (message === '') {
+        return
+      }
+
+      const { remaining, available } = await checkRemaining()
+      if (remaining <= 0) {
         return
       }
 
@@ -365,7 +400,7 @@ const RecipesIngredients = () => {
 
       swal.fire({
         title: 'Cargando',
-        text: 'Generando las recetas...',
+        text: `Generando las recetas... Has generado ${available - remaining} de ${available} este mes`,
         allowEscapeKey: false,
         allowOutsideClick: false,
         didOpen: () => {

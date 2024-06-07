@@ -5,7 +5,7 @@ export const plans: Plan[] = [
     name: 'Bienestar Básico',
     price: 199,
     features: [
-      '31 rutinas de ejercicio y 300 recetas de comida al mes.',
+      '31 rutinas de ejercicio y 31 recetas de comida al mes.',
       '90 detecciones de comida al mes.',
       'Metas de ejercicio, nutrición y sueño.',
       'Blog de salud generado por inteligencia artificial',
@@ -19,7 +19,7 @@ export const plans: Plan[] = [
     name: 'Bienestar Plus',
     price: 299,
     features: [
-      '100 rutinas de ejercicio y 300 recetas de comida al mes.',
+      '100 rutinas de ejercicio y 100 recetas de comida al mes.',
       '300 detecciones de comida al mes.',
       'Todos los beneficios del plan básico',
       'Chatbot de salud en la app.',
@@ -43,3 +43,27 @@ export const plans: Plan[] = [
     allowTrial: false,
   },
 ]
+
+export const planNames = [
+  'Bienestar Básico',
+  'Bienestar Plus',
+  'Bienestar Total',
+]
+
+export const availableRoutines: Record<string, number> = {
+  'Bienestar Básico': 30,
+  'Bienestar Plus': 100,
+  'Bienestar Total': 300,
+}
+
+export const availableRecipes: Record<string, number> = {
+  'Bienestar Básico': 30,
+  'Bienestar Plus': 100,
+  'Bienestar Total': 300,
+}
+
+export const availableimages: Record<string, number> = {
+  'Bienestar Básico': 90,
+  'Bienestar Plus': 300,
+  'Bienestar Total': 1200,
+}
