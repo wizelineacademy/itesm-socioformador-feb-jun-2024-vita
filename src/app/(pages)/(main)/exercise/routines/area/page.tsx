@@ -109,11 +109,32 @@ const AreaRoutine = () => {
     return message
   }
 
+  const checkRemaining = async () => {
+    const res = await axios.get('/api/feature_usage/subscription/exercise')
+    const data = res.data
+
+    if (data.remaining <= 0) {
+      Swal.fire({
+        title: 'Error',
+        text: 'No te quedan rutinas disponibles este mes',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      })
+    }
+
+    return data
+  }
+
   const generateExercises = async () => {
     try {
       const message = generatePrompt()
 
       if (message === '') {
+        return
+      }
+
+      const { remaining, available } = await checkRemaining()
+      if (remaining <= 0) {
         return
       }
 
@@ -127,7 +148,7 @@ const AreaRoutine = () => {
 
       Swal.fire({
         title: 'Cargando',
-        text: 'Generando la rutina...',
+        text: `Generando la rutina... Has generado ${available - remaining} de ${available} este mes`,
         allowEscapeKey: false,
         allowOutsideClick: false,
         didOpen: () => {
@@ -153,6 +174,7 @@ const AreaRoutine = () => {
       router.push('/exercise/routines/list')
       Swal.close()
     } catch (error) {
+      console.log(error)
       Swal.close()
       Swal.fire({
         title: 'Error',

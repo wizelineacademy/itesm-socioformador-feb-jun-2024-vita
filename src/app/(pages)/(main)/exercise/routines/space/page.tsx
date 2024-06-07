@@ -40,11 +40,32 @@ const TypeRoutine = () => {
     return message
   }
 
+  const checkRemaining = async () => {
+    const res = await axios.get('/api/feature_usage/subscription/exercise')
+    const data = res.data
+
+    if (data.remaining <= 0) {
+      Swal.fire({
+        title: 'Error',
+        text: 'No te quedan rutinas disponibles este mes',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      })
+    }
+
+    return data
+  }
+
   const generateExercises = async (space: string) => {
     try {
       const message = generatePrompt(space)
 
       if (message === '') {
+        return
+      }
+
+      const { remaining, available } = await checkRemaining()
+      if (remaining <= 0) {
         return
       }
 
@@ -58,7 +79,7 @@ const TypeRoutine = () => {
 
       Swal.fire({
         title: 'Cargando',
-        text: 'Generando la rutina...',
+        text: `Generando la rutina...\nHas generado ${available - remaining} de ${available} este mes`,
         allowEscapeKey: false,
         allowOutsideClick: false,
         didOpen: () => {

@@ -1,6 +1,7 @@
 'use client'
 
 import { Subscription } from '@/src/data/datatypes/subscription'
+import { planNames } from '@/src/data/plans'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -51,7 +52,7 @@ const SubscriptionValidation: React.FC<SubscriptionProps> = ({
   useEffect(() => {
     if (
       shouldRestrict &&
-      (!subscription || subscription.plan === 'Bienestar Básico')
+      (!subscription || subscription.plan === planNames[0])
     ) {
       Swal.fire({
         title: '¡Mejora tu plan!',

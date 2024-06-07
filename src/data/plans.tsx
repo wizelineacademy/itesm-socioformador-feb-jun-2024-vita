@@ -43,3 +43,27 @@ export const plans: Plan[] = [
     allowTrial: false,
   },
 ]
+
+export const planNames = [
+  'Bienestar Básico',
+  'Bienestar Plus',
+  'Bienestar Total',
+]
+
+export const availableRoutines: Record<string, number> = {
+  'Bienestar Básico': 30,
+  'Bienestar Plus': 100,
+  'Bienestar Total': 300,
+}
+
+export const availableRecipes: Record<string, number> = {
+  'Bienestar Básico': 30,
+  'Bienestar Plus': 100,
+  'Bienestar Total': 300,
+}
+
+export const availableimages: Record<string, number> = {
+  'Bienestar Básico': 90,
+  'Bienestar Plus': 300,
+  'Bienestar Total': 1200,
+}
