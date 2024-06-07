@@ -11,6 +11,7 @@ import NextAuthProvider from '@/src/context/authprovider'
 import { ExercisesContextProvider } from '@/src/context/exercises'
 import MainContainer from '@/src/components/layoutSocial/MainContainer'
 import { AutoevaluationContextProvider } from '@/src/context/autoevaluation'
+import SubscriptionValidation from '@/src/components/subscriptionValidation/SubscriptionValidator'
 
 // Define font settings
 
@@ -75,27 +76,26 @@ export default function RootLayout({
               id='PrincipalPage'
               className={`relative flex min-h-[95vh] flex-col md:m-0 md:min-h-screen md:pl-8 lg:m-0 lg:pl-8 ${backgroundColor}`}
             >
-              {/* Decoration component */}
-              <Decoration pathname={pathname} />
-              {/* Render children components */}
               <NextAuthProvider>
-                {isSocialRoute ? (
-                  <MainContainer>{children}</MainContainer>
-                ) : (
-                  <RecipesContextProvider>
-                    {' '}
-                    {/*Context for recipes**/}
-                    <ExercisesContextProvider>
-                      {' '}
-                      {/*Context for exercise routines**/}
-                      <AutoevaluationContextProvider>
-                        {' '}
-                        {/**Context for autoevaluation*/}
-                        {children}
-                      </AutoevaluationContextProvider>
-                    </ExercisesContextProvider>
-                  </RecipesContextProvider>
-                )}
+                <SubscriptionValidation route={pathname}>
+                  {/* Decoration component */}
+                  <Decoration pathname={pathname} />
+                  {/* Render children components */}
+                  {isSocialRoute ? (
+                    <MainContainer>{children}</MainContainer>
+                  ) : (
+                    <RecipesContextProvider>
+                      {/*Context for recipes**/}
+                      <ExercisesContextProvider>
+                        {/*Context for exercise routines**/}
+                        <AutoevaluationContextProvider>
+                          {/**Context for autoevaluation*/}
+                          {children}
+                        </AutoevaluationContextProvider>
+                      </ExercisesContextProvider>
+                    </RecipesContextProvider>
+                  )}
+                </SubscriptionValidation>
               </NextAuthProvider>
             </div>
           </main>

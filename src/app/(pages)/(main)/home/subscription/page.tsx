@@ -1,5 +1,6 @@
 'use client'
 import { Plan } from '@/src/data/datatypes/payment'
+import { Subscription } from '@/src/data/datatypes/subscription'
 import { plans } from '@/src/data/plans'
 import axios from 'axios'
 import { NextPage } from 'next'
@@ -7,12 +8,6 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 const PricingPage: NextPage = () => {
-  interface Subscription {
-    plan: string
-    status: string
-    end?: number
-  }
-
   const [subscription, setSubscription] = useState<Subscription | null>(null)
 
   const getSubscriptionData = async () => {
