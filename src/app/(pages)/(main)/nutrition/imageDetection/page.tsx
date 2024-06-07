@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { NutritionalInfo } from '@/src/data/datatypes/nutritionalInfo'
 import axios from 'axios'
 import Image from 'next/image'
+import Swal from 'sweetalert2'
 
 function FoodAnalysisPage() {
   const [nutritionalInfos, setNutritionalInfos] = useState<
@@ -34,33 +35,71 @@ function FoodAnalysisPage() {
     }
   }
 
+  const checkRemaining = async () => {
+    const res = await axios.get('/api/feature_usage/subscription/images')
+    const data = res.data
+
+    if (data.remaining <= 0) {
+      Swal.fire({
+        title: 'Error',
+        text: 'No te quedan imágenes disponibles este mes',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      })
+    }
+
+    return data
+  }
+
   const handleImageUpload = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    const file = event.target.files?.[0]
-    if (!file) return
+    try {
+      const { remaining, available } = await checkRemaining()
+      if (remaining <= 0) {
+        return
+      }
 
-    const imageUrl = URL.createObjectURL(file)
-    setImageUrl(imageUrl)
-    setLoading(true) // Establecer el estado de carga a true
+      const file = event.target.files?.[0]
+      if (!file) return
 
-    const imagePart = await fileToGenerativePart(file)
+      const imageUrl = URL.createObjectURL(file)
+      setImageUrl(imageUrl)
+      setLoading(true) // Establecer el estado de carga a true
 
-    const res = await axios.post('/api/image_detection', { imagePart })
-    const data: NutritionalInfo[] = res.data
+      const imagePart = await fileToGenerativePart(file)
 
-    //add record
-    const totalCalories = data.reduce((acc, curr) => acc + curr.calories, 0)
-    const usageRecords = [
-      {
-        name: 'image_detection',
-        detail: `Calorías detectadas ${totalCalories}`,
-      },
-    ]
-    await axios.post('/api/feature_usage', { usageRecords })
+      Swal.fire({
+        title: 'Cargando',
+        text: `Analizando la imagen... Has analizado ${available - remaining} de ${available} este mes`,
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading()
+        },
+      })
 
-    setNutritionalInfos(res.data)
-    setLoading(false) // Establecer el estado de carga a false cuando se completa la carga del modelo
+      const res = await axios.post('/api/image_detection', { imagePart })
+
+      const data: NutritionalInfo[] = res.data
+
+      //add record
+      const totalCalories = data.reduce((acc, curr) => acc + curr.calories, 0)
+      const usageRecords = [
+        {
+          name: 'image_detection',
+          detail: `Calorías detectadas ${totalCalories}`,
+        },
+      ]
+      await axios.post('/api/feature_usage', { usageRecords })
+
+      setNutritionalInfos(res.data)
+      Swal.close()
+      setLoading(false) // Establecer el estado de carga a false cuando se completa la carga del modelo
+    } catch (error) {
+      console.log(error)
+      Swal.close()
+    }
   }
 
   const renderNutritionalInfo = () => {

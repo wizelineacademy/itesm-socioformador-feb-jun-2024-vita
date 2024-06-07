@@ -48,9 +48,30 @@ const NutritionalPlan = () => {
     return orderedRecipes
   }
 
+  const checkRemaining = async () => {
+    const res = await axios.get('/api/feature_usage/subscription/recipes')
+    const data = res.data
+
+    if (data.remaining <= 0) {
+      Swal.fire({
+        title: 'Error',
+        text: 'No te quedan recetas disponibles este mes',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      })
+    }
+
+    return data
+  }
+
   const generateRecipes = async (prompt: string) => {
     try {
       if (!prompt || prompt === '') {
+        return
+      }
+
+      const { remaining, available } = await checkRemaining()
+      if (remaining <= 0) {
         return
       }
 
@@ -65,7 +86,7 @@ const NutritionalPlan = () => {
 
       Swal.fire({
         title: 'Cargando',
-        text: 'Generando las recetas...',
+        text: `Generando las recetas... Has generado ${available - remaining} de ${available} este mes`,
         allowEscapeKey: false,
         allowOutsideClick: false,
         didOpen: () => {
