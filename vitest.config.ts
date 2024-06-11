@@ -18,10 +18,10 @@ export default defineConfig({
       reporter: ['html', 'text-summary'],
       // Umbral de cobetura
       thresholds: {
-        functions: 9,
-        lines: 9,
-        branches: 9,
-        statements: 9,
+        functions: 10,
+        lines: 10,
+        branches: 10,
+        statements: 10,
       },
     },
   },

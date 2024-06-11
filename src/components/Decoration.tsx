@@ -63,8 +63,6 @@ const Decoration: React.FC<DecorationProps> = ({ pathname }) => {
     if (route) {
       setImages(route)
       setLoading(false)
-    } else {
-      console.error(`No se encontró una imagen para la ruta ${rootRoute}`)
     }
   }, [pathname, rootRoute])
 

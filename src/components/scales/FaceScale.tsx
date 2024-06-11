@@ -12,26 +12,31 @@ const FaceScale: React.FC<FaceScaleProps> = ({ quality, setQuality }) => {
       Icon: FaFaceFrown,
       color: 'fill-red-500',
       value: 1,
+      testId: 'frown-1',
     },
     {
       Icon: FaFaceFrown,
       color: 'fill-orange-500',
       value: 2,
+      testId: 'frown-2',
     },
     {
       Icon: FaFaceMeh,
       color: 'fill-yellow-500',
       value: 3,
+      testId: 'meh',
     },
     {
       Icon: FaFaceSmile,
       color: 'fill-green-500',
       value: 4,
+      testId: 'smile-1',
     },
     {
       Icon: FaFaceSmile,
       color: 'fill-green-700',
       value: 5,
+      testId: 'smile-2',
     },
   ]
 
@@ -46,6 +51,7 @@ const FaceScale: React.FC<FaceScaleProps> = ({ quality, setQuality }) => {
           <qual.Icon
             size={40}
             className={`z-10 sm:scale-125 sm:transform lg:scale-[140%] ${quality === qual.value ? qual.color : 'fill-white'} hover:cursor-pointer hover:fill-gray-400`}
+            data-testid={qual.testId}
             onClick={() => {
               setQuality(qual.value)
             }}

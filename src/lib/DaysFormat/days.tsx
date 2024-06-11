@@ -1,6 +1,12 @@
 //Convert JS date to string timestamp
 export const formatDays = (dateString: string): string => {
   const date = new Date(dateString)
+
+  // If the date object is invalid return invalid date
+  if (date.getTime() !== date.getTime()) {
+    return 'invalid date'
+  }
+
   const day = date.getDate()
   const month = date.getMonth() + 1
   const year = date.getFullYear()
