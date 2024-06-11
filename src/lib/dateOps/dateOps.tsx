@@ -26,6 +26,12 @@ export const getYesterdayDate = (): string => {
 }
 
 export const getDateNDaysAgo = (n: number): Date => {
+  if (n < 0) {
+    console.error(
+      "Can't generate a previous date for a negative amount of days",
+    )
+    return new Date()
+  }
   const now = new Date()
   return new Date(now.getFullYear(), now.getMonth(), now.getDate() - n)
 }

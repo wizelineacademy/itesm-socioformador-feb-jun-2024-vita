@@ -27,7 +27,7 @@ const SelectableCard: React.FC<SelectableCardProps> = ({
       <div className='mr-[5%] flex w-3/5 items-center justify-around md:mr-0 md:w-full lg:justify-between'>
         <p className='text-lg font-semibold md:text-xl'>{text}</p>
         <div className='w-5 lg:mr-2'>
-          {selected && <FaCheck className='h-6 w-6' />}
+          {selected && <FaCheck data-testid='check' className='h-6 w-6' />}
         </div>
       </div>
     </button>
