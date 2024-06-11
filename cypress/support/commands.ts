@@ -1,37 +1,38 @@
 /// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+
+Cypress.Commands.add('login', () => {
+  // Intercepta la llamada de autenticación de Google y devuelve una respuesta simulada
+  cy.intercept('GET', '/api/auth/session', (req) => {
+    req.reply({
+      statusCode: 200,
+      body: {
+        user: {
+          name: 'Test User',
+          email: 'test@example.com',
+        },
+        expires: '2099-01-01T00:00:00.000Z',
+      },
+    })
+  }).as('googleLogin')
+
+  cy.visit('/login')
+
+  // Simula el inicio de sesión con Google
+  cy.get('button').contains('Continuar con Google').click()
+
+  // Espera a que la solicitud de inicio de sesión sea interceptada y respondida
+  cy.wait('@googleLogin')
+})
+
+Cypress.Commands.add('getSubscription', () => {
+  cy.intercept('GET', '/api/subscription', (req) => {
+    req.reply({
+      statusCode: 200,
+      body: {
+        plan: 'Bienestar Total',
+        status: 'active',
+        end: null,
+      },
+    })
+  })
+})
