@@ -9,6 +9,7 @@ on:
 env:
   NEXTAUTH_URL: https://d8vd0r6uuds8z.cloudfront.net
   NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+  TZ: 'CST'
 
 jobs:
   deploy:
