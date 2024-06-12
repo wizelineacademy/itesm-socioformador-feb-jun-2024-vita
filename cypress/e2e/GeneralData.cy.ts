@@ -1,7 +1,9 @@
 describe('GeneralData E2E Test', () => {
   beforeEach(() => {
+    cy.login()
     // Cambia esta ruta a la ruta donde se monta tu componente
     cy.visit('/home/generalData')
+    cy.getSubscription()
   })
 
   it('renders the page correctly', () => {
@@ -21,6 +23,8 @@ describe('GeneralData E2E Test', () => {
         muscularMass: 30,
       },
     }).as('getHealthData')
+
+    cy.intercept('POST', '/api/healthdata', {}).as('sendData')
 
     // Ensure the page has loaded the initial data
     cy.wait('@getHealthData')
@@ -65,6 +69,8 @@ describe('GeneralData E2E Test', () => {
         muscularMass: 30,
       },
     }).as('getHealthData')
+
+    cy.intercept('POST', '/api/healthdata', {}).as('sendData')
 
     // Ensure the page has loaded the initial data
     cy.wait('@getHealthData')
