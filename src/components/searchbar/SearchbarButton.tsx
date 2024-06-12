@@ -32,7 +32,6 @@ const SearchBarButton: React.FC<SearchBarButtonProps> = ({
           placeholder={placeholder}
           className='w-4/5 rounded-full bg-input-green px-5 py-3 text-white focus:outline-none lg:py-4'
         />
-
         <FaSearch color='white' className='mr-3 h-7 w-7' />
       </div>
       <button

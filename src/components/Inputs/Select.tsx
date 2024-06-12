@@ -39,19 +39,16 @@ const Select: React.FC<SelectProps> = ({
         ))}
       </select>
       <label
+        htmlFor={id}
         className={`absolute left-4 top-5 z-10 origin-[0] -translate-y-3 transform text-xs text-white duration-150 ${errors[id] ? 'text-rose-500' : 'text-white'} `}
       >
         {label.includes('*') ? (
           <>
-            {label.replace('*', '')}{' '}
-            {/* Esto muestra el texto del label sin el asterisco (*) */}
-            <span className='text-custom-red'>*</span>{' '}
-            {/* Esto muestra solo el asterisco (*) con el color personalizado definido por la clase `text-custom-red` */}
+            {label.replace('*', '')} <span className='text-custom-red'>*</span>
           </>
         ) : (
-          label // Si no hay asterisco, muestra el texto del label normalmente
-        )}{' '}
-        {/* Esto muestra solo el asterisco (*) con el color personalizado */}
+          label
+        )}
       </label>
     </div>
   )

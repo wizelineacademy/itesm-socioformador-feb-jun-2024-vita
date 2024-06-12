@@ -152,6 +152,7 @@ const Posting: React.FC<PostingProps> = ({ post, apiEndpoint }) => {
             type='text'
             placeholder='#etiqueta'
             className='mt-3 w-full rounded-lg border-none bg-dark-1 p-2.5 text-light-1 focus:outline-none'
+            id='tag'
           />
           {errors.tag && <p className='text-red-500'>{errors.tag.message}</p>}
         </div>

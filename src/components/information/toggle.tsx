@@ -22,7 +22,7 @@ const ToggleComponent = ({ title, children, editModeToggle }: ToggleProps) => {
     <div className='mt-2'>
       <button
         onClick={toggleOpen}
-        className='flex w-3/4 items-center justify-between rounded-2xl bg-toggle-title px-4 py-2 focus:outline-none'
+        className='bg-toggle-title flex w-3/4 items-center justify-between rounded-2xl px-4 py-2 focus:outline-none'
       >
         <p className='text-2xl text-white'>{title}</p>
         {isOpen ? (
@@ -40,7 +40,7 @@ const ToggleComponent = ({ title, children, editModeToggle }: ToggleProps) => {
         leaveFrom='opacity-100'
         leaveTo='opacity-0'
       >
-        <div className='mt-2 w-3/4 rounded-2xl bg-toggle-content px-4 py-2'>
+        <div className='bg-toggle-content mt-2 w-3/4 rounded-2xl px-4 py-2'>
           {children}
         </div>
       </Transition>
