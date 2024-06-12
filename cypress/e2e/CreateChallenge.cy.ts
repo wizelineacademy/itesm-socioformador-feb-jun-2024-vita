@@ -7,6 +7,8 @@ describe('CreateChallenge Component', () => {
 
   it('should submit the form with valid input', () => {
     cy.intercept('POST', '/api/challenges', {}).as('createChallenge')
+    cy.intercept('GET', '/api/healthdata', {}).as('getData')
+    cy.intercept('GET', '/api/membership', {}).as('getMembership')
 
     // Llena el formulario con valores válidos
     cy.get('input[id="name"]').type('My Challenge')

@@ -284,6 +284,7 @@ const GeneralData = () => {
         {!editMode ? (
           <div className='mb-6 ml-2 flex lg:items-center lg:justify-center'>
             <button
+              type='button'
               onClick={() => setEditMode(true)}
               className='mt-2 w-60 rounded-full bg-button-home py-2 text-2xl text-white'
             >
@@ -294,6 +295,7 @@ const GeneralData = () => {
           <>
             <div className='mb-6 ml-2 flex lg:items-center lg:justify-center'>
               <button
+                type='button'
                 onClick={handleCancelEdit}
                 className='mr-6 mt-2 w-60 rounded-full bg-mid-red px-3 py-2 text-2xl text-white'
               >
