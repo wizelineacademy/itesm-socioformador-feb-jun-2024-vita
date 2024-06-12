@@ -19,7 +19,7 @@ export const SleepTimeSelection = ({
 
       <div className='flex gap-x-3'>
         <input
-          className='rounded-2xl bg-input-purple px-2 py-3 text-white md:px-10'
+          className='bg-input-purple rounded-2xl px-2 py-3 text-white md:px-10'
           value={time}
           type='time'
           onChange={(e) => {
@@ -30,7 +30,7 @@ export const SleepTimeSelection = ({
           onClick={() => {
             setDay('Ayer')
           }}
-          className={`${day === 'Ayer' ? 'bg-decoration-sleep-colordark' : 'bg-decoration-sleep-colorlight'} rounded-2xl px-5 py-2 hover:bg-decoration-sleep-colordark md:px-10`}
+          className={`${day === 'Ayer' ? 'bg-decoration-sleep-colordark' : 'bg-decoration-sleep-colorlight'} hover:bg-decoration-sleep-colordark rounded-2xl px-5 py-2 md:px-10`}
         >
           Ayer
         </button>
@@ -38,7 +38,7 @@ export const SleepTimeSelection = ({
           onClick={() => {
             setDay('Hoy')
           }}
-          className={`${day === 'Hoy' ? 'bg-decoration-sleep-colordark' : 'bg-decoration-sleep-colorlight'} rounded-2xl px-5 py-2 hover:bg-decoration-sleep-colordark md:px-10`}
+          className={`${day === 'Hoy' ? 'bg-decoration-sleep-colordark' : 'bg-decoration-sleep-colorlight'} hover:bg-decoration-sleep-colordark rounded-2xl px-5 py-2 md:px-10`}
         >
           Hoy
         </button>
