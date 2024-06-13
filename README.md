@@ -68,6 +68,10 @@ Además se incluye una presentación con la información principal de la aplicac
 - [Presentación Vita](https://github.com/user-attachments/files/15823555/_Presentacion.Vita.Espanol.pdf)
 - [Video](https://youtu.be/dXF64rgcdLI?si=O_9DcWiUeaAuGUey)
 
+## Liga de la aplicación
+
+- [Liga a la aplicación desplegada](https://d8vd0r6uuds8z.cloudfront.net/)
+
 ## Más información
 Para ver más información del proyecto como lo son los documentos de administración, plan de pruebas y evidencia de ejecución de las pruebas
 
