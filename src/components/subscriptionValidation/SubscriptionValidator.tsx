@@ -29,10 +29,12 @@ const SubscriptionValidation: React.FC<SubscriptionProps> = ({
 
   const shouldRestrict = restrictedRoutes.some((el) => route.startsWith(el))
 
+  const [loading, setLoading] = useState(true)
   const [subscription, setSubscription] = useState<Subscription | null>(null)
 
   const getSubscriptionData = async () => {
     try {
+      setLoading(true)
       const res = await axios.get('/api/subscription')
       const data = res.data
       if (data.message === 'No subscription') {
@@ -42,6 +44,8 @@ const SubscriptionValidation: React.FC<SubscriptionProps> = ({
       }
     } catch (error) {
       console.log(error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -51,6 +55,7 @@ const SubscriptionValidation: React.FC<SubscriptionProps> = ({
 
   useEffect(() => {
     if (
+      !loading &&
       shouldRestrict &&
       (!subscription || subscription.plan === planNames[0])
     ) {
@@ -63,7 +68,7 @@ const SubscriptionValidation: React.FC<SubscriptionProps> = ({
         router.replace('/home')
       })
     }
-  }, [subscription, route])
+  }, [subscription, loading, route])
 
   return <>{children}</>
 }
