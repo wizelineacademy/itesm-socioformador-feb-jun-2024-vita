@@ -52,4 +52,11 @@ Las funciones de la aplicación son las siguientes:
 10. **Red social y gamificación:** Los usuarios pueden interactuar y competir contra sí mismos mediante una red social donde pueden compartir su progreso y participar en retos mensuales de salud.
 11. **Métodos de pago:** La aplicación incluye métodos de pago integrados para suscripciones, servicios premium y compras dentro de la aplicación.
 12. **Chatbo de WhatsApp:** La aplicación incluye un chatbot para dudas en WhatsApp y para dar aviso de los recordatorios
-  
+
+## Arquitectura
+A continuación se presenta el diagrama de arquitectura de la aplicación y las tecnologías utilizadas.
+[Liga al diagrama](https://docs.google.com/presentation/d/1jz4_5x_IgxRAKotzPRCgc_uZ1I3ustEk/edit?usp=sharing&ouid=107368890452863269277&rtpof=true&sd=true)
+![arquitectura](https://github.com/wizelineacademy/itesm-socioformador-feb-jun-2024-vita/assets/51843944/a2c392f4-a1cb-4cf4-8bf4-d94e28d7da21)
+![Web App](https://github.com/wizelineacademy/itesm-socioformador-feb-jun-2024-vita/assets/51843944/37441533-0b9f-436c-9146-e610984c4459)
+
+
