@@ -57,6 +57,8 @@ const Chat = () => {
       ]
       await axios.post('/api/feature_usage', { usageRecords })
 
+      console.log([...newMessages, response.data])
+
       setMessages([...newMessages, response.data])
       form.reset()
       resetTranscript()
