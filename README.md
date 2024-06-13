@@ -54,9 +54,17 @@ Las funciones de la aplicación son las siguientes:
 12. **Chatbo de WhatsApp:** La aplicación incluye un chatbot para dudas en WhatsApp y para dar aviso de los recordatorios
 
 ## Arquitectura
+
 A continuación se presenta el diagrama de arquitectura de la aplicación y las tecnologías utilizadas.
+
 [Liga al diagrama](https://docs.google.com/presentation/d/1jz4_5x_IgxRAKotzPRCgc_uZ1I3ustEk/edit?usp=sharing&ouid=107368890452863269277&rtpof=true&sd=true)
 ![arquitectura](https://github.com/wizelineacademy/itesm-socioformador-feb-jun-2024-vita/assets/51843944/a2c392f4-a1cb-4cf4-8bf4-d94e28d7da21)
 ![Web App](https://github.com/wizelineacademy/itesm-socioformador-feb-jun-2024-vita/assets/51843944/37441533-0b9f-436c-9146-e610984c4459)
 
+## Presentación de la aplicación
+
+Además se incluye una presentación con la información principal de la aplicación y un video mostrando la funcionalidad.
+
+- [Presentación Vita](https://github.com/user-attachments/files/15823555/_Presentacion.Vita.Espanol.pdf)
+- [Video](https://youtu.be/dXF64rgcdLI?si=O_9DcWiUeaAuGUey)
 
