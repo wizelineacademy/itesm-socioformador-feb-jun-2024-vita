@@ -32,16 +32,6 @@ const GeneralData = () => {
       // Validar si se está editando la fecha de nacimiento
       if (name === 'birthDate') {
         const selectedDate = new Date(value)
-        // Validar si la fecha seleccionada es menor a 15 años antes de la fecha actual
-        if (selectedDate > minDate) {
-          Swal.fire({
-            title: 'Error',
-            text: 'La fecha de nacimiento no puede ser menor a 15 años antes de la fecha actual',
-            icon: 'error',
-            confirmButtonText: 'OK',
-          })
-          return // Salir de la función si la fecha no es válida
-        }
         // Si la fecha es válida, actualizar los datos editados
         const formattedDate = selectedDate.toISOString().split('T')[0]
         setEditedData({ ...editedData, [name]: formattedDate })
@@ -73,6 +63,17 @@ const GeneralData = () => {
   const handleSaveChanges = async () => {
     try {
       if (editedData) {
+        // Validar si la fecha seleccionada es menor a 15 años antes de la fecha actual
+        if (new Date(editedData.birthDate) > minDate) {
+          Swal.fire({
+            title: 'Error',
+            text: 'La fecha de nacimiento no puede ser menor a 15 años antes de la fecha actual',
+            icon: 'error',
+            confirmButtonText: 'OK',
+          })
+          return // Salir de la función si la fecha no es válida
+        }
+
         await axios.post('/api/healthdata', editedData)
 
         Swal.fire({
