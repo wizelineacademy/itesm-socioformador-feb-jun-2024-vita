@@ -39,11 +39,14 @@ describe('GeneralData E2E Test', () => {
       currentDate.getMonth(),
       currentDate.getDate(),
     )
-    const formattedDate = recentDate.toISOString().split('T')[0]
 
-    cy.get('input[name="birthDate"]')
-      .clear({ force: true })
-      .type(formattedDate, { force: true })
+    const year = recentDate.getFullYear()
+    const month = (recentDate.getMonth() + 1).toString().padStart(2, '0')
+    const day = recentDate.getDate().toString().padStart(2, '0')
+    const formattedDate = `${year}-${month}-${day}`
+    console.log(formattedDate)
+
+    cy.get('input[name="birthDate"]').type(formattedDate, { force: true })
 
     // Save the changes
     cy.get('button').contains('Guardar Cambios').click()
