@@ -48,5 +48,8 @@ Las funciones de la aplicación son las siguientes:
 6. **Gráficas de sueño, calorías y ejercicio**: Se le mostrará al usuario una serie de gráficas para conocer su estado de salud.
 7. **Contenido de salud:** Se generará contenido de salud de manera diaria usando inteligencia artificial.
 8. **Perfil:** El usuario tendrá un perfil  donde estén sus datos importantes en caso de una cita médica o emergencia.
-9. **Chatbot:** Habrá un chatbot enfocado en contestar preguntas relacionadas con el área de la salud
-
+9. **Chatbot:** Habrá un chatbot enfocado en contestar preguntas relacionadas con el área de la salud.
+10. **Red social y gamificación:** Los usuarios pueden interactuar y competir contra sí mismos mediante una red social donde pueden compartir su progreso y participar en retos mensuales de salud.
+11. **Métodos de pago:** La aplicación incluye métodos de pago integrados para suscripciones, servicios premium y compras dentro de la aplicación.
+12. **Chatbo de WhatsApp:** La aplicación incluye un chatbot para dudas en WhatsApp y para dar aviso de los recordatorios
+  
